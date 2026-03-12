@@ -1,0 +1,842 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEF Canada - Reading Comprehension Practice</title>
+    <link rel="stylesheet" href="../css/style.css">
+</head>
+<body>
+    <nav id="navbar"></nav>
+    
+    <div class="container" style="max-width: 900px; margin: 2rem auto; padding: 0 1rem;">
+        <div style="text-align: center; margin-bottom: 2rem;">
+            <h1>Reading Comprehension Practice</h1>
+            <p class="text-muted">Improve your French reading skills with TEF-style passages</p>
+        </div>
+
+        <!-- Level Filter -->
+        <div class="card" style="margin-bottom: 2rem; padding: 1.5rem;">
+            <h3>Select Level</h3>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap;">
+                <button class="btn-primary level-btn active" data-level="all">All Levels</button>
+                <button class="btn-primary level-btn" data-level="a2">A2 Beginner</button>
+                <button class="btn-primary level-btn" data-level="b1">B1 Intermediate</button>
+                <button class="btn-primary level-btn" data-level="b2">B2 Advanced</button>
+            </div>
+        </div>
+
+        <!-- Progress Indicator -->
+        <div class="card" style="margin-bottom: 2rem; padding: 1.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+            <div style="display: flex; justify-content: space-between; align-items: center;">
+                <div>
+                    <h3 style="margin: 0 0 0.5rem 0;">Progress</h3>
+                    <p style="margin: 0;" id="progress-text">0 passages completed</p>
+                </div>
+                <div style="text-align: right;">
+                    <div style="font-size: 2rem; font-weight: bold;" id="xp-display">+0 XP</div>
+                    <p style="margin: 0;" id="level-indicator">Keep practicing!</p>
+                </div>
+            </div>
+            <div style="background: rgba(255,255,255,0.3); border-radius: 10px; height: 8px; margin-top: 1rem;">
+                <div id="progress-bar" style="background: white; height: 100%; width: 0%; border-radius: 10px; transition: width 0.3s ease;"></div>
+            </div>
+        </div>
+
+        <!-- Main Reading Area -->
+        <div id="reading-container">
+            <div class="card" style="padding: 2rem; margin-bottom: 2rem;">
+                <div id="exercise-content"></div>
+            </div>
+        </div>
+    </div>
+
+    <footer id="footer"></footer>
+
+    <script src="../js/nav.js"></script>
+    <script src="../js/progress-tracker.js"></script>
+    <script>
+        // Reading Comprehension Exercises Data
+        const exercises = [
+            {
+                id: 'reading-001',
+                level: 'a2',
+                topic: 'Email about apartment rental',
+                title: 'Annonce de location',
+                passage: `Bonjour,
+
+Je vous écris pour vous proposer un appartement de trois pièces à louer dans le centre-ville de Montréal. L'appartement est très lumineux avec une cuisine moderne, une salle de bain et un grand salon. Il y a aussi un petit balcon avec vue sur la rue.
+
+L'appartement est situé près du métro et des commerces. Il est parfait pour un couple ou une personne seule. Le loyer est de 1 200 dollars par mois, charges incluses. Le bail est de un an.
+
+L'appartement est disponible à partir du 1er avril 2026. Si vous êtes intéressé, je vous propose de le visiter samedi à 14 heures. Vous pouvez me contacter par email ou par téléphone.
+
+À bientôt,
+Marc Dupont`,
+                questions: [
+                    {
+                        question: "Combien de pièces a l'appartement?",
+                        options: ["Deux pièces", "Trois pièces", "Quatre pièces", "Cinq pièces"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Le texte indique clairement 'un appartement de trois pièces'.",
+                            en: "The text clearly states 'a three-room apartment'."
+                        }
+                    },
+                    {
+                        question: "Quel est le loyer mensuel?",
+                        options: ["$900", "$1 000", "$1 200", "$1 500"],
+                        correct: 2,
+                        explanation: {
+                            fr: "Le propriétaire mentionne 'Le loyer est de 1 200 dollars par mois'.",
+                            en: "The owner mentions 'The rent is $1,200 per month'."
+                        }
+                    },
+                    {
+                        question: "Quand l'appartement est-il disponible?",
+                        options: ["15 mars", "1er avril", "15 avril", "1er mai"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Le texte dit 'L'appartement est disponible à partir du 1er avril 2026'.",
+                            en: "The text states 'The apartment is available from April 1st, 2026'."
+                        }
+                    },
+                    {
+                        question: "Quelle est la location de visite proposée?",
+                        options: ["Vendredi à 10h", "Samedi à 14h", "Dimanche à 16h", "Lundi à 9h"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Marc propose 'de le visiter samedi à 14 heures'.",
+                            en: "Marc proposes 'to visit it on Saturday at 2 PM'."
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-002',
+                level: 'a2',
+                topic: 'Restaurant menu and ordering',
+                title: 'Le Menu du Restaurant',
+                passage: `Bienvenue au Restaurant La Maison Blanche!
+
+Nos plats spéciaux aujourd'hui:
+
+Entrées (8-12$)
+- Soupe à l'oignon gratinée
+- Salade César
+- Plateaux de charcuterie
+
+Plats principaux (14-22$)
+- Poulet rôti aux herbes avec légumes
+- Steak frites
+- Saumon grillé avec sauce citron
+- Pâtes bolognaise
+
+Desserts (6-8$)
+- Tarte aux pommes
+- Gâteau au chocolat
+- Glace vanille ou fraise
+
+Boissons (2-5$)
+- Café ou thé
+- Jus frais
+- Vin rouge ou blanc (verre ou bouteille)
+
+Notre spécialité: le coq au vin, disponible les jeudis et vendredis.
+
+Bon appétit!`,
+                questions: [
+                    {
+                        question: "Quel est le prix des entrées?",
+                        options: ["5-8$", "8-12$", "12-15$", "15-20$"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Le menu indique 'Entrées (8-12$)'.",
+                            en: "The menu indicates 'Appetizers (8-12$)'."
+                        }
+                    },
+                    {
+                        question: "Quels plats principaux sont proposés?",
+                        options: ["Poulet et coq", "Steak et mouton", "Poulet, steak, saumon et pâtes", "Poisson et riz"],
+                        correct: 2,
+                        explanation: {
+                            fr: "Le menu liste quatre plats principaux: poulet rôti, steak frites, saumon grillé, et pâtes bolognaise.",
+                            en: "The menu lists four main dishes: roasted chicken, steak and fries, grilled salmon, and bolognese pasta."
+                        }
+                    },
+                    {
+                        question: "Quand le coq au vin est-il disponible?",
+                        options: ["Tous les jours", "Lundi et mardi", "Jeudis et vendredis", "Samedi et dimanche"],
+                        correct: 2,
+                        explanation: {
+                            fr: "Le texte mentionne 'disponible les jeudis et vendredis'.",
+                            en: "The text mentions 'available on Thursdays and Fridays'."
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-003',
+                level: 'a2',
+                topic: 'Weather forecast',
+                title: 'La Prévision Météorologique',
+                passage: `MÉTÉO MONTREAL - 11 MARS 2026
+
+Aujourd'hui:
+Température: -5°C à 2°C
+Conditions: Neige le matin, puis dégagement l'après-midi
+Vent: Modéré, 15-20 km/h
+Visibilité: Réduite le matin
+
+Demain (12 mars):
+Température: -8°C à -2°C
+Conditions: Nuageux
+Vent: Faible
+Humidité: 60%
+
+Mercredi (13 mars):
+Température: -3°C à 4°C
+Conditions: Ensoleillé
+Vent: Léger
+UV: Modéré
+
+Fin de semaine:
+Samedi: Ensoleillé, -1°C à 5°C
+Dimanche: Partiellement nuageux, 1°C à 6°C
+
+Avertissement: Attention à la neige ce matin. Les routes peuvent être glissantes. Conduisez prudemment!`,
+                questions: [
+                    {
+                        question: "Quelle est la température maximale aujourd'hui?",
+                        options: ["-8°C", "-5°C", "2°C", "4°C"],
+                        correct: 2,
+                        explanation: {
+                            fr: "Le prévision indique 'Température: -5°C à 2°C', donc le maximum est 2°C.",
+                            en: "The forecast indicates 'Temperature: -5°C to 2°C', so the maximum is 2°C."
+                        }
+                    },
+                    {
+                        question: "Comment sera le temps mercredi?",
+                        options: ["Neigeux", "Nuageux", "Ensoleillé", "Pluvieux"],
+                        correct: 2,
+                        explanation: {
+                            fr: "Mercredi est décrit comme 'Ensoleillé'.",
+                            en: "Wednesday is described as 'Sunny'."
+                        }
+                    },
+                    {
+                        question: "Quel est l'avertissement principal?",
+                        options: ["Grand froid", "Routes glissantes le matin", "Tempête de neige", "Vent fort"],
+                        correct: 1,
+                        explanation: {
+                            fr: "L'avertissement dit 'Attention à la neige ce matin. Les routes peuvent être glissantes.'",
+                            en: "The warning states 'Beware of snow this morning. Roads may be slippery.'"
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-004',
+                level: 'b1',
+                topic: 'Job advertisement and cover letter',
+                title: 'Offre d\'Emploi - Développeur Web',
+                passage: `SOCIÉTÉ TECHNO-SOLUTIONS RECHERCHE:
+Développeur Web Senior (Full-Stack)
+
+Qui sommes-nous?
+Techno-Solutions est une entreprise spécialisée dans le développement de solutions numériques innovantes pour les petites et moyennes entreprises. Basée à Québec, notre équipe de 25 personnes travaille avec passion depuis 2015.
+
+Le poste:
+Nous recherchons un développeur web expérimenté pour rejoindre notre équipe dynamique. Vous travaillerez sur des projets variés utilisant les technologies modernes. Votre rôle comprendra la conception, le développement et la maintenance d'applications web.
+
+Qualifications requises:
+- 5 ans d'expérience en développement web
+- Maîtrise de JavaScript, React, et Node.js
+- Expérience avec les bases de données (SQL et NoSQL)
+- Excellentes compétences en communication
+- Permis de conduire valide
+
+Avantages:
+- Salaire compétitif: 65 000 $ - 85 000 $ par année
+- Horaire flexible
+- Télétravail 3 jours par semaine
+- Formation continue
+- Assurances collectives
+
+Comment postuler:
+Envoyez votre CV et une lettre de motivation à: emplois@technosolutions.qc.ca
+Date limite: 31 mars 2026`,
+                questions: [
+                    {
+                        question: "Depuis quand Techno-Solutions existe-t-elle?",
+                        options: ["2010", "2015", "2020", "2023"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Le texte indique 'notre équipe de 25 personnes travaille avec passion depuis 2015'.",
+                            en: "The text states 'our team of 25 people has been working with passion since 2015'."
+                        }
+                    },
+                    {
+                        question: "Combien d'années d'expérience sont requises?",
+                        options: ["3 ans", "5 ans", "7 ans", "10 ans"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Les qualifications incluent '5 ans d'expérience en développement web'.",
+                            en: "The qualifications include '5 years of experience in web development'."
+                        }
+                    },
+                    {
+                        question: "Quel est le salaire offert?",
+                        options: ["55 000 $ - 65 000 $", "65 000 $ - 85 000 $", "85 000 $ - 105 000 $", "105 000 $ - 125 000 $"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Les avantages précisent 'Salaire compétitif: 65 000 $ - 85 000 $ par année'.",
+                            en: "The benefits specify 'Competitive salary: $65,000 - $85,000 per year'."
+                        }
+                    },
+                    {
+                        question: "Combien de jours de télétravail par semaine sont offerts?",
+                        options: ["1 jour", "2 jours", "3 jours", "5 jours"],
+                        correct: 2,
+                        explanation: {
+                            fr: "Les avantages incluent 'Télétravail 3 jours par semaine'.",
+                            en: "The benefits include 'Remote work 3 days per week'."
+                        }
+                    },
+                    {
+                        question: "Quelle est la date limite pour postuler?",
+                        options: ["15 mars", "25 mars", "31 mars", "10 avril"],
+                        correct: 2,
+                        explanation: {
+                            fr: "L'annonce indique 'Date limite: 31 mars 2026'.",
+                            en: "The ad states 'Deadline: March 31, 2026'."
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-005',
+                level: 'b1',
+                topic: 'News article about environment',
+                title: 'Changements Climatiques au Canada',
+                passage: `MONTRÉAL - Le Canada fait face à des défis environnementaux majeurs selon un nouveau rapport publié par l'Institut de Recherche sur le Climat. Les températures augmentent deux fois plus vite que la moyenne mondiale, affectant directement les écosystèmes et l'économie canadienne.
+
+Les régions nordiques sont particulièrement touchées. Le permafrost, une couche de sol gelée permanente, commence à dégeler, menaçant les infrastructures et la faune sauvage. Les scientifiques estiment que le réchauffement climatique aura des impacts économiques de plusieurs milliards de dollars d'ici 2050.
+
+Les gouvernements provinciaux ont lancé plusieurs initiatives pour réduire les émissions de gaz à effet de serre. Le Québec, par exemple, investit massivement dans les énergies renouvelables et a établi des objectifs ambitieux de réduction des émissions de 37,5% d'ici 2030.
+
+Les citoyens canadiens jouent également un rôle crucial. Des millions de personnes adoptent des comportements plus écologiques, comme le recyclage, la réduction de la consommation d'énergie et l'utilisation des transports en commun.
+
+Malgré ces efforts, les experts affirment que des mesures plus radicales seront nécessaires pour inverser la tendance. L'engagement collectif est essentiel pour protéger le Canada pour les générations futures.`,
+                questions: [
+                    {
+                        question: "Combien de fois plus vite le Canada se réchauffe-t-il par rapport à la moyenne mondiale?",
+                        options: ["Une fois", "Deux fois", "Trois fois", "Quatre fois"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Le texte affirme 'Les températures augmentent deux fois plus vite que la moyenne mondiale'.",
+                            en: "The text states 'Temperatures are rising twice as fast as the global average'."
+                        }
+                    },
+                    {
+                        question: "Qu'est-ce que le permafrost?",
+                        options: ["Une montagne gelée", "Un glacier polaire", "Une couche de sol gelée permanente", "Un type de roche"],
+                        correct: 2,
+                        explanation: {
+                            fr: "Le texte décrit le permafrost comme 'une couche de sol gelée permanente'.",
+                            en: "The text describes permafrost as 'a layer of permanently frozen soil'."
+                        }
+                    },
+                    {
+                        question: "Quel est l'objectif de réduction des émissions du Québec pour 2030?",
+                        options: ["25%", "37,5%", "50%", "60%"],
+                        correct: 1,
+                        explanation: {
+                            fr: "L'article mentionne 'des objectifs ambitieux de réduction des émissions de 37,5% d'ici 2030'.",
+                            en: "The article mentions 'ambitious targets for reducing emissions by 37.5% by 2030'."
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-006',
+                level: 'b1',
+                topic: 'Travel blog about Quebec',
+                title: 'Découvrir la Beauté de la Vallée de la Matapédia',
+                passage: `Mon séjour dans la région de la Gaspésie m'a laissé des souvenirs inoubliables. La Vallée de la Matapédia est une destination idéale pour les amateurs de nature et d'histoire. Avec ses paysages montagneux, ses rivières cristallines et ses petits villages authentiques, cette région du Québec offre une expérience vraiment unique.
+
+J'ai visité le village de Causapscal, connu pour ses excellents pourvoiries de pêche. Les habitants m'ont recommandé de faire une excursion en canot sur la rivière Matapédia. L'expérience a été spectaculaire - j'ai pu observer des aigles à tête blanche et des castors dans leur habitat naturel.
+
+Le musée local raconte l'histoire fascinante des Mi'kmaq, les peuples autochtones de la région. Apprendre sur leur culture et leur mode de vie a enrichi ma compréhension du Québec historique.
+
+La cuisine locale est délicieuse. J'ai dégusté du saumon frais et d'autres spécialités régionales dans les petits restaurants charmants. Les gens sont accueillants et fiers de partager leur région.
+
+Pour ceux qui envisagent une visite, je recommande les mois de juillet et août pour les meilleures conditions météorologiques. Apportez du repellent contre les insectes! La région est parfaite pour la randonnée, la pêche et simplement se détendre loin du stress urbain.
+
+Je reviendrai certainement!`,
+                questions: [
+                    {
+                        question: "Qui sont les peuples autochtones mentionnés dans le texte?",
+                        options: ["Les Inuits", "Les Mi'kmaq", "Les Iroquois", "Les Mohawks"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Le texte mentionne 'l'histoire fascinante des Mi'kmaq, les peuples autochtones de la région'.",
+                            en: "The text mentions 'the fascinating history of the Mi'kmaq, the indigenous peoples of the region'."
+                        }
+                    },
+                    {
+                        question: "Pour quoi Causapscal est-elle connue?",
+                        options: ["Ses musées", "Ses excellents pourvoiries de pêche", "Ses montages de ski", "Ses plages"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Le texte dit 'J'ai visité le village de Causapscal, connu pour ses excellents pourvoiries de pêche'.",
+                            en: "The text states 'I visited the village of Causapscal, known for its excellent fishing outfitters'."
+                        }
+                    },
+                    {
+                        question: "Quels animaux l'auteur a-t-il observés lors de l'excursion en canot?",
+                        options: ["Des ours et des loups", "Des élans et des chevreuils", "Des aigles et des castors", "Des ratons laveurs"],
+                        correct: 2,
+                        explanation: {
+                            fr: "L'auteur mentionne 'j'ai pu observer des aigles à tête blanche et des castors'.",
+                            en: "The author mentions 'I was able to observe bald eagles and beavers'."
+                        }
+                    },
+                    {
+                        question: "Quels mois sont recommandés pour visiter?",
+                        options: ["Mai et juin", "Juillet et août", "Septembre et octobre", "Janvier et février"],
+                        correct: 1,
+                        explanation: {
+                            fr: "L'auteur recommande 'les mois de juillet et août pour les meilleures conditions météorologiques'.",
+                            en: "The author recommends 'the months of July and August for the best weather conditions'."
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-007',
+                level: 'b1',
+                topic: 'Health article about exercise',
+                title: 'Les Bienfaits de l\'Activité Physique Quotidienne',
+                passage: `De nombreuses études scientifiques confirment que l'activité physique régulière est essentielle pour maintenir une bonne santé. Les experts recommandent au moins 150 minutes d'exercice modéré par semaine pour les adultes.
+
+Les bienfaits de l'exercice sont nombreux et bien documentés. Premièrement, l'activité physique renforce le cœur et les poumons, réduisant ainsi le risque de maladies cardiovasculaires. Deuxièmement, elle aide à maintenir un poids santé en brûlant des calories et en augmentant le métabolisme.
+
+L'exercice régulier améliore également la santé mentale. Il réduit le stress et l'anxiété en libérant des endorphines, souvent appelées les "hormones du bonheur". De nombreuses personnes rapportent une meilleure qualité de sommeil après avoir adopté une routine d'exercice.
+
+Au Canada, les gouvernements encouragent l'activité physique par diverses initiatives. Les parcs publics, les centres de loisirs et les pistes cyclables sont des ressources accessibles à tous. Les écoles promouvent également l'éducation physique pour développer des habitudes saines dès le jeune âge.
+
+Il n'est jamais trop tard pour commencer. Même les personnes sédentaires peuvent voir des améliorations significatives en seulement quelques semaines d'activité régulière. L'important est de trouver une activité qu'on aime - que ce soit la marche, la natation, le yoga ou le sport d'équipe.
+
+Investir dans sa santé par l'exercice est l'un des meilleurs choix qu'on puisse faire.`,
+                questions: [
+                    {
+                        question: "Combien de minutes d'exercice modéré par semaine sont recommandées?",
+                        options: ["75 minutes", "100 minutes", "150 minutes", "200 minutes"],
+                        correct: 2,
+                        explanation: {
+                            fr: "Le texte stipule 'Les experts recommandent au moins 150 minutes d'exercice modéré par semaine'.",
+                            en: "The text states 'Experts recommend at least 150 minutes of moderate exercise per week'."
+                        }
+                    },
+                    {
+                        question: "Quelles sont les 'hormones du bonheur'?",
+                        options: ["La sérotonine", "Les endorphines", "La dopamine", "L'adrénaline"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Le texte décrit les endorphines comme 'les hormones du bonheur'.",
+                            en: "The text describes endorphins as 'the happiness hormones'."
+                        }
+                    },
+                    {
+                        question: "En combien de temps peut-on voir des améliorations significatives?",
+                        options: ["Une semaine", "Deux semaines", "Un mois", "Quelques semaines"],
+                        correct: 3,
+                        explanation: {
+                            fr: "L'article affirme 'les personnes sédentaires peuvent voir des améliorations significatives en seulement quelques semaines'.",
+                            en: "The article states 'sedentary people can see significant improvements in just a few weeks'."
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-008',
+                level: 'b2',
+                topic: 'Opinion piece about technology in education',
+                title: 'La Technologie Transforme l\'Éducation',
+                passage: `La révolution numérique a profondément transformé le paysage éducatif. Bien que certains critiques arguent que la technologie détourne les étudiants, il est indéniable que les outils numériques offrent des opportunités d'apprentissage sans précédent.
+
+Les plateformes d'apprentissage en ligne démocratisent l'accès à l'éducation. Des étudiants dans les régions rurales du Canada peuvent désormais accéder à des cours universitaires de première qualité sans quitter leur domicile. Cette accessibilité a révolutionné l'apprentissage pour les populations marginalisées.
+
+La personnalisation de l'apprentissage est un autre avantage majeur. Les algorithmes d'apprentissage adaptatif peuvent analyser les forces et faiblesses de chaque étudiant, proposant des contenus adaptés à leur style d'apprentissage unique. Cela contraste fortement avec l'approche traditionnelle unidirectionnelle.
+
+Cependant, la dépendance technologique présente des défis importants. La fracture numérique persiste, certains étudiants n'ayant pas accès à Internet haut débit. De plus, l'exposition prolongée aux écrans soulève des préoccupations légitimes concernant la santé visuelle et le bien-être mental.
+
+Malgré ces enjeux, l'intégration réfléchie de la technologie dans l'éducation est inévitable. Les gouvernements et les institutions éducatives doivent investir dans l'infrastructure numérique tout en préservant l'interaction humaine qui reste fondamentale à l'apprentissage. L'avenir de l'éducation réside dans un équilibre harmonieux entre l'innovation technologique et les méthodes pédagogiques éprouvées.`,
+                questions: [
+                    {
+                        question: "Selon le texte, quel est un avantage de la technologie en éducation?",
+                        options: ["Elle remplace les professeurs", "Elle démocratise l'accès à l'éducation", "Elle améliore la concentration des étudiants", "Elle réduit les coûts d'infrastructure"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Le texte affirme 'Les plateformes d'apprentissage en ligne démocratisent l'accès à l'éducation'.",
+                            en: "The text states 'Online learning platforms democratize access to education'."
+                        }
+                    },
+                    {
+                        question: "Qu'est-ce que la 'personnalisation de l'apprentissage'?",
+                        options: ["Les étudiants choisissent leurs professeurs", "Les algorithmes proposent du contenu adapté au style d'apprentissage de chaque étudiant", "Les cours sont donnés en petits groupes", "Les étudiants étudient uniquement en ligne"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Le texte explique 'Les algorithmes d'apprentissage adaptatif peuvent analyser les forces et faiblesses de chaque étudiant, proposant des contenus adaptés'.",
+                            en: "The text explains 'Adaptive learning algorithms can analyze each student's strengths and weaknesses, proposing customized content'."
+                        }
+                    },
+                    {
+                        question: "Quel problème est mentionné au sujet de la technologie dans l'éducation?",
+                        options: ["Elle est trop coûteuse", "La fracture numérique persiste", "Elle remplace les interactions humaines", "Elle ralentit l'apprentissage"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Le texte souligne 'La fracture numérique persiste, certains étudiants n'ayant pas accès à Internet haut débit'.",
+                            en: "The text highlights 'The digital divide persists, with some students lacking access to high-speed Internet'."
+                        }
+                    },
+                    {
+                        question: "Selon l'auteur, quel est l'avenir idéal de l'éducation?",
+                        options: ["L'éducation entièrement en ligne", "Un retour aux méthodes traditionnelles", "Un équilibre entre innovation technologique et méthodes pédagogiques éprouvées", "L'élimination de la technologie en classe"],
+                        correct: 2,
+                        explanation: {
+                            fr: "L'auteur conclut 'L'avenir de l'éducation réside dans un équilibre harmonieux entre l'innovation technologique et les méthodes pédagogiques éprouvées'.",
+                            en: "The author concludes 'The future of education lies in a harmonious balance between technological innovation and proven pedagogical methods'."
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-009',
+                level: 'b2',
+                topic: 'Business report on Canadian economy',
+                title: 'Rapport: L\'Économie Canadienne en 2026',
+                passage: `Le Bureau de la Statistique Canada a publié son rapport trimestriel sur l'économie. Après deux années de croissance modérée, l'économie canadienne affiche une trajectoire mixte. Le PIB a augmenté de 2,1% année sur année, ce qui se situe légèrement en dessous des prévisions économistes.
+
+Le secteur technologique demeure un moteur de croissance. Les entreprises de logiciels et de services informatiques ont connu une expansion remarquable, avec une augmentation de 8,4% de leurs revenus. Cependant, ce dynamisme contraste avec la stagnation du secteur manufacturier, qui se débat avec les perturbations de la chaîne d'approvisionnement mondiale.
+
+L'inflation, bien que maîtrisée comparée aux années précédentes, demeure une préoccupation. Le taux d'inflation global est tombé à 2,8%, mais les prix de l'énergie et du logement continuent de peser sur les budgets des ménages canadiens. Le marché immobilier résidentiel a connu une correction substantielle, avec une baisse de 15% des prix médians dans les grandes métropoles.
+
+L'emploi reste relativement stable avec un taux de chômage à 5,2%. Toutefois, la création d'emplois ralentit, notamment dans les secteurs traditionnels. Les travailleurs de moins de 25 ans continuent de faire face à des taux de chômage plus élevés.
+
+Les prévisions pour 2026-2027 indiquent une légère accélération économique. Si les tensions géopolitiques diminuent et que les taux d'intérêt se stabilisent, les analystes estiment une croissance du PIB entre 2,5% et 3%. Néanmoins, les risques de récession subsistent en raison de l'incertitude économique mondiale.`,
+                questions: [
+                    {
+                        question: "De combien le PIB a-t-il augmenté selon le rapport?",
+                        options: ["1,5%", "2,1%", "3,0%", "4,2%"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Le rapport indique 'Le PIB a augmenté de 2,1% année sur année'.",
+                            en: "The report states 'GDP increased by 2.1% year-over-year'."
+                        }
+                    },
+                    {
+                        question: "Quel secteur affiche une croissance remarquable?",
+                        options: ["L'agriculture", "Le secteur technologique", "La construction", "L'énergie fossile"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Le texte affirme 'Le secteur technologique demeure un moteur de croissance... avec une augmentation de 8,4% de leurs revenus'.",
+                            en: "The text states 'The technology sector remains a growth engine... with an 8.4% increase in revenues'."
+                        }
+                    },
+                    {
+                        question: "Quel est le taux de chômage actuel?",
+                        options: ["3,5%", "4,2%", "5,2%", "6,8%"],
+                        correct: 2,
+                        explanation: {
+                            fr: "Le rapport mentionne 'un taux de chômage à 5,2%'.",
+                            en: "The report mentions 'an unemployment rate of 5.2%'."
+                        }
+                    },
+                    {
+                        question: "Quelle croissance du PIB est prévue pour 2026-2027?",
+                        options: ["Entre 1,5% et 2%", "Entre 2% et 2,5%", "Entre 2,5% et 3%", "Entre 3% et 3,5%"],
+                        correct: 2,
+                        explanation: {
+                            fr: "Les analystes estiment 'une croissance du PIB entre 2,5% et 3%'.",
+                            en: "Analysts estimate 'GDP growth between 2.5% and 3%'."
+                        }
+                    },
+                    {
+                        question: "Quel problème affecte les budgets des ménages canadiens?",
+                        options: ["L'augmentation de l'impôt sur le revenu", "Les prix de l'énergie et du logement", "La baisse des salaires", "L'augmentation du taux d'intérêt"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Le texte note 'les prix de l'énergie et du logement continuent de peser sur les budgets des ménages canadiens'.",
+                            en: "The text notes 'energy and housing prices continue to weigh on Canadian household budgets'."
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-010',
+                level: 'b2',
+                topic: 'Cultural article about francophone festivals',
+                title: 'Les Festivals Francophones: Célébration de la Culture',
+                passage: `Les festivals francophones du Canada reflètent la richesse et la diversité de la culture francophone nord-américaine. Du Festival d'été de Québec au Festival International des Films du Monde, ces événements attirent des centaines de milliers de visiteurs chaque année et jouent un rôle crucial dans la préservation et la promotion de la langue et de la culture françaises.
+
+Le Festival d'été de Québec, qui se déroule chaque juillet, est le plus grand festival de musique en direct en Amérique du Nord. Depuis sa création en 1967, il a présenté une multitude d'artistes internationaux et locaux, transformant les rues de la Vieille Capitale en une célébration dynamique de la musique, du théâtre et de la danse.
+
+Le Festival de Montréal, fondé en 1957, continue de promouvoir les arts de la scène. Il offre une plateforme aux artistes émergents tout en accueillant des productions de renommée mondiale. Le festival a gagné une réputation internationale pour son engagement envers la diversité artistique et l'excellence culturelle.
+
+Ces festivals transcendent les simples divertissements - ils sont des vecteurs d'identité culturelle. Ils permettent aux francophones de célébrer leur héritage commun tout en s'ouvrant à des influences externes. Les artistes internationaux découvrent la culture québécoise, créant ainsi des ponts culturels importants.
+
+Sur le plan économique, les festivals génèrent des milliards de dollars pour l'économie locale. Les hôtels, restaurants et commerces bénéficient de l'afflux touristique. De plus, les festivals offrent des opportunités d'emploi temporaire à des milliers de travailleurs.
+
+À l'ère de la mondialisation, ces festivals jouent un rôle déterminant dans la protection du patrimoine francophone. Ils rappellent que la langue et la culture françaises conservent une importance vitale dans le contexte nord-américain.`,
+                questions: [
+                    {
+                        question: "En quelle année le Festival de Montréal a-t-il été fondé?",
+                        options: ["1957", "1967", "1977", "1987"],
+                        correct: 0,
+                        explanation: {
+                            fr: "Le texte indique 'Le Festival de Montréal, fondé en 1957'.",
+                            en: "The text states 'The Montreal Festival, founded in 1957'."
+                        }
+                    },
+                    {
+                        question: "Qu'est-ce que le Festival d'été de Québec?",
+                        options: ["Un festival de gastronomie", "Le plus grand festival de musique en direct en Amérique du Nord", "Un festival de cinéma", "Un festival de littérature"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Le texte affirme 'Le Festival d'été de Québec... est le plus grand festival de musique en direct en Amérique du Nord'.",
+                            en: "The text states 'The Quebec Summer Festival... is the largest live music festival in North America'."
+                        }
+                    },
+                    {
+                        question: "Depuis quand le Festival d'été de Québec existe-t-il?",
+                        options: ["1957", "1967", "1977", "1987"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Le texte mentionne 'Depuis sa création en 1967'.",
+                            en: "The text mentions 'Since its creation in 1967'."
+                        }
+                    },
+                    {
+                        question: "Quel est l'impact économique des festivals?",
+                        options: ["Ils n'ont pas d'impact significatif", "Ils génèrent des milliards de dollars", "Ils coûtent de l'argent aux gouvernements", "Ils ne bénéficient qu'aux artistes"],
+                        correct: 1,
+                        explanation: {
+                            fr: "Le texte déclare 'les festivals génèrent des milliards de dollars pour l'économie locale'.",
+                            en: "The text states 'festivals generate billions of dollars for the local economy'."
+                        }
+                    },
+                    {
+                        question: "Quel rôle jouent ces festivals selon l'auteur?",
+                        options: ["Ils divertissent simplement", "Ce sont des vecteurs d'identité culturelle", "Ils favorisent uniquement la culture locale", "Ils attirent les touristes uniquement"],
+                        correct: 1,
+                        explanation: {
+                            fr: "L'auteur explique 'Ces festivals transcendent les simples divertissements - ils sont des vecteurs d'identité culturelle'.",
+                            en: "The author explains 'These festivals transcend mere entertainment - they are vectors of cultural identity'."
+                        }
+                    }
+                ]
+            }
+        ];
+
+        // State management
+        let currentLevel = 'all';
+        let currentExerciseIndex = 0;
+        let completedExercises = JSON.parse(localStorage.getItem('reading-completed') || '[]');
+        let filteredExercises = [];
+        let currentAnswers = {};
+        let showingResults = false;
+
+        // Initialize
+        renderNav('reading');
+        renderFooter();
+        updateFilteredExercises();
+        renderExercise();
+        updateProgress();
+
+        // Filter exercises by level
+        function updateFilteredExercises() {
+            if (currentLevel === 'all') {
+                filteredExercises = [...exercises];
+            } else {
+                filteredExercises = exercises.filter(ex => ex.level === currentLevel);
+            }
+            currentExerciseIndex = 0;
+            currentAnswers = {};
+            showingResults = false;
+            renderExercise();
+            updateProgress();
+        }
+
+        // Level filter buttons
+        document.querySelectorAll('.level-btn').forEach(btn => {
+            btn.addEventListener('click', function() {
+                document.querySelectorAll('.level-btn').forEach(b => b.classList.remove('active'));
+                this.classList.add('active');
+                currentLevel = this.dataset.level;
+                updateFilteredExercises();
+            });
+        });
+
+        // Render the current exercise
+        function renderExercise() {
+            const container = document.getElementById('exercise-content');
+            if (filteredExercises.length === 0) {
+                container.innerHTML = '<p style="text-align: center; padding: 2rem;">No exercises available for this level.</p>';
+                return;
+            }
+
+            const exercise = filteredExercises[currentExerciseIndex];
+            const isCompleted = completedExercises.includes(exercise.id);
+
+            let html = `
+                <div style="margin-bottom: 2rem;">
+                    <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 1rem;">
+                        <h2 style="margin: 0;">${exercise.title}</h2>
+                        <span class="badge badge-${exercise.level}">${exercise.level.toUpperCase()}</span>
+                    </div>
+                    <p class="text-muted" style="margin: 0 0 1rem 0;">Exercise ${currentExerciseIndex + 1} of ${filteredExercises.length}</p>
+                </div>
+
+                <div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #667eea;">
+                    <h3 style="margin-top: 0; color: #333;">Reading Passage</h3>
+                    <p style="line-height: 1.8; color: #555; white-space: pre-wrap; font-size: 1rem;">${exercise.passage}</p>
+                </div>
+
+                <div style="margin-bottom: 2rem;">
+                    <h3>Comprehension Questions</h3>
+                    ${exercise.questions.map((q, qIndex) => `
+                        <div class="card" style="padding: 1.5rem; margin-bottom: 1rem;">
+                            <p style="font-weight: 600; margin: 0 0 1rem 0;">Question ${qIndex + 1}: ${q.question}</p>
+                            <div style="display: flex; flex-direction: column; gap: 0.5rem;">
+                                ${q.options.map((option, optIndex) => `
+                                    <label class="quiz-opt" style="cursor: pointer; padding: 0.75rem; border-radius: 6px; border: 2px solid #e0e0e0; transition: all 0.3s;">
+                                        <input type="radio" name="question-${qIndex}" value="${optIndex}" style="margin-right: 0.5rem; cursor: pointer;">
+                                        <span>${option}</span>
+                                    </label>
+                                `).join('')}
+                            </div>
+                        </div>
+                    `).join('')}
+                </div>
+            `;
+
+            if (!showingResults) {
+                html += `
+                    <button class="btn-primary" onclick="submitAnswers()" style="width: 100%; padding: 1rem; font-size: 1.1rem; margin-bottom: 1rem;">
+                        Check Answers
+                    </button>
+                `;
+            } else {
+                // Show results
+                let correctCount = 0;
+                const resultsHtml = exercise.questions.map((q, qIndex) => {
+                    const userAnswer = currentAnswers['question-' + qIndex];
+                    const isCorrect = userAnswer !== undefined && parseInt(userAnswer) === q.correct;
+                    if (isCorrect) correctCount++;
+
+                    return `
+                        <div class="card" style="padding: 1.5rem; margin-bottom: 1rem; border-left: 4px solid ${isCorrect ? '#4caf50' : '#f44336'};">
+                            <p style="font-weight: 600; margin: 0 0 0.5rem 0;">Q${qIndex + 1}: ${q.question}</p>
+                            <p style="margin: 0.5rem 0; color: ${isCorrect ? '#4caf50' : '#f44336'};">
+                                ${isCorrect ? '✓ Correct!' : '✗ Incorrect'}
+                            </p>
+                            <p style="margin: 0.5rem 0;"><strong>Your answer:</strong> ${userAnswer !== undefined ? q.options[userAnswer] : 'Not answered'}</p>
+                            <p style="margin: 0.5rem 0;"><strong>Correct answer:</strong> ${q.options[q.correct]}</p>
+                            <div style="background: #f0f0f0; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                                <p style="margin: 0 0 0.5rem 0; font-weight: 600;">Explanation:</p>
+                                <p style="margin: 0.25rem 0;"><strong>French:</strong> ${q.explanation.fr}</p>
+                                <p style="margin: 0.25rem 0;"><strong>English:</strong> ${q.explanation.en}</p>
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+
+                const score = correctCount;
+                const total = exercise.questions.length;
+                const percentage = Math.round((score / total) * 100);
+                const xpEarned = Math.round((score / total) * 10);
+
+                html += `
+                    <div style="background: linear-gradient(135deg, ${percentage >= 80 ? '#4caf50' : percentage >= 60 ? '#ff9800' : '#f44336'} 0%, ${percentage >= 80 ? '#45a049' : percentage >= 60 ? '#e68900' : '#da190b'} 100%); color: white; padding: 2rem; border-radius: 8px; text-align: center; margin-bottom: 2rem;">
+                        <h2 style="margin: 0 0 0.5rem 0;">Score: ${score}/${total} (${percentage}%)</h2>
+                        <p style="margin: 0; font-size: 1.2rem;">+${xpEarned} XP earned</p>
+                    </div>
+
+                    <h3 style="margin-top: 2rem;">Detailed Results</h3>
+                    ${resultsHtml}
+
+                    <button class="btn-primary" onclick="nextPassage()" style="width: 100%; padding: 1rem; font-size: 1.1rem; margin-top: 2rem;">
+                        ${currentExerciseIndex < filteredExercises.length - 1 ? 'Next Passage' : 'Finish Practice'}
+                    </button>
+                `;
+
+                // Save score
+                if (!completedExercises.includes(exercise.id)) {
+                    completedExercises.push(exercise.id);
+                    localStorage.setItem('reading-completed', JSON.stringify(completedExercises));
+                    TEFProgress.saveTestScore('reading', exercise.id, score, total);
+                }
+            }
+
+            container.innerHTML = html;
+
+            // Add event listeners to radio buttons
+            if (!showingResults) {
+                document.querySelectorAll('input[type="radio"]').forEach(radio => {
+                    radio.addEventListener('change', function() {
+                        currentAnswers[this.name] = this.value;
+                    });
+                });
+            }
+        }
+
+        // Submit answers
+        function submitAnswers() {
+            const exercise = filteredExercises[currentExerciseIndex];
+            if (Object.keys(currentAnswers).length < exercise.questions.length) {
+                alert('Please answer all questions before submitting.');
+                return;
+            }
+            showingResults = true;
+            renderExercise();
+        }
+
+        // Next passage
+        function nextPassage() {
+            if (currentExerciseIndex < filteredExercises.length - 1) {
+                currentExerciseIndex++;
+                currentAnswers = {};
+                showingResults = false;
+                renderExercise();
+                updateProgress();
+                document.getElementById('exercise-content').parentElement.scrollIntoView({ behavior: 'smooth' });
+            } else {
+                alert('Congratulations! You have completed all passages at this level.');
+            }
+        }
+
+        // Update progress
+        function updateProgress() {
+            const completed = completedExercises.length;
+            const total = 10;
+            const percentage = Math.round((completed / total) * 100);
+
+            document.getElementById('progress-text').textContent = `${completed} passages completed`;
+            document.getElementById('progress-bar').style.width = percentage + '%';
+
+            let levelText = 'Keep practicing!';
+            if (completed >= 10) levelText = 'Expert! All passages mastered!';
+            else if (completed >= 7) levelText = 'Great progress!';
+            else if (completed >= 5) levelText = 'Halfway there!';
+            else if (completed >= 3) levelText = 'Good start!';
+
+            document.getElementById('level-indicator').textContent = levelText;
+
+            const xpTotal = completed * 10;
+            document.getElementById('xp-display').textContent = `+${xpTotal} XP`;
+        }
+    </script>
+</body>
+</html>

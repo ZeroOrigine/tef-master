@@ -1,0 +1,288 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>TEF Canada Diagnostic Test — Level Assessment</title>
+    <link rel="stylesheet" href="../css/style.css">
+    <style>
+        .prog-wrap { margin: 1.5rem 0 0.75rem; }
+        .prog-bar { background: var(--border); border-radius: 20px; height: 12px; overflow: hidden; }
+        .prog-fill { background: linear-gradient(90deg, var(--success), #2ecc71); height: 100%; border-radius: 20px; transition: width 0.45s ease; }
+        .prog-txt { text-align: center; font-size: 0.875rem; color: var(--text-light); margin: 0.5rem 0 1rem; }
+        .context-box { background: #f8f9fa; padding: 0.875rem 1.125rem; border-left: 4px solid var(--primary-light); margin-bottom: 0.875rem; font-style: italic; color: #555; border-radius: 0 8px 8px 0; line-height: 1.6; }
+        .q-text { color: var(--primary); font-size: 1.063rem; font-weight: 600; margin-bottom: 0.875rem; line-height: 1.5; }
+        .audio-hint { background: #e8f0fe; padding: 0.625rem 0.875rem; border-radius: 8px; font-size: 0.875rem; color: var(--primary-light); margin-bottom: 0.75rem; }
+        .options { display: flex; flex-direction: column; gap: 0.5rem; }
+        .opt { padding: 0.8125rem 1.125rem; border: 2px solid var(--border); border-radius: 10px; cursor: pointer; transition: all 0.2s; font-size: 0.9375rem; position: relative; background: var(--card); }
+        .opt:hover { border-color: var(--primary-light); background: var(--primary-bg); }
+        .opt.selected { border-color: var(--primary-light); background: var(--primary-bg); font-weight: 500; }
+        .opt.correct { border-color: var(--success); background: #e8f8e8; }
+        .opt.correct::after { content: '✓'; position: absolute; right: 0.875rem; color: var(--success); font-weight: bold; font-size: 1.125rem; }
+        .opt.wrong { border-color: var(--danger); background: #fde8e8; }
+        .opt.wrong::after { content: '✗'; position: absolute; right: 0.875rem; color: var(--danger); font-weight: bold; font-size: 1.125rem; }
+        .opt.disabled { pointer-events: none; opacity: 0.85; }
+        .expl { margin-top: 0.875rem; padding: 0.875rem; background: #fff8e1; border-radius: 10px; font-size: 0.875rem; border-left: 4px solid #f1c40f; display: none; }
+        .expl.show { display: block; }
+        .btn-center { text-align: center; margin: 1.5rem 0; }
+        .results { display: none; }
+        .results.show { display: block; }
+        .score-ring { width: 160px; height: 160px; border-radius: 50%; display: flex; align-items: center; justify-content: center; margin: 1.25rem auto; font-size: 2.5rem; font-weight: bold; color: #fff; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15); }
+        .level-badge { display: inline-block; padding: 0.375rem 1.375rem; border-radius: 20px; font-weight: bold; font-size: 1.125rem; color: #fff; }
+        .sgrid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.875rem; margin: 1.25rem 0; }
+        .sitem { background: var(--card); padding: 1.125rem; border-radius: 12px; text-align: center; box-shadow: var(--shadow); border-top: 4px solid var(--border); }
+        .sitem.strong { border-top-color: var(--success); }
+        .sitem.medium { border-top-color: var(--warning); }
+        .sitem.weak { border-top-color: var(--danger); }
+        .sitem .slabel { font-size: 0.8125rem; color: var(--text-light); margin-bottom: 0.25rem; text-transform: uppercase; letter-spacing: 0.5px; }
+        .sitem .sval { font-size: 1.625rem; font-weight: bold; color: var(--primary); }
+        .sitem .spct { font-size: 0.875rem; color: #999; margin-top: 0.125rem; }
+        .rec-item { padding: 1rem; border-radius: 10px; margin-bottom: 0.625rem; border-left: 5px solid; }
+        .rec-item.rec-strong { background: #e8f8e8; border-color: var(--success); }
+        .rec-item.rec-medium { background: #fef9e7; border-color: var(--warning); }
+        .rec-item.rec-weak { background: #fde8e8; border-color: var(--danger); }
+        .rec-item h4 { margin-bottom: 0.25rem; }
+        .rec-item p { font-size: 0.875rem; color: #555; line-height: 1.5; }
+        .clb-box { padding: 1.25rem; border-radius: 12px; margin: 1rem 0; }
+        .clb-pass { background: #e8f8e8; border: 2px solid var(--success); }
+        .clb-work { background: #fef9e7; border: 2px solid var(--warning); }
+        .clb-gap { background: #fde8e8; border: 2px solid var(--danger); }
+        .clb-box table { width: 100%; border-collapse: collapse; font-size: 0.875rem; margin-top: 0.75rem; }
+        .clb-box th, .clb-box td { padding: 0.5rem; text-align: left; }
+        .clb-box th { background: rgba(0, 0, 0, 0.05); font-weight: bold; }
+        .review-section { margin-top: 1.5rem; }
+        .review-q { background: var(--card); border-radius: 12px; padding: 1.125rem; margin-bottom: 0.75rem; box-shadow: var(--shadow); border-left: 5px solid; }
+        .review-q.q-correct { border-color: var(--success); }
+        .review-q.q-wrong { border-color: var(--danger); }
+        .review-q .rq-head { display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem; }
+        .review-q .rq-num { font-weight: bold; color: var(--primary); }
+        .review-q .rq-badge { font-size: 0.75rem; padding: 0.2rem 0.625rem; border-radius: 12px; color: #fff; font-weight: 600; }
+        .rq-badge.rq-ok { background: var(--success); }
+        .rq-badge.rq-no { background: var(--danger); }
+        .review-q .rq-text { font-size: 0.9375rem; margin-bottom: 0.5rem; color: #444; }
+        .review-q .rq-ans { font-size: 0.875rem; line-height: 1.6; }
+        .rq-your { color: var(--danger); }
+        .rq-right { color: var(--success); font-weight: 600; }
+        .rq-expl { font-size: 0.8125rem; color: #777; margin-top: 0.375rem; padding-top: 0.375rem; border-top: 1px solid #eee; }
+        .tabs { display: flex; gap: 0.5rem; margin-bottom: 1rem; flex-wrap: wrap; }
+        .tab { padding: 0.5rem 1.125rem; border-radius: 8px; cursor: pointer; font-size: 0.875rem; border: 2px solid var(--border); background: var(--card); transition: all 0.2s; }
+        .tab:hover { border-color: var(--primary-light); }
+        .tab.active { background: var(--primary); color: #fff; border-color: var(--primary); }
+        .start-screen .info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 0.75rem; margin: 1.25rem 0; }
+        .info-card { background: #f8f9fa; padding: 1rem; border-radius: 10px; text-align: center; }
+        .info-card .ic-num { font-size: 1.75rem; font-weight: bold; color: var(--primary); }
+        .info-card .ic-label { font-size: 0.8125rem; color: var(--text-light); }
+        .btn-group { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
+        @media (max-width: 600px) {
+            .sgrid, .info-grid { grid-template-columns: 1fr; }
+            .tabs { gap: 0.25rem; }
+            .tab { padding: 0.375rem 0.75rem; font-size: 0.75rem; }
+        }
+    </style>
+</head>
+<body>
+    <div class="hero" style="margin-bottom: 2rem;">
+        <h1>🇫🇷 TEF Canada Diagnostic Test</h1>
+        <p>Assess your French level across Grammar, Vocabulary, Reading & Listening</p>
+        <p class="sub">44 questions · ~30 minutes · Detailed results with study recommendations</p>
+    </div>
+
+    <div class="container-narrow">
+        <div id="startScreen">
+            <div class="card">
+                <h2 style="color: var(--primary); margin-bottom: 0.75rem;">Welcome to Your TEF Diagnostic</h2>
+                <p>This test evaluates your current French proficiency across four key areas tested in the TEF Canada exam. Your results will include a CEFR level estimate, section-by-section analysis, and personalized study recommendations.</p>
+                <div class="info-grid">
+                    <div class="info-card"><div class="ic-num">44</div><div class="ic-label">Questions Total</div></div>
+                    <div class="info-card"><div class="ic-num">4</div><div class="ic-label">Sections Tested</div></div>
+                    <div class="info-card"><div class="ic-num">A2→B2</div><div class="ic-label">Difficulty Range</div></div>
+                    <div class="info-card"><div class="ic-num">~30 min</div><div class="ic-label">Estimated Time</div></div>
+                </div>
+                <h3 style="color: var(--primary); margin: 1rem 0 0.5rem;">Test Sections:</h3>
+                <p><span class="badge badge-grammar">Grammar</span> 15 questions — verb conjugation, tenses, sentence structure (A2–B2)</p>
+                <p style="margin-top: 0.375rem;"><span class="badge badge-vocab">Vocabulary</span> 10 questions — everyday & professional vocabulary (A2–B2)</p>
+                <p style="margin-top: 0.375rem;"><span class="badge badge-reading">Reading</span> 8 questions — text comprehension & analysis (A2–B2)</p>
+                <p style="margin-top: 0.375rem;"><span class="badge badge-listening">Listening</span> 11 questions — audio scenario comprehension (A2–B2)</p>
+                <div style="background: #fff8e1; padding: 0.875rem; border-radius: 10px; margin-top: 1rem; font-size: 0.875rem;">
+                    <strong>💡 Tips:</strong> Answer every question. After each answer, you'll see the correct response and explanation. Take your time and read carefully.
+                </div>
+            </div>
+            <div class="btn-center">
+                <button class="btn btn-primary" onclick="startTest()" style="padding: 1rem 3rem; font-size: 1.125rem;">Commencer le test →</button>
+            </div>
+        </div>
+
+        <div id="testArea" style="display: none;">
+            <div class="prog-wrap">
+                <div class="prog-bar"><div class="prog-fill" id="progFill" style="width: 0%;"></div></div>
+            </div>
+            <div class="prog-txt" id="progTxt">Question 1 / 44</div>
+            <div id="qContainer"></div>
+            <div class="btn-center">
+                <button class="btn btn-primary" id="nextBtn" onclick="nextQuestion()" disabled>Question suivante →</button>
+            </div>
+        </div>
+
+        <div class="results" id="results"></div>
+    </div>
+
+    <footer id="footer"></footer>
+
+    <script src="../js/nav.js"></script>
+    <script src="../js/progress-tracker.js"></script>
+    <script>
+document.addEventListener('DOMContentLoaded', function() {
+    renderNav('diagnostic');
+    renderFooter();
+});
+
+const questions = [
+  {section:"Grammar",level:"A2",q:"Complétez : Je ___ au marché tous les samedis.",options:["va","allons","vais","aller"],correct:2,explanation:"'Aller' avec 'je' → 'vais'."},
+  {section:"Grammar",level:"A2",q:"Choisissez la forme correcte : Hier, nous ___ un bon film.",options:["regardons","avons regarder","regardé","avons regardé"],correct:3,explanation:"Passé composé avec 'avoir': sujet + avoir + participe passé."},
+  {section:"Grammar",level:"A2",q:"Complétez : Elle ___ très fatiguée ce matin.",options:["a","fait","va","est"],correct:3,explanation:"'Être' s'utilise avec les adjectifs pour décrire les états."},
+  {section:"Grammar",level:"A2",q:"Quel est le féminin de 'heureux' ?",options:["heureusse","heureuse","heureuxe","heureux"],correct:1,explanation:"Les adjectifs en -eux changent en -euse au féminin."},
+  {section:"Grammar",level:"A2",q:"Complétez : Tu ___ du café ce matin ?",options:["as bu","a bu","as boire","a boire"],correct:0,explanation:"Passé composé de 'boire': avoir + bu. Tu as bu."},
+  {section:"Grammar",level:"B1",q:"Complétez : Quand j'étais petit, je ___ au parc chaque dimanche.",options:["suis allé","vais","allais","irai"],correct:2,explanation:"L'imparfait pour les actions habituelles au passé."},
+  {section:"Grammar",level:"B1",q:"Complétez : Il faut que tu ___ tes devoirs.",options:["fais","fait","faire","fasses"],correct:3,explanation:"'Il faut que' déclenche le subjonctif."},
+  {section:"Grammar",level:"B1",q:"Complétez : Si j'avais de l'argent, j'___ une voiture.",options:["achète","achèterai","achèterais","ai acheté"],correct:2,explanation:"Si + imparfait → conditionnel présent."},
+  {section:"Grammar",level:"B1",q:"Choisissez : La ville ___ j'habite est très belle.",options:["qui","que","dont","où"],correct:3,explanation:"'Où' est le pronom relatif pour les lieux."},
+  {section:"Grammar",level:"B1",q:"Complétez : Elle est partie ___ avoir fini son travail.",options:["avant","pour","après","sans"],correct:2,explanation:"'Après + infinitif passé' signifie 'après avoir fini'."},
+  {section:"Grammar",level:"B2",q:"Complétez : Bien qu'il ___ malade, il est venu travailler.",options:["est","serait","soit","était"],correct:2,explanation:"'Bien que' exige le subjonctif."},
+  {section:"Grammar",level:"B2",q:"Complétez : Si j'avais étudié plus, j'___ réussi l'examen.",options:["avais","aurai","ai","aurais"],correct:3,explanation:"Si + plus-que-parfait → conditionnel passé."},
+  {section:"Grammar",level:"B2",q:"Complétez : C'est le livre ___ tout le monde parle.",options:["que","qui","dont","où"],correct:2,explanation:"'Dont' remplace 'de + nom'."},
+  {section:"Grammar",level:"B2",q:"Transformez à la voix passive : Le gouvernement a adopté cette loi.",options:["Cette loi est adoptée.","Cette loi avait été adoptée.","Cette loi sera adoptée.","Cette loi a été adoptée."],correct:3,explanation:"Passé composé passif: être (passé composé) + participe passé."},
+  {section:"Grammar",level:"B2",q:"Complétez : ___ les difficultés, elle a réussi brillamment.",options:["Bien que","Parce que","Malgré","Puisque"],correct:2,explanation:"'Malgré' pour exprimer l'opposition."},
+  {section:"Vocabulary",level:"A2",q:"Quel est le contraire de 'acheter' ?",options:["prendre","vendre","chercher","donner"],correct:1,explanation:"Acheter ↔ Vendre. Vocabulaire du commerce."},
+  {section:"Vocabulary",level:"A2",q:"Comment dit-on 'appointment' en français ?",options:["rencontre","réunion","entrevue","rendez-vous"],correct:3,explanation:"Rendez-vous = appointment."},
+  {section:"Vocabulary",level:"A2",q:"'Mon propriétaire a augmenté le loyer.' Que signifie 'loyer' ?",options:["salary","tax","rent","bill"],correct:2,explanation:"Loyer = rent."},
+  {section:"Vocabulary",level:"A2",q:"Complétez : Pour aller à l'hôpital, prenez la ___ rue à gauche.",options:["deuxième","second","deuxièmement","deux"],correct:0,explanation:"Adjectifs ordinaux: première, deuxième, troisième."},
+  {section:"Vocabulary",level:"A2",q:"Que signifie 'il fait froid' ?",options:["He is cold","It's cold food","He makes cold","It's cold (weather)"],correct:3,explanation:"'Il fait + adjectif' décrit la météo."},
+  {section:"Vocabulary",level:"B1",q:"'Les citoyens doivent respecter les lois.' Que signifie 'citoyens' ?",options:["customers","citizens","clients","colleagues"],correct:1,explanation:"Citoyen = citizen."},
+  {section:"Vocabulary",level:"B1",q:"Quel mot complète : Le ___ climatique est un défi mondial.",options:["chauffage","chaleur","réchauffement","chauffement"],correct:2,explanation:"Réchauffement climatique = climate warming."},
+  {section:"Vocabulary",level:"B2",q:"Choisissez le synonyme de 'néanmoins' :",options:["ensuite","donc","parce que","cependant"],correct:3,explanation:"Néanmoins = cependant = nevertheless."},
+  {section:"Vocabulary",level:"B2",q:"'L'entreprise a licencié 200 employés.' Que signifie 'licencié' ?",options:["hired","promoted","laid off / fired","transferred"],correct:2,explanation:"Licencier = to lay off."},
+  {section:"Vocabulary",level:"B2",q:"Complétez : La politique doit tenir ___ des besoins.",options:["note","part","compte","place"],correct:2,explanation:"'Tenir compte de' = to take into account."},
+  {section:"Reading",level:"A2",q:"Lisez : 'La bibliothèque est ouverte du lundi au samedi, de 9h à 18h. Elle est fermée le dimanche et les jours fériés.' — Quand la bibliothèque est-elle fermée ?",options:["Le lundi seulement","Tous les jours","Le samedi après-midi","Le dimanche et les jours fériés"],correct:3,explanation:"Information directe: 'fermée le dimanche et les jours fériés'."},
+  {section:"Reading",level:"A2",q:"Lisez : 'Pour renouveler votre carte d'assurance maladie, présentez-vous au bureau avec une pièce d'identité.' — Que faut-il apporter ?",options:["Une carte bancaire","Une pièce d'identité","Un certificat médical","Une lettre"],correct:1,explanation:"Le texte indique: 'avec une pièce d'identité'."},
+  {section:"Reading",level:"B1",context:"Le télétravail a transformé la vie professionnelle. Selon une étude, 40% des travailleurs préfèrent le modèle hybride. Cependant, certains employeurs s'inquiètent de la baisse de productivité.",q:"Quel modèle de travail est le plus populaire ?",options:["Le télétravail complet","Le travail au bureau","Le modèle hybride","Le travail indépendant"],correct:2,explanation:"Le texte dit: '40% des travailleurs préfèrent le modèle hybride'."},
+  {section:"Reading",level:"B1",context:"Le télétravail a transformé la vie professionnelle. Selon une étude, 40% des travailleurs préfèrent le modèle hybride. Cependant, certains employeurs s'inquiètent de la baisse de productivité.",q:"Quelle inquiétude les employeurs expriment-ils ?",options:["Le coût des bureaux","Le salaire","La concurrence","La baisse de productivité"],correct:3,explanation:"Employeurs s'inquiètent de la baisse de productivité."},
+  {section:"Reading",level:"B2",context:"Le gouvernement a annoncé un programme pour attirer les professionnels francophones qualifiés. Ce programme offre un traitement accéléré pour les candidats avec CLB 7 ou supérieur.",q:"Quel est l'objectif principal ?",options:["Réduire l'immigration","Augmenter les impôts","Fermer les frontières","Attirer des professionnels francophones"],correct:3,explanation:"Première phrase: 'visant à attirer les professionnels francophones'."},
+  {section:"Reading",level:"B2",context:"Le gouvernement a annoncé un programme pour attirer les professionnels francophones qualifiés. Ce programme offre un traitement accéléré pour les candidats avec CLB 7 ou supérieur.",q:"Que signifie 'combler le déficit de main-d'œuvre' ?",options:["Créer plus de chômage","Réduire les salaires","Répondre au manque de travailleurs","Fermer des entreprises"],correct:2,explanation:"'Combler' = to address, 'déficit' = shortage."},
+  {section:"Reading",level:"B2",context:"Malgré les avancées technologiques, l'IA soulève des questions éthiques. Elle permet d'automatiser les tâches mais menace certains emplois. Il est donc essentiel d'établir un cadre réglementaire équilibré.",q:"Quelle est la solution proposée ?",options:["Interdire l'IA","Laisser le marché","Ignorer les questions","Établir un cadre réglementaire"],correct:3,explanation:"Dernière phrase: 'établir un cadre réglementaire'."},
+  {section:"Reading",level:"B2",context:"Malgré les avancées technologiques, l'IA soulève des questions éthiques. D'une part, elle automatise les tâches. D'autre part, elle menace certains emplois.",q:"Quel connecteur logique présente une opposition ?",options:["D'une part","Donc","Il est essentiel","D'autre part"],correct:3,explanation:"'D'une part... d'autre part' présente deux perspectives opposées."},
+  {section:"Listening",level:"A2",q:"🎧 Annonce gare : 'Le train à destination de Montréal, départ 14h30, a un retard de 15 minutes.' À quelle heure le train va-t-il partir ?",options:["14h30","14h15","14h45","15h00"],correct:2,explanation:"14h30 + 15 minutes = 14h45."},
+  {section:"Listening",level:"A2",q:"🎧 Réceptionniste : 'Le docteur ne travaille pas le mercredi. Jeudi à 10h ou vendredi à 14h.' Quand le docteur ne travaille-t-il pas ?",options:["Le jeudi","Le vendredi","Le mercredi","Le lundi"],correct:2,explanation:"'Ne travaille pas le mercredi'."},
+  {section:"Listening",level:"A2",q:"🎧 Vendeur : 'Le bleu coûte 150 euros, le rouge 160 euros, le noir 170 euros.' Quel modèle est le moins cher ?",options:["Le bleu","Le rouge","Le noir","Tous identiques"],correct:0,explanation:"150 < 160 < 170."},
+  {section:"Listening",level:"B1",q:"🎧 Collègue : 'Je ne peux pas venir car j'ai un rendez-vous dentiste que j'ai reporté 3 fois.' Pourquoi ne viendra-t-il pas ?",options:["Malade","Vacances","Rendez-vous dentiste","Démission"],correct:2,explanation:"Il a un rendez-vous qu'il ne peut plus reporter."},
+  {section:"Listening",level:"B1",q:"🎧 Info radio : 'Suite aux chutes de neige, les écoles seront fermées. Les parents prennent les dispositions nécessaires.' Que doivent faire les parents ?",options:["Envoyer les enfants","Appeler le directeur","Déneiger l'école","S'organiser pour garder les enfants"],correct:3,explanation:"'Prendre les dispositions' = s'organiser."},
+  {section:"Listening",level:"B1",q:"🎧 Professeur : 'Lire les chapitres 3 et 4 et rédiger un résumé de 2 pages.' Que doivent faire les étudiants ?",options:["Lire seulement","Écrire 4 pages","Lire et écrire 2 pages","Aller au cours"],correct:2,explanation:"Deux tâches: lire et écrire minimum 2 pages."},
+  {section:"Listening",level:"B2",q:"🎧 Débat : 'Contrairement à mes adversaires, le bilan est loin d'être catastrophique. Le chômage a baissé de 2%.' Quelle est la position ?",options:["Critique","Neutre","Défend la politique","Propose une nouvelle"],correct:2,explanation:"'Contrairement' + données positives = défend."},
+  {section:"Listening",level:"B2",q:"🎧 Radio : 'Les travaux, bien que coûteux, redynamiseraient le commerce et attireront de nouveaux résidents.' Quel est le ton ?",options:["Pessimiste","Indifférent","Colère","Optimiste"],correct:3,explanation:"'Redynamiseraient' et 'attireront' = optimiste."},
+  {section:"Listening",level:"B2",q:"🎧 Interview : 'Cette mesure pénalise les plus vulnérables ?' 'Au contraire, c'est pour protéger les personnes défavorisées.' Que fait l'interviewé ?",options:["Accepte","Évite","Change de sujet","Contredit et défend"],correct:3,explanation:"'Au contraire' = contradiction directe."},
+  {section:"Listening",level:"B2",q:"🎧 Conférence : 'L'immigration francophone renforce la présence du français et enrichit l'économie par des talents.' Quel est l'argument principal ?",options:["Crée du chômage","Renforce français et économie","Diminue la qualité","Trop coûteuse"],correct:1,explanation:"Deux avantages: français + économie."}
+];
+
+let currentQ = 0;
+let answers = new Array(questions.length).fill(-1);
+let testStarted = false;
+
+function startTest(){
+  document.getElementById('startScreen').style.display='none';
+  document.getElementById('testArea').style.display='block';
+  testStarted=true;
+  renderQuestion();
+}
+
+function renderQuestion(){
+  const q=questions[currentQ];
+  const pct=Math.round((currentQ/questions.length)*100);
+  document.getElementById('progFill').style.width=pct+'%';
+  document.getElementById('progTxt').textContent=`Question ${currentQ+1} / ${questions.length} — ${q.section} (${q.level})`;
+  const badgeClass={'Grammar':'badge-grammar','Vocabulary':'badge-vocab','Reading':'badge-reading','Listening':'badge-listening'}[q.section];
+  let h=`<div class="card">`;
+  h+=`<span class="badge ${badgeClass}">${q.section} — ${q.level}</span>`;
+  if(q.context) h+=`<div class="context-box">${q.context}</div>`;
+  h+=`<div class="q-text">${q.q}</div>`;
+  if(q.section==='Listening') h+=`<div class="audio-hint">🎧 In the real TEF, this is an audio. Read and answer as if you heard it.</div>`;
+  h+=`<div class="options">`;
+  q.options.forEach((opt,i)=>{h+=`<div class="opt" id="opt${i}" onclick="selectAnswer(${i})">${String.fromCharCode(65+i)}) ${opt}</div>`});
+  h+=`</div>`;
+  h+=`<div class="expl" id="expl">💡 ${q.explanation}</div>`;
+  h+=`</div>`;
+  document.getElementById('qContainer').innerHTML=h;
+  document.getElementById('nextBtn').disabled=true;
+  document.getElementById('nextBtn').textContent=currentQ<questions.length-1?'Question suivante →':'Voir les résultats →';
+}
+
+function selectAnswer(idx){
+  if(answers[currentQ]!==-1) return;
+  answers[currentQ]=idx;
+  const q=questions[currentQ];
+  const opts=document.querySelectorAll('.opt');
+  opts.forEach((o,i)=>{o.classList.add('disabled');if(i===q.correct) o.classList.add('correct');else if(i===idx&&idx!==q.correct) o.classList.add('wrong')});
+  document.getElementById('expl').classList.add('show');
+  document.getElementById('nextBtn').disabled=false;
+}
+
+function nextQuestion(){
+  currentQ++;
+  if(currentQ<questions.length){renderQuestion();window.scrollTo({top:0,behavior:'smooth'})}
+  else showResults();
+}
+
+function showResults(){
+  document.getElementById('testArea').style.display='none';
+  const scores={Grammar:{c:0,t:0},Vocabulary:{c:0,t:0},Reading:{c:0,t:0},Listening:{c:0,t:0}};
+  let totalCorrect=0;
+  questions.forEach((q,i)=>{scores[q.section].t++;if(answers[i]===q.correct){scores[q.section].c++;totalCorrect++}});
+  const pct=Math.round((totalCorrect/questions.length)*100);
+  let level,color,desc;
+  if(pct>=85){level='B2';color='#22c55e';desc='Near CLB 7 target!';}
+  else if(pct>=70){level='B1+';color='#22c55e';desc='CLB 7 very achievable.';}
+  else if(pct>=55){level='B1';color='#f59e0b';desc='Bridge gap to B2 with practice.';}
+  else if(pct>=40){level='A2+';color='#e67e22';desc='Intensive study needed.';}
+  else if(pct>=25){level='A2';color='#ef4444';desc='Follow study plan strictly.';}
+  else{level='A1+';color='#991b1b';desc='Consider CLB 5-6 first.';}
+  
+  TEFProgress.saveDiagnostic(scores,level);
+  let r='';
+  r+=`<div class="card" style="text-align:center"><h2 style="color:var(--primary);margin-bottom:1rem">📊 Your Assessment Results</h2>`;
+  r+=`<div class="score-ring" style="background:${pct>=70?'linear-gradient(135deg,#22c55e,#2ecc71)':pct>=50?'linear-gradient(135deg,#f59e0b,#f1c40f)':'linear-gradient(135deg,#ef4444,#c0392b)'}">${pct}%</div>`;
+  r+=`<p style="font-size:0.875rem">${totalCorrect}/${questions.length} correct</p>`;
+  r+=`<p style="font-size:1.125rem;margin:0.75rem 0">Estimated CEFR Level: <span class="level-badge" style="background:${color}">${level}</span></p>`;
+  r+=`<p style="color:#666;margin-top:0.5rem;max-width:500px;margin-left:auto;margin-right:auto;font-size:0.9375rem">${desc}</p>`;
+  r+=`</div>`;
+  r+=`<h3 style="color:var(--primary);margin:1.25rem 0 0.75rem">📋 Section Scores</h3>`;
+  r+=`<div class="sgrid">`;
+  const secMeta={Grammar:{icon:'📝',color:'var(--primary)'},Vocabulary:{icon:'📚',color:'var(--accent)'},Reading:{icon:'📖',color:'#e67e22'},Listening:{icon:'🎧',color:'#16a085'}};
+  for(const[sec,data]of Object.entries(scores)){const sp=data.t>0?Math.round((data.c/data.t)*100):0;const cls=sp>=70?'strong':sp>=50?'medium':'weak';const m=secMeta[sec];r+=`<div class="sitem ${cls}"><div class="slabel">${m.icon} ${sec}</div><div class="sval" style="color:${m.color}">${data.c}/${data.t}</div><div class="spct">${sp}%</div></div>`}
+  r+=`</div>`;
+  r+=`<div class="card"><h3 style="color:var(--primary);margin-bottom:1rem">🎯 Study Recommendations</h3>`;
+  const sorted=Object.entries(scores).sort((a,b)=>(a[1].c/a[1].t)-(b[1].c/b[1].t));
+  sorted.forEach(([sec,data])=>{const sp=data.t>0?Math.round((data.c/data.t)*100):0;let cls,icon,title,advice;if(sp>=70){cls='rec-strong';icon='✅';title=`${sec} — Strong`;advice='Keep expanding with daily practice.';}else if(sp>=50){cls='rec-medium';icon='📈';title=`${sec} — Developing`;advice='Increase daily practice and focus.';}else{cls='rec-weak';icon='⚠️';title=`${sec} — Needs Work`;advice='Intensive daily study required.'}r+=`<div class="rec-item ${cls}"><h4>${icon} ${title}</h4><p>${advice}</p></div>`});
+  r+=`</div>`;
+  r+=`<div class="card"><h3 style="color:var(--primary);margin-bottom:1rem">🏆 CLB 7 Readiness</h3>`;
+  const gPct=scores.Grammar.t>0?Math.round((scores.Grammar.c/scores.Grammar.t)*100):0;const vPct=scores.Vocabulary.t>0?Math.round((scores.Vocabulary.c/scores.Vocabulary.t)*100):0;const rPct=scores.Reading.t>0?Math.round((scores.Reading.c/scores.Reading.t)*100):0;const lPct=scores.Listening.t>0?Math.round((scores.Listening.c/scores.Listening.t)*100):0;const readySections=[gPct>=70,vPct>=70,rPct>=70,lPct>=70].filter(Boolean).length;let clbCls,clbIcon,clbTitle;if(pct>=70&&readySections>=3){clbCls='clb-pass';clbIcon='🟢';clbTitle='On Track for CLB 7';}else if(pct>=50){clbCls='clb-work';clbIcon='🟡';clbTitle='CLB 7 Achievable';}else{clbCls='clb-gap';clbIcon='🔴';clbTitle='Significant Gap';}
+  r+=`<div class="clb-box ${clbCls}"><h4 style="font-size:1.125rem;margin-bottom:0.5rem">${clbIcon} ${clbTitle}</h4><table><tr><th>Section</th><th>Score</th><th>Target</th><th>Status</th></tr><tr><td>Grammar</td><td>${gPct}%</td><td>70%+</td><td>${gPct>=70?'✅':'❌'}</td></tr><tr><td>Vocabulary</td><td>${vPct}%</td><td>70%+</td><td>${vPct>=70?'✅':'❌'}</td></tr><tr><td>Reading</td><td>${rPct}%</td><td>70%+</td><td>${rPct>=70?'✅':'❌'}</td></tr><tr><td>Listening</td><td>${lPct}%</td><td>70%+</td><td>${lPct>=70?'✅':'❌'}</td></tr></table></div></div>`;
+  r+=`<div class="card review-section"><h3 style="color:var(--primary);margin-bottom:0.5rem">📝 Question Review</h3><div class="tabs" id="reviewTabs"><div class="tab active" onclick="filterReview('all')">All (${questions.length})</div>`;
+  const wrongCount=questions.filter((_,i)=>answers[i]!==questions[i].correct).length;r+=`<div class="tab" onclick="filterReview('wrong')">❌ Wrong (${wrongCount})</div>`;r+=`<div class="tab" onclick="filterReview('correct')">✅ Correct (${questions.length-wrongCount})</div>`;['Grammar','Vocabulary','Reading','Listening'].forEach(s=>{r+=`<div class="tab" onclick="filterReview('${s}')">${s}</div>`});r+=`</div><div id="reviewList">`;
+  questions.forEach((q,i)=>{const isCorrect=answers[i]===q.correct;const userAns=answers[i]>=0?`${String.fromCharCode(65+answers[i])}) ${q.options[answers[i]]}`:'Not answered';r+=`<div class="review-q ${isCorrect?'q-correct':'q-wrong'}" data-section="${q.section}" data-result="${isCorrect?'correct':'wrong'}"><div class="rq-head"><span class="rq-num">Q${i+1}</span><span class="rq-badge ${isCorrect?'rq-ok':'rq-no'}">${isCorrect?'✓':'✗'}</span></div><div class="rq-text">${q.q}</div><div class="rq-ans">${isCorrect?`<span class="rq-right">Your: ${userAns} ✓</span>`:`<span class="rq-your">Your: ${userAns}</span><br><span class="rq-right">Correct: ${String.fromCharCode(65+q.correct)}) ${q.options[q.correct]}</span>`}</div><div class="rq-expl">💡 ${q.explanation}</div></div>`});
+  r+=`</div></div>`;
+  r+=`<div class="btn-group"><button class="btn btn-primary" onclick="location.reload()">🔄 Retake</button><button class="btn btn-outline" onclick="window.print()">🖨️ Print</button><button class="btn btn-accent" onclick="window.location.href='/pages/grammar.html'">📘 Grammar</button></div>`;
+  document.getElementById('results').innerHTML=r;
+  document.getElementById('results').classList.add('show');
+}
+
+function filterReview(filter){
+  document.querySelectorAll('.tab').forEach(t=>t.classList.remove('active'));
+  event.target.classList.add('active');
+  document.querySelectorAll('.review-q').forEach(q=>{
+    if(filter==='all')q.style.display='block';
+    else if(filter==='wrong')q.style.display=q.dataset.result==='wrong'?'block':'none';
+    else if(filter==='correct')q.style.display=q.dataset.result==='correct'?'block':'none';
+    else q.style.display=q.dataset.section===filter?'block':'none';
+  });
+}
+    </script>
+</body>
+</html>

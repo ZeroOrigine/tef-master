@@ -1,0 +1,969 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>French Conversations Practice - TEF Canada</title>
+    <link rel="stylesheet" href="/css/style.css">
+</head>
+<body>
+    <nav id="navbar"></nav>
+    
+    <div class="container">
+        <header class="page-header">
+            <h1>French Conversation Practice</h1>
+            <p>Learn authentic dialogue for real-life situations</p>
+        </header>
+
+        <!-- Filters -->
+        <div class="filters-section">
+            <div class="filter-group">
+                <label for="levelFilter">Filter by Level:</label>
+                <select id="levelFilter">
+                    <option value="">All Levels</option>
+                    <option value="A2">A2 (Elementary)</option>
+                    <option value="B1">B1 (Intermediate)</option>
+                    <option value="B2">B2 (Upper Intermediate)</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="topicFilter">Filter by Topic:</label>
+                <select id="topicFilter">
+                    <option value="">All Topics</option>
+                    <option value="shopping">Shopping</option>
+                    <option value="food">Food & Dining</option>
+                    <option value="services">Services</option>
+                    <option value="work">Work & Professional</option>
+                </select>
+            </div>
+
+            <div class="filter-group">
+                <label for="modeToggle">Mode:</label>
+                <button id="modeToggle" class="btn btn-secondary">Switch to Practice Mode</button>
+            </div>
+        </div>
+
+        <!-- Progress Stats -->
+        <div class="progress-stats">
+            <div class="stat">
+                <span class="stat-label">Conversations Completed:</span>
+                <span id="completedCount" class="stat-value">0</span>
+            </div>
+            <div class="stat">
+                <span class="stat-label">Total Progress:</span>
+                <span id="progressPercentage" class="stat-value">0%</span>
+            </div>
+        </div>
+
+        <!-- Conversations Container -->
+        <div id="conversationsContainer" class="conversations-container">
+            <!-- Conversations will be inserted here -->
+        </div>
+    </div>
+
+    <footer id="footer"></footer>
+
+    <script src="/js/nav.js"></script>
+    <script src="/js/progress-tracker.js"></script>
+    <script>
+        // Conversation Data
+        const conversations = [
+            {
+                id: 1,
+                title: "Au magasin - Acheter un t-shirt",
+                description: "Customer shopping for a t-shirt at a clothing store",
+                level: "A2",
+                topic: "shopping",
+                dialogue: [
+                    { speaker: "Customer", name: "Liam", text: "Bonjour, je cherche un t-shirt en taille M.", translation: "Hello, I'm looking for a t-shirt in size M." },
+                    { speaker: "Vendor", name: "Vendeur", text: "Bonjour! Nous avons plusieurs modèles. Quelle couleur préférez-vous?", translation: "Hello! We have several models. What color do you prefer?" },
+                    { speaker: "Customer", name: "Liam", text: "Avez-vous un en bleu foncé?", translation: "Do you have one in dark blue?" },
+                    { speaker: "Vendor", name: "Vendeur", text: "Oui, bien sûr! Voilà. Vous voulez l'essayer?", translation: "Yes, of course! Here it is. Do you want to try it on?" },
+                    { speaker: "Customer", name: "Liam", text: "D'accord. Les cabines d'essayage sont où?", translation: "Okay. Where are the fitting rooms?" },
+                    { speaker: "Vendor", name: "Vendeur", text: "Au fond du magasin, à droite. Allez-y!", translation: "At the back of the store, on the right. Go ahead!" },
+                    { speaker: "Customer", name: "Liam", text: "(Après quelques minutes) C'est parfait! Ça me va bien. Combien ça coûte?", translation: "(After a few minutes) It's perfect! It fits me well. How much does it cost?" },
+                    { speaker: "Vendor", name: "Vendeur", text: "29,99€. C'est en solde! Vous avez une carte de fidélité?", translation: "€29.99. It's on sale! Do you have a loyalty card?" },
+                    { speaker: "Customer", name: "Liam", text: "Non, malheureusement. Je paie par carte bancaire.", translation: "No, unfortunately. I'm paying by credit card." },
+                    { speaker: "Vendor", name: "Vendeur", text: "Pas de problème. Voilà votre ticket et votre t-shirt. Merci et au revoir!", translation: "No problem. Here's your receipt and your t-shirt. Thank you and goodbye!" }
+                ],
+                keyVocabulary: [
+                    { word: "taille", translation: "size" },
+                    { word: "couleur", translation: "color" },
+                    { word: "essayer", translation: "to try on" },
+                    { word: "cabine d'essayage", translation: "fitting room" },
+                    { word: "coûter", translation: "to cost" },
+                    { word: "en solde", translation: "on sale" },
+                    { word: "carte de fidélité", translation: "loyalty card" },
+                    { word: "carte bancaire", translation: "credit card" }
+                ],
+                culturalNote: "In French stores, it's common to greet with 'Bonjour' when entering and 'Au revoir' when leaving. Fitting rooms ('cabines d'essayage') are standard in most clothing stores. Many stores offer loyalty cards for discounts.",
+                practiceGaps: [5, 8, 10]
+            },
+            {
+                id: 2,
+                title: "Au magasin - Retourner/Échanger des vêtements",
+                description: "Customer returning or exchanging purchased clothing",
+                level: "A2",
+                topic: "shopping",
+                dialogue: [
+                    { speaker: "Customer", name: "Marie", text: "Bonjour, je voudrais échanger cette chemise.", translation: "Hello, I'd like to exchange this shirt." },
+                    { speaker: "Vendor", name: "Vendeur", text: "Bien sûr! Quel est le problème?", translation: "Of course! What's the problem?" },
+                    { speaker: "Customer", name: "Marie", text: "La taille est trop petite. Avez-vous la même en M?", translation: "The size is too small. Do you have the same one in size M?" },
+                    { speaker: "Vendor", name: "Vendeur", text: "Un moment... Oui, en blanc ou en bleu?", translation: "One moment... Yes, in white or blue?" },
+                    { speaker: "Customer", name: "Marie", text: "En blanc, s'il vous plaît. Et j'ai mon reçu.", translation: "In white, please. And I have my receipt." },
+                    { speaker: "Vendor", name: "Vendeur", text: "Parfait! Vous l'avez achetée quand?", translation: "Perfect! When did you buy it?" },
+                    { speaker: "Customer", name: "Marie", text: "La semaine dernière. C'est sous garantie, n'est-ce pas?", translation: "Last week. It's under warranty, isn't it?" },
+                    { speaker: "Vendor", name: "Vendeur", text: "Oui, bien sûr. Nous avons 30 jours pour les échanges. Pas de problème.", translation: "Yes, of course. We have 30 days for exchanges. No problem." },
+                    { speaker: "Customer", name: "Marie", text: "Merci beaucoup! Vous êtes très aimable.", translation: "Thank you very much! You're very kind." },
+                    { speaker: "Vendor", name: "Vendeur", text: "De rien! Voilà la nouvelle chemise. Bonne journée!", translation: "You're welcome! Here's the new shirt. Have a good day!" }
+                ],
+                keyVocabulary: [
+                    { word: "échanger", translation: "to exchange" },
+                    { word: "chemise", translation: "shirt" },
+                    { word: "taille", translation: "size" },
+                    { word: "reçu", translation: "receipt" },
+                    { word: "garantie", translation: "warranty" },
+                    { word: "problème", translation: "problem" },
+                    { word: "aimable", translation: "kind" },
+                    { word: "de rien", translation: "you're welcome" }
+                ],
+                culturalNote: "French stores typically offer 30 days for returns and exchanges without questions. Always keep your receipt ('reçu'). Politeness is important - using 's'il vous plaît' (formal) shows respect.",
+                practiceGaps: [3, 5, 7]
+            },
+            {
+                id: 3,
+                title: "Au café - Commander un café et une pâtisserie",
+                description: "Ordering coffee and a pastry at a café",
+                level: "A2",
+                topic: "food",
+                dialogue: [
+                    { speaker: "Customer", name: "Sophie", text: "Bonjour! Un café crème, s'il vous plaît.", translation: "Hello! A white coffee, please." },
+                    { speaker: "Waiter", name: "Garçon", text: "Un café crème. Et vous voulez manger quelque chose?", translation: "A white coffee. And would you like something to eat?" },
+                    { speaker: "Customer", name: "Sophie", text: "Oui, une croissant, s'il vous plaît. C'est frais?", translation: "Yes, a croissant, please. Is it fresh?" },
+                    { speaker: "Waiter", name: "Garçon", text: "Absolument! Nous les faisons le matin. Vous préférez un croissant au beurre ou au chocolat?", translation: "Absolutely! We make them in the morning. Do you prefer butter or chocolate croissant?" },
+                    { speaker: "Customer", name: "Sophie", text: "Un croissant au chocolat, s'il vous plaît.", translation: "A chocolate croissant, please." },
+                    { speaker: "Waiter", name: "Garçon", text: "Parfait! Vous prenez ça ici ou c'est pour emporter?", translation: "Perfect! Are you having this here or to go?" },
+                    { speaker: "Customer", name: "Sophie", text: "Ici, je vais m'asseoir sur la terrasse.", translation: "Here, I'll sit on the terrace." },
+                    { speaker: "Waiter", name: "Garçon", text: "D'accord! Je vous apporte tout de suite.", translation: "Okay! I'll bring it right away." },
+                    { speaker: "Customer", name: "Sophie", text: "Merci. L'addition, s'il vous plaît!", translation: "Thank you. The bill, please!" },
+                    { speaker: "Waiter", name: "Garçon", text: "Ça fait 6,50€. Merci beaucoup! À bientôt.", translation: "That's €6.50. Thank you! See you soon." }
+                ],
+                keyVocabulary: [
+                    { word: "café crème", translation: "white coffee" },
+                    { word: "croissant", translation: "croissant" },
+                    { word: "frais", translation: "fresh" },
+                    { word: "croissant au chocolat", translation: "chocolate croissant (pain au chocolat)" },
+                    { word: "pour emporter", translation: "to go" },
+                    { word: "terrasse", translation: "terrace/outdoor seating" },
+                    { word: "addition", translation: "bill/check" },
+                    { word: "tout de suite", translation: "right away" }
+                ],
+                culturalNote: "French café culture is important - take time to enjoy your coffee. Parisians typically drink 'café' (espresso) or 'café crème' (with milk). Croissants are best eaten fresh from the bakery. Tipping is not expected but small change is appreciated.",
+                practiceGaps: [2, 4, 6]
+            },
+            {
+                id: 4,
+                title: "À la boulangerie - Acheter du pain",
+                description: "Buying bread at a bakery",
+                level: "A2",
+                topic: "food",
+                dialogue: [
+                    { speaker: "Customer", name: "Pierre", text: "Bonjour! Je voudrais une baguette, s'il vous plaît.", translation: "Hello! I'd like a baguette, please." },
+                    { speaker: "Baker", name: "Boulanger", text: "Bien sûr! Vous voulez une baguette ou une demi-baguette?", translation: "Of course! Do you want a whole baguette or a half baguette?" },
+                    { speaker: "Customer", name: "Pierre", text: "Une demi-baguette, s'il vous plaît. Et deux pains au chocolat.", translation: "A half baguette, please. And two chocolate pastries." },
+                    { speaker: "Baker", name: "Boulanger", text: "Voilà! Vous voulez du pain complet aussi?", translation: "There you go! Do you also want some whole wheat bread?" },
+                    { speaker: "Customer", name: "Pierre", text: "Non merci. C'est tout pour aujourd'hui. Combien ça coûte?", translation: "No thank you. That's all for today. How much is it?" },
+                    { speaker: "Baker", name: "Boulanger", text: "La demi-baguette coûte 0,50€, et les deux pains au chocolat coûtent 2,40€. Ça fait 2,90€.", translation: "The half baguette is €0.50, and the two chocolate pastries are €2.40. That's €2.90." },
+                    { speaker: "Customer", name: "Pierre", text: "Voilà. Merci beaucoup!", translation: "Here you go. Thank you very much!" },
+                    { speaker: "Baker", name: "Boulanger", text: "De rien! Au revoir, bonne journée!", translation: "You're welcome! Goodbye, have a good day!" }
+                ],
+                keyVocabulary: [
+                    { word: "baguette", translation: "French bread (baguette)" },
+                    { word: "demi-baguette", translation: "half baguette" },
+                    { word: "pain au chocolat", translation: "chocolate pastry" },
+                    { word: "pain complet", translation: "whole wheat bread" },
+                    { word: "coûter", translation: "to cost" },
+                    { word: "boulanger", translation: "baker" },
+                    { word: "boulangerie", translation: "bakery" },
+                    { word: "voilà", translation: "here you go" }
+                ],
+                culturalNote: "French bakeries ('boulangeries') are integral to daily life. 'Pain' refers to bread, while pastries are often called 'viennoiseries'. The baguette is iconic French bread. Fresh bread is typically bought daily in France.",
+                practiceGaps: [2, 4, 6]
+            },
+            {
+                id: 5,
+                title: "Chez le médecin - Prendre rendez-vous",
+                description: "Making a doctor's appointment",
+                level: "B1",
+                topic: "services",
+                dialogue: [
+                    { speaker: "Patient", name: "Client", text: "Bonjour, je voudrais prendre rendez-vous chez le médecin.", translation: "Hello, I'd like to make an appointment with the doctor." },
+                    { speaker: "Receptionist", name: "Réceptionniste", text: "Bien sûr! Quel est votre nom et prénom?", translation: "Of course! What is your name?" },
+                    { speaker: "Patient", name: "Client", text: "Je m'appelle Thomas Dubois. C'est la première fois que je viens?", translation: "My name is Thomas Dubois. Is this my first time coming?" },
+                    { speaker: "Receptionist", name: "Réceptionniste", text: "Oui, vous êtes nouveau patient. Pouvez-vous me donner votre date de naissance et votre numéro de sécurité sociale?", translation: "Yes, you're a new patient. Can you give me your date of birth and social security number?" },
+                    { speaker: "Patient", name: "Client", text: "Je suis né le 15 mars 1990. Mon numéro est 3 90 03 75 123 456 78.", translation: "I was born on March 15, 1990. My number is 3 90 03 75 123 456 78." },
+                    { speaker: "Receptionist", name: "Réceptionniste", text: "Merci. Qu'est-ce qui vous amène aujourd'hui? Avez-vous des symptômes?", translation: "Thank you. What brings you in today? Do you have any symptoms?" },
+                    { speaker: "Patient", name: "Client", text: "J'ai une toux depuis une semaine et je me sens fatigué.", translation: "I've had a cough for a week and I feel tired." },
+                    { speaker: "Receptionist", name: "Réceptionniste", text: "D'accord. Le médecin peut vous voir demain à 14h ou jeudi à 10h. Quelle heure vous convient?", translation: "Okay. The doctor can see you tomorrow at 2pm or Thursday at 10am. What time works for you?" },
+                    { speaker: "Patient", name: "Client", text: "Demain à 14h, c'est parfait pour moi.", translation: "Tomorrow at 2pm is perfect for me." },
+                    { speaker: "Receptionist", name: "Réceptionniste", text: "Très bien! Voilà votre rendez-vous. À demain!", translation: "Very good! Here's your appointment. See you tomorrow!" }
+                ],
+                keyVocabulary: [
+                    { word: "rendez-vous", translation: "appointment" },
+                    { word: "médecin", translation: "doctor" },
+                    { word: "réceptionniste", translation: "receptionist" },
+                    { word: "nouveau patient", translation: "new patient" },
+                    { word: "date de naissance", translation: "date of birth" },
+                    { word: "symptôme", translation: "symptom" },
+                    { word: "toux", translation: "cough" },
+                    { word: "fatigué", translation: "tired" }
+                ],
+                culturalNote: "In France, healthcare is often covered by 'Sécurité Sociale' (social security). Always bring your 'Carte Vitale' (health card). Appointments are important - being late is considered disrespectful.",
+                practiceGaps: [3, 6, 8]
+            },
+            {
+                id: 6,
+                title: "À la banque - Ouvrir un compte",
+                description: "Opening a bank account",
+                level: "B1",
+                topic: "services",
+                dialogue: [
+                    { speaker: "Customer", name: "Client", text: "Bonjour, je voudrais ouvrir un compte courant.", translation: "Hello, I'd like to open a checking account." },
+                    { speaker: "Banker", name: "Conseiller", text: "Bienvenue! Vous êtes résident en France?", translation: "Welcome! Are you a resident in France?" },
+                    { speaker: "Customer", name: "Client", text: "Oui, je viens de m'installer à Lyon. J'ai un emploi stable.", translation: "Yes, I just moved to Lyon. I have a stable job." },
+                    { speaker: "Banker", name: "Conseiller", text: "Excellent! Avez-vous des documents d'identité? Une pièce d'identité et un justificatif de domicile?", translation: "Excellent! Do you have identity documents? An ID and proof of address?" },
+                    { speaker: "Customer", name: "Client", text: "Oui, j'ai mon passeport et une facture d'électricité.", translation: "Yes, I have my passport and an electricity bill." },
+                    { speaker: "Banker", name: "Conseiller", text: "Parfait! Quel type de compte voulez-vous? Nous avons des formules essentielles ou premium.", translation: "Perfect! What type of account would you like? We have basic or premium options." },
+                    { speaker: "Customer", name: "Client", text: "Quelle est la différence? Et y a-t-il des frais?", translation: "What's the difference? And are there any fees?" },
+                    { speaker: "Banker", name: "Conseiller", text: "La formule essentielle coûte 3€ par mois. La premium offre une assurance voyage et des réductions. Elle coûte 9€.", translation: "The basic plan costs €3 per month. Premium offers travel insurance and discounts. It costs €9." },
+                    { speaker: "Customer", name: "Client", text: "Je prends la formule essentielle pour commencer.", translation: "I'll take the basic plan to start." },
+                    { speaker: "Banker", name: "Conseiller", text: "Bon choix! Voici votre contrat à signer et votre carte bancaire. Bienvenue à notre banque!", translation: "Good choice! Here's your contract to sign and your bank card. Welcome to our bank!" }
+                ],
+                keyVocabulary: [
+                    { word: "compte courant", translation: "checking account" },
+                    { word: "résident", translation: "resident" },
+                    { word: "emploi stable", translation: "stable job" },
+                    { word: "pièce d'identité", translation: "ID document" },
+                    { word: "justificatif de domicile", translation: "proof of address" },
+                    { word: "formule", translation: "plan/package" },
+                    { word: "frais", translation: "fees" },
+                    { word: "assurance voyage", translation: "travel insurance" }
+                ],
+                culturalNote: "French banks require various documents for account opening. The 'Carte Vitale' and bank account are essentials for living in France. Banking services vary significantly by institution and account type.",
+                practiceGaps: [2, 5, 7]
+            },
+            {
+                id: 7,
+                title: "Au travail - Rencontrer un nouveau collègue",
+                description: "Meeting a new colleague at work",
+                level: "B1",
+                topic: "work",
+                dialogue: [
+                    { speaker: "Manager", name: "Chef", text: "Bonjour Sophie! Je te présente Marc, notre nouveau collègue qui arrive du service informatique.", translation: "Hello Sophie! I'd like to introduce you to Marc, our new colleague from the IT department." },
+                    { speaker: "Colleague", name: "Sophie", text: "Enchanté, Marc! Bienvenue dans notre équipe! Quel est votre rôle exactement?", translation: "Nice to meet you, Marc! Welcome to our team! What's your role exactly?" },
+                    { speaker: "NewColleague", name: "Marc", text: "Merci! Je suis développeur web. Je vais travailler sur les nouveaux projets numériques de l'entreprise.", translation: "Thanks! I'm a web developer. I'll be working on the company's new digital projects." },
+                    { speaker: "Colleague", name: "Sophie", text: "C'est intéressant! Vous venez d'où? Vous habitez près d'ici?", translation: "That's interesting! Where are you from? Do you live near here?" },
+                    { speaker: "NewColleague", name: "Marc", text: "Je suis originaire de Marseille, mais je viens de déménager à Paris. C'est ma première semaine!", translation: "I'm from Marseille, but I just moved to Paris. It's my first week!" },
+                    { speaker: "Colleague", name: "Sophie", text: "Oh, quelle transition! Si vous avez besoin de conseils sur la région, n'hésitez pas à demander. Nous allons déjeuner ensemble demain?", translation: "What a change! If you need advice about the area, don't hesitate to ask. Shall we have lunch together tomorrow?" },
+                    { speaker: "NewColleague", name: "Marc", text: "C'est très gentil! Je vous remercie. Où est-ce qu'on déjeune habituellement?", translation: "That's very kind! Thank you. Where do you usually eat lunch?" },
+                    { speaker: "Colleague", name: "Sophie", text: "Il y a une bonne brasserie à côté. La nourriture est excellente et les prix sont raisonnables.", translation: "There's a good brasserie next door. The food is excellent and the prices are reasonable." },
+                    { speaker: "Manager", name: "Chef", text: "Allez, je vous montre vos bureaux maintenant! Marc, tu vas travailler au deuxième étage avec l'équipe IT.", translation: "Come on, let me show you your offices now! Marc, you'll be working on the second floor with the IT team." }
+                ],
+                keyVocabulary: [
+                    { word: "collègue", translation: "colleague" },
+                    { word: "enchanté", translation: "nice to meet you" },
+                    { word: "équipe", translation: "team" },
+                    { word: "développeur web", translation: "web developer" },
+                    { word: "originaire de", translation: "from/originally from" },
+                    { word: "déménager", translation: "to move" },
+                    { word: "déjeuner", translation: "to have lunch/lunch" },
+                    { word: "raisonnable", translation: "reasonable" }
+                ],
+                culturalNote: "French workplace culture values politeness and formal language initially. Using 'tu' (informal) vs 'vous' (formal) is important - wait for senior staff to suggest switching to 'tu'. Lunch is often taken seriously and is a social time in France.",
+                practiceGaps: [2, 4, 6]
+            },
+            {
+                id: 8,
+                title: "Au restaurant - Gérer une commande incorrecte",
+                description: "Dealing with a wrong order at a restaurant",
+                level: "B1",
+                topic: "food",
+                dialogue: [
+                    { speaker: "Customer", name: "Client", text: "Excusez-moi, je crois qu'il y a une erreur. J'ai commandé un steak saignant, pas bien cuit.", translation: "Excuse me, I think there's a mistake. I ordered a rare steak, not well-done." },
+                    { speaker: "Waiter", name: "Serveur", text: "Oh, je suis vraiment désolé! Vous avez raison. Je vais parler au chef immédiatement.", translation: "Oh, I'm really sorry! You're right. I'll speak to the chef immediately." },
+                    { speaker: "Customer", name: "Client", text: "Merci. Et ma compagne a attendu plus de 20 minutes pour son plat aussi.", translation: "Thank you. And my companion has been waiting over 20 minutes for her dish too." },
+                    { speaker: "Waiter", name: "Serveur", text: "C'est inacceptable! Je vais vérifier. Un moment, s'il vous plaît.", translation: "That's unacceptable! I'll check. One moment, please." },
+                    { speaker: "Customer", name: "Client", text: "Bien sûr. Nous ne sommes pas pressés, mais nous aimerions manger ensemble.", translation: "Of course. We're not in a hurry, but we'd like to eat together." },
+                    { speaker: "Waiter", name: "Serveur", text: "Le chef prépare votre steak en ce moment. Pendant ce temps, puis-je vous offrir quelque chose? Un verre de vin ou une eau?", translation: "The chef is preparing your steak now. In the meantime, can I offer you something? A glass of wine or some water?" },
+                    { speaker: "Customer", name: "Client", text: "Un verre d'eau avec des glaçons, s'il vous plaît.", translation: "A glass of water with ice, please." },
+                    { speaker: "Waiter", name: "Serveur", text: "Voilà! (après quelques minutes) Vos plats, mesdames et messieurs. Encore une fois, mes excuses!", translation: "Here you go! (after a few minutes) Your dishes, ladies and gentlemen. Once again, my apologies!" },
+                    { speaker: "Customer", name: "Client", text: "Merci. C'est mieux. Et pour l'attente, allez-vous proposer quelque chose?", translation: "Thank you. That's better. And for the wait, will you offer something?" },
+                    { speaker: "Waiter", name: "Serveur", text: "Bien sûr! Nous vous offrons les desserts et un digestif de la maison. Bon appétit!", translation: "Of course! We're offering you desserts and a complimentary digestif. Bon appétit!" }
+                ],
+                keyVocabulary: [
+                    { word: "erreur", translation: "mistake" },
+                    { word: "steak saignant", translation: "rare steak" },
+                    { word: "bien cuit", translation: "well-done" },
+                    { word: "désolé", translation: "sorry" },
+                    { word: "inacceptable", translation: "unacceptable" },
+                    { word: "pressé", translation: "in a hurry" },
+                    { word: "glaçons", translation: "ice cubes" },
+                    { word: "digestif", translation: "digestive liqueur" }
+                ],
+                culturalNote: "French restaurant etiquette is important. Mistakes happen and are usually handled professionally. Restaurants value customer satisfaction and often offer compensation like free desserts or drinks. Always address staff as 'Monsieur' or 'Madame' unless invited otherwise.",
+                practiceGaps: [2, 5, 8]
+            },
+            {
+                id: 9,
+                title: "À la pharmacie - Demander un médicament",
+                description: "Asking for medication at a pharmacy",
+                level: "B1",
+                topic: "services",
+                dialogue: [
+                    { speaker: "Customer", name: "Client", text: "Bonjour, j'ai mal à la tête depuis ce matin. Vous auriez quelque chose pour l'aider?", translation: "Hello, I've had a headache since this morning. Do you have something to help?" },
+                    { speaker: "Pharmacist", name: "Pharmacien", text: "Bien sûr! Avez-vous de la fièvre aussi? Avez-vous pris de la température?", translation: "Of course! Do you have a fever too? Have you taken your temperature?" },
+                    { speaker: "Customer", name: "Client", text: "Non, pas de fièvre. Juste une migraine vraiment intense. J'ai aussi un peu de mal à digérer.", translation: "No fever. Just a really intense migraine. I also have some digestive issues." },
+                    { speaker: "Pharmacist", name: "Pharmacien", text: "Je comprends. Vous prenez actuellement d'autres médicaments? Avez-vous des allergies?", translation: "I understand. Are you currently taking other medications? Do you have any allergies?" },
+                    { speaker: "Customer", name: "Client", text: "Non, aucune allergie. Je prends de l'aspirine parfois, mais c'est tout.", translation: "No allergies. I sometimes take aspirin, but that's all." },
+                    { speaker: "Pharmacist", name: "Pharmacien", text: "Bon. Je vais vous recommander de l'ibuprofène, c'est très efficace pour les migraines. Et pour la digestion, voici un remède naturel.", translation: "Good. I'll recommend ibuprofen to you - it's very effective for migraines. And for digestion, here's a natural remedy." },
+                    { speaker: "Customer", name: "Client", text: "Combien ça coûte? C'est remboursé par la Sécurité Sociale?", translation: "How much does it cost? Is it covered by social security?" },
+                    { speaker: "Pharmacist", name: "Pharmacien", text: "L'ibuprofène coûte 5,50€ et est généralement remboursé. Le remède naturel n'est pas remboursé, mais coûte seulement 8€.", translation: "Ibuprofen costs €5.50 and is generally covered. The natural remedy isn't covered but only costs €8." },
+                    { speaker: "Customer", name: "Client", text: "Je prends les deux. Quel est le dosage pour l'ibuprofène?", translation: "I'll take both. What's the dosage for ibuprofen?" },
+                    { speaker: "Pharmacist", name: "Pharmacien", text: "Une comprimé toutes les 6 heures, maximum 3 par jour. Et buvez beaucoup d'eau. Au revoir!", translation: "One tablet every 6 hours, maximum 3 per day. And drink plenty of water. Goodbye!" }
+                ],
+                keyVocabulary: [
+                    { word: "mal à la tête", translation: "headache" },
+                    { word: "fièvre", translation: "fever" },
+                    { word: "température", translation: "temperature" },
+                    { word: "migraine", translation: "migraine" },
+                    { word: "digérer", translation: "to digest" },
+                    { word: "allergie", translation: "allergy" },
+                    { word: "ibuprofène", translation: "ibuprofen" },
+                    { word: "remboursé", translation: "covered/reimbursed" }
+                ],
+                culturalNote: "In France, pharmacists ('pharmaciens') are highly trained professionals who can recommend over-the-counter medication. Many medications are covered by 'Sécurité Sociale' if prescribed. Pharmacies are identifiable by a green cross and are regulated to only sell medications.",
+                practiceGaps: [3, 6, 8]
+            },
+            {
+                id: 10,
+                title: "Entretien d'embauche - Entrevue d'emploi",
+                description: "Job interview with potential employer",
+                level: "B2",
+                topic: "work",
+                dialogue: [
+                    { speaker: "Interviewer", name: "Recruteur", text: "Bonjour, merci d'être venu! Je suis Martin Rousseau, directeur des Ressources Humaines. Parlez-moi un peu de vous et de votre expérience.", translation: "Hello, thank you for coming! I'm Martin Rousseau, HR director. Tell me a bit about yourself and your experience." },
+                    { speaker: "Candidate", name: "Candidat", text: "Merci de m'accueillir. Je suis ingénieur informatique avec 5 ans d'expérience dans le développement de logiciels. J'ai travaillé chez plusieurs startups et dans une grande entreprise multinationale.", translation: "Thank you for having me. I'm a software engineer with 5 years of experience in software development. I've worked at several startups and a large multinational company." },
+                    { speaker: "Interviewer", name: "Recruteur", text: "C'est intéressant! Pourquoi avez-vous quitté votre dernier emploi?", translation: "That's interesting! Why did you leave your last job?" },
+                    { speaker: "Candidate", name: "Candidat", text: "J'ai l'intention de trouver un rôle où je pourrais contribuer à des projets plus innovants. Votre entreprise est réputée pour sa culture de l'innovation.", translation: "I'm looking for a role where I could contribute to more innovative projects. Your company is known for its innovative culture." },
+                    { speaker: "Interviewer", name: "Recruteur", text: "Tout à fait! Avez-vous des compétences particulières qui vous distinguent des autres candidats?", translation: "Exactly! Do you have any particular skills that set you apart from other candidates?" },
+                    { speaker: "Candidate", name: "Candidat", text: "Je maîtrise plusieurs langages de programmation - Python, Java, et JavaScript. J'ai aussi une expérience en gestion de projet agile et en leadership d'équipe.", translation: "I master several programming languages - Python, Java, and JavaScript. I also have experience in agile project management and team leadership." },
+                    { speaker: "Interviewer", name: "Recruteur", text: "Excellent! Quel est votre plus grand défi en tant que professionnel?", translation: "Excellent! What's your biggest challenge as a professional?" },
+                    { speaker: "Candidate", name: "Candidat", text: "Je dirais que c'est de trouver l'équilibre entre la qualité du code et les délais serrés. Mais je travaille constamment à l'amélioration de mes compétences de gestion du temps.", translation: "I'd say it's finding the balance between code quality and tight deadlines. But I constantly work on improving my time management skills." },
+                    { speaker: "Interviewer", name: "Recruteur", text: "Comment voyez-vous votre carrière dans 5 ans?", translation: "How do you see your career in 5 years?" },
+                    { speaker: "Candidate", name: "Candidat", text: "J'aimerais devenir architecte logiciel et diriger une équipe d'ingénieurs sur un projet stratégique majeur.", translation: "I'd like to become a software architect and lead an engineering team on a major strategic project." },
+                    { speaker: "Interviewer", name: "Recruteur", text: "Bien! Avez-vous des questions pour moi?", translation: "Good! Do you have any questions for me?" },
+                    { speaker: "Candidate", name: "Candidat", text: "Oui, j'aimerais savoir davantage sur l'équipe avec qui je vais travailler et les défis du projet actuel.", translation: "Yes, I'd like to know more about the team I'll be working with and the challenges of the current project." }
+                ],
+                keyVocabulary: [
+                    { word: "entretien d'embauche", translation: "job interview" },
+                    { word: "ingénieur informatique", translation: "software engineer" },
+                    { word: "expérience", translation: "experience" },
+                    { word: "logiciel", translation: "software" },
+                    { word: "startup", translation: "startup" },
+                    { word: "multinationale", translation: "multinational" },
+                    { word: "innovation", translation: "innovation" },
+                    { word: "compétences", translation: "skills" },
+                    { word: "maîtriser", translation: "to master" },
+                    { word: "délai", translation: "deadline" },
+                    { word: "architecte logiciel", translation: "software architect" }
+                ],
+                culturalNote: "French job interviews tend to be more formal than in English-speaking countries. Emphasize your qualifications and experience. Using 'vous' is essential unless invited to use 'tu'. Research the company beforehand and show genuine interest in their projects.",
+                practiceGaps: [2, 4, 6]
+            },
+            {
+                id: 11,
+                title: "À l'agence immobilière - Louer un appartement",
+                description: "Renting an apartment at a real estate agency",
+                level: "B2",
+                topic: "services",
+                dialogue: [
+                    { speaker: "Agent", name: "Agent immobilier", text: "Bonjour! Bienvenue à notre agence. Comment puis-je vous aider?", translation: "Hello! Welcome to our agency. How can I help you?" },
+                    { speaker: "Client", name: "Client", text: "Bonjour, je recherche un appartement à louer dans le 5ème arrondissement, si possible à proximité de la Sorbonne.", translation: "Hello, I'm looking for an apartment to rent in the 5th district, preferably near the Sorbonne." },
+                    { speaker: "Agent", name: "Agent immobilier", text: "Excellent! Quel est votre budget mensuel et combien de pièces désirez-vous?", translation: "Excellent! What's your monthly budget and how many rooms would you like?" },
+                    { speaker: "Client", name: "Client", text: "Je peux payer jusqu'à 900€ par mois. Je voudrais un studio ou un 1T avec une cuisine aménagée et idéalement un balcon.", translation: "I can pay up to €900 per month. I'd like a studio or 1-bedroom with a fitted kitchen and ideally a balcony." },
+                    { speaker: "Agent", name: "Agent immobilier", text: "Bon! J'ai justement quelques propriétés qui correspondent à vos critères. Pouvez-vous me fournir des documents? Un CDI, des fiches de paie, un garant?", translation: "Great! I have a few properties that match your criteria. Can you provide me with documents? A permanent job contract, pay stubs, a guarantor?" },
+                    { speaker: "Client", name: "Client", text: "Oui, j'ai un CDI depuis deux ans et j'ai des garants familiaux. J'ai aussi une caution de 1800€ à verser.", translation: "Yes, I've had a permanent contract for two years and I have family guarantors. I also have a deposit of €1800 to provide." },
+                    { speaker: "Agent", name: "Agent immobilier", text: "Parfait! Permettez-moi de vous montrer cette propriété. C'est un magnifique 1T au troisième étage, avec balcon orienté sud.", translation: "Perfect! Let me show you this property. It's a beautiful 1-bedroom on the third floor with a south-facing balcony." },
+                    { speaker: "Client", name: "Client", text: "C'est super! Pouvez-vous me parler du contrat? Quelle est la durée du bail?", translation: "That's great! Can you tell me about the contract? What's the lease duration?" },
+                    { speaker: "Agent", name: "Agent immobilier", text: "Le bail est d'un an renouvelable. Le loyer comprend l'accès aux parties communes, mais pas les charges. Les charges sont environ 80€ par mois.", translation: "The lease is for one year renewable. The rent includes access to common areas, but not utilities. Utilities are about €80 per month." },
+                    { speaker: "Client", name: "Client", text: "D'accord. Quand puis-je emménager si je signe aujourd'hui?", translation: "Okay. When can I move in if I sign today?" },
+                    { speaker: "Agent", name: "Agent immobilier", text: "Dès la fin du mois prochain, après vérification de tous vos documents. Je vais préparer le dossier et vous l'envoyer par email.", translation: "From the end of next month, after verification of all your documents. I'll prepare the file and send it to you by email." }
+                ],
+                keyVocabulary: [
+                    { word: "agence immobilière", translation: "real estate agency" },
+                    { word: "louer", translation: "to rent" },
+                    { word: "arrondissement", translation: "district" },
+                    { word: "budget", translation: "budget" },
+                    { word: "studio", translation: "studio apartment" },
+                    { word: "1T (une pièce)", translation: "1-bedroom" },
+                    { word: "cuisine aménagée", translation: "fitted kitchen" },
+                    { word: "balcon", translation: "balcony" },
+                    { word: "CDI", translation: "permanent employment contract" },
+                    { word: "fiche de paie", translation: "pay stub" },
+                    { word: "garant", translation: "guarantor" },
+                    { word: "caution", translation: "deposit" },
+                    { word: "bail", translation: "lease" }
+                ],
+                culturalNote: "French rental market is competitive. Landlords typically require proof of employment (CDI), pay stubs, and a guarantor (often parents). The deposit ('caution') is usually 1-2 months' rent. 'Arrondissements' are Paris districts numbered 1-20. Always read the lease carefully.",
+                practiceGaps: [3, 5, 7]
+            },
+            {
+                id: 12,
+                title: "Discussion d'affaires - Négocier un contrat",
+                description: "Negotiating a business contract",
+                level: "B2",
+                topic: "work",
+                dialogue: [
+                    { speaker: "Manager1", name: "Directrice générale", text: "Merci de m'avoir rencontré. Je voulais discuter des termes de notre contrat de partenariat. Avez-vous eu l'occasion de examiner la proposition?", translation: "Thank you for meeting with me. I wanted to discuss the terms of our partnership contract. Have you had a chance to examine the proposal?" },
+                    { speaker: "Manager2", name: "Chef de projet", text: "Oui, j'ai lu le document. Dans l'ensemble, c'est acceptable, mais j'ai quelques préoccupations concernant les délais de livraison et les pénalités en cas de retard.", translation: "Yes, I've read the document. Overall it's acceptable, but I have some concerns about delivery timelines and late penalties." },
+                    { speaker: "Manager1", name: "Directrice générale", text: "Je comprends vos préoccupations. Pourriez-vous détailler vos points de vue?", translation: "I understand your concerns. Could you detail your points of view?" },
+                    { speaker: "Manager2", name: "Chef de projet", text: "Le délai de 6 mois est très serré pour notre équipe. Nous proposons 8 mois pour assurer la qualité. Concernant les pénalités, 2% par mois nous semble excessive. Nous suggérons 1%.", translation: "The 6-month deadline is very tight for our team. We propose 8 months to ensure quality. Regarding penalties, 2% per month seems excessive. We suggest 1%." },
+                    { speaker: "Manager1", name: "Directrice générale", text: "Je vois. Cependant, nos clients attendent le produit en 6 mois. Pourrions-nous trouver un compromis? Et à propos du prix, l'avez-vous examiné?", translation: "I see. However, our clients expect the product in 6 months. Could we find a compromise? And regarding the price, have you reviewed it?" },
+                    { speaker: "Manager2", name: "Chef de projet", text: "Le prix initial de 150 000€ comprend-il tous les services d'assistance post-livraison? Nous aimerions clarifier cette clause.", translation: "Does the initial price of €150,000 include all post-delivery support services? We'd like to clarify this clause." },
+                    { speaker: "Manager1", name: "Directrice générale", text: "C'est une bonne question. Actuellement, le prix inclut une assistance technique de 6 mois. Au-delà, ce serait un service additionnel facturé séparément.", translation: "That's a good question. Currently, the price includes 6 months of technical support. Beyond that would be an additional paid service." },
+                    { speaker: "Manager2", name: "Chef de projet", text: "Je pense que nous devrions prolonger l'assistance à 12 mois inclus dans le prix, ou réduire le montant global à 140 000€ si c'est seulement 6 mois.", translation: "I think we should extend support to 12 months included in the price, or reduce the total amount to €140,000 if it's only 6 months." },
+                    { speaker: "Manager1", name: "Directrice générale", text: "7 mois pour la livraison et 1,5% de pénalité - c'est notre dernière offre. Et nous pouvons ajouter une assistance de 9 mois pour 145 000€ au total.", translation: "7 months for delivery and 1.5% penalty - that's our best offer. And we can add 9 months of support for €145,000 total." },
+                    { speaker: "Manager2", name: "Chef de projet", text: "Cela me semble raisonnable. Mais j'aimerais une clause de révision si les spécifications changent significativement.", translation: "That seems reasonable to me. But I'd like a clause for revision if specifications change significantly." },
+                    { speaker: "Manager1", name: "Directrice générale", text: "D'accord. Je vais faire préparer un nouvel accord par nos avocats et vous l'enverrai la semaine prochaine.", translation: "Agreed. I'll have our lawyers prepare a new agreement and send it to you next week." }
+                ],
+                keyVocabulary: [
+                    { word: "discussion d'affaires", translation: "business discussion" },
+                    { word: "contrat de partenariat", translation: "partnership contract" },
+                    { word: "délai de livraison", translation: "delivery deadline" },
+                    { word: "pénalité", translation: "penalty" },
+                    { word: "retard", translation: "delay" },
+                    { word: "préoccupation", translation: "concern" },
+                    { word: "serré", translation: "tight" },
+                    { word: "compromis", translation: "compromise" },
+                    { word: "assistance technique", translation: "technical support" },
+                    { word: "montant", translation: "amount" },
+                    { word: "spécifications", translation: "specifications" },
+                    { word: "avocats", translation: "lawyers" }
+                ],
+                culturalNote: "French business culture values detailed discussion and legal clarity. Negotiations can be lengthy and formal. Building relationships is important, but contracts must be very clear. Always have legal review and be prepared to justify your positions with data.",
+                practiceGaps: [2, 4, 6]
+            }
+        ];
+
+        // Initialize page
+        let currentMode = 'read'; // 'read' or 'practice'
+        let currentLevelFilter = '';
+        let currentTopicFilter = '';
+
+        function initPage() {
+            renderNav('conversations');
+            renderFooter();
+            displayConversations();
+            updateProgressStats();
+            loadModePreference();
+        }
+
+        function loadModePreference() {
+            const saved = localStorage.getItem('conversationMode');
+            if (saved) {
+                currentMode = saved;
+                updateModeButtonText();
+            }
+        }
+
+        function displayConversations() {
+            const container = document.getElementById('conversationsContainer');
+            container.innerHTML = '';
+
+            const filtered = conversations.filter(conv => {
+                const levelMatch = !currentLevelFilter || conv.level === currentLevelFilter;
+                const topicMatch = !currentTopicFilter || conv.topic === currentTopicFilter;
+                return levelMatch && topicMatch;
+            });
+
+            filtered.forEach(conv => {
+                const card = createConversationCard(conv);
+                container.appendChild(card);
+            });
+        }
+
+        function createConversationCard(conv) {
+            const card = document.createElement('div');
+            card.className = 'conversation-card';
+            card.id = `conv-${conv.id}`;
+
+            let dialogueHTML = '';
+            
+            if (currentMode === 'read') {
+                dialogueHTML = createReadModeDialogue(conv);
+            } else {
+                dialogueHTML = createPracticeModeDialogue(conv);
+            }
+
+            card.innerHTML = `
+                <div class="conversation-header">
+                    <div>
+                        <h3>${conv.title}</h3>
+                        <p class="conversation-description">${conv.description}</p>
+                    </div>
+                    <span class="level-badge level-${conv.level}">${conv.level}</span>
+                </div>
+
+                ${dialogueHTML}
+
+                <div class="cultural-note">
+                    <strong>Cultural Note:</strong> ${conv.culturalNote}
+                </div>
+
+                ${currentMode === 'practice' ? `
+                    <div class="practice-actions">
+                        <button class="btn btn-primary" onclick="checkAnswers(${conv.id})">Check Answers</button>
+                    </div>
+                ` : ''}
+            `;
+
+            return card;
+        }
+
+        function createReadModeDialogue(conv) {
+            const keyVocabHTML = `
+                <div class="key-vocabulary">
+                    <strong>Key Vocabulary:</strong>
+                    <ul class="vocab-list">
+                        ${conv.keyVocabulary.map(item => `
+                            <li><span class="vocab-word">${item.word}</span> = ${item.translation}</li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+
+            const dialogueHTML = `
+                <div class="dialogue">
+                    ${conv.dialogue.map((line, idx) => {
+                        const isSpeaker1 = ['Customer', 'Client', 'Candidate', 'Sophie', 'Liam', 'Marie', 'Pierre'].includes(line.speaker);
+                        return `
+                            <div class="bubble-container">
+                                <div class="bubble ${isSpeaker1 ? 'bubble-left' : 'bubble-right'}">
+                                    <div class="bubble-label">${line.name}</div>
+                                    <div class="bubble-text">${highlightVocabulary(line.text, conv.keyVocabulary)}</div>
+                                    <div class="bubble-translation">${line.translation}</div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+
+            return `${keyVocabHTML}${dialogueHTML}`;
+        }
+
+        function createPracticeModeDialogue(conv) {
+            const keyVocabHTML = `
+                <div class="key-vocabulary">
+                    <strong>Key Vocabulary:</strong>
+                    <ul class="vocab-list">
+                        ${conv.keyVocabulary.map(item => `
+                            <li><span class="vocab-word">${item.word}</span> = ${item.translation}</li>
+                        `).join('')}
+                    </ul>
+                </div>
+            `;
+
+            const dialogueHTML = `
+                <div class="dialogue practice-mode">
+                    ${conv.dialogue.map((line, idx) => {
+                        const isSpeaker1 = ['Customer', 'Client', 'Candidate', 'Sophie', 'Liam', 'Marie', 'Pierre'].includes(line.speaker);
+                        const hasGap = conv.practiceGaps && conv.practiceGaps.includes(idx + 1);
+                        const displayText = hasGap ? createGapInText(line.text, conv.id, idx) : highlightVocabulary(line.text, conv.keyVocabulary);
+                        
+                        return `
+                            <div class="bubble-container">
+                                <div class="bubble ${isSpeaker1 ? 'bubble-left' : 'bubble-right'}">
+                                    <div class="bubble-label">${line.name}</div>
+                                    <div class="bubble-text">${displayText}</div>
+                                    <div class="bubble-translation">${line.translation}</div>
+                                </div>
+                            </div>
+                        `;
+                    }).join('')}
+                </div>
+            `;
+
+            return `${keyVocabHTML}${dialogueHTML}`;
+        }
+
+        function createGapInText(text, convId, lineIdx) {
+            return `<input type="text" class="practice-input" data-conv="${convId}" data-line="${lineIdx}" data-correct="${text}" placeholder="Type the French text here...">`;
+        }
+
+        function highlightVocabulary(text, vocabulary) {
+            let result = text;
+            vocabulary.forEach(item => {
+                const regex = new RegExp(`\\b${item.word}\\b`, 'gi');
+                result = result.replace(regex, `<span class="vocab-highlight">${item.word}</span>`);
+            });
+            return result;
+        }
+
+        function checkAnswers(convId) {
+            const conv = conversations.find(c => c.id === convId);
+            const inputs = document.querySelectorAll(`[data-conv="${convId}"]`);
+            let correctCount = 0;
+
+            inputs.forEach(input => {
+                const userAnswer = input.value.trim().toLowerCase();
+                const correctAnswer = input.dataset.correct.toLowerCase();
+                
+                if (userAnswer === correctAnswer) {
+                    input.classList.add('correct');
+                    input.classList.remove('incorrect');
+                    correctCount++;
+                } else {
+                    input.classList.add('incorrect');
+                    input.classList.remove('correct');
+                    input.title = `Correct: ${input.dataset.correct}`;
+                }
+            });
+
+            if (correctCount === inputs.length) {
+                alert('Perfect! All answers are correct!');
+                saveProgress(convId, true);
+                updateProgressStats();
+            } else {
+                alert(`${correctCount}/${inputs.length} correct. Keep practicing!`);
+            }
+        }
+
+        function saveProgress(convId, completed) {
+            let progress = JSON.parse(localStorage.getItem('conversationProgress') || '{}');
+            progress[`conv_${convId}`] = {
+                completed: completed,
+                date: new Date().toISOString()
+            };
+            localStorage.setItem('conversationProgress', JSON.stringify(progress));
+        }
+
+        function updateProgressStats() {
+            const progress = JSON.parse(localStorage.getItem('conversationProgress') || '{}');
+            const completedCount = Object.values(progress).filter(p => p.completed).length;
+            const total = conversations.length;
+            const percentage = Math.round((completedCount / total) * 100);
+
+            document.getElementById('completedCount').textContent = completedCount;
+            document.getElementById('progressPercentage').textContent = percentage + '%';
+        }
+
+        function updateModeButtonText() {
+            const button = document.getElementById('modeToggle');
+            button.textContent = currentMode === 'read' ? 'Switch to Practice Mode' : 'Switch to Read Mode';
+        }
+
+        document.getElementById('modeToggle').addEventListener('click', function() {
+            currentMode = currentMode === 'read' ? 'practice' : 'read';
+            localStorage.setItem('conversationMode', currentMode);
+            updateModeButtonText();
+            displayConversations();
+        });
+
+        document.getElementById('levelFilter').addEventListener('change', function(e) {
+            currentLevelFilter = e.target.value;
+            displayConversations();
+        });
+
+        document.getElementById('topicFilter').addEventListener('change', function(e) {
+            currentTopicFilter = e.target.value;
+            displayConversations();
+        });
+
+        document.addEventListener('DOMContentLoaded', initPage);
+    </script>
+
+    <style>
+        .page-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .filters-section {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .filter-group {
+            display: flex;
+            flex-direction: column;
+            gap: 0.5rem;
+        }
+
+        .filter-group label {
+            font-weight: bold;
+            font-size: 0.95rem;
+        }
+
+        .filter-group select,
+        .filter-group button {
+            padding: 0.5rem 1rem;
+            border-radius: 0.5rem;
+            border: 1px solid #ddd;
+            font-size: 1rem;
+        }
+
+        .progress-stats {
+            display: flex;
+            gap: 2rem;
+            margin-bottom: 2rem;
+            padding: 1.5rem;
+            background-color: #f5f5f5;
+            border-radius: 0.5rem;
+        }
+
+        .stat {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-label {
+            font-weight: bold;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            color: #0066cc;
+            font-weight: bold;
+        }
+
+        .conversations-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(500px, 1fr));
+            gap: 2rem;
+        }
+
+        .conversation-card {
+            border: 1px solid #ddd;
+            border-radius: 0.8rem;
+            padding: 1.5rem;
+            background-color: #fff;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .conversation-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: flex-start;
+            margin-bottom: 1rem;
+            gap: 1rem;
+        }
+
+        .conversation-header h3 {
+            margin: 0 0 0.5rem 0;
+            color: #333;
+        }
+
+        .conversation-description {
+            margin: 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 0.5rem 1rem;
+            border-radius: 20px;
+            font-weight: bold;
+            font-size: 0.85rem;
+            white-space: nowrap;
+        }
+
+        .level-badge.level-A2 {
+            background-color: #d4edda;
+            color: #155724;
+        }
+
+        .level-badge.level-B1 {
+            background-color: #fff3cd;
+            color: #856404;
+        }
+
+        .level-badge.level-B2 {
+            background-color: #d1ecf1;
+            color: #0c5460;
+        }
+
+        .key-vocabulary {
+            margin-bottom: 1.5rem;
+            padding: 1rem;
+            background-color: #f9f9f9;
+            border-left: 4px solid #0066cc;
+            border-radius: 0.3rem;
+        }
+
+        .vocab-list {
+            list-style: none;
+            padding: 0;
+            margin: 0.5rem 0 0 0;
+        }
+
+        .vocab-list li {
+            padding: 0.25rem 0;
+            font-size: 0.9rem;
+        }
+
+        .vocab-word {
+            font-weight: bold;
+            color: #0066cc;
+        }
+
+        .vocab-highlight {
+            background-color: #fff4e6;
+            font-weight: bold;
+            padding: 0.1rem 0.3rem;
+            border-radius: 0.2rem;
+        }
+
+        .dialogue {
+            margin: 1.5rem 0;
+            max-height: 500px;
+            overflow-y: auto;
+        }
+
+        .dialogue.practice-mode {
+            background-color: #fafafa;
+            padding: 1rem;
+            border-radius: 0.5rem;
+        }
+
+        .bubble-container {
+            margin-bottom: 1rem;
+            display: flex;
+        }
+
+        .bubble {
+            max-width: 85%;
+            padding: 1rem;
+            border-radius: 0.8rem;
+            background-color: #e6f2ff;
+        }
+
+        .bubble-left {
+            margin-right: auto;
+        }
+
+        .bubble-right {
+            margin-left: auto;
+            background-color: #fff4e6;
+        }
+
+        .bubble-label {
+            font-weight: bold;
+            font-size: 0.85rem;
+            margin-bottom: 0.3rem;
+            color: #666;
+        }
+
+        .bubble-text {
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
+        }
+
+        .bubble-translation {
+            font-size: 0.85rem;
+            color: #666;
+            font-style: italic;
+            border-top: 1px solid rgba(0,0,0,0.1);
+            padding-top: 0.5rem;
+            margin-top: 0.5rem;
+        }
+
+        .practice-input {
+            width: 100%;
+            padding: 0.5rem;
+            border: 2px solid #ddd;
+            border-radius: 0.3rem;
+            font-family: inherit;
+            font-size: 1rem;
+        }
+
+        .practice-input.correct {
+            border-color: #28a745;
+            background-color: #f1f9f7;
+        }
+
+        .practice-input.incorrect {
+            border-color: #dc3545;
+            background-color: #fff5f5;
+        }
+
+        .cultural-note {
+            background-color: #f0f4f8;
+            padding: 1rem;
+            border-radius: 0.5rem;
+            font-size: 0.95rem;
+            margin-top: 1rem;
+            border-left: 4px solid #0066cc;
+        }
+
+        .practice-actions {
+            margin-top: 1rem;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .btn {
+            padding: 0.7rem 1.5rem;
+            border: none;
+            border-radius: 0.5rem;
+            cursor: pointer;
+            font-size: 1rem;
+            transition: background-color 0.3s;
+        }
+
+        .btn-primary {
+            background-color: #0066cc;
+            color: white;
+        }
+
+        .btn-primary:hover {
+            background-color: #0052a3;
+        }
+
+        .btn-secondary {
+            background-color: #6c757d;
+            color: white;
+        }
+
+        .btn-secondary:hover {
+            background-color: #5a6268;
+        }
+
+        @media (max-width: 768px) {
+            .conversations-container {
+                grid-template-columns: 1fr;
+            }
+
+            .filters-section {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .conversation-header {
+                flex-direction: column;
+            }
+
+            .progress-stats {
+                flex-direction: column;
+                gap: 1rem;
+            }
+        }
+    </style>
+</body>
+</html>

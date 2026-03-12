@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Grammar - TEF Master</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* Grammar-specific styles */
+    .grammar-toolbar {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      gap: 0.5rem;
+      padding: 1rem;
+      background: #fff;
+      border-bottom: 2px solid #e2e8f0;
+      position: sticky;
+      top: 0;
+      z-index: 10;
+    }
+    .grammar-toolbar .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      justify-content: center;
+    }
+    .grammar-toolbar .search-wrap {
+      width: 100%;
+      max-width: 400px;
+      margin-top: 0.4rem;
+    }
+    .grammar-toolbar input {
+      width: 100%;
+      padding: 0.45rem 0.8rem;
+      border: 2px solid #e2e8f0;
+      border-radius: 8px;
+      font-size: 0.9rem;
+    }
+    .grammar-toolbar input:focus {
+      outline: none;
+      border-color: #2563eb;
+    }
+    .toolbar-actions {
+      display: flex;
+      gap: 0.5rem;
+      margin-top: 0.4rem;
+      justify-content: center;
+    }
+    .toolbar-actions button {
+      background: #f1f5f9;
+      border: 1px solid #cbd5e1;
+      color: #475569;
+      font-size: 0.78rem;
+      padding: 0.35rem 0.7rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: 0.2s;
+    }
+    .toolbar-actions button:hover {
+      background: #e2e8f0;
+      border-color: #94a3b8;
+    }
+
+    .grammar-section {
+      background: #fff;
+      border-radius: 12px;
+      margin-bottom: 1rem;
+      box-shadow: 0 1px 4px rgba(0,0,0,.08);
+      overflow: hidden;
+      border-left: 4px solid #2563eb;
+    }
+    .grammar-section[data-level="a2"] {
+      border-left-color: #22c55e;
+    }
+    .grammar-section[data-level="b1"] {
+      border-left-color: #f59e0b;
+    }
+    .grammar-section[data-level="b2"] {
+      border-left-color: #ef4444;
+    }
+
+    .grammar-header {
+      padding: 0.9rem 1.1rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-bottom: 1px solid #e2e8f0;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      cursor: pointer;
+      user-select: none;
+      transition: background 0.2s;
+    }
+    .grammar-header:hover {
+      background: #f8fafc;
+    }
+    .grammar-header .arrow {
+      transition: transform 0.2s;
+      display: inline-block;
+      font-size: 0.8rem;
+    }
+    .grammar-header .arrow.open {
+      transform: rotate(90deg);
+    }
+    .grammar-header .level-badge {
+      display: inline-block;
+      padding: 2px 10px;
+      border-radius: 12px;
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: #fff;
+      margin-left: auto;
+      vertical-align: middle;
+    }
+    .grammar-header .level-badge.a2 {
+      background: #22c55e;
+    }
+    .grammar-header .level-badge.b1 {
+      background: #f59e0b;
+    }
+    .grammar-header .level-badge.b2 {
+      background: #ef4444;
+    }
+
+    .grammar-content {
+      padding: 1.2rem;
+      display: none;
+    }
+    .grammar-content.show {
+      display: block;
+    }
+
+    /* Tables */
+    .table-wrap {
+      overflow-x: auto;
+    }
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-bottom: 0.8rem;
+      font-size: 0.86rem;
+    }
+    th {
+      background: #eef2ff;
+      padding: 0.5rem 0.7rem;
+      text-align: left;
+      font-weight: 600;
+      border-bottom: 2px solid #c7d2fe;
+    }
+    td {
+      padding: 0.45rem 0.7rem;
+      border-bottom: 1px solid #f1f5f9;
+    }
+    tr:hover td {
+      background: #fafbff;
+    }
+
+    /* Conjugation grids */
+    .conjugation-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(130px, 1fr));
+      gap: 0.4rem;
+      margin: 0.5rem 0;
+    }
+    .conj-card {
+      background: #f8fafc;
+      border: 1px solid #e2e8f0;
+      border-radius: 8px;
+      padding: 0.4rem 0.6rem;
+      font-size: 0.84rem;
+    }
+    .conj-card .pronoun {
+      font-weight: 700;
+      color: #2563eb;
+      font-size: 0.78rem;
+    }
+    .conj-card .form {
+      font-size: 0.88rem;
+      margin-top: 1px;
+    }
+
+    /* Example and tip boxes */
+    .example {
+      background: #f0fdf4;
+      border-left: 3px solid #22c55e;
+      padding: 0.5rem 0.8rem;
+      margin: 0.5rem 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.86rem;
+    }
+    .example em {
+      color: #166534;
+      font-style: normal;
+      font-weight: 600;
+    }
+    .tip {
+      background: #fef3c7;
+      border-left: 3px solid #f59e0b;
+      padding: 0.5rem 0.8rem;
+      margin: 0.6rem 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.84rem;
+    }
+    .tip strong {
+      color: #92400e;
+    }
+    .warning {
+      background: #fef2f2;
+      border-left: 3px solid #ef4444;
+      padding: 0.5rem 0.8rem;
+      margin: 0.6rem 0;
+      border-radius: 0 6px 6px 0;
+      font-size: 0.84rem;
+    }
+    .warning strong {
+      color: #991b1b;
+    }
+
+    /* Practice boxes */
+    .practice-box {
+      background: #f0f9ff;
+      border: 2px solid #bae6fd;
+      border-radius: 10px;
+      padding: 1rem;
+      margin-top: 0.8rem;
+    }
+    .practice-box h4 {
+      color: #0369a1;
+      font-size: 0.9rem;
+      margin-bottom: 0.5rem;
+    }
+    .practice-q {
+      margin-bottom: 0.5rem;
+      font-size: 0.86rem;
+    }
+    .practice-q .answer {
+      color: #0369a1;
+      font-weight: 700;
+      cursor: pointer;
+      background: #e0f2fe;
+      padding: 1px 6px;
+      border-radius: 4px;
+      font-size: 0.82rem;
+      transition: background 0.2s;
+    }
+    .practice-q .answer:hover {
+      background: #bae6fd;
+    }
+    .practice-q .answer.revealed {
+      background: #dcfce7;
+      color: #166534;
+    }
+
+    /* Stats row */
+    .grammar-stats {
+      display: flex;
+      gap: 0.8rem;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 1.5rem;
+    }
+    .grammar-stat-card {
+      background: #fff;
+      border-radius: 10px;
+      padding: 0.8rem 1.2rem;
+      text-align: center;
+      min-width: 110px;
+      box-shadow: 0 1px 4px rgba(0,0,0,.06);
+    }
+    .grammar-stat-card .num {
+      font-size: 1.6rem;
+      font-weight: 800;
+    }
+    .grammar-stat-card .label {
+      font-size: 0.75rem;
+      color: #64748b;
+      margin-top: 2px;
+    }
+    .stat-a2 { color: #16a34a; }
+    .stat-b1 { color: #d97706; }
+    .stat-b2 { color: #dc2626; }
+
+    .no-match {
+      text-align: center;
+      padding: 2rem;
+      color: #94a3b8;
+      font-size: 1rem;
+      display: none;
+    }
+
+    .print-btn {
+      position: fixed;
+      bottom: 1.5rem;
+      right: 1.5rem;
+      background: #2563eb;
+      color: #fff;
+      border: none;
+      padding: 0.65rem 1.1rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 0.88rem;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(37,99,235,.35);
+      z-index: 20;
+      transition: background 0.2s;
+    }
+    .print-btn:hover {
+      background: #1d4ed8;
+    }
+
+    .intro-box {
+      background: #eff6ff;
+      border: 1px solid #bfdbfe;
+      border-radius: 10px;
+      padding: 1rem 1.2rem;
+      margin-bottom: 1.5rem;
+      font-size: 0.88rem;
+    }
+    .intro-box strong {
+      color: #1e40af;
+    }
+
+    @media print {
+      .grammar-toolbar, .print-btn, .toolbar-actions {
+        display: none;
+      }
+      .grammar-content {
+        display: block !important;
+      }
+      .grammar-section {
+        break-inside: avoid;
+        border-left: 3px solid #999;
+      }
+    }
+
+    @media (max-width: 600px) {
+      .grammar-stats {
+        gap: 0.4rem;
+      }
+      .grammar-stat-card {
+        min-width: 80px;
+        padding: 0.5rem 0.6rem;
+      }
+      .grammar-stat-card .num {
+        font-size: 1.2rem;
+      }
+      .grammar-toolbar .search-wrap {
+        max-width: 100%;
+      }
+    }
+  </style>
+</head>
+<body>
+
+<div class="hero">
+  <h1>📘 Grammar Reference</h1>
+  <p>Master French grammar from A2 to B2 for TEF Canada (CLB 7)</p>
+  <div class="sub">16 essential grammar topics with conjugation tables, examples, and practice</div>
+</div>
+
+<div class="grammar-toolbar">
+  <div class="filters">
+    <button class="pill active" data-filter="all">All Topics</button>
+    <button class="pill" data-filter="a2">🟢 A2 Foundation</button>
+    <button class="pill" data-filter="b1">🟡 B1 Intermediate</button>
+    <button class="pill" data-filter="b2">🔴 B2 Advanced</button>
+  </div>
+  <div class="search-wrap">
+    <input type="text" id="searchBox" placeholder="🔍 Search topics (subjunctive, passé composé, pronouns...)">
+  </div>
+  <div class="toolbar-actions">
+    <button id="expandAllBtn">📖 Expand All</button>
+    <button id="collapseAllBtn">📕 Collapse All</button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="grammar-stats">
+    <div class="grammar-stat-card"><div class="num stat-a2" id="a2Count">0</div><div class="label">A2 Topics</div></div>
+    <div class="grammar-stat-card"><div class="num stat-b1" id="b1Count">0</div><div class="label">B1 Topics</div></div>
+    <div class="grammar-stat-card"><div class="num stat-b2" id="b2Count">0</div><div class="label">B2 Topics</div></div>
+    <div class="grammar-stat-card"><div class="num" style="color:#2563eb" id="totalTopics">0</div><div class="label">Total Topics</div></div>
+  </div>
+
+  <div class="intro-box">
+    <strong>📌 How to Use:</strong> Click any topic to expand it. Use level filters to focus on your study phase. Search to find specific grammar points. Each topic includes conjugation tables, examples, tips, and practice exercises.
+    <strong>Study progression:</strong> Master A2 (weeks 1-3) → B1 (weeks 3-6) → B2 (weeks 6-9).
+  </div>
+
+  <div id="sections-container"></div>
+  <div class="no-match" id="noMatch">No grammar topics match your search.</div>
+</div>
+
+<button class="print-btn" id="printBtn">🖨️ Print / Save PDF</button>
+
+<script src="../js/progress-tracker.js"></script>
+<script src="../js/nav.js"></script>
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+  renderNav('grammar');
+  renderFooter();
+
+  const grammar = [
+    // ===== A2 TOPICS =====
+    {level:"a2",title:"Articles & Partitive Articles",search:"articles partitive du de la des un une le la les",content:`
+<p><strong>Definite Articles:</strong></p>
+<div class="table-wrap">
+<table>
+<tr><th>Singular Masculine</th><th>Singular Feminine</th><th>Before Vowel/H</th><th>Plural</th></tr>
+<tr><td><strong>le</strong> livre</td><td><strong>la</strong> maison</td><td><strong>l'</strong>école</td><td><strong>les</strong> enfants</td></tr>
+</table>
+</div>
+<p style="margin-top:.8rem"><strong>Indefinite Articles:</strong></p>
+<div class="table-wrap">
+<table>
+<tr><th>Masculine</th><th>Feminine</th><th>Plural</th></tr>
+<tr><td><strong>un</strong> chat</td><td><strong>une</strong> table</td><td><strong>des</strong> livres</td></tr>
+</table>
+</div>
+<p style="margin-top:.8rem"><strong>Partitive Articles</strong> (some / any):</p>
+<div class="table-wrap">
+<table>
+<tr><th>Masculine</th><th>Feminine</th><th>Before Vowel</th><th>Negative / Plural</th></tr>
+<tr><td><strong>du</strong> pain</td><td><strong>de la</strong> confiture</td><td><strong>de l'</strong>eau</td><td><strong>de / d'</strong></td></tr>
+</table>
+</div>
+<div class="example"><em>Je mange <strong>du</strong> fromage.</em> → I eat (some) cheese.</div>
+<div class="example"><em>Je ne mange pas <strong>de</strong> fromage.</em> → I don't eat (any) cheese.</div>
+<div class="warning"><strong>⚠️ Common Error:</strong> In negative sentences, du/de la/des all become <strong>de</strong> (or d'). "Je n'ai pas <strong>de</strong> frères" NOT "Je n'ai pas des frères."</div>
+<div class="tip"><strong>TEF Tip:</strong> Partitive articles appear constantly in listening and reading. They indicate an unspecified quantity: "Je veux <strong>de la</strong> salade" (some salad) vs "Je veux <strong>la</strong> salade" (the specific salad).</div>
+<div class="practice-box"><h4>🧪 Quick Practice</h4>
+<div class="practice-q">1. Je bois ___ café le matin. <span class="answer"  data-a="du">Show Answer</span></div>
+<div class="practice-q">2. Elle ne mange pas ___ viande. <span class="answer"  data-a="de">Show Answer</span></div>
+<div class="practice-q">3. Nous avons ___ amis sympathiques. <span class="answer"  data-a="des">Show Answer</span></div>
+</div>
+`},
+
+    {level:"a2",title:"Present Tense (Le Présent)",search:"present tense présent regular er ir re verbs conjugation",content:`
+<p><strong>Regular -ER verbs (parler — to speak):</strong></p>
+<div class="conjugation-grid">
+<div class="conj-card"><div class="pronoun">je</div><div class="form">parl<strong>e</strong></div></div>
+<div class="conj-card"><div class="pronoun">tu</div><div class="form">parl<strong>es</strong></div></div>
+<div class="conj-card"><div class="pronoun">il/elle</div><div class="form">parl<strong>e</strong></div></div>
+<div class="conj-card"><div class="pronoun">nous</div><div class="form">parl<strong>ons</strong></div></div>
+<div class="conj-card"><div class="pronoun">vous</div><div class="form">parl<strong>ez</strong></div></div>
+<div class="conj-card"><div class="pronoun">ils/elles</div><div class="form">parl<strong>ent</strong></div></div>
+</div>
+<p style="margin-top:.8rem"><strong>Regular -IR verbs (finir — to finish):</strong></p>
+<div class="conjugation-grid">
+<div class="conj-card"><div class="pronoun">je</div><div class="form">fin<strong>is</strong></div></div>
+<div class="conj-card"><div class="pronoun">tu</div><div class="form">fin<strong>is</strong></div></div>
+<div class="conj-card"><div class="pronoun">il/elle</div><div class="form">fin<strong>it</strong></div></div>
+<div class="conj-card"><div class="pronoun">nous</div><div class="form">fin<strong>issons</strong></div></div>
+<div class="conj-card"><div class="pronoun">vous</div><div class="form">fin<strong>issez</strong></div></div>
+<div class="conj-card"><div class="pronoun">ils/elles</div><div class="form">fin<strong>issent</strong></div></div>
+</div>
+<p style="margin-top:.8rem"><strong>Regular -RE verbs (vendre — to sell):</strong></p>
+<div class="conjugation-grid">
+<div class="conj-card"><div class="pronoun">je</div><div class="form">vend<strong>s</strong></div></div>
+<div class="conj-card"><div class="pronoun">tu</div><div class="form">vend<strong>s</strong></div></div>
+<div class="conj-card"><div class="pronoun">il/elle</div><div class="form">vend (—)</div></div>
+<div class="conj-card"><div class="pronoun">nous</div><div class="form">vend<strong>ons</strong></div></div>
+<div class="conj-card"><div class="pronoun">vous</div><div class="form">vend<strong>ez</strong></div></div>
+<div class="conj-card"><div class="pronoun">ils/elles</div><div class="form">vend<strong>ent</strong></div></div>
+</div>
+<div class="tip"><strong>TEF Tip:</strong> Master these 20 common irregular verbs: être, avoir, aller, faire, pouvoir, vouloir, devoir, savoir, venir, prendre, mettre, dire, voir, croire, écrire, lire, partir, sortir, connaître, vivre.</div>
+<div class="practice-box"><h4>🧪 Quick Practice</h4>
+<div class="practice-q">1. Nous (parler) ___ français. <span class="answer"  data-a="parlons">Show Answer</span></div>
+<div class="practice-q">2. Elles (finir) ___ le travail. <span class="answer"  data-a="finissent">Show Answer</span></div>
+<div class="practice-q">3. Tu (vendre) ___ ta voiture? <span class="answer"  data-a="vends">Show Answer</span></div>
+</div>
+`},
+
+    {level:"a2",title:"Negation (La Négation)",search:"negation ne pas plus jamais rien personne negative",content:`
+<p><strong>Basic structure:</strong> <em>ne</em> + VERB + <em>pas/plus/jamais/rien/personne</em></p>
+<div class="table-wrap">
+<table>
+<tr><th>French</th><th>English</th><th>Example</th></tr>
+<tr><td>ne...pas</td><td>not</td><td><em>Je <strong>ne</strong> parle <strong>pas</strong> anglais.</em></td></tr>
+<tr><td>ne...plus</td><td>no more / no longer</td><td><em>Il <strong>ne</strong> fume <strong>plus</strong>.</em></td></tr>
+<tr><td>ne...jamais</td><td>never</td><td><em>Elle <strong>ne</strong> mange <strong>jamais</strong> de viande.</em></td></tr>
+<tr><td>ne...rien</td><td>nothing</td><td><em>Je <strong>ne</strong> vois <strong>rien</strong>.</em></td></tr>
+<tr><td>ne...personne</td><td>nobody</td><td><em>Il <strong>ne</strong> connaît <strong>personne</strong>.</em></td></tr>
+<tr><td>ne...aucun(e)</td><td>not a single / no</td><td><em>Je <strong>n'</strong>ai <strong>aucune</strong> idée.</em></td></tr>
+<tr><td>ne...ni...ni</td><td>neither...nor</td><td><em>Il <strong>ne</strong> boit <strong>ni</strong> café <strong>ni</strong> thé.</em></td></tr>
+</table>
+</div>
+<div class="warning"><strong>⚠️ With compound tenses:</strong> ne...pas wraps the auxiliary: <em>Je <strong>n'ai pas</strong> mangé.</em> But ne...personne wraps everything: <em>Je <strong>n'ai</strong> vu <strong>personne</strong>.</em></div>
+<div class="tip"><strong>TEF Tip:</strong> In spoken French, "ne" is often dropped. In TEF listening, you'll hear "Je sais pas" instead of "Je ne sais pas." But in writing, always include "ne"!</div>
+<div class="practice-box"><h4>🧪 Quick Practice</h4>
+<div class="practice-q">1. Make negative: "Je parle français." → <span class="answer"  data-a="Je ne parle pas français.">Show Answer</span></div>
+<div class="practice-q">2. "Il mange toujours au restaurant." (never) → <span class="answer"  data-a="Il ne mange jamais au restaurant.">Show Answer</span></div>
+<div class="practice-q">3. "Elle a vu quelqu'un." (nobody) → <span class="answer"  data-a="Elle n'a vu personne.">Show Answer</span></div>
+</div>
+`},
+
+    {level:"a2",title:"Passé Composé",search:"passé composé past tense avoir être participle dr mrs vandertramp",content:`
+<p><strong>Formation:</strong> avoir/être (present) + past participle</p>
+<div class="table-wrap">
+<table>
+<tr><th>Type</th><th>Rule</th><th>Example</th></tr>
+<tr><td>-ER → -é</td><td>parler → parlé</td><td><em>J'<strong>ai parlé</strong></em></td></tr>
+<tr><td>-IR → -i</td><td>finir → fini</td><td><em>Il <strong>a fini</strong></em></td></tr>
+<tr><td>-RE → -u</td><td>vendre → vendu</td><td><em>Nous <strong>avons vendu</strong></em></td></tr>
+</table>
+</div>
+<p style="margin-top:.8rem"><strong>Verbs with ÊTRE (DR MRS VANDERTRAMP):</strong></p>
+<div class="table-wrap">
+<table>
+<tr><td>Devenir</td><td>Revenir</td><td>Monter</td><td>Retourner</td></tr>
+<tr><td>Sortir</td><td>Venir</td><td>Aller</td><td>Naître</td></tr>
+<tr><td>Descendre</td><td>Entrer</td><td>Rentrer</td><td>Tomber</td></tr>
+<tr><td>Rester</td><td>Arriver</td><td>Mourir</td><td>Partir</td></tr>
+</table>
+</div>
+<div class="example"><em>Elle <strong>est allée</strong> au marché.</em> (She went — agreement with feminine subject!)</div>
+<p style="margin-top:.8rem"><strong>Common irregular past participles:</strong></p>
+<div class="table-wrap">
+<table>
+<tr><th>Verb</th><th>Participle</th><th>Verb</th><th>Participle</th></tr>
+<tr><td>être</td><td>été</td><td>avoir</td><td>eu</td></tr>
+<tr><td>faire</td><td>fait</td><td>prendre</td><td>pris</td></tr>
+<tr><td>mettre</td><td>mis</td><td>dire</td><td>dit</td></tr>
+<tr><td>écrire</td><td>écrit</td><td>lire</td><td>lu</td></tr>
+<tr><td>voir</td><td>vu</td><td>pouvoir</td><td>pu</td></tr>
+<tr><td>vouloir</td><td>voulu</td><td>devoir</td><td>dû</td></tr>
+<tr><td>savoir</td><td>su</td><td>croire</td><td>cru</td></tr>
+<tr><td>ouvrir</td><td>ouvert</td><td>mourir</td><td>mort</td></tr>
+</table>
+</div>
+<div class="tip"><strong>TEF Tip:</strong> With être verbs, the past participle AGREES with the subject: il est allé / elle est allé<strong>e</strong> / ils sont allé<strong>s</strong> / elles sont allé<strong>es</strong></div>
+<div class="practice-box"><h4>🧪 Quick Practice</h4>
+<div class="practice-q">1. Elle (aller) ___ au cinéma hier. <span class="answer"  data-a="est allée">Show Answer</span></div>
+<div class="practice-q">2. Nous (faire) ___ nos devoirs. <span class="answer"  data-a="avons fait">Show Answer</span></div>
+<div class="practice-q">3. Ils (prendre) ___ le train de 8h. <span class="answer"  data-a="ont pris">Show Answer</span></div>
+</div>
+`},
+
+    {level:"a2",title:"Imparfait (Imperfect Tense)",search:"imparfait imperfect tense habitual past ongoing",content:`
+<p><strong>Formation:</strong> nous-form present stem + endings: -ais, -ais, -ait, -ions, -iez, -aient</p>
+<div class="conjugation-grid">
+<div class="conj-card"><div class="pronoun">je</div><div class="form">parl<strong>ais</strong></div></div>
+<div class="conj-card"><div class="pronoun">tu</div><div class="form">parl<strong>ais</strong></div></div>
+<div class="conj-card"><div class="pronoun">il/elle</div><div class="form">parl<strong>ait</strong></div></div>
+<div class="conj-card"><div class="pronoun">nous</div><div class="form">parl<strong>ions</strong></div></div>
+<div class="conj-card"><div class="pronoun">vous</div><div class="form">parl<strong>iez</strong></div></div>
+<div class="conj-card"><div class="pronoun">ils/elles</div><div class="form">parl<strong>aient</strong></div></div>
+</div>
+<p style="margin-top:.8rem"><strong>Passé Composé vs Imparfait — the KEY distinction:</strong></p>
+<div class="table-wrap">
+<table>
+<tr><th></th><th>Passé Composé</th><th>Imparfait</th></tr>
+<tr><td><strong>What</strong></td><td>Completed single actions</td><td>Ongoing / habitual actions</td></tr>
+<tr><td><strong>When</strong></td><td>Specific time / sequence</td><td>Background / description</td></tr>
+<tr><td><strong>Think</strong></td><td>📸 Snapshot</td><td>🎬 Video (ongoing scene)</td></tr>
+<tr><td><strong>Example</strong></td><td><em>J'ai mangé à 8h.</em></td><td><em>Je mangeais quand il est arrivé.</em></td></tr>
+</table>
+</div>
+<div class="warning"><strong>⚠️ Only exception:</strong> être has irregular stem → ét- (j'étais, tu étais, etc.)</div>
+<div class="tip"><strong>TEF Tip:</strong> The PC vs Imparfait distinction is one of the most heavily tested topics. Remember: PC = "what happened" (event), Imparfait = "what was happening" (scene).</div>
+<div class="practice-box"><h4>🧪 Quick Practice — PC or Imparfait?</h4>
+<div class="practice-q">1. Quand j'étais petit, je (jouer) ___ dans le parc. <span class="answer"  data-a="jouais (imparfait — habitual)">Show Answer</span></div>
+<div class="practice-q">2. Hier, il (pleuvoir) ___ quand je (sortir) ___. <span class="answer"  data-a="pleuvait (scene) / suis sorti(e) (event)">Show Answer</span></div>
+</div>
+`},
+
+    {level:"a2",title:"Adjective Agreement & Placement",search:"adjective agreement feminine plural placement position bangs",content:`
+<p><strong>Basic agreement rules:</strong></p>
+<div class="table-wrap">
+<table>
+<tr><th></th><th>Masculine</th><th>Feminine</th><th>Masc. Plural</th><th>Fem. Plural</th></tr>
+<tr><td>Regular</td><td>petit</td><td>petit<strong>e</strong></td><td>petit<strong>s</strong></td><td>petit<strong>es</strong></td></tr>
+<tr><td>-eux</td><td>heureux</td><td>heureus<strong>e</strong></td><td>heureux</td><td>heureus<strong>es</strong></td></tr>
+<tr><td>-if</td><td>actif</td><td>act<strong>ive</strong></td><td>act<strong>ifs</strong></td><td>act<strong>ives</strong></td></tr>
+<tr><td>-er</td><td>premier</td><td>premiè<strong>re</strong></td><td>premi<strong>ers</strong></td><td>premiè<strong>res</strong></td></tr>
+<tr><td>Irregular</td><td>beau/nouveau/vieux</td><td>belle/nouvelle/vieille</td><td>beaux/nouveaux/vieux</td><td>belles/nouvelles/vieilles</td></tr>
+</table>
+</div>
+<p style="margin-top:.8rem"><strong>Placement — BANGS adjectives go BEFORE the noun:</strong></p>
+<div class="table-wrap">
+<table>
+<tr><th>Letter</th><th>Category</th><th>Examples</th></tr>
+<tr><td><strong>B</strong></td><td>Beauty</td><td>beau, joli</td></tr>
+<tr><td><strong>A</strong></td><td>Age</td><td>jeune, vieux, nouveau, ancien</td></tr>
+<tr><td><strong>N</strong></td><td>Number</td><td>premier, deuxième, dernier</td></tr>
+<tr><td><strong>G</strong></td><td>Goodness</td><td>bon, mauvais, meilleur</td></tr>
+<tr><td><strong>S</strong></td><td>Size</td><td>petit, grand, gros, long</td></tr>
+</table>
+</div>
+<div class="example"><em>une <strong>belle</strong> maison</em> (BANGS → before) vs. <em>une maison <strong>rouge</strong></em> (color → after)</div>
+<div class="tip"><strong>TEF Tip:</strong> Most adjectives go AFTER the noun. Only BANGS adjectives go before. When in doubt, put it after.</div>
+<div class="practice-box"><h4>🧪 Quick Practice</h4>
+<div class="practice-q">1. Un ___ homme ___ (vieux / intelligent) → <span class="answer"  data-a="Un vieil homme intelligent">Show Answer</span></div>
+<div class="practice-q">2. Une fille (sportif, fém.) → <span class="answer"  data-a="une fille sportive">Show Answer</span></div>
+</div>
+`},
+
+    // ===== B1 TOPICS =====
+    {level:"b1",title:"Future Simple & Conditional Present",search:"future futur simple conditional conditionnel would will irregular stems",content:`
+<p><strong>Futur Simple:</strong> infinitive + avoir endings (-ai, -as, -a, -ons, -ez, -ont)</p>
+<div class="conjugation-grid">
+<div class="conj-card"><div class="pronoun">je</div><div class="form">parler<strong>ai</strong></div></div>
+<div class="conj-card"><div class="pronoun">tu</div><div class="form">parler<strong>as</strong></div></div>
+<div class="conj-card"><div class="pronoun">il/elle</div><div class="form">parler<strong>a</strong></div></div>
+<div class="conj-card"><div class="pronoun">nous</div><div class="form">parler<strong>ons</strong></div></div>
+<div class="conj-card"><div class="pronoun">vous</div><div class="form">parler<strong>ez</strong></div></div>
+<div class="conj-card"><div class="pronoun">ils/elles</div><div class="form">parler<strong>ont</strong></div></div>
+</div>
+<p style="margin-top:.8rem"><strong>Conditionnel Présent:</strong> infinitive + imparfait endings (-ais, -ais, -ait, -ions, -iez, -aient)</p>
+<p style="margin-top:.5rem"><strong>Key irregular stems (SAME for both tenses):</strong></p>
+<div class="table-wrap">
+<table>
+<tr><th>Verb</th><th>Stem</th><th>Future</th><th>Conditional</th></tr>
+<tr><td>être</td><td>ser-</td><td>je serai</td><td>je serais</td></tr>
+<tr><td>avoir</td><td>aur-</td><td>j'aurai</td><td>j'aurais</td></tr>
+<tr><td>aller</td><td>ir-</td><td>j'irai</td><td>j'irais</td></tr>
+<tr><td>faire</td><td>fer-</td><td>je ferai</td><td>je ferais</td></tr>
+<tr><td>pouvoir</td><td>pourr-</td><td>je pourrai</td><td>je pourrais</td></tr>
+<tr><td>vouloir</td><td>voudr-</td><td>je voudrai</td><td>je voudrais</td></tr>
+<tr><td>devoir</td><td>devr-</td><td>je devrai</td><td>je devrais</td></tr>
+<tr><td>savoir</td><td>saur-</td><td>je saurai</td><td>je saurais</td></tr>
+<tr><td>venir</td><td>viendr-</td><td>je viendrai</td><td>je viendrais</td></tr>
+<tr><td>voir</td><td>verr-</td><td>je verrai</td><td>je verrais</td></tr>
+</table>
+</div>
+<div class="tip"><strong>TEF Tip:</strong> Conditional is used for polite requests (<em>Je voudrais...</em>), hypothetical situations, and reported speech. Essential for Writing & Speaking sections.</div>
+<div class="practice-box"><h4>🧪 Quick Practice</h4>
+<div class="practice-q">1. Demain, je (aller) ___ au cinéma. <span class="answer"  data-a="irai (future)">Show Answer</span></div>
+<div class="practice-q">2. Si j'avais le temps, je (voyager) ___. <span class="answer"  data-a="voyagerais (conditional)">Show Answer</span></div>
+</div>
+`},
+
+    {level:"b1",title:"Object Pronouns (COD, COI, Y, EN)",search:"pronouns object direct indirect cod coi y en double pronoun order",content:`
+<div class="table-wrap">
+<table>
+<tr><th>Type</th><th>Pronouns</th><th>Replaces</th><th>Example</th></tr>
+<tr><td>COD (direct)</td><td>me, te, le/la, nous, vous, les</td><td>direct object noun</td><td><em>Je <strong>le</strong> vois.</em> (I see him/it)</td></tr>
+<tr><td>COI (indirect)</td><td>me, te, lui, nous, vous, leur</td><td>à + person</td><td><em>Je <strong>lui</strong> parle.</em> (I talk to him/her)</td></tr>
+<tr><td>Y</td><td>y</td><td>à + place/thing</td><td><em>J'<strong>y</strong> vais.</em> (I go there)</td></tr>
+<tr><td>EN</td><td>en</td><td>de + noun / quantity</td><td><em>J'<strong>en</strong> veux trois.</em> (I want 3 of them)</td></tr>
+</table>
+</div>
+<p style="margin-top:.8rem"><strong>Pronoun Order (before verb):</strong></p>
+<div class="example">me/te/se/nous/vous → le/la/les → lui/leur → y → en → <strong>VERB</strong></div>
+<div class="example"><em>Je <strong>le lui</strong> donne.</em> (I give it to him/her.)</div>
+<div class="warning"><strong>⚠️ In passé composé:</strong> Pronouns go before the auxiliary: <em>Je <strong>l'ai</strong> vu.</em> (I saw him.) With COD before the verb, participle agrees: <em>Je <strong>les ai vu</strong><strong>es</strong>.</em> (I saw them — fem. pl.)</div>
+<div class="tip"><strong>TEF Tip:</strong> Double pronouns are common in B1-B2 reading comprehension. Practice recognizing them quickly.</div>
+<div class="practice-box"><h4>🧪 Quick Practice</h4>
+<div class="practice-q">1. Replace: "Je donne le livre à Marie." → <span class="answer"  data-a="Je le lui donne.">Show Answer</span></div>
+<div class="practice-q">2. "Tu vas à Paris?" → "Oui, j'___ vais." <span class="answer"  data-a="y">Show Answer</span></div>
+</div>
+`},
+
+    {level:"b1",title:"Relative Pronouns (qui, que, où, dont)",search:"relative pronouns qui que où dont whose which that where",content:`
+<div class="table-wrap">
+<table>
+<tr><th>Pronoun</th><th>Function</th><th>Example</th></tr>
+<tr><td><strong>qui</strong></td><td>Subject (who/which/that)</td><td><em>L'homme <strong>qui</strong> parle est mon père.</em></td></tr>
+<tr><td><strong>que</strong></td><td>Direct object (whom/which/that)</td><td><em>Le livre <strong>que</strong> je lis est intéressant.</em></td></tr>
+<tr><td><strong>où</strong></td><td>Place/Time (where/when)</td><td><em>La ville <strong>où</strong> j'habite est belle.</em></td></tr>
+<tr><td><strong>dont</strong></td><td>Replaces "de" (whose/of which)</td><td><em>Le film <strong>dont</strong> je parle est français.</em></td></tr>
+</table>
+</div>
+<div class="warning"><strong>⚠️ Key difference:</strong> After <em>qui</em>, there is NO subject (it IS the subject). After <em>que</em>, there IS a subject: "Le livre <strong>que</strong> <u>je</u> lis" vs "L'homme <strong>qui</strong> parle".</div>
+<div class="tip"><strong>TEF Tip:</strong> <em>dont</em> is the trickiest — it replaces any "de + noun" construction. If the verb uses "de" (parler de, avoir besoin de, avoir peur de), use <em>dont</em>.</div>
+<div class="practice-box"><h4>🧪 Quick Practice</h4>
+<div class="practice-q">1. La femme ___ travaille ici est ma mère. <span class="answer"  data-a="qui (subject)">Show Answer</span></div>
+<div class="practice-q">2. Le film ___ j'ai besoin est à la bibliothèque. <span class="answer"  data-a="dont (avoir besoin de)">Show Answer</span></div>
+</div>
+`},
+
+    {level:"b1",title:"Comparatives & Superlatives",search:"comparative superlative plus moins aussi meilleur better best comparison",content:`
+<p><strong>Comparatives:</strong></p>
+<div class="table-wrap">
+<table>
+<tr><th>Type</th><th>Structure</th><th>Example</th></tr>
+<tr><td>More...than</td><td><strong>plus</strong> + adj + <strong>que</strong></td><td><em>Paris est <strong>plus grand que</strong> Lyon.</em></td></tr>
+<tr><td>Less...than</td><td><strong>moins</strong> + adj + <strong>que</strong></td><td><em>Le bus est <strong>moins rapide que</strong> le train.</em></td></tr>
+<tr><td>As...as</td><td><strong>aussi</strong> + adj + <strong>que</strong></td><td><em>Elle est <strong>aussi intelligente que</strong> son frère.</em></td></tr>
+</table>
+</div>
+<p style="margin-top:.8rem"><strong>Superlatives:</strong></p>
+<div class="table-wrap">
+<table>
+<tr><th>Type</th><th>Structure</th><th>Example</th></tr>
+<tr><td>The most</td><td>le/la/les + <strong>plus</strong> + adj</td><td><em>C'est <strong>la plus belle</strong> ville.</em></td></tr>
+<tr><td>The least</td><td>le/la/les + <strong>moins</strong> + adj</td><td><em>C'est <strong>le moins cher</strong>.</em></td></tr>
+</table>
+</div>
+<p style="margin-top:.8rem"><strong>Irregular comparatives:</strong></p>
+<div class="table-wrap">
+<table>
+<tr><th>Adjective</th><th>Comparative</th><th>Superlative</th></tr>
+<tr><td>bon (good)</td><td><strong>meilleur(e)</strong> (better)</td><td>le/la <strong>meilleur(e)</strong></td></tr>
+<tr><td>mauvais (bad)</td><td><strong>pire</strong> OR plus mauvais</td><td>le/la <strong>pire</strong></td></tr>
+<tr><td>bien (well — adverb)</td><td><strong>mieux</strong> (better)</td><td>le <strong>mieux</strong></td></tr>
+</table>
+</div>
+<div class="warning"><strong>⚠️ Common Error:</strong> "plus bon" does NOT exist! Use <strong>meilleur</strong>. "plus bien" does NOT exist! Use <strong>mieux</strong>.</div>
+<div class="tip"><strong>TEF Tip:</strong> Comparisons appear constantly in reading and listening. The meilleur/mieux distinction is a classic TEF trap question.</div>
+<div class="practice-box"><h4>🧪 Quick Practice</h4>
+<div class="practice-q">1. Ce restaurant est ___ (better) que l'autre. <span class="answer"  data-a="meilleur">Show Answer</span></div>
+<div class="practice-q">2. Elle chante ___ (better) que moi. <span class="answer"  data-a="mieux (adverb)">Show Answer</span></div>
+</div>
+`},
+
+    {level:"b1",title:"Subjonctif Présent (Introduction)",search:"subjunctive subjonctif mood il faut que vouloir que emotion doubt necessity",content:`
+<p><strong>Formation:</strong> ils-form present stem + -e, -es, -e, -ions, -iez, -ent</p>
+<p style="margin-top:.5rem"><strong>Used after expressions of:</strong></p>
+<div class="table-wrap">
+<table>
+<tr><th>Category</th><th>Trigger Expressions</th></tr>
+<tr><td>Desire/Will</td><td>vouloir que, souhaiter que, désirer que</td></tr>
+<tr><td>Emotion</td><td>être content que, regretter que, avoir peur que</td></tr>
+<tr><td>Necessity</td><td>il faut que, il est nécessaire que, il est important que</td></tr>
+<tr><td>Doubt</td><td>douter que, ne pas croire que, ne pas penser que</td></tr>
+<tr><td>Possibility</td><td>il est possible que, bien que, pour que, avant que</td></tr>
+</table>
+</div>
+<p style="margin-top:.8rem"><strong>Key irregular subjunctive forms:</strong></p>
+<div class="table-wrap">
+<table>
+<tr><th>Verb</th><th>je</th><th>tu</th><th>il/elle</th><th>nous</th><th>vous</th><th>ils/elles</th></tr>
+<tr><td>être</td><td>sois</td><td>sois</td><td>soit</td><td>soyons</td><td>soyez</td><td>soient</td></tr>
+<tr><td>avoir</td><td>aie</td><td>aies</td><td>ait</td><td>ayons</td><td>ayez</td><td>aient</td></tr>
+<tr><td>aller</td><td>aille</td><td>ailles</td><td>aille</td><td>allions</td><td>alliez</td><td>aillent</td></tr>
+<tr><td>faire</td><td>fasse</td><td>fasses</td><td>fasse</td><td>fassions</td><td>fassiez</td><td>fassent</td></tr>
+<tr><td>pouvoir</td><td>puisse</td><td>puisses</td><td>puisse</td><td>puissions</td><td>puissiez</td><td>puissent</td></tr>
+<tr><td>savoir</td><td>sache</td><td>saches</td><td>sache</td><td>sachions</td><td>sachiez</td><td>sachent</td></tr>
+</table>
+</div>
+<div class="example"><em>Il faut que tu <strong>fasses</strong> tes devoirs.</em> (You must do your homework.)</div>
+<div class="tip"><strong>TEF Tip:</strong> Memorize the trigger phrases. If you see "il faut que", "je veux que", "bien que" — the subjunctive MUST follow. This is heavily tested.</div>
+<div class="practice-box"><h4>🧪 Quick Practice</h4>
+<div class="practice-q">1. Il faut que je (être) ___ à l'heure. <span class="answer"  data-a="sois">Show Answer</span></div>
+<div class="practice-q">2. Je veux que tu (faire) ___ attention. <span class="answer"  data-a="fasses">Show Answer</span></div>
+</div>
+`},
+
+    // ===== B2 TOPICS =====
+    {level:"b2",title:"Si Clauses (Hypothetical Sentences)",search:"si clauses conditional hypothetical if sentences real unreal past",content:`
+<div class="table-wrap">
+<table>
+<tr><th>Type</th><th>Si clause</th><th>Result clause</th><th>Example</th></tr>
+<tr><td>Real (likely)</td><td>Si + <strong>présent</strong></td><td>présent / futur / impératif</td><td><em>Si tu viens, je <strong>serai</strong> content.</em></td></tr>
+<tr><td>Unreal (present)</td><td>Si + <strong>imparfait</strong></td><td>conditionnel présent</td><td><em>Si j'avais le temps, je <strong>voyagerais</strong>.</em></td></tr>
+<tr><td>Unreal (past)</td><td>Si + <strong>plus-que-parfait</strong></td><td>conditionnel passé</td><td><em>Si j'avais su, j'<strong>aurais agi</strong>.</em></td></tr>
+</table>
+</div>
+<div class="warning"><strong>⚠️ GOLDEN RULE:</strong> NEVER put the future or conditional directly after "si". This is the #1 trap in TEF grammar. "Si j'<strong>aurais</strong>..." is ALWAYS WRONG.</div>
+<div class="tip"><strong>TEF Tip:</strong> Si clause questions are virtually guaranteed on every TEF. Practice all 3 types until they become automatic.</div>
+<div class="practice-box"><h4>🧪 Quick Practice</h4>
+<div class="practice-q">1. Si je (avoir) ___ plus d'argent, j'achèterais une maison. <span class="answer"  data-a="avais (imparfait — unreal present)">Show Answer</span></div>
+<div class="practice-q">2. Si elle (étudier) ___ plus, elle aurait réussi. <span class="answer"  data-a="avait étudié (plus-que-parfait — unreal past)">Show Answer</span></div>
+</div>
+`},
+
+    {level:"b2",title:"Plus-que-parfait (Pluperfect)",search:"plus-que-parfait pluperfect had done before past auxiliary imparfait",content:`
+<p><strong>Formation:</strong> avoir/être (<strong>imparfait</strong>) + past participle</p>
+<div class="table-wrap">
+<table>
+<tr><th>With AVOIR</th><th>With ÊTRE</th></tr>
+<tr><td>j'<strong>avais</strong> mangé</td><td>j'<strong>étais</strong> parti(e)</td></tr>
+<tr><td>tu <strong>avais</strong> fini</td><td>tu <strong>étais</strong> arrivé(e)</td></tr>
+<tr><td>il <strong>avait</strong> vu</td><td>elle <strong>était</strong> venue</td></tr>
+<tr><td>nous <strong>avions</strong> dit</td><td>nous <strong>étions</strong> sorti(e)s</td></tr>
+</table>
+</div>
+<div class="example"><em>J'<strong>avais déjà mangé</strong> quand il est arrivé.</em> (I had already eaten when he arrived.)</div>
+<div class="example"><em>Elle <strong>était partie</strong> avant midi.</em> (She had left before noon.)</div>
+<div class="tip"><strong>TEF Tip:</strong> The plus-que-parfait describes an action BEFORE another past action. Same être/avoir rules as passé composé apply. Used in Type 3 si clauses.</div>
+`},
+
+    {level:"b2",title:"Passive Voice & Reported Speech",search:"passive voice reported speech indirect discourse discours indirect tense shift",content:`
+<p><strong>Passive Voice:</strong> être (conjugated in any tense) + past participle + par (+ agent)</p>
+<div class="table-wrap">
+<table>
+<tr><th>Active</th><th>Passive</th></tr>
+<tr><td><em>Le chef prépare le repas.</em></td><td><em>Le repas <strong>est préparé</strong> par le chef.</em></td></tr>
+<tr><td><em>On a construit cette maison.</em></td><td><em>Cette maison <strong>a été construite</strong>.</em></td></tr>
+</table>
+</div>
+<p style="margin-top:1rem"><strong>Reported Speech (Discours Indirect) — tense shifts:</strong></p>
+<div class="table-wrap">
+<table>
+<tr><th>Direct Speech</th><th>Indirect Speech</th><th>Tense Shift</th></tr>
+<tr><td>"Je suis fatigué."</td><td>Il a dit qu'il <strong>était</strong> fatigué.</td><td>présent → imparfait</td></tr>
+<tr><td>"Je viendrai."</td><td>Il a dit qu'il <strong>viendrait</strong>.</td><td>futur → conditionnel</td></tr>
+<tr><td>"J'ai mangé."</td><td>Il a dit qu'il <strong>avait mangé</strong>.</td><td>passé composé → plus-que-parfait</td></tr>
+</table>
+</div>
+<p style="margin-top:.8rem"><strong>Question word changes:</strong></p>
+<div class="table-wrap">
+<table>
+<tr><th>Direct</th><th>Indirect</th></tr>
+<tr><td>"Où habites-tu?"</td><td>Il demande <strong>où</strong> j'habite.</td></tr>
+<tr><td>"Est-ce que tu viens?"</td><td>Il demande <strong>si</strong> je viens.</td></tr>
+<tr><td>"Qu'est-ce que tu fais?"</td><td>Il demande <strong>ce que</strong> je fais.</td></tr>
+</table>
+</div>
+<div class="tip"><strong>TEF Tip:</strong> Reported speech appears often in reading comprehension. Watch for tense shifts AND question word changes.</div>
+`},
+
+    {level:"b2",title:"Advanced Subjunctive & Connectors",search:"advanced subjunctive conjunctions bien que pour que avant que indicative connectors",content:`
+<p><strong>Conjunctions requiring Subjunctive:</strong></p>
+<div class="table-wrap">
+<table>
+<tr><th>French</th><th>English</th><th>Example</th></tr>
+<tr><td>bien que / quoique</td><td>although</td><td><em>Bien qu'il <strong>soit</strong> fatigué, il travaille.</em></td></tr>
+<tr><td>pour que / afin que</td><td>so that</td><td><em>Je parle lentement pour que tu <strong>comprennes</strong>.</em></td></tr>
+<tr><td>avant que</td><td>before</td><td><em>Avant qu'il <strong>parte</strong>, dis-lui au revoir.</em></td></tr>
+<tr><td>à moins que</td><td>unless</td><td><em>À moins qu'il <strong>pleuve</strong>, on sort.</em></td></tr>
+<tr><td>sans que</td><td>without</td><td><em>Il est parti sans que je le <strong>sache</strong>.</em></td></tr>
+</table>
+</div>
+<p style="margin-top:.8rem"><strong>Conjunctions with Indicative (NOT subjunctive):</strong></p>
+<div class="table-wrap">
+<table>
+<tr><th>French</th><th>English</th></tr>
+<tr><td>parce que</td><td>because</td></tr>
+<tr><td>après que</td><td>after</td></tr>
+<tr><td>pendant que</td><td>while</td></tr>
+<tr><td>puisque</td><td>since/given that</td></tr>
+<tr><td>dès que / aussitôt que</td><td>as soon as</td></tr>
+</table>
+</div>
+<div class="warning"><strong>⚠️ Tricky pair:</strong> <em>avant que</em> + SUBJUNCTIVE vs <em>après que</em> + INDICATIVE. "Avant qu'il <strong>parte</strong>" but "Après qu'il <strong>est parti</strong>".</div>
+<div class="tip"><strong>TEF Tip:</strong> Using connectors correctly in writing and speaking will significantly boost your score. Memorize 10-15 key connectors with their mood.</div>
+`},
+
+    {level:"b2",title:"Essential Linking Words for TEF Writing & Speaking",search:"linking words connectors discourse markers essay writing speaking transitions",content:`
+<div class="table-wrap">
+<table>
+<tr><th>Function</th><th>Connectors</th></tr>
+<tr><td><strong>Adding ideas</strong></td><td>de plus, en outre, par ailleurs, d'ailleurs, également, qui plus est</td></tr>
+<tr><td><strong>Contrasting</strong></td><td>cependant, néanmoins, toutefois, en revanche, pourtant, malgré tout</td></tr>
+<tr><td><strong>Cause</strong></td><td>car, puisque, en raison de, étant donné que, grâce à, à cause de</td></tr>
+<tr><td><strong>Consequence</strong></td><td>donc, par conséquent, c'est pourquoi, ainsi, de ce fait, d'où</td></tr>
+<tr><td><strong>Illustrating</strong></td><td>par exemple, notamment, en particulier, c'est-à-dire, tel que</td></tr>
+<tr><td><strong>Concluding</strong></td><td>en conclusion, en somme, pour conclure, en définitive, bref, tout compte fait</td></tr>
+<tr><td><strong>Sequencing</strong></td><td>d'abord, ensuite, puis, enfin, en premier lieu, finalement</td></tr>
+<tr><td><strong>Opinion</strong></td><td>à mon avis, selon moi, il me semble que, je considère que, quant à moi</td></tr>
+<tr><td><strong>Conceding</strong></td><td>certes...mais, il est vrai que...cependant, j'admets que...toutefois</td></tr>
+</table>
+</div>
+<div class="tip"><strong>TEF Tip:</strong> In the writing section, use 3-4 different connectors per essay. In speaking, use at least 2-3 per answer. This demonstrates B2-level fluency and directly impacts your score.</div>
+<div class="practice-box"><h4>🧪 Quick Practice — Fill in a suitable connector</h4>
+<div class="practice-q">1. Le projet est ambitieux. ___, il est réalisable. <span class="answer"  data-a="Cependant / Néanmoins / Toutefois">Show Answer</span></div>
+<div class="practice-q">2. ___, je pense que l'éducation est la clé du succès. <span class="answer"  data-a="À mon avis / Selon moi / Quant à moi">Show Answer</span></div>
+</div>
+`},
+
+    {level:"b2",title:"Expressing Nuanced Opinions (TEF Speaking/Writing)",search:"opinions expressing nuance argument debate essay speaking oral",content:`
+<p><strong>Structuring an argument (essential for TEF writing & speaking):</strong></p>
+<div class="table-wrap">
+<table>
+<tr><th>Step</th><th>French Expressions</th></tr>
+<tr><td><strong>1. Introduce topic</strong></td><td>La question de... est un sujet d'actualité. / Il est souvent question de...</td></tr>
+<tr><td><strong>2. State thesis</strong></td><td>Je suis convaincu(e) que... / Il me semble évident que...</td></tr>
+<tr><td><strong>3. Give argument</strong></td><td>En effet,... / Il faut souligner que... / Un premier argument est que...</td></tr>
+<tr><td><strong>4. Give example</strong></td><td>Par exemple,... / Prenons le cas de... / Comme l'illustre...</td></tr>
+<tr><td><strong>5. Concede</strong></td><td>Certes,... / Il est vrai que... / On pourrait objecter que...</td></tr>
+<tr><td><strong>6. Counter</strong></td><td>Cependant,... / Néanmoins,... / Malgré cela,...</td></tr>
+<tr><td><strong>7. Conclude</strong></td><td>En définitive,... / Tout compte fait,... / Force est de constater que...</td></tr>
+</table>
+</div>
+<div class="example"><em>Certes, la technologie présente des risques. <strong>Néanmoins</strong>, ses avantages l'emportent largement.</em></div>
+<div class="tip"><strong>TEF Tip:</strong> The TEF writing section expects you to present BOTH sides of an argument. Always include a concession (certes...) before your counter-argument. This is the difference between B1 and B2 writing.</div>
+`}
+  ];
+
+  // Build sections
+  const container = document.getElementById('sections-container');
+  let counts = {a2:0, b1:0, b2:0};
+
+  grammar.forEach((g, i) => {
+    counts[g.level]++;
+    const div = document.createElement('div');
+    div.className = 'grammar-section';
+    div.dataset.level = g.level;
+    div.dataset.search = (g.title + ' ' + g.search).toLowerCase();
+    div.dataset.index = i;
+
+    div.innerHTML = `
+      <div class="grammar-header">
+        <span class="arrow" id="arrow${i}">▶</span>
+        <span>${g.title}</span>
+        <span class="level-badge ${g.level}">${g.level.toUpperCase()}</span>
+      </div>
+      <div class="grammar-content" id="content${i}">${g.content}</div>
+    `;
+    container.appendChild(div);
+  });
+
+  // Stats
+  document.getElementById('a2Count').textContent = counts.a2;
+  document.getElementById('b1Count').textContent = counts.b1;
+  document.getElementById('b2Count').textContent = counts.b2;
+  const total = counts.a2 + counts.b1 + counts.b2;
+  document.getElementById('totalTopics').textContent = total;
+
+  // Level filter - event delegation
+  document.querySelectorAll('.filters .pill').forEach(btn => {
+    btn.addEventListener('click', function() {
+      document.querySelectorAll('.filters .pill').forEach(b => b.classList.remove('active'));
+      this.classList.add('active');
+      const f = this.dataset.filter;
+      document.querySelectorAll('.grammar-section').forEach(s => {
+        s.style.display = (f === 'all' || s.dataset.level === f) ? '' : 'none';
+      });
+      checkNoMatch();
+    });
+  });
+
+  // Search functionality
+  document.getElementById('searchBox').addEventListener('input', function() {
+    const q = this.value.toLowerCase().trim();
+    if (!q) {
+      document.querySelectorAll('.grammar-section').forEach(s => s.style.display = '');
+      document.getElementById('noMatch').style.display = 'none';
+      document.querySelectorAll('.filters .pill').forEach(b => b.classList.remove('active'));
+      document.querySelector('.filters .pill[data-filter="all"]').classList.add('active');
+      return;
+    }
+    let found = false;
+    document.querySelectorAll('.grammar-section').forEach(s => {
+      const match = s.dataset.search.includes(q);
+      s.style.display = match ? '' : 'none';
+      if (match) { found = true; }
+    });
+    document.getElementById('noMatch').style.display = found ? 'none' : 'block';
+    document.querySelectorAll('.filters .pill').forEach(b => b.classList.remove('active'));
+  });
+
+  function checkNoMatch() {
+    const visible = document.querySelectorAll('.grammar-section:not([style*="display: none"])');
+    document.getElementById('noMatch').style.display = visible.length === 0 ? 'block' : 'none';
+  }
+
+  // Event delegation for answer reveal buttons
+  document.getElementById('sections-container').addEventListener('click', function(e) {
+    const answer = e.target.closest('.answer');
+    if (answer && !answer.classList.contains('revealed')) {
+      answer.textContent = answer.dataset.a;
+      answer.classList.add('revealed');
+
+      // Track progress - mark this grammar section as completed
+      const section = e.target.closest('.grammar-section');
+      if (section) {
+        const sectionIndex = section.dataset.index;
+        const progress = TEFProgress.getAll();
+        if (!progress.grammar.completed.includes(sectionIndex)) {
+          progress.grammar.completed.push(sectionIndex);
+          TEFProgress.save(progress);
+          TEFProgress.addXP(10, 'grammar_practice');
+          TEFProgress.updateStreak();
+        }
+      }
+    }
+  });
+
+  // Event delegation for section headers (expand/collapse)
+  document.getElementById('sections-container').addEventListener('click', function(e) {
+    const header = e.target.closest('.grammar-header');
+    if (header) {
+      const section = header.closest('.grammar-section');
+      const i = section.dataset.index;
+      const c = document.getElementById('content' + i);
+      const a = document.getElementById('arrow' + i);
+      c.classList.toggle('show');
+      a.classList.toggle('open');
+    }
+  });
+
+  // Expand All / Collapse All
+  document.getElementById('expandAllBtn').addEventListener('click', function() {
+    document.querySelectorAll('.grammar-content').forEach(c => c.classList.add('show'));
+    document.querySelectorAll('.arrow').forEach(a => a.classList.add('open'));
+  });
+
+  document.getElementById('collapseAllBtn').addEventListener('click', function() {
+    document.querySelectorAll('.grammar-content').forEach(c => c.classList.remove('show'));
+    document.querySelectorAll('.arrow').forEach(a => a.classList.remove('open'));
+  });
+
+  // Print button
+  document.getElementById('printBtn').addEventListener('click', function() {
+    window.print();
+  });
+});
+</script>
+
+</body>
+</html>

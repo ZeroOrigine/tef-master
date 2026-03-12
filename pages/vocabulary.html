@@ -1,0 +1,1274 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Vocabulary - TEF Master</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* ===== PAGE-SPECIFIC STYLES ===== */
+    .page-header {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      padding: 2rem 1rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .page-header h1 {
+      font-size: 1.8rem;
+      margin-bottom: 0.3rem;
+    }
+    .page-header p {
+      opacity: 0.85;
+      font-size: 0.95rem;
+    }
+
+    /* Controls */
+    .controls {
+      background: var(--card);
+      border-bottom: 2px solid var(--border);
+      position: sticky;
+      top: 60px;
+      z-index: 10;
+      padding: 0.8rem 1rem;
+      box-shadow: var(--shadow);
+    }
+    .filter-row {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      justify-content: center;
+      margin-bottom: 0.5rem;
+    }
+    .filter-row button {
+      padding: 0.4rem 0.9rem;
+      border: 2px solid var(--accent);
+      background: var(--card);
+      color: var(--accent);
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .filter-row button:hover,
+    .filter-row button.active {
+      background: var(--accent);
+      color: #fff;
+    }
+    .level-filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      justify-content: center;
+    }
+    .level-filters button {
+      padding: 0.35rem 0.8rem;
+      border: 2px solid var(--border);
+      background: var(--card);
+      color: var(--text);
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.78rem;
+      font-weight: 600;
+      transition: 0.2s;
+    }
+    .level-filters button[data-level="a2"] {
+      border-color: var(--success);
+      color: var(--success);
+    }
+    .level-filters button[data-level="b1"] {
+      border-color: var(--warning);
+      color: var(--warning);
+    }
+    .level-filters button[data-level="b2"] {
+      border-color: var(--danger);
+      color: var(--danger);
+    }
+    .level-filters button.active[data-level="a2"] {
+      background: var(--success);
+      color: #fff;
+    }
+    .level-filters button.active[data-level="b1"] {
+      background: var(--warning);
+      color: #fff;
+    }
+    .level-filters button.active[data-level="b2"] {
+      background: var(--danger);
+      color: #fff;
+    }
+    .level-filters button[data-level="all"].active {
+      background: var(--text);
+      color: #fff;
+    }
+
+    /* Container */
+    .container {
+      max-width: 1050px;
+      margin: 0 auto;
+      padding: 1.2rem;
+    }
+
+    /* Search row */
+    .search-row {
+      display: flex;
+      gap: 0.5rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .search-box {
+      flex: 1;
+      min-width: 200px;
+      padding: 0.65rem 1rem;
+      border: 2px solid var(--border);
+      border-radius: 10px;
+      font-size: 0.95rem;
+    }
+    .search-box:focus {
+      outline: none;
+      border-color: var(--accent);
+    }
+
+    /* Mode toggle */
+    .mode-toggle {
+      display: flex;
+      gap: 0;
+      border: 2px solid var(--accent);
+      border-radius: 10px;
+      overflow: hidden;
+    }
+    .mode-toggle button {
+      padding: 0.5rem 1rem;
+      border: none;
+      background: var(--card);
+      color: var(--accent);
+      cursor: pointer;
+      font-size: 0.82rem;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+    .mode-toggle button.active {
+      background: var(--accent);
+      color: #fff;
+    }
+
+    /* Stats */
+    .stat-bar {
+      display: flex;
+      gap: 0.8rem;
+      justify-content: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .stat {
+      background: var(--card);
+      padding: 0.5rem 1rem;
+      border-radius: 8px;
+      text-align: center;
+      min-width: 90px;
+      box-shadow: var(--shadow);
+    }
+    .stat .num {
+      font-size: 1.3rem;
+      font-weight: 800;
+    }
+    .stat .label {
+      font-size: 0.72rem;
+      color: var(--text-light);
+    }
+
+    /* Tip box */
+    .tip-box {
+      background: var(--primary-bg);
+      border: 1px solid var(--primary-light);
+      border-radius: 10px;
+      padding: 0.9rem 1rem;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+    }
+    .tip-box strong {
+      color: var(--primary-light);
+    }
+
+    /* Action row */
+    .action-row {
+      display: flex;
+      gap: 0.5rem;
+      justify-content: center;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .action-row button {
+      padding: 0.4rem 0.9rem;
+      border: 1px solid var(--border);
+      background: var(--card);
+      border-radius: 8px;
+      cursor: pointer;
+      font-size: 0.8rem;
+      font-weight: 600;
+      color: var(--text);
+      transition: 0.2s;
+    }
+    .action-row button:hover {
+      background: #f1f5f9;
+      border-color: var(--accent);
+      color: var(--accent);
+    }
+
+    /* ===== BROWSE MODE ===== */
+    .theme {
+      background: var(--card);
+      border-radius: 12px;
+      margin-bottom: 1.2rem;
+      box-shadow: var(--shadow);
+      overflow: hidden;
+    }
+    .theme-title {
+      padding: 0.9rem 1.1rem;
+      font-size: 1.05rem;
+      font-weight: 700;
+      border-bottom: 1px solid var(--border);
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      user-select: none;
+    }
+    .theme-title:hover {
+      background: #f8fafc;
+    }
+    .theme-content {
+      padding: 0.8rem 1rem;
+    }
+    .theme-content.hidden {
+      display: none;
+    }
+
+    /* Word grid and cards */
+    .word-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 0.5rem;
+    }
+    .word-card {
+      background: #f8fafc;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 0.55rem 0.75rem;
+      font-size: 0.84rem;
+      cursor: pointer;
+      transition: 0.2s;
+      position: relative;
+    }
+    .word-card:hover {
+      border-color: var(--accent);
+      background: #faf5ff;
+    }
+    .word-card.learned {
+      border-left: 4px solid var(--success);
+      background: #f0fdf4;
+    }
+    .word-card .fr {
+      font-weight: 700;
+      color: var(--primary);
+      font-size: 0.9rem;
+    }
+    .word-card .en {
+      color: var(--text-light);
+      font-size: 0.8rem;
+    }
+    .word-card .type {
+      color: var(--accent);
+      font-size: 0.7rem;
+      font-weight: 600;
+      text-transform: uppercase;
+    }
+    .word-card .ex {
+      display: none;
+      margin-top: 0.35rem;
+      padding-top: 0.35rem;
+      border-top: 1px dashed var(--border);
+      color: var(--text);
+      font-style: italic;
+      font-size: 0.8rem;
+    }
+    .word-card.expanded .ex {
+      display: block;
+    }
+    .word-card .learn-btn {
+      position: absolute;
+      top: 0.4rem;
+      right: 0.5rem;
+      background: none;
+      border: none;
+      cursor: pointer;
+      font-size: 1rem;
+      opacity: 0.4;
+      transition: 0.2s;
+    }
+    .word-card .learn-btn:hover {
+      opacity: 1;
+    }
+    .word-card.learned .learn-btn {
+      opacity: 1;
+    }
+
+    /* Level tag */
+    .level-tag {
+      display: inline-block;
+      padding: 1px 7px;
+      border-radius: 10px;
+      font-size: 0.68rem;
+      font-weight: 700;
+      color: #fff;
+      margin-left: 0.3rem;
+    }
+    .tag-a2 { background: var(--success); }
+    .tag-b1 { background: var(--warning); }
+    .tag-b2 { background: var(--danger); }
+
+    /* No match */
+    .no-match {
+      display: none;
+      text-align: center;
+      padding: 2rem;
+      color: var(--text-light);
+      font-size: 1rem;
+    }
+
+    /* ===== QUIZ MODE ===== */
+    .quiz-panel {
+      display: none;
+    }
+    .quiz-settings {
+      max-width: 550px;
+      margin: 0 auto 1.5rem;
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+    .quiz-settings select {
+      padding: 0.4rem 0.8rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.82rem;
+      cursor: pointer;
+    }
+    .quiz-settings select:focus {
+      border-color: var(--accent);
+      outline: none;
+    }
+
+    /* Quiz progress */
+    .quiz-progress-bar {
+      height: 6px;
+      background: var(--border);
+      border-radius: 3px;
+      margin: 0 auto 0.5rem;
+      max-width: 550px;
+      overflow: hidden;
+    }
+    .quiz-progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--accent), var(--accent-light));
+      border-radius: 3px;
+      transition: width 0.3s;
+    }
+    .quiz-progress {
+      text-align: center;
+      margin-bottom: 1rem;
+      font-size: 0.85rem;
+      color: var(--text-light);
+    }
+
+    /* Quiz card */
+    .quiz-card {
+      background: var(--card);
+      border-radius: 16px;
+      box-shadow: 0 4px 20px rgba(0,0,0,.1);
+      max-width: 550px;
+      margin: 0 auto;
+      padding: 2rem;
+      text-align: center;
+      min-height: 280px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+    }
+    .quiz-word {
+      font-size: 2rem;
+      font-weight: 800;
+      color: var(--primary);
+      margin-bottom: 0.3rem;
+    }
+    .quiz-type {
+      font-size: 0.85rem;
+      color: var(--accent);
+      font-weight: 600;
+      text-transform: uppercase;
+      margin-bottom: 1.2rem;
+    }
+    .quiz-answer {
+      font-size: 1.3rem;
+      color: var(--text);
+      opacity: 0;
+      transition: opacity 0.3s;
+      cursor: pointer;
+      padding: 0.8rem 1.5rem;
+      border: 2px dashed var(--border);
+      border-radius: 12px;
+      min-width: 200px;
+    }
+    .quiz-answer.revealed {
+      opacity: 1;
+      border-style: solid;
+      border-color: var(--accent);
+      background: #faf5ff;
+    }
+    .quiz-example {
+      font-size: 0.9rem;
+      color: var(--text-light);
+      font-style: italic;
+      margin-top: 0.8rem;
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .quiz-example.revealed {
+      opacity: 1;
+    }
+    .quiz-hint {
+      font-size: 0.82rem;
+      color: var(--text-light);
+      margin-top: 0.5rem;
+    }
+
+    /* Quiz nav */
+    .quiz-nav {
+      display: flex;
+      gap: 1rem;
+      justify-content: center;
+      margin-top: 1.5rem;
+      flex-wrap: wrap;
+    }
+    .quiz-nav button {
+      padding: 0.6rem 1.5rem;
+      border: 2px solid var(--accent);
+      background: var(--card);
+      color: var(--accent);
+      border-radius: 10px;
+      cursor: pointer;
+      font-size: 0.9rem;
+      font-weight: 700;
+      transition: 0.2s;
+    }
+    .quiz-nav button:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+    .quiz-nav button.primary {
+      background: var(--accent);
+      color: #fff;
+    }
+    .quiz-nav button.primary:hover {
+      background: #6d28d9;
+    }
+    .quiz-nav button.success {
+      border-color: var(--success);
+      color: var(--success);
+    }
+    .quiz-nav button.success:hover {
+      background: var(--success);
+      color: #fff;
+    }
+
+    /* Quiz score */
+    .quiz-score {
+      max-width: 550px;
+      margin: 1rem auto;
+      background: var(--card);
+      border-radius: 12px;
+      padding: 1.2rem;
+      text-align: center;
+      box-shadow: 0 2px 8px rgba(0,0,0,.08);
+      display: none;
+    }
+    .quiz-score .big {
+      font-size: 2.5rem;
+      font-weight: 800;
+      color: var(--accent);
+    }
+
+    /* Progress footer */
+    .progress-footer {
+      background: var(--card);
+      border-top: 2px solid var(--border);
+      padding: 0.8rem 1rem;
+      text-align: center;
+      position: sticky;
+      bottom: 0;
+      z-index: 10;
+      font-size: 0.82rem;
+      color: var(--text);
+    }
+    .progress-footer .bar {
+      height: 5px;
+      background: var(--border);
+      border-radius: 3px;
+      max-width: 400px;
+      margin: 0.3rem auto 0;
+      overflow: hidden;
+    }
+    .progress-footer .fill {
+      height: 100%;
+      background: var(--success);
+      border-radius: 3px;
+      transition: width 0.3s;
+    }
+
+    /* Print button */
+    .print-btn {
+      position: fixed;
+      bottom: 4rem;
+      right: 1.5rem;
+      background: var(--accent);
+      color: #fff;
+      border: none;
+      padding: 0.6rem 1rem;
+      border-radius: 25px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      box-shadow: 0 4px 12px rgba(124,58,237,.35);
+      z-index: 20;
+    }
+    .print-btn:hover {
+      background: #6d28d9;
+    }
+
+    @media print {
+      .controls, .print-btn, .search-row, .action-row, .mode-toggle, .progress-footer, .quiz-panel, .quiz-nav {
+        display: none !important;
+      }
+      .theme-content {
+        display: block !important;
+      }
+      .word-card .ex {
+        display: block !important;
+      }
+    }
+    @media (max-width: 600px) {
+      .word-grid {
+        grid-template-columns: 1fr;
+      }
+      .quiz-word {
+        font-size: 1.5rem;
+      }
+      .quiz-card {
+        padding: 1.2rem;
+      }
+    }
+  </style>
+</head>
+<body>
+<div class="page-header">
+  <h1>📗 TEF Canada Vocabulary Reference</h1>
+  <p>300+ Essential Words • A2 → B2 • Organized by TEF Exam Themes</p>
+</div>
+
+<div class="controls">
+  <div class="filter-row" id="themeFilters">
+    <button class="active" data-theme="all">📋 All Themes</button>
+    <button data-theme="daily">🏠 Daily Life</button>
+    <button data-theme="work">💼 Work</button>
+    <button data-theme="health">🏥 Health</button>
+    <button data-theme="education">📚 Education</button>
+    <button data-theme="media">📰 Media</button>
+    <button data-theme="environment">🌍 Environment</button>
+    <button data-theme="travel">✈️ Travel</button>
+    <button data-theme="society">🏛️ Society</button>
+    <button data-theme="tech">💻 Technology</button>
+    <button data-theme="opinion">💬 Opinions</button>
+  </div>
+  <div class="level-filters" id="levelFilters">
+    <button class="active" data-level="all">All Levels</button>
+    <button data-level="a2">🟢 A2</button>
+    <button data-level="b1">🟡 B1</button>
+    <button data-level="b2">🔴 B2</button>
+  </div>
+</div>
+
+<div class="container">
+  <div class="search-row">
+    <input type="text" class="search-box" id="searchInput" placeholder="🔍 Search any French or English word...">
+    <div class="mode-toggle" id="modeToggle">
+      <button class="active" data-mode="browse">📖 Browse</button>
+      <button data-mode="quiz">🧠 Quiz</button>
+    </div>
+  </div>
+
+  <div class="stat-bar">
+    <div class="stat"><div class="num" id="totalWords" style="color:var(--accent)">0</div><div class="label">Total Words</div></div>
+    <div class="stat"><div class="num" id="a2Count" style="color:var(--success)">0</div><div class="label">A2 Foundation</div></div>
+    <div class="stat"><div class="num" id="b1Count" style="color:var(--warning)">0</div><div class="label">B1 Intermediate</div></div>
+    <div class="stat"><div class="num" id="b2Count" style="color:var(--danger)">0</div><div class="label">B2 Target</div></div>
+    <div class="stat"><div class="num" id="learnedCount" style="color:var(--success)">0</div><div class="label">✅ Learned</div></div>
+  </div>
+
+  <div class="tip-box"><strong>💡 How to Use:</strong> Browse words by theme and CEFR level. Click a word card to see an example sentence. Click ✅ to mark words you've learned — your progress is saved in your browser. Switch to <strong>Quiz Mode</strong> to test yourself with flashcards.</div>
+
+  <!-- BROWSE MODE -->
+  <div id="browsePanel">
+    <div class="action-row">
+      <button id="expandAll">📂 Expand All</button>
+      <button id="collapseAll">📁 Collapse All</button>
+      <button id="resetProgress">🔄 Reset Progress</button>
+      <button id="showLearned">👁️ Show Only Learned</button>
+    </div>
+    <div id="themes-container"></div>
+    <div class="no-match" id="noMatch">😕 No words match your search or filter. Try a different keyword or change filters.</div>
+  </div>
+
+  <!-- QUIZ MODE -->
+  <div class="quiz-panel" id="quizPanel">
+    <div class="quiz-settings">
+      <select id="quizTheme"><option value="all">All Themes</option></select>
+      <select id="quizLevel"><option value="all">All Levels</option><option value="a2">A2 Only</option><option value="b1">B1 Only</option><option value="b2">B2 Only</option></select>
+      <select id="quizDirection"><option value="fr2en">French → English</option><option value="en2fr">English → French</option></select>
+      <select id="quizCount"><option value="10">10 Words</option><option value="20">20 Words</option><option value="30">30 Words</option><option value="0">All Words</option></select>
+    </div>
+    <div class="quiz-progress-bar"><div class="quiz-progress-fill" id="quizFill"></div></div>
+    <div class="quiz-progress" id="quizProgress">Click "Start Quiz" to begin</div>
+    <div class="quiz-card" id="quizCard">
+      <div class="quiz-word" id="quizWord">Ready to test your vocabulary?</div>
+      <div class="quiz-type" id="quizType"></div>
+      <div class="quiz-answer" id="quizAnswer">Click to reveal</div>
+      <div class="quiz-example" id="quizExample"></div>
+      <div class="quiz-hint" id="quizHint">Tap the box above to reveal the answer</div>
+    </div>
+    <div class="quiz-nav">
+      <button id="quizStart" class="primary">▶ Start Quiz</button>
+      <button id="quizPrev">⬅ Previous</button>
+      <button id="quizReveal">👁️ Reveal</button>
+      <button id="quizKnew" class="success">✅ I Knew It</button>
+      <button id="quizNext">Next ➡</button>
+    </div>
+    <div class="quiz-score" id="quizScore">
+      <div>Quiz Complete!</div>
+      <div class="big" id="quizScoreNum">0/0</div>
+      <div id="quizScoreText" style="margin-top:.5rem;color:var(--text-light)"></div>
+    </div>
+  </div>
+</div>
+
+<div class="progress-footer">
+  <span id="progressText">0 of 0 words learned (0%)</span>
+  <div class="bar"><div class="fill" id="progressFill"></div></div>
+</div>
+
+<button class="print-btn" id="printBtn">🖨️ Print</button>
+
+<script src="../js/progress-tracker.js"></script>
+<script src="../js/nav.js"></script>
+<script>
+// ===== DATA =====
+const themes = [
+  {
+    id: "daily",
+    icon: "🏠",
+    title: "Daily Life & Home",
+    words: [
+      {fr: "le quartier", en: "neighborhood", t: "n", l: "a2", ex: "J'habite dans un quartier calme."},
+      {fr: "le loyer", en: "rent", t: "n", l: "a2", ex: "Le loyer est cher à Montréal."},
+      {fr: "déménager", en: "to move (house)", t: "v", l: "a2", ex: "Nous allons déménager en mai."},
+      {fr: "les courses", en: "grocery shopping", t: "n", l: "a2", ex: "Je fais les courses le samedi."},
+      {fr: "le ménage", en: "housework", t: "n", l: "a2", ex: "Il faut faire le ménage ce week-end."},
+      {fr: "un immeuble", en: "apartment building", t: "n", l: "a2", ex: "J'habite dans un immeuble de dix étages."},
+      {fr: "une facture", en: "a bill/invoice", t: "n", l: "b1", ex: "J'ai reçu une facture d'électricité."},
+      {fr: "un propriétaire", en: "landlord/owner", t: "n", l: "b1", ex: "Le propriétaire augmente le loyer."},
+      {fr: "un locataire", en: "tenant", t: "n", l: "b1", ex: "Les locataires ont des droits."},
+      {fr: "les charges", en: "utility costs", t: "n", l: "b1", ex: "Les charges sont incluses dans le loyer."},
+      {fr: "un voisinage", en: "neighborhood area", t: "n", l: "b1", ex: "Le voisinage est très agréable."},
+      {fr: "les travaux", en: "renovation work", t: "n", l: "b1", ex: "Il y a des travaux dans la rue."},
+      {fr: "le chauffage", en: "heating", t: "n", l: "b1", ex: "Le chauffage coûte cher en hiver."},
+      {fr: "la banlieue", en: "suburbs", t: "n", l: "b1", ex: "Beaucoup de familles vivent en banlieue."},
+      {fr: "bricoler", en: "to do DIY", t: "v", l: "b1", ex: "Mon père adore bricoler le week-end."},
+      {fr: "s'installer", en: "to settle in", t: "v", l: "b1", ex: "Nous nous sommes installés au Canada."},
+      {fr: "le bail", en: "lease agreement", t: "n", l: "b2", ex: "Le bail expire dans trois mois."},
+      {fr: "aménager", en: "to arrange/fit out", t: "v", l: "b2", ex: "Nous devons aménager le salon."},
+      {fr: "une réclamation", en: "complaint/claim", t: "n", l: "b2", ex: "J'ai fait une réclamation auprès du gérant."},
+      {fr: "entretenir", en: "to maintain", t: "v", l: "b2", ex: "Il faut entretenir la maison régulièrement."},
+      {fr: "un colocataire", en: "roommate", t: "n", l: "b1", ex: "Mon colocataire est très organisé."},
+      {fr: "le mobilier", en: "furniture", t: "n", l: "b2", ex: "Le mobilier de cet appartement est moderne."}
+    ]
+  },
+  {
+    id: "work",
+    icon: "💼",
+    title: "Work & Professional Life",
+    words: [
+      {fr: "un emploi", en: "a job", t: "n", l: "a2", ex: "Je cherche un emploi à temps plein."},
+      {fr: "un CV", en: "resume", t: "n", l: "a2", ex: "J'ai mis à jour mon CV."},
+      {fr: "un salaire", en: "salary", t: "n", l: "a2", ex: "Le salaire minimum a augmenté."},
+      {fr: "une réunion", en: "a meeting", t: "n", l: "a2", ex: "Nous avons une réunion à 14h."},
+      {fr: "un collègue", en: "colleague", t: "n", l: "a2", ex: "Mes collègues sont très sympathiques."},
+      {fr: "un entretien", en: "an interview", t: "n", l: "b1", ex: "J'ai un entretien d'embauche demain."},
+      {fr: "postuler", en: "to apply (for a job)", t: "v", l: "b1", ex: "J'ai postulé pour trois postes."},
+      {fr: "embaucher", en: "to hire", t: "v", l: "b1", ex: "L'entreprise va embaucher dix personnes."},
+      {fr: "une compétence", en: "a skill", t: "n", l: "b1", ex: "La communication est une compétence clé."},
+      {fr: "un stage", en: "internship", t: "n", l: "b1", ex: "J'ai fait un stage en comptabilité."},
+      {fr: "le chômage", en: "unemployment", t: "n", l: "b1", ex: "Le taux de chômage a diminué."},
+      {fr: "une promotion", en: "promotion", t: "n", l: "b1", ex: "Elle a obtenu une promotion."},
+      {fr: "un contrat", en: "contract", t: "n", l: "b1", ex: "J'ai signé un contrat à durée indéterminée."},
+      {fr: "une formation", en: "training", t: "n", l: "b1", ex: "L'entreprise offre des formations gratuites."},
+      {fr: "le télétravail", en: "remote work", t: "n", l: "b1", ex: "Le télétravail est devenu courant."},
+      {fr: "licencier", en: "to lay off/fire", t: "v", l: "b2", ex: "L'usine a licencié cinquante employés."},
+      {fr: "démissionner", en: "to resign", t: "v", l: "b2", ex: "Il a démissionné de son poste."},
+      {fr: "le rendement", en: "performance/yield", t: "n", l: "b2", ex: "Le rendement de l'équipe est excellent."},
+      {fr: "la gestion", en: "management", t: "n", l: "b2", ex: "La gestion de projet est essentielle."},
+      {fr: "un syndicat", en: "labor union", t: "n", l: "b2", ex: "Le syndicat a négocié de meilleures conditions."},
+      {fr: "un congé", en: "leave/time off", t: "n", l: "b1", ex: "J'ai pris un congé de deux semaines."},
+      {fr: "la comptabilité", en: "accounting", t: "n", l: "b2", ex: "La comptabilité est mon domaine d'expertise."}
+    ]
+  },
+  {
+    id: "health",
+    icon: "🏥",
+    title: "Health & Well-being",
+    words: [
+      {fr: "un médecin", en: "doctor", t: "n", l: "a2", ex: "J'ai rendez-vous chez le médecin."},
+      {fr: "un médicament", en: "medication", t: "n", l: "a2", ex: "Prenez ce médicament trois fois par jour."},
+      {fr: "une urgence", en: "emergency", t: "n", l: "a2", ex: "En cas d'urgence, appelez le 911."},
+      {fr: "une ordonnance", en: "prescription", t: "n", l: "b1", ex: "Le médecin m'a donné une ordonnance."},
+      {fr: "un symptôme", en: "symptom", t: "n", l: "b1", ex: "La fièvre est un symptôme courant."},
+      {fr: "guérir", en: "to heal/cure", t: "v", l: "b1", ex: "Le patient a guéri rapidement."},
+      {fr: "soigner", en: "to treat/care for", t: "v", l: "b1", ex: "Il faut soigner cette blessure."},
+      {fr: "la douleur", en: "pain", t: "n", l: "b1", ex: "J'ai une douleur au dos."},
+      {fr: "une assurance maladie", en: "health insurance", t: "n", l: "b1", ex: "L'assurance maladie est obligatoire."},
+      {fr: "un régime", en: "diet", t: "n", l: "b1", ex: "Je suis un régime sans gluten."},
+      {fr: "un cabinet médical", en: "doctor's office", t: "n", l: "b1", ex: "Le cabinet médical est fermé le dimanche."},
+      {fr: "un spécialiste", en: "specialist", t: "n", l: "b1", ex: "Mon médecin m'a envoyé chez un spécialiste."},
+      {fr: "le bien-être", en: "well-being", t: "n", l: "b2", ex: "Le bien-être mental est aussi important."},
+      {fr: "prévenir", en: "to prevent", t: "v", l: "b2", ex: "Il vaut mieux prévenir que guérir."},
+      {fr: "une intervention", en: "surgery/procedure", t: "n", l: "b2", ex: "L'intervention a duré deux heures."},
+      {fr: "la tension", en: "blood pressure", t: "n", l: "b2", ex: "Ma tension est un peu élevée."},
+      {fr: "un bilan de santé", en: "health check-up", t: "n", l: "b2", ex: "Je dois faire un bilan de santé annuel."},
+      {fr: "contagieux", en: "contagious", t: "adj", l: "b2", ex: "Cette maladie est très contagieuse."},
+      {fr: "se rétablir", en: "to recover", t: "v", l: "b2", ex: "Elle se rétablit après l'opération."},
+      {fr: "une épidémie", en: "epidemic", t: "n", l: "b2", ex: "L'épidémie s'est répandue rapidement."},
+      {fr: "une allergie", en: "allergy", t: "n", l: "b1", ex: "J'ai une allergie au pollen."}
+    ]
+  },
+  {
+    id: "education",
+    icon: "📚",
+    title: "Education & Learning",
+    words: [
+      {fr: "un diplôme", en: "degree/diploma", t: "n", l: "a2", ex: "J'ai obtenu mon diplôme en 2020."},
+      {fr: "réussir", en: "to pass/succeed", t: "v", l: "a2", ex: "J'ai réussi mon examen."},
+      {fr: "un cours", en: "class/course", t: "n", l: "a2", ex: "Je suis un cours de français."},
+      {fr: "une matière", en: "subject (school)", t: "n", l: "a2", ex: "Ma matière préférée est les maths."},
+      {fr: "une bourse", en: "scholarship", t: "n", l: "b1", ex: "Il a reçu une bourse d'études."},
+      {fr: "échouer", en: "to fail", t: "v", l: "b1", ex: "Il ne faut pas avoir peur d'échouer."},
+      {fr: "un programme", en: "curriculum", t: "n", l: "b1", ex: "Le programme scolaire a changé."},
+      {fr: "s'inscrire", en: "to register/enroll", t: "v", l: "b1", ex: "Je me suis inscrit à l'université."},
+      {fr: "un apprentissage", en: "learning/apprenticeship", t: "n", l: "b1", ex: "L'apprentissage d'une langue prend du temps."},
+      {fr: "enseigner", en: "to teach", t: "v", l: "b1", ex: "Elle enseigne le français depuis dix ans."},
+      {fr: "un relevé de notes", en: "transcript", t: "n", l: "b1", ex: "J'ai besoin de mon relevé de notes."},
+      {fr: "les frais de scolarité", en: "tuition fees", t: "n", l: "b1", ex: "Les frais de scolarité sont élevés."},
+      {fr: "un exposé", en: "oral presentation", t: "n", l: "b1", ex: "Je dois préparer un exposé pour lundi."},
+      {fr: "une recherche", en: "research", t: "n", l: "b1", ex: "Elle fait de la recherche en biologie."},
+      {fr: "un mémoire", en: "thesis/dissertation", t: "n", l: "b2", ex: "Elle rédige son mémoire de maîtrise."},
+      {fr: "une filière", en: "field of study", t: "n", l: "b2", ex: "J'ai choisi la filière scientifique."},
+      {fr: "la scolarité", en: "schooling", t: "n", l: "b2", ex: "La scolarité est obligatoire jusqu'à 16 ans."},
+      {fr: "un établissement", en: "institution", t: "n", l: "b2", ex: "Cet établissement est très réputé."},
+      {fr: "redoubler", en: "to repeat a year", t: "v", l: "b2", ex: "Il a dû redoubler sa deuxième année."},
+      {fr: "approfondir", en: "to deepen/explore further", t: "v", l: "b2", ex: "Je veux approfondir mes connaissances."}
+    ]
+  },
+  {
+    id: "media",
+    icon: "📰",
+    title: "Media & Communication",
+    words: [
+      {fr: "un journal", en: "newspaper", t: "n", l: "a2", ex: "Je lis le journal tous les matins."},
+      {fr: "un article", en: "article", t: "n", l: "a2", ex: "J'ai lu un article intéressant."},
+      {fr: "une chaîne", en: "TV channel", t: "n", l: "a2", ex: "Quelle chaîne diffuse le match?"},
+      {fr: "une émission", en: "TV/radio show", t: "n", l: "b1", ex: "Mon émission préférée passe à 20h."},
+      {fr: "un réseau social", en: "social network", t: "n", l: "b1", ex: "Les réseaux sociaux influencent l'opinion."},
+      {fr: "la presse", en: "the press", t: "n", l: "b1", ex: "La liberté de la presse est essentielle."},
+      {fr: "un reportage", en: "news report", t: "n", l: "b1", ex: "J'ai regardé un reportage sur l'immigration."},
+      {fr: "la publicité", en: "advertising", t: "n", l: "b1", ex: "Il y a trop de publicité à la télévision."},
+      {fr: "un abonnement", en: "subscription", t: "n", l: "b1", ex: "J'ai un abonnement au journal."},
+      {fr: "les actualités", en: "current news", t: "n", l: "b1", ex: "Avez-vous suivi les actualités?"},
+      {fr: "un média", en: "media outlet", t: "n", l: "b1", ex: "Les médias ont un rôle important."},
+      {fr: "diffuser", en: "to broadcast/spread", t: "v", l: "b2", ex: "La chaîne diffuse les nouvelles à midi."},
+      {fr: "une enquête", en: "investigation/survey", t: "n", l: "b2", ex: "Les journalistes mènent une enquête."},
+      {fr: "un sondage", en: "poll/survey", t: "n", l: "b2", ex: "Le sondage montre que 60% sont favorables."},
+      {fr: "un témoignage", en: "testimony/account", t: "n", l: "b2", ex: "Le témoignage du témoin est important."},
+      {fr: "censurer", en: "to censor", t: "v", l: "b2", ex: "Certains pays censurent Internet."},
+      {fr: "fiable", en: "reliable", t: "adj", l: "b2", ex: "Cette source d'information est fiable."},
+      {fr: "un auditeur", en: "listener", t: "n", l: "b2", ex: "La radio a des millions d'auditeurs."},
+      {fr: "influencer", en: "to influence", t: "v", l: "b2", ex: "Les médias influencent notre perception."},
+      {fr: "une rubrique", en: "column/section", t: "n", l: "b2", ex: "Je lis toujours la rubrique économie."}
+    ]
+  },
+  {
+    id: "environment",
+    icon: "🌍",
+    title: "Environment & Nature",
+    words: [
+      {fr: "la pollution", en: "pollution", t: "n", l: "a2", ex: "La pollution de l'air est un problème grave."},
+      {fr: "recycler", en: "to recycle", t: "v", l: "a2", ex: "Il est important de recycler ses déchets."},
+      {fr: "le réchauffement climatique", en: "global warming", t: "n", l: "b1", ex: "Le réchauffement climatique menace la planète."},
+      {fr: "les déchets", en: "waste/garbage", t: "n", l: "b1", ex: "Il faut réduire nos déchets."},
+      {fr: "une espèce", en: "species", t: "n", l: "b1", ex: "Beaucoup d'espèces sont menacées."},
+      {fr: "les ressources naturelles", en: "natural resources", t: "n", l: "b1", ex: "Les ressources naturelles s'épuisent."},
+      {fr: "une catastrophe naturelle", en: "natural disaster", t: "n", l: "b1", ex: "Les catastrophes naturelles sont plus fréquentes."},
+      {fr: "protéger", en: "to protect", t: "v", l: "b1", ex: "Il faut protéger l'environnement."},
+      {fr: "une inondation", en: "flood", t: "n", l: "b1", ex: "Les inondations ont causé des dégâts."},
+      {fr: "gaspiller", en: "to waste", t: "v", l: "b1", ex: "Il ne faut pas gaspiller l'eau."},
+      {fr: "le tri sélectif", en: "waste sorting", t: "n", l: "b1", ex: "Le tri sélectif est obligatoire ici."},
+      {fr: "durable", en: "sustainable", t: "adj", l: "b2", ex: "Le développement durable est prioritaire."},
+      {fr: "la sécheresse", en: "drought", t: "n", l: "b2", ex: "La sécheresse menace les récoltes."},
+      {fr: "l'empreinte carbone", en: "carbon footprint", t: "n", l: "b2", ex: "Nous devons réduire notre empreinte carbone."},
+      {fr: "énergie renouvelable", en: "renewable energy", t: "n", l: "b2", ex: "L'énergie renouvelable est l'avenir."},
+      {fr: "la biodiversité", en: "biodiversity", t: "n", l: "b2", ex: "La biodiversité est essentielle à l'écosystème."},
+      {fr: "la faune", en: "wildlife/fauna", t: "n", l: "b2", ex: "La faune de cette région est riche."},
+      {fr: "la flore", en: "flora", t: "n", l: "b2", ex: "La flore méditerranéenne est diverse."},
+      {fr: "sensibiliser", en: "to raise awareness", t: "v", l: "b2", ex: "Il faut sensibiliser les jeunes à l'écologie."},
+      {fr: "une émission de gaz", en: "gas emission", t: "n", l: "b2", ex: "Les émissions de gaz à effet de serre augmentent."}
+    ]
+  },
+  {
+    id: "travel",
+    icon: "✈️",
+    title: "Travel & Immigration (Canada)",
+    words: [
+      {fr: "un vol", en: "flight", t: "n", l: "a2", ex: "Mon vol part à 8h demain matin."},
+      {fr: "un passeport", en: "passport", t: "n", l: "a2", ex: "Mon passeport expire dans six mois."},
+      {fr: "un visa", en: "visa", t: "n", l: "a2", ex: "J'ai besoin d'un visa de travail."},
+      {fr: "une province", en: "province", t: "n", l: "a2", ex: "L'Ontario est la province la plus peuplée."},
+      {fr: "la douane", en: "customs", t: "n", l: "b1", ex: "Il faut passer par la douane."},
+      {fr: "la résidence permanente", en: "permanent residency", t: "n", l: "b1", ex: "J'ai obtenu la résidence permanente au Canada."},
+      {fr: "un hébergement", en: "accommodation", t: "n", l: "b1", ex: "J'ai trouvé un hébergement pour le week-end."},
+      {fr: "un itinéraire", en: "itinerary/route", t: "n", l: "b1", ex: "Quel est l'itinéraire le plus court?"},
+      {fr: "une correspondance", en: "connection (transport)", t: "n", l: "b1", ex: "J'ai une correspondance à Toronto."},
+      {fr: "un immigrant", en: "immigrant", t: "n", l: "b1", ex: "Le Canada accueille des immigrants du monde entier."},
+      {fr: "une carte de séjour", en: "residence permit", t: "n", l: "b1", ex: "Ma carte de séjour est valide deux ans."},
+      {fr: "francophone", en: "French-speaking", t: "adj", l: "b1", ex: "Le Québec est une province francophone."},
+      {fr: "un permis de conduire", en: "driver's license", t: "n", l: "b1", ex: "J'ai obtenu mon permis de conduire ontarien."},
+      {fr: "les impôts", en: "taxes", t: "n", l: "b1", ex: "Il faut déclarer ses impôts chaque année."},
+      {fr: "une demande de citoyenneté", en: "citizenship application", t: "n", l: "b2", ex: "J'ai soumis ma demande de citoyenneté."},
+      {fr: "s'intégrer", en: "to integrate", t: "v", l: "b2", ex: "Il est important de s'intégrer dans la société."},
+      {fr: "le multiculturalisme", en: "multiculturalism", t: "n", l: "b2", ex: "Le multiculturalisme est une valeur canadienne."},
+      {fr: "les formalités", en: "formalities/paperwork", t: "n", l: "b2", ex: "Les formalités d'immigration sont complexes."},
+      {fr: "un parrainage", en: "sponsorship", t: "n", l: "b2", ex: "Le parrainage familial est un programme populaire."},
+      {fr: "un recensement", en: "census", t: "n", l: "b2", ex: "Le recensement a lieu tous les cinq ans."},
+      {fr: "l'accueil", en: "reception/welcome", t: "n", l: "b1", ex: "L'accueil des nouveaux arrivants est chaleureux."}
+    ]
+  },
+  {
+    id: "society",
+    icon: "🏛️",
+    title: "Society & Civic Life",
+    words: [
+      {fr: "le gouvernement", en: "government", t: "n", l: "a2", ex: "Le gouvernement a annoncé de nouvelles mesures."},
+      {fr: "un citoyen", en: "citizen", t: "n", l: "b1", ex: "Chaque citoyen a le droit de voter."},
+      {fr: "une élection", en: "election", t: "n", l: "b1", ex: "Les élections auront lieu en octobre."},
+      {fr: "un droit", en: "a right", t: "n", l: "b1", ex: "L'éducation est un droit fondamental."},
+      {fr: "un devoir", en: "a duty/obligation", t: "n", l: "b1", ex: "Voter est un devoir civique."},
+      {fr: "l'égalité", en: "equality", t: "n", l: "b1", ex: "L'égalité des chances est importante."},
+      {fr: "un bénévole", en: "volunteer", t: "n", l: "b1", ex: "Les bénévoles aident dans les centres communautaires."},
+      {fr: "une association", en: "organization/charity", t: "n", l: "b1", ex: "Elle travaille pour une association humanitaire."},
+      {fr: "la justice", en: "justice", t: "n", l: "b1", ex: "La justice doit être accessible à tous."},
+      {fr: "un impôt", en: "tax", t: "n", l: "b1", ex: "Les impôts financent les services publics."},
+      {fr: "une loi", en: "law", t: "n", l: "b1", ex: "La nouvelle loi protège les consommateurs."},
+      {fr: "la diversité", en: "diversity", t: "n", l: "b2", ex: "La diversité culturelle enrichit la société."},
+      {fr: "une manifestation", en: "demonstration/protest", t: "n", l: "b2", ex: "Il y a eu une grande manifestation hier."},
+      {fr: "le logement social", en: "social housing", t: "n", l: "b2", ex: "Le logement social manque dans les grandes villes."},
+      {fr: "la laïcité", en: "secularism", t: "n", l: "b2", ex: "La laïcité est un sujet de débat au Québec."},
+      {fr: "un sondage d'opinion", en: "opinion poll", t: "n", l: "b2", ex: "Les sondages d'opinion influencent les élections."},
+      {fr: "la solidarité", en: "solidarity", t: "n", l: "b2", ex: "La solidarité est essentielle en temps de crise."},
+      {fr: "revendiquer", en: "to demand/claim", t: "v", l: "b2", ex: "Les travailleurs revendiquent de meilleurs salaires."},
+      {fr: "un enjeu", en: "issue/challenge/stake", t: "n", l: "b2", ex: "L'environnement est un enjeu majeur."},
+      {fr: "la mondialisation", en: "globalization", t: "n", l: "b2", ex: "La mondialisation a des effets positifs et négatifs."}
+    ]
+  },
+  {
+    id: "tech",
+    icon: "💻",
+    title: "Technology & Innovation",
+    words: [
+      {fr: "un mot de passe", en: "password", t: "n", l: "a2", ex: "N'oubliez pas votre mot de passe."},
+      {fr: "une application", en: "app", t: "n", l: "a2", ex: "Cette application est gratuite."},
+      {fr: "un écran", en: "screen", t: "n", l: "a2", ex: "L'écran de mon ordinateur est cassé."},
+      {fr: "un logiciel", en: "software", t: "n", l: "b1", ex: "Ce logiciel est très utile pour le travail."},
+      {fr: "un réseau", en: "network", t: "n", l: "b1", ex: "Le réseau Wi-Fi ne fonctionne pas."},
+      {fr: "télécharger", en: "to download", t: "v", l: "b1", ex: "J'ai téléchargé l'application."},
+      {fr: "une donnée", en: "data (piece of)", t: "n", l: "b1", ex: "La protection des données est importante."},
+      {fr: "une mise à jour", en: "update", t: "n", l: "b1", ex: "Il faut faire la mise à jour du système."},
+      {fr: "le numérique", en: "digital", t: "adj", l: "b1", ex: "La transformation numérique change notre quotidien."},
+      {fr: "un appareil", en: "device", t: "n", l: "b1", ex: "Cet appareil est très performant."},
+      {fr: "stocker", en: "to store", t: "v", l: "b1", ex: "On peut stocker les fichiers dans le cloud."},
+      {fr: "une start-up", en: "startup", t: "n", l: "b1", ex: "Il a créé une start-up technologique."},
+      {fr: "le commerce en ligne", en: "e-commerce", t: "n", l: "b1", ex: "Le commerce en ligne a explosé."},
+      {fr: "l'intelligence artificielle", en: "artificial intelligence", t: "n", l: "b2", ex: "L'intelligence artificielle transforme les industries."},
+      {fr: "un piratage", en: "hacking", t: "n", l: "b2", ex: "Le piratage informatique est un crime."},
+      {fr: "la cybersécurité", en: "cybersecurity", t: "n", l: "b2", ex: "La cybersécurité est un défi majeur."},
+      {fr: "un algorithme", en: "algorithm", t: "n", l: "b2", ex: "Les algorithmes déterminent ce que nous voyons."},
+      {fr: "l'automatisation", en: "automation", t: "n", l: "b2", ex: "L'automatisation remplace certains emplois."},
+      {fr: "la réalité virtuelle", en: "virtual reality", t: "n", l: "b2", ex: "La réalité virtuelle a de nombreuses applications."},
+      {fr: "innover", en: "to innovate", t: "v", l: "b2", ex: "Les entreprises doivent innover pour survivre."}
+    ]
+  },
+  {
+    id: "opinion",
+    icon: "💬",
+    title: "Expressing Opinions (TEF Speaking & Writing)",
+    words: [
+      {fr: "à mon avis", en: "in my opinion", t: "exp", l: "b1", ex: "À mon avis, cette décision est juste."},
+      {fr: "il me semble que", en: "it seems to me that", t: "exp", l: "b1", ex: "Il me semble que le problème est plus complexe."},
+      {fr: "selon moi", en: "according to me", t: "exp", l: "b1", ex: "Selon moi, l'éducation est la clé."},
+      {fr: "je suis convaincu(e) que", en: "I'm convinced that", t: "exp", l: "b2", ex: "Je suis convaincu que c'est la bonne solution."},
+      {fr: "en ce qui me concerne", en: "as far as I'm concerned", t: "exp", l: "b2", ex: "En ce qui me concerne, je préfère le télétravail."},
+      {fr: "je suis favorable à", en: "I'm in favor of", t: "exp", l: "b2", ex: "Je suis favorable à cette réforme."},
+      {fr: "je suis opposé(e) à", en: "I'm opposed to", t: "exp", l: "b2", ex: "Je suis opposé à cette mesure."},
+      {fr: "d'une part... d'autre part", en: "on one hand... on the other", t: "exp", l: "b2", ex: "D'une part c'est utile, d'autre part c'est cher."},
+      {fr: "certes... mais", en: "certainly... but", t: "exp", l: "b2", ex: "Certes c'est difficile, mais c'est possible."},
+      {fr: "en revanche", en: "on the other hand", t: "exp", l: "b2", ex: "Le prix est élevé; en revanche, la qualité est excellente."},
+      {fr: "par conséquent", en: "consequently", t: "exp", l: "b2", ex: "Il a plu; par conséquent, le match est annulé."},
+      {fr: "nuancer", en: "to qualify/nuance", t: "v", l: "b2", ex: "Il faut nuancer cette affirmation."},
+      {fr: "soutenir", en: "to support/argue", t: "v", l: "b2", ex: "Je soutiens cette proposition."},
+      {fr: "contester", en: "to challenge/dispute", t: "v", l: "b2", ex: "On peut contester cette analyse."},
+      {fr: "mettre en évidence", en: "to highlight", t: "exp", l: "b2", ex: "Cette étude met en évidence un problème."},
+      {fr: "il est indéniable que", en: "it's undeniable that", t: "exp", l: "b2", ex: "Il est indéniable que la technologie évolue vite."},
+      {fr: "force est de constater que", en: "one must acknowledge that", t: "exp", l: "b2", ex: "Force est de constater que le système a des failles."},
+      {fr: "tout compte fait", en: "all things considered", t: "exp", l: "b2", ex: "Tout compte fait, c'était une bonne décision."},
+      {fr: "en définitive", en: "ultimately", t: "exp", l: "b2", ex: "En définitive, les avantages l'emportent."},
+      {fr: "il va sans dire que", en: "it goes without saying that", t: "exp", l: "b2", ex: "Il va sans dire que la santé est prioritaire."}
+    ]
+  }
+];
+
+// ===== STATE =====
+let learned = {};
+try { learned = JSON.parse(localStorage.getItem('tef_vocab_learned') || '{}'); } catch(e){}
+let currentTheme = 'all';
+let currentLevel = 'all';
+let showOnlyLearned = false;
+
+// ===== STATS =====
+function countStats() {
+  let total = 0, a2 = 0, b1 = 0, b2 = 0;
+  themes.forEach(t => t.words.forEach(w => {
+    total++;
+    if (w.l === 'a2') a2++;
+    else if (w.l === 'b1') b1++;
+    else b2++;
+  }));
+  document.getElementById('totalWords').textContent = total;
+  document.getElementById('a2Count').textContent = a2;
+  document.getElementById('b1Count').textContent = b1;
+  document.getElementById('b2Count').textContent = b2;
+  updateLearnedCount();
+}
+
+function updateLearnedCount() {
+  const c = Object.keys(learned).length;
+  let total = 0;
+  themes.forEach(t => total += t.words.length);
+  document.getElementById('learnedCount').textContent = c;
+  const pct = total ? Math.round(c / total * 100) : 0;
+  document.getElementById('progressText').textContent = c + ' of ' + total + ' words learned (' + pct + '%)';
+  document.getElementById('progressFill').style.width = pct + '%';
+
+  // Update TEFProgress
+  const prog = TEFProgress.getAll();
+  prog.vocabulary.learned = Object.keys(learned);
+  TEFProgress.save(prog);
+}
+
+function saveLearned() {
+  try { localStorage.setItem('tef_vocab_learned', JSON.stringify(learned)); } catch(e) {}
+  updateLearnedCount();
+}
+
+// ===== BUILD BROWSE VIEW =====
+const container = document.getElementById('themes-container');
+themes.forEach(theme => {
+  const div = document.createElement('div');
+  div.className = 'theme';
+  div.dataset.theme = theme.id;
+  const wordCards = theme.words.map((w, i) => {
+    const key = theme.id + '_' + i;
+    const isLearned = learned[key] ? 'learned' : '';
+    const typeLabel = w.t === 'n' ? 'noun' : w.t === 'v' ? 'verb' : w.t === 'adj' ? 'adjective' : 'expression';
+    return '<div class="word-card ' + isLearned + '" data-key="' + key + '" data-level="' + w.l + '" data-search="' + w.fr.toLowerCase() + ' ' + w.en.toLowerCase() + '">' +
+      '<button class="learn-btn" data-key="' + key + '" title="Mark as learned">' + (learned[key] ? '✅' : '☐') + '</button>' +
+      '<div class="fr">' + w.fr + ' <span class="level-tag tag-' + w.l + '">' + w.l.toUpperCase() + '</span></div>' +
+      '<div class="type">' + typeLabel + '</div>' +
+      '<div class="en">' + w.en + '</div>' +
+      '<div class="ex">📝 ' + w.ex + '</div>' +
+    '</div>';
+  }).join('');
+  div.innerHTML = '<div class="theme-title"><span>' + theme.icon + ' ' + theme.title + ' (' + theme.words.length + ' words)</span><span class="arrow">▶</span></div>' +
+    '<div class="theme-content hidden"><div class="word-grid">' + wordCards + '</div></div>';
+  container.appendChild(div);
+});
+
+// ===== THEME TITLES: EXPAND/COLLAPSE =====
+document.querySelectorAll('.theme-title').forEach(el => {
+  el.addEventListener('click', function() {
+    const content = this.nextElementSibling;
+    const arrow = this.querySelector('.arrow');
+    content.classList.toggle('hidden');
+    arrow.textContent = content.classList.contains('hidden') ? '▶' : '▼';
+  });
+});
+
+// ===== WORD CARD EXPAND + LEARN =====
+document.querySelectorAll('.word-card').forEach(card => {
+  card.addEventListener('click', function(e) {
+    if (e.target.classList.contains('learn-btn')) return;
+    this.classList.toggle('expanded');
+  });
+});
+
+document.querySelectorAll('.learn-btn').forEach(btn => {
+  btn.addEventListener('click', function(e) {
+    e.stopPropagation();
+    const key = this.dataset.key;
+    const card = this.closest('.word-card');
+    if (learned[key]) {
+      delete learned[key];
+      this.textContent = '☐';
+      card.classList.remove('learned');
+    } else {
+      learned[key] = true;
+      this.textContent = '✅';
+      card.classList.add('learned');
+      TEFProgress.addXP(5, 'vocabulary');
+    }
+    saveLearned();
+  });
+});
+
+// ===== THEME FILTERS =====
+document.querySelectorAll('#themeFilters button').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('#themeFilters button').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    currentTheme = this.dataset.theme;
+    applyFilters();
+  });
+});
+
+// ===== LEVEL FILTERS =====
+document.querySelectorAll('#levelFilters button').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('#levelFilters button').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    currentLevel = this.dataset.level;
+    applyFilters();
+  });
+});
+
+// ===== SEARCH =====
+document.getElementById('searchInput').addEventListener('input', function() {
+  applyFilters();
+});
+
+// ===== APPLY ALL FILTERS =====
+function applyFilters() {
+  const q = document.getElementById('searchInput').value.toLowerCase().trim();
+  let anyVisible = false;
+  document.querySelectorAll('.theme').forEach(themeEl => {
+    const themeMatch = (currentTheme === 'all' || themeEl.dataset.theme === currentTheme);
+    if (!themeMatch) { themeEl.style.display = 'none'; return; }
+    let themeHasVisible = false;
+    themeEl.querySelectorAll('.word-card').forEach(card => {
+      const levelMatch = (currentLevel === 'all' || card.dataset.level === currentLevel);
+      const searchMatch = (!q || card.dataset.search.includes(q));
+      const learnedMatch = (!showOnlyLearned || card.classList.contains('learned'));
+      const visible = levelMatch && searchMatch && learnedMatch;
+      card.style.display = visible ? '' : 'none';
+      if (visible) themeHasVisible = true;
+    });
+    themeEl.style.display = themeHasVisible ? '' : 'none';
+    if (themeHasVisible) {
+      anyVisible = true;
+      if (q) {
+        themeEl.querySelector('.theme-content').classList.remove('hidden');
+        themeEl.querySelector('.arrow').textContent = '▼';
+      }
+    }
+  });
+  document.getElementById('noMatch').style.display = anyVisible ? 'none' : 'block';
+}
+
+// ===== ACTION BUTTONS =====
+document.getElementById('expandAll').addEventListener('click', function() {
+  document.querySelectorAll('.theme-content').forEach(c => c.classList.remove('hidden'));
+  document.querySelectorAll('.arrow').forEach(a => a.textContent = '▼');
+});
+
+document.getElementById('collapseAll').addEventListener('click', function() {
+  document.querySelectorAll('.theme-content').forEach(c => c.classList.add('hidden'));
+  document.querySelectorAll('.arrow').forEach(a => a.textContent = '▶');
+});
+
+document.getElementById('resetProgress').addEventListener('click', function() {
+  if (!confirm('Reset all learned words? This cannot be undone.')) return;
+  learned = {};
+  saveLearned();
+  document.querySelectorAll('.word-card').forEach(c => c.classList.remove('learned'));
+  document.querySelectorAll('.learn-btn').forEach(b => b.textContent = '☐');
+  showOnlyLearned = false;
+  document.getElementById('showLearned').textContent = '👁️ Show Only Learned';
+  applyFilters();
+});
+
+document.getElementById('showLearned').addEventListener('click', function() {
+  showOnlyLearned = !showOnlyLearned;
+  this.textContent = showOnlyLearned ? '📋 Show All' : '👁️ Show Only Learned';
+  applyFilters();
+});
+
+// ===== MODE TOGGLE =====
+document.querySelectorAll('#modeToggle button').forEach(btn => {
+  btn.addEventListener('click', function() {
+    document.querySelectorAll('#modeToggle button').forEach(b => b.classList.remove('active'));
+    this.classList.add('active');
+    const mode = this.dataset.mode;
+    document.getElementById('browsePanel').style.display = mode === 'browse' ? '' : 'none';
+    document.getElementById('quizPanel').style.display = mode === 'quiz' ? '' : 'none';
+  });
+});
+
+// ===== QUIZ MODE =====
+const quizThemeSel = document.getElementById('quizTheme');
+themes.forEach(t => {
+  const opt = document.createElement('option');
+  opt.value = t.id;
+  opt.textContent = t.icon + ' ' + t.title;
+  quizThemeSel.appendChild(opt);
+});
+
+let quizWords = [], quizIndex = 0, quizKnewCount = 0, quizRevealed = false;
+
+function buildQuizDeck() {
+  const th = document.getElementById('quizTheme').value;
+  const lv = document.getElementById('quizLevel').value;
+  const maxCount = parseInt(document.getElementById('quizCount').value);
+  let pool = [];
+  themes.forEach(t => {
+    if (th !== 'all' && t.id !== th) return;
+    t.words.forEach((w, i) => {
+      if (lv !== 'all' && w.l !== lv) return;
+      pool.push({...w, key: t.id + '_' + i, themeIcon: t.icon});
+    });
+  });
+  for (let i = pool.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [pool[i], pool[j]] = [pool[j], pool[i]];
+  }
+  if (maxCount > 0) pool = pool.slice(0, maxCount);
+  return pool;
+}
+
+function showQuizCard() {
+  if (quizIndex >= quizWords.length) {
+    document.getElementById('quizCard').style.display = 'none';
+    document.getElementById('quizScore').style.display = '';
+    document.getElementById('quizScoreNum').textContent = quizKnewCount + '/' + quizWords.length;
+    const pct = Math.round(quizKnewCount / quizWords.length * 100);
+    let msg = pct >= 80 ? '🎉 Excellent! You know these words well!' : pct >= 50 ? '👍 Good progress! Keep reviewing the ones you missed.' : '📖 Keep studying! Review these words daily.';
+    document.getElementById('quizScoreText').textContent = msg + ' (' + pct + '%)';
+    return;
+  }
+  const w = quizWords[quizIndex];
+  const dir = document.getElementById('quizDirection').value;
+  const isF2E = (dir === 'fr2en');
+  document.getElementById('quizWord').textContent = isF2E ? w.fr : w.en;
+  const typeLabel = w.t === 'n' ? 'noun' : w.t === 'v' ? 'verb' : w.t === 'adj' ? 'adjective' : 'expression';
+  document.getElementById('quizType').textContent = w.themeIcon + ' ' + typeLabel + ' • ' + w.l.toUpperCase();
+  document.getElementById('quizAnswer').textContent = 'Tap to reveal';
+  document.getElementById('quizAnswer').classList.remove('revealed');
+  document.getElementById('quizExample').textContent = '';
+  document.getElementById('quizExample').classList.remove('revealed');
+  document.getElementById('quizHint').textContent = 'Tap the box to check your answer';
+  quizRevealed = false;
+  document.getElementById('quizProgress').textContent = 'Card ' + (quizIndex + 1) + ' of ' + quizWords.length + ' • Score: ' + quizKnewCount;
+  document.getElementById('quizFill').style.width = Math.round((quizIndex / quizWords.length) * 100) + '%';
+  document.getElementById('quizCard').style.display = '';
+  document.getElementById('quizScore').style.display = 'none';
+}
+
+document.getElementById('quizAnswer').addEventListener('click', function() {
+  if (quizRevealed || quizIndex >= quizWords.length) return;
+  const w = quizWords[quizIndex];
+  const dir = document.getElementById('quizDirection').value;
+  this.textContent = (dir === 'fr2en') ? w.en : w.fr;
+  this.classList.add('revealed');
+  document.getElementById('quizExample').textContent = '📝 ' + w.ex;
+  document.getElementById('quizExample').classList.add('revealed');
+  document.getElementById('quizHint').textContent = 'Did you know it? Click ✅ or Next ➡';
+  quizRevealed = true;
+});
+
+document.getElementById('quizReveal').addEventListener('click', function() {
+  document.getElementById('quizAnswer').click();
+});
+
+document.getElementById('quizStart').addEventListener('click', function() {
+  quizWords = buildQuizDeck();
+  if (quizWords.length === 0) { alert('No words match your filter settings. Try different options.'); return; }
+  quizIndex = 0;
+  quizKnewCount = 0;
+  showQuizCard();
+});
+
+document.getElementById('quizNext').addEventListener('click', function() {
+  if (quizWords.length === 0) return;
+  quizIndex++;
+  showQuizCard();
+});
+
+document.getElementById('quizPrev').addEventListener('click', function() {
+  if (quizIndex > 0) { quizIndex--; showQuizCard(); }
+});
+
+document.getElementById('quizKnew').addEventListener('click', function() {
+  if (!quizRevealed || quizIndex >= quizWords.length) return;
+  quizKnewCount++;
+  const key = quizWords[quizIndex].key;
+  learned[key] = true;
+  saveLearned();
+  const card = document.querySelector('.word-card[data-key="' + key + '"]');
+  if (card) {
+    card.classList.add('learned');
+    card.querySelector('.learn-btn').textContent = '✅';
+  }
+  TEFProgress.addXP(5, 'vocabulary');
+  quizIndex++;
+  showQuizCard();
+});
+
+// ===== PRINT BUTTON =====
+document.getElementById('printBtn').addEventListener('click', function() {
+  window.print();
+});
+
+// ===== INIT =====
+countStats();
+
+// ===== PAGE-LEVEL INIT =====
+document.addEventListener('DOMContentLoaded', function() {
+  renderNav('vocabulary');
+  renderFooter();
+});
+</script>
+</body>
+</html>

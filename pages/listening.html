@@ -1,0 +1,1177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Listening Comprehension - TEF Canada Practice</title>
+    <link rel="stylesheet" href="/css/style.css">
+    <style>
+        .listening-container {
+            max-width: 900px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+
+        .listening-header {
+            text-align: center;
+            margin-bottom: 40px;
+        }
+
+        .listening-header h1 {
+            font-size: 2.5em;
+            color: #2c3e50;
+            margin-bottom: 10px;
+        }
+
+        .listening-tip {
+            background-color: #e8f4f8;
+            border-left: 4px solid #3498db;
+            padding: 15px 20px;
+            margin-bottom: 30px;
+            border-radius: 4px;
+            color: #2c3e50;
+        }
+
+        .filter-controls {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+            justify-content: center;
+        }
+
+        .filter-btn {
+            padding: 10px 20px;
+            border: 2px solid #bdc3c7;
+            background-color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 1em;
+            font-weight: 500;
+        }
+
+        .filter-btn:hover {
+            border-color: #3498db;
+            color: #3498db;
+        }
+
+        .filter-btn.active {
+            background-color: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+
+        .listening-item {
+            background-color: white;
+            border: 1px solid #ecf0f1;
+            border-radius: 8px;
+            padding: 30px;
+            margin-bottom: 30px;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+            transition: box-shadow 0.3s ease;
+        }
+
+        .listening-item:hover {
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+        }
+
+        .listening-item.hidden {
+            display: none;
+        }
+
+        .exercise-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: start;
+            margin-bottom: 20px;
+        }
+
+        .exercise-title {
+            font-size: 1.3em;
+            color: #2c3e50;
+            margin: 0 0 10px 0;
+        }
+
+        .level-badge {
+            display: inline-block;
+            padding: 6px 12px;
+            border-radius: 4px;
+            font-size: 0.85em;
+            font-weight: bold;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+
+        .level-a2 {
+            background-color: #2ecc71;
+            color: white;
+        }
+
+        .level-b1 {
+            background-color: #f39c12;
+            color: white;
+        }
+
+        .level-b2 {
+            background-color: #e74c3c;
+            color: white;
+        }
+
+        .scenario-description {
+            color: #7f8c8d;
+            font-style: italic;
+            margin-bottom: 20px;
+            padding: 10px 0;
+            border-bottom: 1px solid #ecf0f1;
+        }
+
+        .audio-controls {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 25px;
+            flex-wrap: wrap;
+            align-items: center;
+        }
+
+        .play-btn {
+            background-color: #3498db;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            transition: background-color 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        .play-btn:hover {
+            background-color: #2980b9;
+        }
+
+        .play-btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .play-btn.playing {
+            background-color: #e74c3c;
+        }
+
+        .speed-control {
+            display: flex;
+            gap: 8px;
+            align-items: center;
+        }
+
+        .speed-label {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-right: 10px;
+        }
+
+        .speed-btn {
+            padding: 8px 16px;
+            border: 1px solid #bdc3c7;
+            background-color: white;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-size: 0.9em;
+        }
+
+        .speed-btn:hover {
+            border-color: #3498db;
+        }
+
+        .speed-btn.active {
+            background-color: #3498db;
+            color: white;
+            border-color: #3498db;
+        }
+
+        .transcript-box {
+            background-color: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 20px;
+            margin-bottom: 25px;
+            border-radius: 4px;
+            min-height: 60px;
+            font-size: 1.1em;
+            line-height: 1.6;
+            color: #2c3e50;
+            font-style: italic;
+        }
+
+        .transcript-text {
+            min-height: 20px;
+        }
+
+        .transcript-placeholder {
+            color: #95a5a6;
+        }
+
+        .questions-section {
+            margin-top: 30px;
+            padding-top: 25px;
+            border-top: 2px solid #ecf0f1;
+        }
+
+        .questions-title {
+            font-size: 1.2em;
+            color: #2c3e50;
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+
+        .question-item {
+            margin-bottom: 25px;
+            padding: 15px;
+            background-color: #f8f9fa;
+            border-radius: 4px;
+        }
+
+        .question-text {
+            font-weight: 600;
+            color: #2c3e50;
+            margin-bottom: 12px;
+        }
+
+        .question-num {
+            color: #3498db;
+            margin-right: 8px;
+        }
+
+        .options-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        .option-item {
+            padding: 10px 15px;
+            margin-bottom: 8px;
+            background-color: white;
+            border: 1px solid #bdc3c7;
+            border-radius: 4px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+
+        .option-item:hover {
+            border-color: #3498db;
+            background-color: #f0f8ff;
+        }
+
+        .option-item input[type="radio"] {
+            cursor: pointer;
+            margin: 0;
+        }
+
+        .option-item label {
+            cursor: pointer;
+            flex: 1;
+            margin: 0;
+        }
+
+        .option-item.selected {
+            border-color: #3498db;
+            background-color: #f0f8ff;
+        }
+
+        .option-item.correct {
+            border-color: #2ecc71;
+            background-color: #f0fff4;
+        }
+
+        .option-item.incorrect {
+            border-color: #e74c3c;
+            background-color: #fff5f5;
+        }
+
+        .answer-explanation {
+            margin-top: 15px;
+            padding: 12px 15px;
+            background-color: #e8f4f8;
+            border-left: 3px solid #3498db;
+            border-radius: 4px;
+            font-size: 0.95em;
+            color: #2c3e50;
+            display: none;
+        }
+
+        .answer-explanation.shown {
+            display: block;
+        }
+
+        .answer-explanation-title {
+            font-weight: 600;
+            margin-bottom: 8px;
+        }
+
+        .check-answers-btn {
+            background-color: #27ae60;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1em;
+            font-weight: 600;
+            margin-top: 20px;
+            transition: background-color 0.3s ease;
+        }
+
+        .check-answers-btn:hover {
+            background-color: #229954;
+        }
+
+        .check-answers-btn:disabled {
+            background-color: #bdc3c7;
+            cursor: not-allowed;
+        }
+
+        .score-display {
+            margin-top: 20px;
+            padding: 15px;
+            background-color: #f0fff4;
+            border-left: 4px solid #2ecc71;
+            border-radius: 4px;
+            text-align: center;
+            display: none;
+        }
+
+        .score-display.shown {
+            display: block;
+        }
+
+        .score-text {
+            font-size: 1.2em;
+            color: #2c3e50;
+            font-weight: 600;
+        }
+
+        .progress-bar-container {
+            width: 100%;
+            height: 6px;
+            background-color: #ecf0f1;
+            border-radius: 3px;
+            overflow: hidden;
+            margin-top: 10px;
+        }
+
+        .progress-bar {
+            height: 100%;
+            background-color: #2ecc71;
+            width: 0;
+            transition: width 0.3s ease;
+        }
+
+        .exercises-progress {
+            text-align: center;
+            margin-bottom: 30px;
+            color: #7f8c8d;
+        }
+
+        @media (max-width: 768px) {
+            .listening-header h1 {
+                font-size: 1.8em;
+            }
+
+            .audio-controls {
+                flex-direction: column;
+                align-items: flex-start;
+            }
+
+            .speed-control {
+                width: 100%;
+                flex-wrap: wrap;
+            }
+
+            .exercise-header {
+                flex-direction: column;
+                gap: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div id="nav-container"></div>
+
+    <div class="listening-container">
+        <div class="listening-header">
+            <h1>Listening Comprehension</h1>
+            <p>Practice understanding French in real-world scenarios</p>
+        </div>
+
+        <div class="listening-tip">
+            <strong>Tip:</strong> For best results, try to understand without looking at the text first. Click "Play" and listen (by reading aloud), then answer the questions.
+        </div>
+
+        <div class="filter-controls">
+            <button class="filter-btn active" data-filter="all">All Levels</button>
+            <button class="filter-btn" data-filter="A2">A2</button>
+            <button class="filter-btn" data-filter="B1">B1</button>
+            <button class="filter-btn" data-filter="B2">B2</button>
+        </div>
+
+        <div class="exercises-progress">
+            <p id="progress-text">Load exercises to see your progress</p>
+        </div>
+
+        <div id="exercises-container"></div>
+    </div>
+
+    <div id="footer-container"></div>
+
+    <script src="/js/nav.js"></script>
+    <script src="/js/progress-tracker.js"></script>
+
+    <script>
+        // Listening Comprehension Exercises Data
+        const listeningExercises = [
+            {
+                id: 'listen-001',
+                level: 'A2',
+                title: 'Airport Announcement - Flight Delay',
+                scenario: 'You are at the airport and hear this announcement at the gate.',
+                transcript: `Mesdames et messieurs, nous vous informons que le vol AF 342 à destination de Paris est retardé de trente minutes. Le décollage est prévu à 15h45 au lieu de 15h15. Nous vous prions de rester à proximité de la porte d'embarquement. Merci de votre patience.`,
+                questions: [
+                    {
+                        id: 'q1',
+                        text: 'What is the flight number?',
+                        options: [
+                            { id: 'a', text: 'AF 234' },
+                            { id: 'b', text: 'AF 342', correct: true },
+                            { id: 'c', text: 'AF 432' }
+                        ],
+                        explanation: 'The announcement states "le vol AF 342" (flight AF 342). This is the flight number mentioned at the beginning.'
+                    },
+                    {
+                        id: 'q2',
+                        text: 'How long is the delay?',
+                        options: [
+                            { id: 'a', text: '15 minutes' },
+                            { id: 'b', text: '30 minutes', correct: true },
+                            { id: 'c', text: '45 minutes' }
+                        ],
+                        explanation: 'The announcement says "retardé de trente minutes" which means delayed by 30 minutes.'
+                    },
+                    {
+                        id: 'q3',
+                        text: 'What is the new departure time?',
+                        options: [
+                            { id: 'a', text: '15h15' },
+                            { id: 'b', text: '15h30' },
+                            { id: 'c', text: '15h45', correct: true }
+                        ],
+                        explanation: 'The announcement states "Le décollage est prévu à 15h45 au lieu de 15h15" (Departure is scheduled for 15:45 instead of 15:15).'
+                    }
+                ]
+            },
+            {
+                id: 'listen-002',
+                level: 'A2',
+                title: 'Phone Message - Doctor Appointment',
+                scenario: 'You listen to a voicemail from your doctor\'s office.',
+                transcript: `Bonjour, c'est le cabinet du Dr. Moreau. Nous vous appelons pour confirmer votre rendez-vous de mercredi à 14 heures. Si vous ne pouvez pas venir, veuillez nous appeler avant 17 heures aujourd'hui. Le numéro est le 02 54 67 89 12. Merci beaucoup.`,
+                questions: [
+                    {
+                        id: 'q1',
+                        text: 'When is the appointment?',
+                        options: [
+                            { id: 'a', text: 'Tuesday at 14:00' },
+                            { id: 'b', text: 'Wednesday at 14:00', correct: true },
+                            { id: 'c', text: 'Thursday at 14:00' }
+                        ],
+                        explanation: 'The message says "mercredi à 14 heures" (Wednesday at 14:00).'
+                    },
+                    {
+                        id: 'q2',
+                        text: 'What is the deadline to cancel?',
+                        options: [
+                            { id: 'a', text: '15:00' },
+                            { id: 'b', text: '17:00', correct: true },
+                            { id: 'c', text: '19:00' }
+                        ],
+                        explanation: 'The message states "veuillez nous appeler avant 17 heures" (please call us before 17:00).'
+                    },
+                    {
+                        id: 'q3',
+                        text: 'Who is calling?',
+                        options: [
+                            { id: 'a', text: 'Dr. Moreau directly' },
+                            { id: 'b', text: 'Dr. Moreau\'s office', correct: true },
+                            { id: 'c', text: 'A hospital' }
+                        ],
+                        explanation: 'The message says "c\'est le cabinet du Dr. Moreau" (it\'s Dr. Moreau\'s office).'
+                    }
+                ]
+            },
+            {
+                id: 'listen-003',
+                level: 'A2',
+                title: 'Store Announcement - Closing Time Sale',
+                scenario: 'You are shopping in a store and hear this announcement.',
+                transcript: `Attention, attention à tous nos clients. Notre magasin ferme dans une heure. Tous les articles en solde sont jusqu'à cinquante pour cent de réduction. C'est votre dernière chance! Continuez vos achats, la caisse reste ouverte jusqu'à 19 heures.`,
+                questions: [
+                    {
+                        id: 'q1',
+                        text: 'When does the store close?',
+                        options: [
+                            { id: 'a', text: '17:00' },
+                            { id: 'b', text: '18:00' },
+                            { id: 'c', text: '19:00', correct: true }
+                        ],
+                        explanation: 'The announcement states "la caisse reste ouverte jusqu\'à 19 heures" (the checkout remains open until 19:00).'
+                    },
+                    {
+                        id: 'q2',
+                        text: 'How much time do you have to shop?',
+                        options: [
+                            { id: 'a', text: '30 minutes' },
+                            { id: 'b', text: '1 hour', correct: true },
+                            { id: 'c', text: '2 hours' }
+                        ],
+                        explanation: 'The announcement says "Notre magasin ferme dans une heure" (Our store closes in one hour).'
+                    },
+                    {
+                        id: 'q3',
+                        text: 'What is the maximum discount on sale items?',
+                        options: [
+                            { id: 'a', text: '30%' },
+                            { id: 'b', text: '50%', correct: true },
+                            { id: 'c', text: '75%' }
+                        ],
+                        explanation: 'The announcement mentions "jusqu\'à cinquante pour cent de réduction" (up to 50% discount).'
+                    }
+                ]
+            },
+            {
+                id: 'listen-004',
+                level: 'B1',
+                title: 'Radio News - Weather and Events',
+                scenario: 'You listen to a local radio news segment.',
+                transcript: `Voici les nouvelles de la journée. La météo de cette fin de semaine sera nuageuse avec des risques d'orage dimanche. Les températures devraient avoisiner 15 degrés. En ce qui concerne les événements locaux, le festival d'art aura lieu ce samedi à la place centrale. L'entrée est gratuite et l'événement durera de 10 heures à 18 heures. Un marché fermier ouvre également mercredi dans le quartier sud.`,
+                questions: [
+                    {
+                        id: 'q1',
+                        text: 'What weather is expected on Sunday?',
+                        options: [
+                            { id: 'a', text: 'Sunny and hot' },
+                            { id: 'b', text: 'Cloudy with risk of storms', correct: true },
+                            { id: 'c', text: 'Rainy and cold' }
+                        ],
+                        explanation: 'The news states "nuageuse avec des risques d\'orage dimanche" (cloudy with risk of storms on Sunday).'
+                    },
+                    {
+                        id: 'q2',
+                        text: 'What is the temperature expected to be?',
+                        options: [
+                            { id: 'a', text: '10 degrees' },
+                            { id: 'b', text: '15 degrees', correct: true },
+                            { id: 'c', text: '20 degrees' }
+                        ],
+                        explanation: 'The news says "Les températures devraient avoisiner 15 degrés" (Temperatures should be around 15 degrees).'
+                    },
+                    {
+                        id: 'q3',
+                        text: 'When does the art festival take place?',
+                        options: [
+                            { id: 'a', text: 'Friday' },
+                            { id: 'b', text: 'Saturday', correct: true },
+                            { id: 'c', text: 'Sunday' }
+                        ],
+                        explanation: 'The news mentions "le festival d\'art aura lieu ce samedi" (the art festival will take place this Saturday).'
+                    },
+                    {
+                        id: 'q4',
+                        text: 'How long is the art festival?',
+                        options: [
+                            { id: 'a', text: '6 hours' },
+                            { id: 'b', text: '8 hours', correct: true },
+                            { id: 'c', text: '10 hours' }
+                        ],
+                        explanation: 'The festival runs "de 10 heures à 18 heures" (from 10:00 to 18:00), which is 8 hours.'
+                    }
+                ]
+            },
+            {
+                id: 'listen-005',
+                level: 'B1',
+                title: 'Voicemail from Friend - Party Invitation',
+                scenario: 'Your friend left you a voicemail about a party.',
+                transcript: `Salut! C'est moi. Je t'appelle pour t'inviter à ma fête d'anniversaire. C'est samedi prochain chez moi à 19 heures. Il y aura environ trente personnes. Apporte quelque chose à boire ou à manger si tu peux. Ah, et dis à Jean-Pierre de venir aussi! Appelle-moi pour confirmer. À bientôt!`,
+                questions: [
+                    {
+                        id: 'q1',
+                        text: 'What kind of party is it?',
+                        options: [
+                            { id: 'a', text: 'Housewarming party' },
+                            { id: 'b', text: 'Birthday party', correct: true },
+                            { id: 'c', text: 'Graduation party' }
+                        ],
+                        explanation: 'The voicemail says "ma fête d\'anniversaire" (my birthday party).'
+                    },
+                    {
+                        id: 'q2',
+                        text: 'What time does the party start?',
+                        options: [
+                            { id: 'a', text: '18:00' },
+                            { id: 'b', text: '19:00', correct: true },
+                            { id: 'c', text: '20:00' }
+                        ],
+                        explanation: 'The voicemail states "samedi prochain chez moi à 19 heures" (next Saturday at my place at 19:00).'
+                    },
+                    {
+                        id: 'q3',
+                        text: 'How many people will be there?',
+                        options: [
+                            { id: 'a', text: 'Around 20' },
+                            { id: 'b', text: 'Around 30', correct: true },
+                            { id: 'c', text: 'Around 40' }
+                        ],
+                        explanation: 'The voicemail mentions "environ trente personnes" (approximately 30 people).'
+                    },
+                    {
+                        id: 'q4',
+                        text: 'What should you bring?',
+                        options: [
+                            { id: 'a', text: 'A birthday gift' },
+                            { id: 'b', text: 'Something to drink or eat', correct: true },
+                            { id: 'c', text: 'Flowers' }
+                        ],
+                        explanation: 'The voicemail says "Apporte quelque chose à boire ou à manger" (Bring something to drink or eat).'
+                    }
+                ]
+            },
+            {
+                id: 'listen-006',
+                level: 'B1',
+                title: 'Customer Service Call - Internet Problem',
+                scenario: 'You call customer service about an internet connection issue.',
+                transcript: `Bonjour, centre d'assistance technique. Comment puis-je vous aider? Vous avez un problème de connexion? Ah d'accord. Pouvez-vous redémarrer votre modem? Attendez cinq minutes, puis rallumez-le. Pendant ce temps, je vais vérifier votre compte. Voilà, c'est fait. Rallumez maintenant. Avez-vous de la connexion? Excellent! Le problème vient de notre serveur qui a été mis à jour ce matin. Tout est normal maintenant.`,
+                questions: [
+                    {
+                        id: 'q1',
+                        text: 'What should you do first to fix the problem?',
+                        options: [
+                            { id: 'a', text: 'Check the cables' },
+                            { id: 'b', text: 'Restart the modem', correct: true },
+                            { id: 'c', text: 'Factory reset the modem' }
+                        ],
+                        explanation: 'The technician says "Pouvez-vous redémarrer votre modem?" (Can you restart your modem?).'
+                    },
+                    {
+                        id: 'q2',
+                        text: 'How long should you wait before turning it back on?',
+                        options: [
+                            { id: 'a', text: '3 minutes' },
+                            { id: 'b', text: '5 minutes', correct: true },
+                            { id: 'c', text: '10 minutes' }
+                        ],
+                        explanation: 'The technician instructs "Attendez cinq minutes" (Wait five minutes).'
+                    },
+                    {
+                        id: 'q3',
+                        text: 'What was the cause of the problem?',
+                        options: [
+                            { id: 'a', text: 'Faulty modem' },
+                            { id: 'b', text: 'Server update', correct: true },
+                            { id: 'c', text: 'Bad weather' }
+                        ],
+                        explanation: 'The technician explains "Le problème vient de notre serveur qui a été mis à jour ce matin" (The problem comes from our server which was updated this morning).'
+                    }
+                ]
+            },
+            {
+                id: 'listen-007',
+                level: 'B1',
+                title: 'Train Station Announcement - Schedule Change',
+                scenario: 'You are at the train station and hear this announcement.',
+                transcript: `Attention. Suite à un incident technique sur la ligne Lyon-Paris, le train en provenance de Lyon arrivera avec un retard d'environ quarante-cinq minutes. Les passagers à destination de Paris qui devaient arriver à 14h30 auront une nouvelle heure d'arrivée de 15h15. Les passagers concernés sont priés de se rapprocher du guichet d'information pour les arrangements nécessaires.`,
+                questions: [
+                    {
+                        id: 'q1',
+                        text: 'What is the problem?',
+                        options: [
+                            { id: 'a', text: 'A signal problem' },
+                            { id: 'b', text: 'A technical incident', correct: true },
+                            { id: 'c', text: 'A passenger emergency' }
+                        ],
+                        explanation: 'The announcement mentions "incident technique sur la ligne" (technical incident on the line).'
+                    },
+                    {
+                        id: 'q2',
+                        text: 'How long is the delay?',
+                        options: [
+                            { id: 'a', text: '30 minutes' },
+                            { id: 'b', text: '45 minutes', correct: true },
+                            { id: 'c', text: '60 minutes' }
+                        ],
+                        explanation: 'The announcement states "un retard d\'environ quarante-cinq minutes" (a delay of approximately 45 minutes).'
+                    },
+                    {
+                        id: 'q3',
+                        text: 'What is the new arrival time in Paris?',
+                        options: [
+                            { id: 'a', text: '14h30' },
+                            { id: 'b', text: '15h15', correct: true },
+                            { id: 'c', text: '15h45' }
+                        ],
+                        explanation: 'The announcement states "nouvelle heure d\'arrivée de 15h15" (new arrival time of 15h15).'
+                    }
+                ]
+            },
+            {
+                id: 'listen-008',
+                level: 'B2',
+                title: 'Radio Interview - Author Discussing Book',
+                scenario: 'You listen to a radio interview with an author about his new book.',
+                transcript: `Aujourd'hui, nous recevons l'auteur Marc Dubois qui vient de publier son dernier roman intitulé "Les Secrets du Silence". Marc, pourriez-vous nous parler de votre inspiration? Bien sûr. Ce roman est basé sur l'histoire vraie d'une famille qui a dû quitter son pays durant la Seconde Guerre mondiale. J'ai passé trois ans à faire de la recherche et à interviewer des survivants. C'est un travail qui m'a profondément touché. Le livre explore les thèmes de la résilience et de l'espoir face à l'adversité.`,
+                questions: [
+                    {
+                        id: 'q1',
+                        text: 'What is the title of the book?',
+                        options: [
+                            { id: 'a', text: 'Les Secrets de la Vie' },
+                            { id: 'b', text: 'Les Secrets du Silence', correct: true },
+                            { id: 'c', text: 'Le Silence de la Famille' }
+                        ],
+                        explanation: 'The interviewer mentions "Les Secrets du Silence" as the title of the new novel.'
+                    },
+                    {
+                        id: 'q2',
+                        text: 'What historical period inspired the book?',
+                        options: [
+                            { id: 'a', text: 'World War I' },
+                            { id: 'b', text: 'World War II', correct: true },
+                            { id: 'c', text: 'The Cold War' }
+                        ],
+                        explanation: 'The author states "durant la Seconde Guerre mondiale" (during World War II).'
+                    },
+                    {
+                        id: 'q3',
+                        text: 'How long did the author spend researching?',
+                        options: [
+                            { id: 'a', text: '1 year' },
+                            { id: 'b', text: '2 years' },
+                            { id: 'c', text: '3 years', correct: true }
+                        ],
+                        explanation: 'The author says "J\'ai passé trois ans à faire de la recherche" (I spent three years doing research).'
+                    },
+                    {
+                        id: 'q4',
+                        text: 'What themes does the book explore?',
+                        options: [
+                            { id: 'a', text: 'Love and betrayal' },
+                            { id: 'b', text: 'Resilience and hope', correct: true },
+                            { id: 'c', text: 'Revenge and justice' }
+                        ],
+                        explanation: 'The author explains "Le livre explore les thèmes de la résilience et de l\'espoir" (The book explores themes of resilience and hope).'
+                    }
+                ]
+            },
+            {
+                id: 'listen-009',
+                level: 'B2',
+                title: 'University Lecture Excerpt - History',
+                scenario: 'You are attending a university history lecture.',
+                transcript: `La Renaissance italienne du quatorzième siècle a marqué un tournant décisif dans l'histoire européenne. Ce mouvement intellectuel et artistique a mené au renouvellement de l'intérêt pour la culture classique gréco-romaine. Les penseurs de cette époque, appelés humanistes, ont remis en question les dogmes médiévaux et promu l'étude de la littérature, de la philosophie et de l'art antiques. Cette redécouverte du savoir classique a transformé notre compréhension du monde et posé les bases de la pensée moderne.`,
+                questions: [
+                    {
+                        id: 'q1',
+                        text: 'Which period is being discussed?',
+                        options: [
+                            { id: 'a', text: 'The 13th century' },
+                            { id: 'b', text: 'The 14th century', correct: true },
+                            { id: 'c', text: 'The 15th century' }
+                        ],
+                        explanation: 'The lecture mentions "du quatorzième siècle" (of the 14th century).'
+                    },
+                    {
+                        id: 'q2',
+                        text: 'What cultural influence did the Renaissance focus on?',
+                        options: [
+                            { id: 'a', text: 'Islamic culture' },
+                            { id: 'b', text: 'Greco-Roman culture', correct: true },
+                            { id: 'c', text: 'Byzantine culture' }
+                        ],
+                        explanation: 'The lecture states "l\'intérêt pour la culture classique gréco-romaine" (interest in Greco-Roman classical culture).'
+                    },
+                    {
+                        id: 'q3',
+                        text: 'What did humanists question?',
+                        options: [
+                            { id: 'a', text: 'Ancient philosophy' },
+                            { id: 'b', text: 'Medieval dogmas', correct: true },
+                            { id: 'c', text: 'Religious faith' }
+                        ],
+                        explanation: 'The lecture explains "les humanistes ont remis en question les dogmes médiévaux" (humanists questioned medieval dogmas).'
+                    },
+                    {
+                        id: 'q4',
+                        text: 'What did the rediscovery of classical knowledge lead to?',
+                        options: [
+                            { id: 'a', text: 'A return to feudalism' },
+                            { id: 'b', text: 'The basis of modern thought', correct: true },
+                            { id: 'c', text: 'Religious reformation only' }
+                        ],
+                        explanation: 'The lecture concludes that it "posé les bases de la pensée moderne" (laid the foundations of modern thought).'
+                    }
+                ]
+            },
+            {
+                id: 'listen-010',
+                level: 'B2',
+                title: 'Business Meeting Discussion - Project Update',
+                scenario: 'You listen to a portion of a business meeting discussing a project.',
+                transcript: `Alors, où en sommes-nous avec le projet de refonte du site web? D'après notre équipe technique, nous avons achevé environ soixante-dix pour cent du travail. Cependant, nous avons rencontré quelques obstacles imprévus concernant l'intégration des bases de données. Nous avons dû restructurer certaines parties du code pour assurer la compatibilité. Je prévois que nous serons en mesure de livrer une première version bêta dans deux semaines. Cela nous permettra de rassembler les commentaires des utilisateurs avant le lancement final.`,
+                questions: [
+                    {
+                        id: 'q1',
+                        text: 'What percentage of work is complete?',
+                        options: [
+                            { id: 'a', text: '50%' },
+                            { id: 'b', text: '70%', correct: true },
+                            { id: 'c', text: '80%' }
+                        ],
+                        explanation: 'The speaker states "nous avons achevé environ soixante-dix pour cent" (we have completed approximately 70 percent).'
+                    },
+                    {
+                        id: 'q2',
+                        text: 'What unexpected challenges were encountered?',
+                        options: [
+                            { id: 'a', text: 'Budget issues' },
+                            { id: 'b', text: 'Database integration problems', correct: true },
+                            { id: 'c', text: 'Team conflicts' }
+                        ],
+                        explanation: 'The speaker mentions "obstacles imprévus concernant l\'intégration des bases de données" (unforeseen obstacles concerning database integration).'
+                    },
+                    {
+                        id: 'q3',
+                        text: 'When will the beta version be delivered?',
+                        options: [
+                            { id: 'a', text: 'One week' },
+                            { id: 'b', text: 'Two weeks', correct: true },
+                            { id: 'c', text: 'One month' }
+                        ],
+                        explanation: 'The speaker says "nous serons en mesure de livrer une première version bêta dans deux semaines" (we will be able to deliver a beta version in two weeks).'
+                    },
+                    {
+                        id: 'q4',
+                        text: 'What is the purpose of the beta version?',
+                        options: [
+                            { id: 'a', text: 'To test internal functionality' },
+                            { id: 'b', text: 'To gather user feedback', correct: true },
+                            { id: 'c', text: 'To complete missing features' }
+                        ],
+                        explanation: 'The speaker explains "Cela nous permettra de rassembler les commentaires des utilisateurs" (This will allow us to gather user feedback).'
+                    }
+                ]
+            }
+        ];
+
+        // State
+        let currentSpeed = 'Slow';
+        let completedExercises = new Set();
+        let exerciseAnswers = {};
+        let currentFilter = 'all';
+
+        // Initialize
+        document.addEventListener('DOMContentLoaded', function() {
+            renderNav('listening');
+            renderFooter();
+            loadProgressTracked();
+            renderExercises();
+            setupFilterButtons();
+            updateProgress();
+        });
+
+        // Load tracked progress from storage
+        function loadProgressTracked() {
+            if (typeof TEFProgress !== 'undefined') {
+                const progress = TEFProgress.getProgress('listening');
+                if (progress && progress.completed) {
+                    completedExercises = new Set(progress.completed);
+                }
+            }
+        }
+
+        // Setup filter buttons
+        function setupFilterButtons() {
+            const filterBtns = document.querySelectorAll('.filter-btn');
+            filterBtns.forEach(btn => {
+                btn.addEventListener('click', function() {
+                    filterBtns.forEach(b => b.classList.remove('active'));
+                    this.classList.add('active');
+                    currentFilter = this.dataset.filter;
+                    filterExercises();
+                });
+            });
+        }
+
+        // Filter exercises by level
+        function filterExercises() {
+            const items = document.querySelectorAll('.listening-item');
+            items.forEach(item => {
+                const level = item.dataset.level;
+                if (currentFilter === 'all' || level === currentFilter) {
+                    item.classList.remove('hidden');
+                } else {
+                    item.classList.add('hidden');
+                }
+            });
+        }
+
+        // Render all exercises
+        function renderExercises() {
+            const container = document.getElementById('exercises-container');
+            container.innerHTML = '';
+
+            listeningExercises.forEach((exercise, index) => {
+                const exerciseEl = createExerciseElement(exercise, index);
+                container.appendChild(exerciseEl);
+            });
+        }
+
+        // Create exercise element
+        function createExerciseElement(exercise, index) {
+            const div = document.createElement('div');
+            div.className = 'listening-item';
+            div.dataset.level = exercise.level;
+            div.dataset.id = exercise.id;
+
+            let levelClass = 'level-a2';
+            if (exercise.level === 'B1') levelClass = 'level-b1';
+            if (exercise.level === 'B2') levelClass = 'level-b2';
+
+            let questionsHTML = '';
+            exercise.questions.forEach(question => {
+                questionsHTML += `
+                    <div class="question-item">
+                        <div class="question-text">
+                            <span class="question-num">${question.id.replace('q', '')}.</span>
+                            ${escapeHtml(question.text)}
+                        </div>
+                        <ul class="options-list">
+                            ${question.options.map(option => `
+                                <li class="option-item" onclick="selectOption('${exercise.id}', '${question.id}', '${option.id}')">
+                                    <input type="radio" name="${exercise.id}-${question.id}" id="${exercise.id}-${question.id}-${option.id}" value="${option.id}">
+                                    <label for="${exercise.id}-${question.id}-${option.id}">
+                                        ${escapeHtml(option.text)}
+                                    </label>
+                                </input>
+                            `).join('')}
+                        </ul>
+                        <div class="answer-explanation" id="explanation-${exercise.id}-${question.id}">
+                            <div class="answer-explanation-title">Explanation:</div>
+                            <div>${escapeHtml(question.explanation)}</div>
+                        </div>
+                    </div>
+                `;
+            });
+
+            div.innerHTML = `
+                <div class="exercise-header">
+                    <div>
+                        <h3 class="exercise-title">${escapeHtml(exercise.title)}</h3>
+                        <div class="scenario-description">${escapeHtml(exercise.scenario)}</div>
+                    </div>
+                    <span class="level-badge ${levelClass}">${exercise.level}</span>
+                </div>
+
+                <div class="audio-controls">
+                    <button class="play-btn" onclick="playTranscript('${exercise.id}')">
+                        <span>▶</span> Play
+                    </button>
+                    <div class="speed-control">
+                        <span class="speed-label">Speed:</span>
+                        <button class="speed-btn active" onclick="setSpeed('${exercise.id}', 'Slow', this)" data-speed="Slow">Slow</button>
+                        <button class="speed-btn" onclick="setSpeed('${exercise.id}', 'Normal', this)" data-speed="Normal">Normal</button>
+                        <button class="speed-btn" onclick="setSpeed('${exercise.id}', 'Fast', this)" data-speed="Fast">Fast</button>
+                    </div>
+                </div>
+
+                <div class="transcript-box">
+                    <div class="transcript-text" id="transcript-${exercise.id}">
+                        <span class="transcript-placeholder">Click "Play" to hear the transcript</span>
+                    </div>
+                </div>
+
+                <div class="questions-section">
+                    <div class="questions-title">Comprehension Questions</div>
+                    ${questionsHTML}
+                </div>
+
+                <button class="check-answers-btn" onclick="checkAnswers('${exercise.id}')">Check Answers</button>
+                <div class="score-display" id="score-${exercise.id}">
+                    <div class="score-text" id="score-text-${exercise.id}"></div>
+                    <div class="progress-bar-container">
+                        <div class="progress-bar" id="progress-${exercise.id}"></div>
+                    </div>
+                </div>
+            `;
+
+            return div;
+        }
+
+        // Play transcript with typing animation
+        function playTranscript(exerciseId) {
+            const exercise = listeningExercises.find(e => e.id === exerciseId);
+            if (!exercise) return;
+
+            const transcriptEl = document.getElementById(`transcript-${exerciseId}`);
+            const button = document.querySelector(`[onclick*="playTranscript('${exerciseId}')"]`);
+
+            if (button.classList.contains('playing')) {
+                button.classList.remove('playing');
+                button.innerHTML = '<span>▶</span> Play';
+                return;
+            }
+
+            button.classList.add('playing');
+            button.innerHTML = '<span>⏸</span> Playing...';
+
+            const text = exercise.transcript;
+            const speed = getSpeedMultiplier();
+            let index = 0;
+
+            transcriptEl.textContent = '';
+
+            function typeCharacter() {
+                if (index < text.length) {
+                    transcriptEl.textContent += text[index];
+                    index++;
+                    setTimeout(typeCharacter, 30 / speed);
+                } else {
+                    button.classList.remove('playing');
+                    button.innerHTML = '<span>▶</span> Play Again';
+                }
+            }
+
+            typeCharacter();
+        }
+
+        // Get speed multiplier based on selected speed
+        function getSpeedMultiplier() {
+            const speedMap = {
+                'Slow': 0.5,
+                'Normal': 1,
+                'Fast': 1.5
+            };
+            return speedMap[currentSpeed] || 1;
+        }
+
+        // Set playback speed
+        function setSpeed(exerciseId, speed, button) {
+            currentSpeed = speed;
+            const speedBtns = button.parentElement.querySelectorAll('.speed-btn');
+            speedBtns.forEach(b => b.classList.remove('active'));
+            button.classList.add('active');
+        }
+
+        // Select answer option
+        function selectOption(exerciseId, questionId, optionId) {
+            if (!exerciseAnswers[exerciseId]) {
+                exerciseAnswers[exerciseId] = {};
+            }
+            exerciseAnswers[exerciseId][questionId] = optionId;
+
+            const radioBtn = document.getElementById(`${exerciseId}-${questionId}-${optionId}`);
+            radioBtn.checked = true;
+
+            const optionItems = document.querySelectorAll(`[name="${exerciseId}-${questionId}"]`);
+            optionItems.forEach(item => {
+                item.closest('.option-item').classList.remove('selected');
+            });
+            radioBtn.closest('.option-item').classList.add('selected');
+        }
+
+        // Check answers and show results
+        function checkAnswers(exerciseId) {
+            const exercise = listeningExercises.find(e => e.id === exerciseId);
+            if (!exercise) return;
+
+            const userAnswers = exerciseAnswers[exerciseId] || {};
+            let correctCount = 0;
+            let totalCount = exercise.questions.length;
+
+            exercise.questions.forEach(question => {
+                const userAnswer = userAnswers[question.id];
+                const correctAnswer = question.options.find(o => o.correct)?.id;
+                const explanationEl = document.getElementById(`explanation-${exerciseId}-${question.id}`);
+
+                const optionItems = document.querySelectorAll(`[name="${exerciseId}-${question.id}"]`);
+                optionItems.forEach(radio => {
+                    const item = radio.closest('.option-item');
+                    item.classList.remove('correct', 'incorrect');
+                    const optionId = radio.value;
+
+                    if (optionId === correctAnswer) {
+                        item.classList.add('correct');
+                    } else if (userAnswer === optionId) {
+                        item.classList.add('incorrect');
+                    }
+                });
+
+                if (userAnswer === correctAnswer) {
+                    correctCount++;
+                }
+
+                explanationEl.classList.add('shown');
+            });
+
+            // Show score
+            const scorePercent = Math.round((correctCount / totalCount) * 100);
+            const scoreEl = document.getElementById(`score-${exerciseId}`);
+            const scoreTextEl = document.getElementById(`score-text-${exerciseId}`);
+            const progressBar = document.getElementById(`progress-${exerciseId}`);
+
+            scoreTextEl.textContent = `Score: ${correctCount}/${totalCount} (${scorePercent}%)`;
+            progressBar.style.width = scorePercent + '%';
+            scoreEl.classList.add('shown');
+
+            // Track completion
+            if (!completedExercises.has(exerciseId)) {
+                completedExercises.add(exerciseId);
+                if (typeof TEFProgress !== 'undefined') {
+                    TEFProgress.saveTestScore('listening', exerciseId, correctCount, totalCount);
+                }
+                updateProgress();
+            }
+        }
+
+        // Update progress display
+        function updateProgress() {
+            const total = listeningExercises.length;
+            const completed = completedExercises.size;
+            const progressText = document.getElementById('progress-text');
+            const percent = total > 0 ? Math.round((completed / total) * 100) : 0;
+
+            if (progressText) {
+                progressText.textContent = `Progress: ${completed}/${total} exercises completed (${percent}%)`;
+            }
+        }
+
+        // Utility function to escape HTML
+        function escapeHtml(text) {
+            const map = {
+                '&': '&amp;',
+                '<': '&lt;',
+                '>': '&gt;',
+                '"': '&quot;',
+                "'": '&#039;'
+            };
+            return text.replace(/[&<>"']/g, m => map[m]);
+        }
+    </script>
+</body>
+</html>

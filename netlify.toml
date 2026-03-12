@@ -1,0 +1,35 @@
+# TEF Master - Netlify Configuration
+[build]
+  publish = "."
+  # No build command needed - pure static site
+
+# Headers for performance and security
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+    Permissions-Policy = "camera=(), microphone=(), geolocation=()"
+
+[[headers]]
+  for = "/css/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+[[headers]]
+  for = "/js/*"
+  [headers.values]
+    Cache-Control = "public, max-age=31536000, immutable"
+
+# Redirect /index.html to clean URL
+[[redirects]]
+  from = "/index.html"
+  to = "/"
+  status = 200
+
+# Custom 404
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 404

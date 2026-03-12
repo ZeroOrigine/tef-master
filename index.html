@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEF Master — Free French Learning for CLB 7</title>
+  <meta name="description" content="Free interactive French learning platform for TEF Canada exam. Target CLB 7 with diagnostic tests, grammar, vocabulary, reading, listening, and conversation practice.">
+  <link rel="stylesheet" href="css/style.css">
+  <style>
+    .roadmap { display: flex; justify-content: center; align-items: center; gap: .5rem; flex-wrap: wrap; margin: 1.5rem 0; }
+    .roadmap-step { background: var(--card); border-radius: var(--radius); padding: 1.2rem 1.5rem; text-align: center; box-shadow: var(--shadow); min-width: 180px; flex: 1; max-width: 260px; }
+    .roadmap-step .step-num { display: inline-block; background: var(--primary-light); color: #fff; width: 32px; height: 32px; border-radius: 50%; line-height: 32px; font-weight: 800; font-size: .9rem; margin-bottom: .5rem; }
+    .roadmap-step h4 { margin-bottom: .3rem; color: var(--primary); }
+    .roadmap-step p { font-size: .82rem; color: var(--text-light); }
+    .roadmap-arrow { font-size: 1.5rem; color: var(--primary-light); font-weight: 800; }
+    @media (max-width: 600px) { .roadmap-arrow { display: none; } .roadmap-step { max-width: 100%; } }
+    .routine-grid { display: grid; grid-template-columns: auto 1fr; gap: .4rem 1rem; align-items: center; }
+    .routine-time { font-weight: 700; color: var(--primary-light); font-size: .9rem; white-space: nowrap; }
+    .routine-task { font-size: .9rem; }
+    .welcome-msg { font-size: .95rem; color: var(--text-light); margin-top: .5rem; }
+  </style>
+</head>
+<body>
+  <script src="js/progress-tracker.js"></script>
+  <script src="js/nav.js"></script>
+  <script>renderNav('home');</script>
+
+  <!-- Hero -->
+  <section class="hero">
+    <h1>TEF Master</h1>
+    <p>Your Free Path to CLB 7</p>
+    <p class="sub">Interactive French learning for TEF Canada — no account needed, no ads, 100% free</p>
+  </section>
+
+  <div class="container">
+    <!-- Streak Bar -->
+    <div class="streak-bar" id="streakBar">
+      <div class="flame">🔥</div>
+      <div class="info">
+        <div class="days" id="streakDays">0 day streak</div>
+        <div class="label" id="streakMsg">Start studying to build your streak!</div>
+      </div>
+      <div style="text-align:right;">
+        <div style="font-size:1.1rem;font-weight:800;color:var(--accent);" id="xpDisplay">0 XP</div>
+        <div style="font-size:.72rem;color:var(--text-light);">Total Points</div>
+      </div>
+    </div>
+
+    <!-- Quick Stats -->
+    <div class="stats-row">
+      <div class="stat-card">
+        <div class="num" id="daysLeft">--</div>
+        <div class="label">Days to Exam</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="totalXP">0</div>
+        <div class="label">Total XP</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="currentStreak">0</div>
+        <div class="label">Day Streak</div>
+      </div>
+      <div class="stat-card">
+        <div class="num" id="overallProgress">0%</div>
+        <div class="label">Progress</div>
+      </div>
+    </div>
+
+    <!-- Feature Cards -->
+    <h2 class="text-center mb-2" style="font-size:1.4rem;">Your Learning Modules</h2>
+    <div class="card-grid">
+      <a href="pages/diagnostic.html" class="feature-card">
+        <div class="icon">🎯</div>
+        <h3>Diagnostic Test</h3>
+        <p>44-question assessment to find your current level across grammar, vocabulary, reading & listening</p>
+        <span class="arrow">→</span>
+      </a>
+      <a href="pages/grammar.html" class="feature-card">
+        <div class="icon">📘</div>
+        <h3>Grammar</h3>
+        <p>17 essential topics from A2 to B2 with explanations, examples, and practice exercises</p>
+        <span class="arrow">→</span>
+      </a>
+      <a href="pages/vocabulary.html" class="feature-card">
+        <div class="icon">📗</div>
+        <h3>Vocabulary</h3>
+        <p>200+ words across 11 themes with flashcard mode, quizzes, and spaced learning</p>
+        <span class="arrow">→</span>
+      </a>
+      <a href="pages/reading.html" class="feature-card">
+        <div class="icon">📖</div>
+        <h3>Reading</h3>
+        <p>10 TEF-style passages from A2 to B2 with comprehension questions and explanations</p>
+        <span class="arrow">→</span>
+      </a>
+      <a href="pages/listening.html" class="feature-card">
+        <div class="icon">🎧</div>
+        <h3>Listening</h3>
+        <p>10 listening exercises with transcript reveal, speed control, and comprehension checks</p>
+        <span class="arrow">→</span>
+      </a>
+      <a href="pages/conversations.html" class="feature-card">
+        <div class="icon">💬</div>
+        <h3>Conversations</h3>
+        <p>12 real-life French dialogues with fill-in-the-blank practice and cultural notes</p>
+        <span class="arrow">→</span>
+      </a>
+      <a href="pages/progress.html" class="feature-card">
+        <div class="icon">📊</div>
+        <h3>Progress</h3>
+        <p>Track your XP, badges, streaks, and get personalized study recommendations</p>
+        <span class="arrow">→</span>
+      </a>
+    </div>
+
+    <!-- Study Roadmap -->
+    <h2 class="text-center mt-3 mb-1" style="font-size:1.3rem;">Your Study Roadmap</h2>
+    <p class="text-center welcome-msg mb-2">Follow these three steps to reach CLB 7</p>
+    <div class="roadmap">
+      <div class="roadmap-step">
+        <div class="step-num">1</div>
+        <h4>Assess</h4>
+        <p>Take the diagnostic test to discover your current level and weak areas</p>
+      </div>
+      <div class="roadmap-arrow">→</div>
+      <div class="roadmap-step">
+        <div class="step-num">2</div>
+        <h4>Learn</h4>
+        <p>Study grammar rules and build vocabulary using themed flashcards and quizzes</p>
+      </div>
+      <div class="roadmap-arrow">→</div>
+      <div class="roadmap-step">
+        <div class="step-num">3</div>
+        <h4>Practice</h4>
+        <p>Apply your knowledge with reading, listening, and conversation exercises</p>
+      </div>
+    </div>
+
+    <!-- Daily Routine -->
+    <div class="card mt-3">
+      <h3 style="margin-bottom:.8rem;">📅 Recommended Daily Routine (45 min)</h3>
+      <div class="routine-grid">
+        <span class="routine-time">5 min</span>
+        <span class="routine-task">Review yesterday's vocabulary (flashcard quiz)</span>
+        <span class="routine-time">10 min</span>
+        <span class="routine-task">Study one grammar topic — read rules + do practice</span>
+        <span class="routine-time">10 min</span>
+        <span class="routine-task">Learn 10 new vocabulary words with examples</span>
+        <span class="routine-time">10 min</span>
+        <span class="routine-task">Complete one reading OR listening exercise</span>
+        <span class="routine-time">10 min</span>
+        <span class="routine-task">Practice one conversation dialogue (fill-in-blank mode)</span>
+      </div>
+      <div class="tip-box mt-2">
+        <strong>Consistency beats intensity.</strong> 45 focused minutes every day will get you to CLB 7 faster than occasional 3-hour sessions.
+      </div>
+    </div>
+  </div>
+
+  <script>renderFooter();</script>
+
+  <script>
+    // Populate stats
+    (function() {
+      const d = TEFProgress.getAll();
+      const streak = d.streak || { current: 0, best: 0 };
+
+      // Days to exam
+      const exam = new Date('2026-05-15');
+      const today = new Date();
+      const diff = Math.ceil((exam - today) / 86400000);
+      document.getElementById('daysLeft').textContent = diff > 0 ? diff : 0;
+
+      // XP
+      document.getElementById('totalXP').textContent = d.xp || 0;
+      document.getElementById('xpDisplay').textContent = (d.xp || 0) + ' XP';
+
+      // Streak
+      document.getElementById('currentStreak').textContent = streak.current || 0;
+      const days = streak.current || 0;
+      document.getElementById('streakDays').textContent = days + ' day streak';
+      if (days === 0) {
+        document.getElementById('streakMsg').textContent = 'Start studying to build your streak!';
+      } else if (days < 7) {
+        document.getElementById('streakMsg').textContent = 'Keep going! Build that habit.';
+      } else if (days < 30) {
+        document.getElementById('streakMsg').textContent = 'Amazing consistency! You\'re on fire!';
+      } else {
+        document.getElementById('streakMsg').textContent = 'Incredible dedication! CLB 7 is yours!';
+      }
+
+      // Overall progress
+      document.getElementById('overallProgress').textContent = TEFProgress.getOverallProgress() + '%';
+    })();
+  </script>
+</body>
+</html>
