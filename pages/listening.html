@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Listening Comprehension - TEF Canada Practice</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
     <style>
         .listening-container {
             max-width: 900px;
@@ -19,17 +19,17 @@
 
         .listening-header h1 {
             font-size: 2.5em;
-            color: #2c3e50;
+            color: var(--text);
             margin-bottom: 10px;
         }
 
         .listening-tip {
-            background-color: #e8f4f8;
-            border-left: 4px solid #3498db;
+            background-color: var(--primary-bg);
+            border-left: 4px solid var(--primary-light);
             padding: 15px 20px;
             margin-bottom: 30px;
             border-radius: 4px;
-            color: #2c3e50;
+            color: var(--text);
         }
 
         .filter-controls {
@@ -42,7 +42,7 @@
 
         .filter-btn {
             padding: 10px 20px;
-            border: 2px solid #bdc3c7;
+            border: 2px solid var(--border);
             background-color: white;
             border-radius: 4px;
             cursor: pointer;
@@ -52,19 +52,19 @@
         }
 
         .filter-btn:hover {
-            border-color: #3498db;
-            color: #3498db;
+            border-color: var(--primary-light);
+            color: var(--primary-light);
         }
 
         .filter-btn.active {
-            background-color: #3498db;
+            background-color: var(--primary-light);
             color: white;
-            border-color: #3498db;
+            border-color: var(--primary-light);
         }
 
         .listening-item {
             background-color: white;
-            border: 1px solid #ecf0f1;
+            border: 1px solid var(--border);
             border-radius: 8px;
             padding: 30px;
             margin-bottom: 30px;
@@ -89,7 +89,7 @@
 
         .exercise-title {
             font-size: 1.3em;
-            color: #2c3e50;
+            color: var(--text);
             margin: 0 0 10px 0;
         }
 
@@ -104,26 +104,26 @@
         }
 
         .level-a2 {
-            background-color: #2ecc71;
+            background-color: var(--success);
             color: white;
         }
 
         .level-b1 {
-            background-color: #f39c12;
+            background-color: var(--warning);
             color: white;
         }
 
         .level-b2 {
-            background-color: #e74c3c;
+            background-color: var(--danger);
             color: white;
         }
 
         .scenario-description {
-            color: #7f8c8d;
+            color: var(--text-light);
             font-style: italic;
             margin-bottom: 20px;
             padding: 10px 0;
-            border-bottom: 1px solid #ecf0f1;
+            border-bottom: 1px solid var(--border);
         }
 
         .audio-controls {
@@ -135,7 +135,7 @@
         }
 
         .play-btn {
-            background-color: #3498db;
+            background-color: var(--primary-light);
             color: white;
             border: none;
             padding: 12px 24px;
@@ -150,7 +150,7 @@
         }
 
         .play-btn:hover {
-            background-color: #2980b9;
+            background-color: #2563eb;
         }
 
         .play-btn:disabled {
@@ -159,7 +159,7 @@
         }
 
         .play-btn.playing {
-            background-color: #e74c3c;
+            background-color: var(--danger);
         }
 
         .speed-control {
@@ -170,13 +170,13 @@
 
         .speed-label {
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--text);
             margin-right: 10px;
         }
 
         .speed-btn {
             padding: 8px 16px;
-            border: 1px solid #bdc3c7;
+            border: 1px solid var(--border);
             background-color: white;
             border-radius: 4px;
             cursor: pointer;
@@ -185,25 +185,25 @@
         }
 
         .speed-btn:hover {
-            border-color: #3498db;
+            border-color: var(--primary-light);
         }
 
         .speed-btn.active {
-            background-color: #3498db;
+            background-color: var(--primary-light);
             color: white;
-            border-color: #3498db;
+            border-color: var(--primary-light);
         }
 
         .transcript-box {
-            background-color: #f8f9fa;
-            border-left: 4px solid #3498db;
+            background-color: var(--bg);
+            border-left: 4px solid var(--primary-light);
             padding: 20px;
             margin-bottom: 25px;
             border-radius: 4px;
             min-height: 60px;
             font-size: 1.1em;
             line-height: 1.6;
-            color: #2c3e50;
+            color: var(--text);
             font-style: italic;
         }
 
@@ -212,7 +212,7 @@
         }
 
         .transcript-placeholder {
-            color: #95a5a6;
+            color: var(--text-light);
         }
 
         .questions-section {
@@ -223,7 +223,7 @@
 
         .questions-title {
             font-size: 1.2em;
-            color: #2c3e50;
+            color: var(--text);
             margin-bottom: 20px;
             font-weight: 600;
         }
@@ -231,18 +231,18 @@
         .question-item {
             margin-bottom: 25px;
             padding: 15px;
-            background-color: #f8f9fa;
+            background-color: var(--bg);
             border-radius: 4px;
         }
 
         .question-text {
             font-weight: 600;
-            color: #2c3e50;
+            color: var(--text);
             margin-bottom: 12px;
         }
 
         .question-num {
-            color: #3498db;
+            color: var(--primary-light);
             margin-right: 8px;
         }
 
@@ -256,7 +256,7 @@
             padding: 10px 15px;
             margin-bottom: 8px;
             background-color: white;
-            border: 1px solid #bdc3c7;
+            border: 1px solid var(--border);
             border-radius: 4px;
             cursor: pointer;
             transition: all 0.3s ease;
@@ -266,8 +266,8 @@
         }
 
         .option-item:hover {
-            border-color: #3498db;
-            background-color: #f0f8ff;
+            border-color: var(--primary-light);
+            background-color: var(--primary-bg);
         }
 
         .option-item input[type="radio"] {
@@ -282,28 +282,28 @@
         }
 
         .option-item.selected {
-            border-color: #3498db;
-            background-color: #f0f8ff;
+            border-color: var(--primary-light);
+            background-color: var(--primary-bg);
         }
 
         .option-item.correct {
-            border-color: #2ecc71;
-            background-color: #f0fff4;
+            border-color: var(--success);
+            background-color: #f0fdf4;
         }
 
         .option-item.incorrect {
-            border-color: #e74c3c;
-            background-color: #fff5f5;
+            border-color: var(--danger);
+            background-color: #fef2f2;
         }
 
         .answer-explanation {
             margin-top: 15px;
             padding: 12px 15px;
-            background-color: #e8f4f8;
+            background-color: var(--primary-bg);
             border-left: 3px solid #3498db;
             border-radius: 4px;
             font-size: 0.95em;
-            color: #2c3e50;
+            color: var(--text);
             display: none;
         }
 
@@ -317,7 +317,7 @@
         }
 
         .check-answers-btn {
-            background-color: #27ae60;
+            background-color: var(--success);
             color: white;
             border: none;
             padding: 12px 24px;
@@ -330,7 +330,7 @@
         }
 
         .check-answers-btn:hover {
-            background-color: #229954;
+            background-color: #059669;
         }
 
         .check-answers-btn:disabled {
@@ -341,7 +341,7 @@
         .score-display {
             margin-top: 20px;
             padding: 15px;
-            background-color: #f0fff4;
+            background-color: #f0fdf4;
             border-left: 4px solid #2ecc71;
             border-radius: 4px;
             text-align: center;
@@ -354,14 +354,14 @@
 
         .score-text {
             font-size: 1.2em;
-            color: #2c3e50;
+            color: var(--text);
             font-weight: 600;
         }
 
         .progress-bar-container {
             width: 100%;
             height: 6px;
-            background-color: #ecf0f1;
+            background-color: #f1f5f9;
             border-radius: 3px;
             overflow: hidden;
             margin-top: 10px;
@@ -369,7 +369,7 @@
 
         .progress-bar {
             height: 100%;
-            background-color: #2ecc71;
+            background-color: var(--success);
             width: 0;
             transition: width 0.3s ease;
         }
@@ -377,7 +377,7 @@
         .exercises-progress {
             text-align: center;
             margin-bottom: 30px;
-            color: #7f8c8d;
+            color: var(--text-light);
         }
 
         @media (max-width: 768px) {
@@ -403,6 +403,9 @@
     </style>
 </head>
 <body>
+    <script src="../js/access-gate.js"></script>
+    <script>requireAccess();</script>
+
     <div id="nav-container"></div>
 
     <div class="listening-container">
@@ -431,8 +434,8 @@
 
     <div id="footer-container"></div>
 
-    <script src="/js/nav.js"></script>
-    <script src="/js/progress-tracker.js"></script>
+    <script src="../js/nav.js"></script>
+    <script src="../js/progress-tracker.js"></script>
 
     <script>
         // Listening Comprehension Exercises Data
@@ -876,6 +879,360 @@
                         explanation: 'The speaker explains "Cela nous permettra de rassembler les commentaires des utilisateurs" (This will allow us to gather user feedback).'
                     }
                 ]
+            },
+            {
+                id: 'listen-011',
+                title: 'Annonce météo',
+                level: 'A2',
+                speed: 'Slow',
+                transcript: `Bonjour à tous! Voici la météo pour aujourd'hui, mardi 15 janvier. Ce matin, il fait très froid avec une température de moins quinze degrés. Le vent souffle du nord et il y a un risque de verglas sur les routes. Cet après-midi, le soleil va apparaître, mais il va rester froid. La température maximale sera de moins huit degrés. Ce soir, attendez-vous à de la neige légère. On prévoit environ cinq centimètres de neige pendant la nuit. N'oubliez pas vos bottes et votre manteau chaud! Bonne journée à tous.`,
+                questions: [
+                    {
+                        id: 'a',
+                        text: 'Quelle est la température ce matin?',
+                        options: [
+                            { id: 'a', text: 'Moins cinq degrés' },
+                            { id: 'b', text: 'Moins quinze degrés' },
+                            { id: 'c', text: 'Moins huit degrés' }
+                        ],
+                        correct: 'b',
+                        explanation: 'Le présentateur dit "une température de moins quinze degrés" ce matin.'
+                    },
+                    {
+                        id: 'b',
+                        text: 'Que prévoit-on pour ce soir?',
+                        options: [
+                            { id: 'a', text: 'De la pluie' },
+                            { id: 'b', text: 'Du verglas' },
+                            { id: 'c', text: 'De la neige légère' }
+                        ],
+                        correct: 'c',
+                        explanation: 'Il dit "Ce soir, attendez-vous à de la neige légère".'
+                    }
+                ]
+            },
+            {
+                id: 'listen-012',
+                title: 'Message sur le répondeur',
+                level: 'A2',
+                speed: 'Slow',
+                transcript: `Bonjour, c'est Nathalie de la clinique dentaire Sourire. Je vous appelle pour confirmer votre rendez-vous de jeudi prochain, le 20 mars, à quatorze heures trente. Le docteur Tremblay vous recevra pour votre nettoyage annuel. S'il vous plaît, arrivez quinze minutes à l'avance pour remplir les formulaires. N'oubliez pas d'apporter votre carte d'assurance. Si vous devez annuler ou changer votre rendez-vous, veuillez nous rappeler au 514-555-0123 avant mercredi. Merci et à bientôt!`,
+                questions: [
+                    {
+                        id: 'a',
+                        text: 'À quelle heure est le rendez-vous?',
+                        options: [
+                            { id: 'a', text: '14 h 00' },
+                            { id: 'b', text: '14 h 30' },
+                            { id: 'c', text: '15 h 00' }
+                        ],
+                        correct: 'b',
+                        explanation: 'Le message dit "quatorze heures trente".'
+                    },
+                    {
+                        id: 'b',
+                        text: 'Que doit apporter le patient?',
+                        options: [
+                            { id: 'a', text: 'Une radiographie' },
+                            { id: 'b', text: 'Sa carte d\'assurance' },
+                            { id: 'c', text: 'Son carnet de santé' }
+                        ],
+                        correct: 'b',
+                        explanation: 'Le message dit "N\'oubliez pas d\'apporter votre carte d\'assurance".'
+                    }
+                ]
+            },
+            {
+                id: 'listen-013',
+                title: 'Annonce dans le métro',
+                level: 'A2',
+                speed: 'Medium',
+                transcript: `Attention voyageurs. En raison de travaux de maintenance, la ligne verte sera fermée entre les stations Berri-UQAM et Honoré-Beaugrand ce samedi et dimanche. Un service d'autobus de remplacement sera disponible. Les autobus partiront toutes les dix minutes de la station Berri-UQAM. Nous nous excusons pour les inconvénients. Pour plus d'informations, consultez le site web de la STM ou appelez le 514-786-4636. Le service normal reprendra lundi matin à cinq heures trente. Merci de votre compréhension.`,
+                questions: [
+                    {
+                        id: 'a',
+                        text: 'Pourquoi la ligne verte sera-t-elle fermée?',
+                        options: [
+                            { id: 'a', text: 'En raison d\'une grève' },
+                            { id: 'b', text: 'En raison de travaux de maintenance' },
+                            { id: 'c', text: 'En raison d\'un accident' }
+                        ],
+                        correct: 'b',
+                        explanation: 'L\'annonce dit "En raison de travaux de maintenance".'
+                    },
+                    {
+                        id: 'b',
+                        text: 'Quand le service normal reprendra-t-il?',
+                        options: [
+                            { id: 'a', text: 'Dimanche soir' },
+                            { id: 'b', text: 'Lundi matin' },
+                            { id: 'c', text: 'Mardi matin' }
+                        ],
+                        correct: 'b',
+                        explanation: 'L\'annonce dit "Le service normal reprendra lundi matin à cinq heures trente".'
+                    }
+                ]
+            },
+            {
+                id: 'listen-014',
+                title: 'Entrevue radio sur l\'immigration',
+                level: 'B1',
+                speed: 'Medium',
+                transcript: `Journaliste : Aujourd'hui, nous recevons Madame Lavoie, directrice du centre d'accueil pour les nouveaux arrivants. Madame Lavoie, quels services offrez-vous?
+
+Mme Lavoie : Nous offrons plusieurs services gratuits. D'abord, nous aidons les immigrants à trouver un logement abordable. Ensuite, nous proposons des ateliers pour la recherche d'emploi, comme la rédaction de CV et la préparation aux entrevues. Nous organisons aussi des cours de francisation pour ceux qui veulent améliorer leur français.
+
+Journaliste : Combien de personnes aidez-vous chaque année?
+
+Mme Lavoie : Environ 3 000 personnes par année. La demande augmente chaque année, surtout pour les cours de français et l'aide au logement. Nous avons aussi lancé un programme de mentorat où des bénévoles accompagnent les nouveaux arrivants dans leurs premières démarches au Québec.`,
+                questions: [
+                    {
+                        id: 'a',
+                        text: 'Quel service n\'est PAS mentionné?',
+                        options: [
+                            { id: 'a', text: 'Aide au logement' },
+                            { id: 'b', text: 'Cours de conduite' },
+                            { id: 'c', text: 'Cours de français' }
+                        ],
+                        correct: 'b',
+                        explanation: 'Les cours de conduite ne sont pas mentionnés parmi les services offerts.'
+                    },
+                    {
+                        id: 'b',
+                        text: 'Combien de personnes le centre aide-t-il par année?',
+                        options: [
+                            { id: 'a', text: '1 000' },
+                            { id: 'b', text: '3 000' },
+                            { id: 'c', text: '5 000' }
+                        ],
+                        correct: 'b',
+                        explanation: 'Mme Lavoie dit "Environ 3 000 personnes par année".'
+                    }
+                ]
+            },
+            {
+                id: 'listen-015',
+                title: 'Conversation entre collègues',
+                level: 'B1',
+                speed: 'Medium',
+                transcript: `Marc : Salut Julie, tu as vu l'email du directeur? Il veut qu'on prépare une présentation pour le client vendredi prochain.
+
+Julie : Oui, j'ai vu. C'est un gros projet. On devrait se diviser le travail. Tu peux préparer les chiffres de vente et les graphiques?
+
+Marc : D'accord. Et toi, tu peux faire l'analyse de la concurrence et les recommandations?
+
+Julie : Oui, pas de problème. Il faudrait aussi préparer un budget prévisionnel pour le prochain trimestre. Le client veut savoir combien ça va coûter.
+
+Marc : Bonne idée. On se retrouve mercredi pour mettre tout ensemble? Je réserve la salle de réunion B.
+
+Julie : Parfait. Et n'oublie pas de demander les données de vente à Sophie au département des finances. Elle a les chiffres les plus récents.
+
+Marc : Je vais lui envoyer un courriel maintenant. À mercredi alors!`,
+                questions: [
+                    {
+                        id: 'a',
+                        text: 'Que doit préparer Marc?',
+                        options: [
+                            { id: 'a', text: 'L\'analyse de la concurrence' },
+                            { id: 'b', text: 'Les chiffres de vente et les graphiques' },
+                            { id: 'c', text: 'Le budget prévisionnel' }
+                        ],
+                        correct: 'b',
+                        explanation: 'Julie demande à Marc de "préparer les chiffres de vente et les graphiques".'
+                    },
+                    {
+                        id: 'b',
+                        text: 'Quand vont-ils se retrouver?',
+                        options: [
+                            { id: 'a', text: 'Lundi' },
+                            { id: 'b', text: 'Mercredi' },
+                            { id: 'c', text: 'Vendredi' }
+                        ],
+                        correct: 'b',
+                        explanation: 'Marc dit "On se retrouve mercredi pour mettre tout ensemble".'
+                    }
+                ]
+            },
+            {
+                id: 'listen-016',
+                title: 'Annonce d\'un festival',
+                level: 'B1',
+                speed: 'Medium',
+                transcript: `Le Festival d'été de Québec est de retour du 5 au 16 juillet! Cette année, nous accueillons plus de 300 artistes sur 10 scènes dans le Vieux-Québec. Les laissez-passer sont en vente dès maintenant. Le laissez-passer complet pour 11 jours coûte 115 dollars, et les billets pour une journée sont disponibles à 30 dollars. Les enfants de moins de 12 ans entrent gratuitement.
+
+Nouveau cette année : une scène dédiée aux artistes francophone émergents et un village gastronomique avec des chefs locaux. Les spectacles commencent à 18 heures en semaine et à 14 heures les fins de semaine.
+
+N'oubliez pas que le transport en commun est gratuit les soirs de festival. Visitez notre site web pour voir la programmation complète et achetez vos billets en ligne pour éviter les files d'attente.`,
+                questions: [
+                    {
+                        id: 'a',
+                        text: 'Combien coûte le laissez-passer complet?',
+                        options: [
+                            { id: 'a', text: '30 dollars' },
+                            { id: 'b', text: '85 dollars' },
+                            { id: 'c', text: '115 dollars' }
+                        ],
+                        correct: 'c',
+                        explanation: 'L\'annonce dit "Le laissez-passer complet pour 11 jours coûte 115 dollars".'
+                    },
+                    {
+                        id: 'b',
+                        text: 'Qu\'est-ce qui est gratuit les soirs de festival?',
+                        options: [
+                            { id: 'a', text: 'L\'entrée au festival' },
+                            { id: 'b', text: 'Le transport en commun' },
+                            { id: 'c', text: 'La nourriture' }
+                        ],
+                        correct: 'b',
+                        explanation: 'L\'annonce dit "le transport en commun est gratuit les soirs de festival".'
+                    }
+                ]
+            },
+            {
+                id: 'listen-017',
+                title: 'Reportage sur le logement',
+                level: 'B2',
+                speed: 'Fast',
+                transcript: `La crise du logement continue de frapper durement les grandes villes du Québec. Selon les dernières données de la Société canadienne d'hypothèques et de logement, le taux d'inoccupation à Montréal est tombé à 1,5 pour cent, bien en dessous du seuil d'équilibre de 3 pour cent.
+
+Les experts estiment que cette situation résulte de plusieurs facteurs : la croissance démographique rapide due à l'immigration, le manque de constructions neuves et la conversion de logements résidentiels en locations touristiques à court terme.
+
+Pour les locataires, les conséquences sont préoccupantes. Le loyer moyen d'un appartement de deux chambres a augmenté de 18 pour cent en deux ans, atteignant maintenant 1 500 dollars par mois. Les familles à revenu modeste sont particulièrement touchées, certaines consacrant plus de 50 pour cent de leur revenu au logement.
+
+Le gouvernement provincial a annoncé un investissement de 1,8 milliard de dollars sur cinq ans pour la construction de logements sociaux et abordables. Des mesures réglementaires sont également à l'étude pour encadrer les locations à court terme et protéger les droits des locataires.`,
+                questions: [
+                    {
+                        id: 'a',
+                        text: 'Quel est le taux d\'inoccupation à Montréal?',
+                        options: [
+                            { id: 'a', text: '1,5 pour cent' },
+                            { id: 'b', text: '3 pour cent' },
+                            { id: 'c', text: '5 pour cent' }
+                        ],
+                        correct: 'a',
+                        explanation: 'Le reportage dit que le taux est "tombé à 1,5 pour cent".'
+                    },
+                    {
+                        id: 'b',
+                        text: 'Combien le gouvernement investira-t-il?',
+                        options: [
+                            { id: 'a', text: '800 millions de dollars' },
+                            { id: 'b', text: '1,2 milliard de dollars' },
+                            { id: 'c', text: '1,8 milliard de dollars' }
+                        ],
+                        correct: 'c',
+                        explanation: 'Le gouvernement a annoncé "un investissement de 1,8 milliard de dollars".'
+                    }
+                ]
+            },
+            {
+                id: 'listen-018',
+                title: 'Débat sur l\'environnement',
+                level: 'B2',
+                speed: 'Fast',
+                transcript: `Animateur : Le sujet de notre débat ce soir porte sur les mesures environnementales au Québec. Professeur Gagnon, que pensez-vous de l'objectif de réduire les émissions de gaz à effet de serre de 37,5 pour cent d'ici 2030?
+
+Professeur Gagnon : C'est un objectif ambitieux mais nécessaire. Le Québec a l'avantage d'avoir une production d'électricité presque entièrement hydroélectrique, ce qui représente un atout considérable. Cependant, le secteur des transports reste notre principale source d'émissions, représentant 43 pour cent du total.
+
+Animateur : Quelles solutions proposez-vous?
+
+Professeur Gagnon : Nous devons accélérer l'électrification des transports. Le gouvernement offre déjà des subventions pour l'achat de véhicules électriques, mais il faut aussi investir massivement dans le transport collectif. Un réseau de tramway à Québec et l'expansion du REM à Montréal sont des projets essentiels. De plus, nous devons repenser l'aménagement urbain pour réduire notre dépendance à l'automobile.`,
+                questions: [
+                    {
+                        id: 'a',
+                        text: 'Quel secteur est la principale source d\'émissions?',
+                        options: [
+                            { id: 'a', text: 'L\'industrie' },
+                            { id: 'b', text: 'Les transports' },
+                            { id: 'c', text: 'L\'agriculture' }
+                        ],
+                        correct: 'b',
+                        explanation: 'Le professeur dit "le secteur des transports reste notre principale source d\'émissions, représentant 43 pour cent".'
+                    },
+                    {
+                        id: 'b',
+                        text: 'Quel est l\'objectif de réduction des émissions?',
+                        options: [
+                            { id: 'a', text: '25 pour cent' },
+                            { id: 'b', text: '37,5 pour cent' },
+                            { id: 'c', text: '50 pour cent' }
+                        ],
+                        correct: 'b',
+                        explanation: 'L\'animateur mentionne "réduire les émissions de 37,5 pour cent d\'ici 2030".'
+                    }
+                ]
+            },
+            {
+                id: 'listen-019',
+                title: 'Visite guidée d\'un musée',
+                level: 'B1',
+                speed: 'Slow',
+                transcript: `Bienvenue au Musée de la civilisation de Québec! Je suis votre guide, Marie-Claire. Avant de commencer notre visite, voici quelques informations pratiques. La visite dure environ une heure trente. Vous pouvez prendre des photos, mais sans flash, s'il vous plaît. Les toilettes sont au rez-de-chaussée, près de l'entrée principale.
+
+Nous allons d'abord visiter l'exposition permanente sur l'histoire du Québec, de la Nouvelle-France à aujourd'hui. Ensuite, nous verrons l'exposition temporaire sur les Premières Nations et leur héritage culturel. Cette exposition présente des objets datant de plus de 3 000 ans.
+
+Au deuxième étage, vous découvrirez une section interactive où vous pourrez écouter des témoignages en français et en langues autochtones. C'est une expérience vraiment émouvante. Si vous avez des questions pendant la visite, n'hésitez pas à les poser. Allons-y!`,
+                questions: [
+                    {
+                        id: 'a',
+                        text: 'Combien de temps dure la visite?',
+                        options: [
+                            { id: 'a', text: 'Une heure' },
+                            { id: 'b', text: 'Une heure trente' },
+                            { id: 'c', text: 'Deux heures' }
+                        ],
+                        correct: 'b',
+                        explanation: 'La guide dit "La visite dure environ une heure trente".'
+                    },
+                    {
+                        id: 'b',
+                        text: 'Que présente l\'exposition temporaire?',
+                        options: [
+                            { id: 'a', text: 'L\'art moderne' },
+                            { id: 'b', text: 'Les Premières Nations' },
+                            { id: 'c', text: 'La Nouvelle-France' }
+                        ],
+                        correct: 'b',
+                        explanation: 'La guide mentionne "l\'exposition temporaire sur les Premières Nations et leur héritage culturel".'
+                    }
+                ]
+            },
+            {
+                id: 'listen-020',
+                title: 'Analyse économique à la radio',
+                level: 'B2',
+                speed: 'Fast',
+                transcript: `L'économiste Jean-François Nadeau analyse les perspectives économiques du Québec pour l'année à venir.
+
+"Le marché de l'emploi québécois montre des signes contradictoires. D'un côté, le taux de chômage est historiquement bas, à 4,2 pour cent. De l'autre, certains secteurs peinent à recruter. La pénurie de main-d'œuvre touche particulièrement la santé, la construction et les technologies de l'information.
+
+L'inflation, qui avait atteint 6,8 pour cent l'année dernière, a commencé à ralentir grâce aux hausses successives des taux d'intérêt de la Banque du Canada. Toutefois, le coût de la vie reste élevé, surtout pour l'alimentation et le logement.
+
+Pour les prochains mois, je prévois une croissance modérée du PIB québécois, autour de 1,5 pour cent. Les investissements dans le secteur des énergies renouvelables et de l'intelligence artificielle pourraient stimuler l'économie, mais les incertitudes géopolitiques mondiales restent un facteur de risque important."`,
+                questions: [
+                    {
+                        id: 'a',
+                        text: 'Quel est le taux de chômage mentionné?',
+                        options: [
+                            { id: 'a', text: '3,5 pour cent' },
+                            { id: 'b', text: '4,2 pour cent' },
+                            { id: 'c', text: '5,8 pour cent' }
+                        ],
+                        correct: 'b',
+                        explanation: 'L\'économiste dit "le taux de chômage est historiquement bas, à 4,2 pour cent".'
+                    },
+                    {
+                        id: 'b',
+                        text: 'Quelle croissance du PIB est prévue?',
+                        options: [
+                            { id: 'a', text: '0,8 pour cent' },
+                            { id: 'b', text: '1,5 pour cent' },
+                            { id: 'c', text: '2,3 pour cent' }
+                        ],
+                        correct: 'b',
+                        explanation: 'L\'économiste prévoit "une croissance modérée du PIB québécois, autour de 1,5 pour cent".'
+                    }
+                ]
             }
         ];
 
@@ -898,9 +1255,9 @@
         // Load tracked progress from storage
         function loadProgressTracked() {
             if (typeof TEFProgress !== 'undefined') {
-                const progress = TEFProgress.getProgress('listening');
-                if (progress && progress.completed) {
-                    completedExercises = new Set(progress.completed);
+                const data = TEFProgress.getAll();
+                if (data && data.listening && data.listening.completed) {
+                    completedExercises = new Set(data.listening.completed);
                 }
             }
         }

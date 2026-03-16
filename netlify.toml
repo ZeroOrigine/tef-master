@@ -1,6 +1,7 @@
 # TEF Master - Netlify Configuration
 [build]
   publish = "."
+  functions = "netlify/functions"
   # No build command needed - pure static site
 
 # Headers for performance and security

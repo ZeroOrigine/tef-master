@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Welcome to TEF Master!</title>
+  <style>
+    * { margin: 0; padding: 0; box-sizing: border-box; }
+    body {
+      min-height: 100vh;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+      padding: 1rem;
+    }
+    .card {
+      background: #fff;
+      border-radius: 20px;
+      padding: 2.5rem;
+      max-width: 520px;
+      width: 100%;
+      text-align: center;
+      box-shadow: 0 25px 80px rgba(0,0,0,.3);
+    }
+    .success-icon {
+      width: 80px; height: 80px;
+      background: #dcfce7;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      margin: 0 auto 1.5rem;
+      font-size: 2.5rem;
+    }
+    h1 { color: #1a1a2e; font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .subtitle { color: #666; font-size: 1rem; margin-bottom: 2rem; line-height: 1.5; }
+    .email-section {
+      background: #f0f9ff;
+      border: 2px solid #2563eb;
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-bottom: 1.5rem;
+    }
+    .email-label { color: #2563eb; font-weight: 600; font-size: 0.85rem; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 0.5rem; }
+    .email-display {
+      font-size: 1.3rem;
+      font-weight: 700;
+      color: #1a1a2e;
+      margin: 0.5rem 0;
+      word-break: break-all;
+    }
+    .email-hint {
+      font-size: 0.8rem;
+      color: #64748b;
+      margin-top: 0.5rem;
+    }
+    .note {
+      background: #dcfce7;
+      border-radius: 8px;
+      padding: 1rem;
+      font-size: 0.85rem;
+      color: #166534;
+      line-height: 1.5;
+      margin-bottom: 1.5rem;
+    }
+    .start-btn {
+      display: inline-block;
+      padding: 1rem 2.5rem;
+      background: #16a34a;
+      color: #fff;
+      text-decoration: none;
+      border-radius: 10px;
+      font-size: 1.1rem;
+      font-weight: 700;
+    }
+    .start-btn:hover { background: #15803d; }
+    .links {
+      margin-top: 1.5rem;
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.5rem;
+      justify-content: center;
+    }
+    .links a {
+      padding: 0.4rem 0.8rem;
+      background: #f1f5f9;
+      color: #334155;
+      text-decoration: none;
+      border-radius: 6px;
+      font-size: 0.85rem;
+    }
+    .links a:hover { background: #e2e8f0; }
+    .receipt-note {
+      margin-top: 1.5rem;
+      font-size: 0.8rem;
+      color: #999;
+    }
+    .loading { color: #666; font-size: 1rem; }
+    .error-msg { color: #dc2626; font-size: 0.9rem; margin-top: 1rem; }
+  </style>
+</head>
+<body>
+  <div class="card" id="mainCard">
+    <div class="success-icon">&#x2705;</div>
+    <h1>Payment Successful!</h1>
+    <p class="subtitle">Welcome to TEF Master. You now have lifetime access to all course content.</p>
+
+    <div class="email-section">
+      <div class="email-label">Your Registered Email</div>
+      <div class="email-display" id="emailDisplay">
+        <span class="loading">Loading your details...</span>
+      </div>
+      <div class="email-hint">Use this email to unlock content on any device or browser</div>
+    </div>
+
+    <div class="note">
+      <strong>How it works:</strong> On any course page, simply enter this email to unlock all premium content. No codes to remember — just your email!
+    </div>
+
+    <a href="grammar.html" class="start-btn" id="startBtn">Start Learning Now</a>
+
+    <div class="links">
+      <a href="grammar.html">Grammar</a>
+      <a href="vocabulary.html">Vocabulary</a>
+      <a href="reading.html">Reading</a>
+      <a href="listening.html">Listening</a>
+      <a href="conversations.html">Conversations</a>
+      <a href="tricks.html">Exam Tricks</a>
+      <a href="progress.html">Progress</a>
+    </div>
+
+    <p class="receipt-note">A payment receipt has been sent to your email by Stripe.</p>
+    <div class="error-msg" id="errorMsg" style="display:none;"></div>
+  </div>
+
+  <script>
+    (async function() {
+      const params = new URLSearchParams(window.location.search);
+      const sessionId = params.get('session_id');
+      const emailDisplay = document.getElementById('emailDisplay');
+      const errorMsg = document.getElementById('errorMsg');
+
+      if (!sessionId) {
+        // No session_id — check if already verified via localStorage
+        const saved = localStorage.getItem('tef_verified_email');
+        if (saved) {
+          emailDisplay.textContent = saved;
+          return;
+        }
+        emailDisplay.textContent = 'your purchase email';
+        return;
+      }
+
+      try {
+        const res = await fetch('/.netlify/functions/get-session?session_id=' + encodeURIComponent(sessionId));
+        const data = await res.json();
+
+        if (data.email && data.paid) {
+          emailDisplay.textContent = data.email;
+          // Auto-save to localStorage for immediate access
+          localStorage.setItem('tef_verified_email', data.email);
+          // Clean URL
+          window.history.replaceState({}, '', window.location.pathname);
+        } else {
+          emailDisplay.textContent = 'your purchase email';
+          errorMsg.textContent = 'Could not retrieve email. Use the email from your Stripe receipt to access content.';
+          errorMsg.style.display = 'block';
+        }
+      } catch {
+        emailDisplay.textContent = 'your purchase email';
+        errorMsg.textContent = 'Could not connect to server. Use the email from your Stripe receipt to access content.';
+        errorMsg.style.display = 'block';
+      }
+    })();
+  </script>
+</body>
+</html>

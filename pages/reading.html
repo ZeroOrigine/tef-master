@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,8 +7,11 @@
     <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+    <script src="../js/access-gate.js"></script>
+    <script>requireAccess();</script>
+
     <nav id="navbar"></nav>
-    
+
     <div class="container" style="max-width: 900px; margin: 2rem auto; padding: 0 1rem;">
         <div style="text-align: center; margin-bottom: 2rem;">
             <h1>Reading Comprehension Practice</h1>
@@ -27,7 +30,7 @@
         </div>
 
         <!-- Progress Indicator -->
-        <div class="card" style="margin-bottom: 2rem; padding: 1.5rem; background: linear-gradient(135deg, #667eea 0%, #764ba2 100%); color: white;">
+        <div class="card" style="margin-bottom: 2rem; padding: 1.5rem; background: linear-gradient(135deg, var(--primary), var(--primary-light)); color: white;">
             <div style="display: flex; justify-content: space-between; align-items: center;">
                 <div>
                     <h3 style="margin: 0 0 0.5rem 0;">Progress</h3>
@@ -637,6 +640,627 @@ Sur le plan économique, les festivals génèrent des milliards de dollars pour 
                         }
                     }
                 ]
+            },
+            {
+                id: 'reading-011',
+                level: 'a2',
+                topic: 'Housing & Neighbourhood',
+                title: 'Mon nouveau quartier',
+                passage: `Je viens de déménager dans un nouveau quartier à Québec. Mon appartement est au deuxième étage d'un immeuble calme. Il y a deux chambres, un salon et une cuisine. Le loyer est raisonnable pour le centre-ville.
+
+Dans mon quartier, il y a un supermarché à cinq minutes à pied. Il y a aussi une boulangerie où j'achète du pain frais chaque matin. Le parc est juste en face de mon immeuble, et mes enfants adorent y jouer après l'école.
+
+Le seul problème, c'est le stationnement. Il n'y a pas beaucoup de places disponibles, alors je prends souvent le bus pour aller au travail. L'arrêt de bus est à deux minutes de chez moi, c'est très pratique.`,
+                questions: [
+                    {
+                        question: "Où se trouve l'appartement?",
+                        options: ['Au rez-de-chaussée', 'Au deuxième étage', 'Au cinquième étage', 'Dans une maison'],
+                        correct: 1,
+                        explanation: "Le texte dit : « Mon appartement est au deuxième étage ».",
+                        translations: {
+                            fr: "Où se trouve l'appartement?",
+                            en: "Where is the apartment located?"
+                        }
+                    },
+                    {
+                        question: "Quel est le problème mentionné?",
+                        options: ['Le bruit', 'Le loyer élevé', 'Le stationnement', 'Les voisins'],
+                        correct: 2,
+                        explanation: "Le texte indique : « Le seul problème, c'est le stationnement ».",
+                        translations: {
+                            fr: "Quel est le problème mentionné?",
+                            en: "What problem is mentioned?"
+                        }
+                    },
+                    {
+                        question: "Comment va-t-il au travail?",
+                        options: ['En voiture', 'À vélo', 'En bus', 'À pied'],
+                        correct: 2,
+                        explanation: "Il prend souvent le bus pour aller au travail.",
+                        translations: {
+                            fr: "Comment va-t-il au travail?",
+                            en: "How does he go to work?"
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-012',
+                level: 'a2',
+                topic: 'City & Directions',
+                title: 'Visite de la ville',
+                passage: `Bienvenue à Ottawa ! Voici un petit guide pour votre visite.
+
+Le Parlement du Canada est au centre-ville, sur la colline du Parlement. Vous pouvez y aller à pied depuis votre hôtel. Tournez à gauche sur la rue Wellington et continuez tout droit pendant dix minutes.
+
+Le marché ByWard est à l'est du centre-ville. C'est un endroit parfait pour déjeuner. Vous y trouverez des restaurants, des cafés et des boutiques de souvenirs. Le marché est ouvert tous les jours de 9 h à 18 h.
+
+Pour visiter le Musée des beaux-arts, prenez le bus numéro 12 depuis l'arrêt devant le marché. Le trajet dure environ quinze minutes.`,
+                questions: [
+                    {
+                        question: "Où est le Parlement?",
+                        options: ['À l\'est de la ville', 'Sur la colline du Parlement', 'Près du musée', 'À côté du marché'],
+                        correct: 1,
+                        explanation: "Le Parlement est « sur la colline du Parlement ».",
+                        translations: {
+                            fr: "Où est le Parlement?",
+                            en: "Where is Parliament?"
+                        }
+                    },
+                    {
+                        question: "À quelle heure le marché ferme-t-il?",
+                        options: ['17 h', '18 h', '19 h', '20 h'],
+                        correct: 1,
+                        explanation: "Le marché est ouvert de 9 h à 18 h.",
+                        translations: {
+                            fr: "À quelle heure le marché ferme-t-il?",
+                            en: "What time does the market close?"
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-013',
+                level: 'a2',
+                topic: 'Banking & Administration',
+                title: 'Ouvrir un compte bancaire',
+                passage: `Pour ouvrir un compte bancaire au Canada, vous devez apporter les documents suivants : une pièce d'identité avec photo (passeport ou carte de résident permanent) et une preuve d'adresse (facture de téléphone ou contrat de bail).
+
+La banque vous proposera deux types de comptes : un compte chèques pour les dépenses quotidiennes et un compte épargne pour économiser de l'argent. Le compte chèques permet de faire des virements et de payer vos factures en ligne.
+
+Les frais mensuels sont de 4,95 $ pour le compte de base. Vous recevrez une carte de débit et vous pourrez configurer les services bancaires en ligne. La banque est ouverte du lundi au vendredi, de 9 h 30 à 16 h.`,
+                questions: [
+                    {
+                        question: "Quels documents faut-il apporter?",
+                        options: ['Un permis de conduire seulement', 'Une pièce d\'identité et une preuve d\'adresse', 'Un relevé bancaire', 'Une lettre de recommandation'],
+                        correct: 1,
+                        explanation: "Il faut une pièce d'identité avec photo et une preuve d'adresse.",
+                        translations: {
+                            fr: "Quels documents faut-il apporter?",
+                            en: "What documents do you need to bring?"
+                        }
+                    },
+                    {
+                        question: "Combien coûtent les frais mensuels?",
+                        options: ['2,95 $', '3,95 $', '4,95 $', '5,95 $'],
+                        correct: 2,
+                        explanation: "Les frais mensuels sont de 4,95 $.",
+                        translations: {
+                            fr: "Combien coûtent les frais mensuels?",
+                            en: "How much are the monthly fees?"
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-014',
+                level: 'b1',
+                topic: 'Canadian Life & Immigration',
+                title: 'S\'installer au Canada',
+                passage: `L'immigration au Canada est un processus qui demande de la patience et une bonne préparation. Les nouveaux arrivants doivent d'abord obtenir leur numéro d'assurance sociale (NAS), qui est nécessaire pour travailler légalement.
+
+Ensuite, il est recommandé de s'inscrire au régime d'assurance maladie de votre province. Au Québec, c'est la RAMQ (Régie de l'assurance maladie du Québec) qui gère ce service. Il y a généralement un délai d'attente de trois mois avant de recevoir votre carte.
+
+Pendant cette période, il est conseillé de souscrire à une assurance privée temporaire. Beaucoup de centres communautaires offrent des services d'aide aux immigrants, notamment des cours de français gratuits, de l'aide pour la recherche d'emploi et des conseils juridiques.
+
+Les organismes comme le MIDI (Ministère de l'Immigration) proposent également des séances d'information pour faciliter votre intégration dans la société québécoise.`,
+                questions: [
+                    {
+                        question: "Quel document faut-il obtenir en premier?",
+                        options: ['La carte d\'assurance maladie', 'Le permis de conduire', 'Le numéro d\'assurance sociale', 'Le passeport canadien'],
+                        correct: 2,
+                        explanation: "Les nouveaux arrivants doivent « d'abord obtenir leur numéro d'assurance sociale (NAS) ».",
+                        translations: {
+                            fr: "Quel document faut-il obtenir en premier?",
+                            en: "What document should be obtained first?"
+                        }
+                    },
+                    {
+                        question: "Combien de temps faut-il attendre pour la carte d'assurance maladie?",
+                        options: ['Un mois', 'Deux mois', 'Trois mois', 'Six mois'],
+                        correct: 2,
+                        explanation: "Il y a « un délai d'attente de trois mois ».",
+                        translations: {
+                            fr: "Combien de temps faut-il attendre pour la carte d'assurance maladie?",
+                            en: "How long is the wait for the health insurance card?"
+                        }
+                    },
+                    {
+                        question: "Que proposent les centres communautaires?",
+                        options: ['Des logements gratuits', 'Des cours de français et de l\'aide à l\'emploi', 'Des billets d\'avion', 'Des passeports'],
+                        correct: 1,
+                        explanation: "Ils offrent « des cours de français gratuits, de l'aide pour la recherche d'emploi et des conseils juridiques ».",
+                        translations: {
+                            fr: "Que proposent les centres communautaires?",
+                            en: "What do community centers offer?"
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-015',
+                level: 'b1',
+                topic: 'Nature & Environment',
+                title: 'Les parcs nationaux du Canada',
+                passage: `Le Canada possède 48 parcs nationaux qui protègent des écosystèmes uniques à travers le pays. Du parc Banff dans les montagnes Rocheuses au parc Forillon en Gaspésie, ces espaces naturels attirent des millions de visiteurs chaque année.
+
+Les parcs offrent de nombreuses activités en plein air : la randonnée, le camping, le kayak et l'observation de la faune. En hiver, on peut y pratiquer le ski de fond et la raquette à neige. Les sentiers sont bien balisés et il y a des refuges pour se reposer.
+
+Cependant, la protection de l'environnement reste une priorité. Les visiteurs doivent respecter des règles strictes : ne pas nourrir les animaux sauvages, ne pas laisser de déchets et rester sur les sentiers. Le réchauffement climatique représente aussi une menace sérieuse pour ces écosystèmes fragiles, en particulier dans les régions arctiques.
+
+Parcs Canada travaille avec les communautés autochtones pour préserver ces territoires et partager les connaissances traditionnelles sur la gestion de la terre.`,
+                questions: [
+                    {
+                        question: "Combien de parcs nationaux le Canada possède-t-il?",
+                        options: ['38', '42', '48', '52'],
+                        correct: 2,
+                        explanation: "Le Canada possède 48 parcs nationaux.",
+                        translations: {
+                            fr: "Combien de parcs nationaux le Canada possède-t-il?",
+                            en: "How many national parks does Canada have?"
+                        }
+                    },
+                    {
+                        question: "Quelle menace est identifiée pour les écosystèmes?",
+                        options: ['Le tourisme de masse', 'Le réchauffement climatique', 'La construction de routes', 'La chasse'],
+                        correct: 1,
+                        explanation: "Le réchauffement climatique est une « menace sérieuse pour ces écosystèmes fragiles ».",
+                        translations: {
+                            fr: "Quelle menace est identifiée pour les écosystèmes?",
+                            en: "What threat is identified for ecosystems?"
+                        }
+                    },
+                    {
+                        question: "Avec qui Parcs Canada travaille-t-il?",
+                        options: ['Les universités', 'Les entreprises privées', 'Les communautés autochtones', 'Les gouvernements étrangers'],
+                        correct: 2,
+                        explanation: "Parcs Canada travaille « avec les communautés autochtones ».",
+                        translations: {
+                            fr: "Avec qui Parcs Canada travaille-t-il?",
+                            en: "Who does Parks Canada work with?"
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-016',
+                level: 'b1',
+                topic: 'Sports & Leisure',
+                title: 'Le hockey au Canada',
+                passage: `Le hockey sur glace est bien plus qu'un sport au Canada — c'est une véritable passion nationale. Des millions de Canadiens suivent les matchs de la Ligue nationale de hockey (LNH) chaque semaine, et les discussions sur le hockey font partie de la vie quotidienne.
+
+Au Québec, les Canadiens de Montréal, surnommés « le CH » ou « les Habs », ont une histoire légendaire. L'équipe a remporté 24 Coupes Stanley, un record dans la ligue. Les matchs au Centre Bell attirent plus de 21 000 spectateurs et l'ambiance est électrique.
+
+Le hockey est aussi un sport populaire chez les jeunes. Beaucoup d'enfants commencent à patiner dès l'âge de trois ou quatre ans. Les ligues mineures sont organisées dans toutes les villes, et le rêve de beaucoup de jeunes joueurs est de jouer un jour dans la LNH.
+
+En plus du hockey, les Canadiens pratiquent d'autres sports d'hiver comme le patinage artistique, le curling et le ski alpin. L'été, le football canadien, le soccer et le baseball sont très populaires.`,
+                questions: [
+                    {
+                        question: "Combien de Coupes Stanley les Canadiens de Montréal ont-ils remportées?",
+                        options: ['18', '20', '22', '24'],
+                        correct: 3,
+                        explanation: "L'équipe « a remporté 24 Coupes Stanley ».",
+                        translations: {
+                            fr: "Combien de Coupes Stanley les Canadiens de Montréal ont-ils remportées?",
+                            en: "How many Stanley Cups have the Montreal Canadiens won?"
+                        }
+                    },
+                    {
+                        question: "À quel âge les enfants commencent-ils à patiner?",
+                        options: ['2 ans', '3 ou 4 ans', '5 ou 6 ans', '7 ans'],
+                        correct: 1,
+                        explanation: "Beaucoup d'enfants commencent « dès l'âge de trois ou quatre ans ».",
+                        translations: {
+                            fr: "À quel âge les enfants commencent-ils à patiner?",
+                            en: "At what age do children start skating?"
+                        }
+                    },
+                    {
+                        question: "Quel sport n'est PAS mentionné dans le texte?",
+                        options: ['Le curling', 'Le tennis', 'Le ski alpin', 'Le patinage artistique'],
+                        correct: 1,
+                        explanation: "Le tennis n'est pas mentionné parmi les sports populaires au Canada.",
+                        translations: {
+                            fr: "Quel sport n'est PAS mentionné dans le texte?",
+                            en: "Which sport is NOT mentioned in the text?"
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-017',
+                level: 'b1',
+                topic: 'Professions & Work',
+                title: 'Changer de carrière',
+                passage: `De plus en plus de professionnels au Canada décident de changer de carrière après plusieurs années dans le même domaine. Selon une étude récente, près de 40 % des travailleurs canadiens envisagent une reconversion professionnelle.
+
+Les raisons sont multiples : l'insatisfaction au travail, le désir d'un meilleur équilibre entre vie professionnelle et vie personnelle, ou l'envie de suivre une passion. Certains veulent devenir travailleurs autonomes pour avoir plus de liberté dans leur emploi du temps.
+
+Pour réussir cette transition, les experts conseillent de commencer par identifier ses compétences transférables — ces aptitudes qui sont utiles dans différents secteurs. Par exemple, un comptable qui veut devenir consultant en gestion possède déjà des compétences en analyse financière et en résolution de problèmes.
+
+Il est également important de se former. De nombreux collèges et universités offrent des programmes de certificat qui permettent d'acquérir de nouvelles qualifications en quelques mois. Le gouvernement du Canada propose aussi des subventions pour la formation continue.`,
+                questions: [
+                    {
+                        question: "Quel pourcentage de travailleurs envisage une reconversion?",
+                        options: ['20 %', '30 %', '40 %', '50 %'],
+                        correct: 2,
+                        explanation: "« Près de 40 % des travailleurs canadiens envisagent une reconversion professionnelle ».",
+                        translations: {
+                            fr: "Quel pourcentage de travailleurs envisage une reconversion?",
+                            en: "What percentage of workers consider a career change?"
+                        }
+                    },
+                    {
+                        question: "Que sont les compétences transférables?",
+                        options: ['Des diplômes reconnus', 'Des aptitudes utiles dans différents secteurs', 'Des certifications en ligne', 'Des langues étrangères'],
+                        correct: 1,
+                        explanation: "Ce sont « ces aptitudes qui sont utiles dans différents secteurs ».",
+                        translations: {
+                            fr: "Que sont les compétences transférables?",
+                            en: "What are transferable skills?"
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-018',
+                level: 'b1',
+                topic: 'Communication & Technology',
+                title: 'Les services numériques au Québec',
+                passage: `Le gouvernement du Québec offre de nombreux services en ligne pour simplifier les démarches administratives. Le portail « Mon dossier citoyen » permet aux résidents de consulter leurs dossiers fiscaux, de renouveler leur permis de conduire et de prendre des rendez-vous avec des organismes gouvernementaux.
+
+Pour accéder à ces services, il faut créer un compte avec une adresse courriel valide et un mot de passe sécurisé. L'authentification à deux facteurs est fortement recommandée pour protéger vos informations personnelles.
+
+Les applications mobiles gouvernementales sont aussi très utiles. L'application « SAAQ en ligne » permet de gérer tout ce qui concerne votre permis de conduire et votre véhicule. « Mon espace santé » vous donne accès à vos rendez-vous médicaux et à vos résultats d'examens.
+
+Malgré ces avancées technologiques, environ 15 % de la population québécoise n'a pas accès à Internet haute vitesse, surtout dans les régions rurales. Le gouvernement investit dans l'expansion du réseau pour réduire cette fracture numérique.`,
+                questions: [
+                    {
+                        question: "Que permet le portail « Mon dossier citoyen »?",
+                        options: ['Acheter des billets de spectacle', 'Consulter ses dossiers fiscaux et renouveler son permis', 'Trouver un emploi', 'Réserver un vol'],
+                        correct: 1,
+                        explanation: "Le portail permet de « consulter leurs dossiers fiscaux, de renouveler leur permis de conduire ».",
+                        translations: {
+                            fr: "Que permet le portail « Mon dossier citoyen »?",
+                            en: "What does the 'Mon dossier citoyen' portal allow?"
+                        }
+                    },
+                    {
+                        question: "Quel pourcentage de la population n'a pas accès à Internet haute vitesse?",
+                        options: ['5 %', '10 %', '15 %', '20 %'],
+                        correct: 2,
+                        explanation: "Environ 15 % de la population n'a pas accès à Internet haute vitesse.",
+                        translations: {
+                            fr: "Quel pourcentage de la population n'a pas accès à Internet haute vitesse?",
+                            en: "What percentage of the population lacks high-speed Internet?"
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-019',
+                level: 'b2',
+                topic: 'Arts & Culture',
+                title: 'La scène culturelle montréalaise',
+                passage: `Montréal est reconnue mondialement comme une métropole culturelle dynamique. La ville accueille plus de 100 festivals par année, dont le Festival international de jazz, le Festival Juste pour rire et le Festival des films du monde. Cette effervescence culturelle contribue significativement à l'économie locale, générant plus de 10 milliards de dollars par année.
+
+Le secteur des arts visuels est particulièrement vibrant. Le Musée des beaux-arts de Montréal possède une collection de plus de 44 000 œuvres d'art, et les galeries du Vieux-Montréal présentent régulièrement des expositions d'artistes émergents. Le Quartier des spectacles, inauguré en 2009, est devenu un espace emblématique qui combine architecture contemporaine et créativité artistique.
+
+La littérature québécoise connaît aussi un essor remarquable. Des auteurs comme Dany Laferrière, élu à l'Académie française en 2013, ont contribué à faire rayonner la culture francophone à l'échelle internationale. Les maisons d'édition locales publient des centaines de titres chaque année, et les salons du livre attirent des foules importantes.
+
+Néanmoins, le financement des arts reste un défi constant. Les artistes indépendants font face à des conditions économiques précaires, et plusieurs plaident pour une augmentation des subventions gouvernementales. Le débat sur le rôle de l'État dans le soutien aux arts est un sujet récurrent dans la société québécoise.`,
+                questions: [
+                    {
+                        question: "Combien de festivals Montréal accueille-t-elle par année?",
+                        options: ['Plus de 50', 'Plus de 75', 'Plus de 100', 'Plus de 150'],
+                        correct: 2,
+                        explanation: "La ville accueille « plus de 100 festivals par année ».",
+                        translations: {
+                            fr: "Combien de festivals Montréal accueille-t-elle par année?",
+                            en: "How many festivals does Montreal host per year?"
+                        }
+                    },
+                    {
+                        question: "Quand le Quartier des spectacles a-t-il été inauguré?",
+                        options: ['2005', '2007', '2009', '2011'],
+                        correct: 2,
+                        explanation: "Le Quartier des spectacles a été « inauguré en 2009 ».",
+                        translations: {
+                            fr: "Quand le Quartier des spectacles a-t-il été inauguré?",
+                            en: "When was the Quartier des spectacles inaugurated?"
+                        }
+                    },
+                    {
+                        question: "Quel est le défi principal mentionné pour les arts?",
+                        options: ['Le manque de talent', 'Le financement', 'Le manque de salles', 'La concurrence internationale'],
+                        correct: 1,
+                        explanation: "Le texte indique que « le financement des arts reste un défi constant ».",
+                        translations: {
+                            fr: "Quel est le défi principal mentionné pour les arts?",
+                            en: "What is the main challenge mentioned for the arts?"
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-020',
+                level: 'b2',
+                topic: 'Health & Wellness',
+                title: 'Le système de santé canadien',
+                passage: `Le système de santé canadien repose sur le principe d'universalité : tous les résidents permanents et citoyens ont droit à des soins médicaux gratuits financés par les impôts. Chaque province administre son propre régime d'assurance maladie, mais les normes fondamentales sont établies par la Loi canadienne sur la santé.
+
+Au Québec, la RAMQ couvre les consultations médicales, les hospitalisations et la plupart des chirurgies. Cependant, certains services ne sont pas couverts, notamment les soins dentaires pour les adultes, les examens de la vue et les médicaments prescrits en dehors de l'hôpital. Pour ces services, beaucoup de Canadiens souscrivent à une assurance complémentaire, souvent offerte par leur employeur.
+
+Le système fait face à plusieurs défis importants. Les temps d'attente dans les urgences peuvent dépasser douze heures dans certains hôpitaux. La pénurie de médecins de famille touche environ un million de Québécois qui n'ont pas de médecin traitant et doivent se rendre dans des cliniques sans rendez-vous.
+
+Des réformes sont en cours pour améliorer l'accès aux soins. La télémédecine a connu une croissance spectaculaire depuis la pandémie, permettant aux patients de consulter un médecin par vidéoconférence. Des investissements massifs dans la formation de nouveaux médecins et infirmières visent à combler le manque de personnel soignant dans les années à venir.`,
+                questions: [
+                    {
+                        question: "Quel service n'est PAS couvert par la RAMQ?",
+                        options: ['Les consultations médicales', 'Les hospitalisations', 'Les soins dentaires pour adultes', 'Les chirurgies'],
+                        correct: 2,
+                        explanation: "Les soins dentaires pour les adultes ne sont pas couverts par la RAMQ.",
+                        translations: {
+                            fr: "Quel service n'est PAS couvert par la RAMQ?",
+                            en: "Which service is NOT covered by RAMQ?"
+                        }
+                    },
+                    {
+                        question: "Combien de Québécois n'ont pas de médecin de famille?",
+                        options: ['500 000', '750 000', '1 000 000', '1 500 000'],
+                        correct: 2,
+                        explanation: "Environ « un million de Québécois » n'ont pas de médecin traitant.",
+                        translations: {
+                            fr: "Combien de Québécois n'ont pas de médecin de famille?",
+                            en: "How many Quebecers don't have a family doctor?"
+                        }
+                    },
+                    {
+                        question: "Quelle innovation a connu une forte croissance depuis la pandémie?",
+                        options: ['Les cliniques mobiles', 'La télémédecine', 'Les pharmacies en ligne', 'Les hôpitaux privés'],
+                        correct: 1,
+                        explanation: "La télémédecine « a connu une croissance spectaculaire depuis la pandémie ».",
+                        translations: {
+                            fr: "Quelle innovation a connu une forte croissance depuis la pandémie?",
+                            en: "What innovation has grown significantly since the pandemic?"
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-021',
+                level: 'b2',
+                topic: 'Society & Education',
+                title: 'Le bilinguisme au Canada',
+                passage: `Le Canada est officiellement un pays bilingue depuis l'adoption de la Loi sur les langues officielles en 1969. L'anglais et le français bénéficient d'un statut égal dans les institutions fédérales, et les citoyens ont le droit de recevoir des services gouvernementaux dans la langue officielle de leur choix.
+
+Au Québec, le français est la seule langue officielle en vertu de la Charte de la langue française (Loi 101), adoptée en 1977. Cette loi exige que l'affichage commercial soit principalement en français et que les entreprises de plus de 50 employés fonctionnent en français. Elle a joué un rôle déterminant dans la préservation du français en Amérique du Nord.
+
+Les programmes d'immersion française dans les écoles anglophones du reste du Canada connaissent un succès grandissant. Environ 450 000 élèves sont inscrits dans des programmes où une partie significative de l'enseignement se fait en français. Les parents voient le bilinguisme comme un avantage considérable pour l'avenir professionnel de leurs enfants.
+
+Toutefois, le bilinguisme parfait reste rare : seulement 18 % des Canadiens se déclarent bilingues anglais-français. Le débat linguistique reste un sujet sensible, particulièrement au Québec, où la protection du français face à l'influence croissante de l'anglais dans les milieux de travail et sur Internet demeure une préoccupation majeure.`,
+                questions: [
+                    {
+                        question: "Quand la Loi sur les langues officielles a-t-elle été adoptée?",
+                        options: ['1960', '1965', '1969', '1977'],
+                        correct: 2,
+                        explanation: "La loi a été adoptée en 1969.",
+                        translations: {
+                            fr: "Quand la Loi sur les langues officielles a-t-elle été adoptée?",
+                            en: "When was the Official Languages Act adopted?"
+                        }
+                    },
+                    {
+                        question: "Combien d'élèves sont en immersion française?",
+                        options: ['250 000', '350 000', '450 000', '550 000'],
+                        correct: 2,
+                        explanation: "Environ 450 000 élèves sont inscrits dans des programmes d'immersion.",
+                        translations: {
+                            fr: "Combien d'élèves sont en immersion française?",
+                            en: "How many students are in French immersion?"
+                        }
+                    },
+                    {
+                        question: "Quel pourcentage de Canadiens se déclarent bilingues?",
+                        options: ['12 %', '18 %', '25 %', '32 %'],
+                        correct: 1,
+                        explanation: "Seulement 18 % des Canadiens se déclarent bilingues anglais-français.",
+                        translations: {
+                            fr: "Quel pourcentage de Canadiens se déclarent bilingues?",
+                            en: "What percentage of Canadians declare themselves bilingual?"
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-022',
+                level: 'a2',
+                topic: 'Daily Life & Routine',
+                title: 'Ma routine quotidienne',
+                passage: `Je m'appelle Sophie et je travaille comme infirmière à l'hôpital de Gatineau. Ma journée commence très tôt. Mon réveil sonne à cinq heures du matin.
+
+D'abord, je prends une douche rapide et je m'habille. Ensuite, je prépare mon petit-déjeuner : habituellement, du café avec des tartines et un yaourt. Je pars de la maison à six heures pour éviter la circulation.
+
+Je travaille de sept heures à quinze heures. Pendant ma pause de midi, je mange à la cafétéria de l'hôpital. Après le travail, je vais souvent au gymnase pour faire de l'exercice. Puis, je rentre à la maison et je prépare le dîner.
+
+Le soir, j'aime lire un livre ou regarder une série à la télévision. Je me couche vers vingt-deux heures parce que je dois me lever tôt le lendemain.`,
+                questions: [
+                    {
+                        question: "À quelle heure Sophie se lève-t-elle?",
+                        options: ['4 heures', '5 heures', '6 heures', '7 heures'],
+                        correct: 1,
+                        explanation: "Son réveil sonne à cinq heures du matin.",
+                        translations: {
+                            fr: "À quelle heure Sophie se lève-t-elle?",
+                            en: "What time does Sophie wake up?"
+                        }
+                    },
+                    {
+                        question: "Que fait Sophie après le travail?",
+                        options: ['Elle fait les courses', 'Elle va au gymnase', 'Elle va au cinéma', 'Elle visite des amis'],
+                        correct: 1,
+                        explanation: "Après le travail, elle « va souvent au gymnase ».",
+                        translations: {
+                            fr: "Que fait Sophie après le travail?",
+                            en: "What does Sophie do after work?"
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-023',
+                level: 'b1',
+                topic: 'Travel & Transport',
+                title: 'Le réseau de transport au Québec',
+                passage: `Le Québec dispose d'un réseau de transport diversifié qui relie les grandes villes et les régions éloignées. À Montréal, le métro compte quatre lignes et 68 stations, transportant plus d'un million de passagers par jour. Le réseau d'autobus de la STM complète le métro avec des centaines de lignes.
+
+Pour les déplacements entre les villes, VIA Rail offre un service de train confortable entre Montréal, Québec et Ottawa. Le trajet Montréal-Québec dure environ trois heures et offre de magnifiques vues sur le fleuve Saint-Laurent. Les bus interurbains sont une alternative économique pour voyager à travers la province.
+
+Le covoiturage est devenu très populaire, surtout chez les jeunes et les étudiants. Des plateformes en ligne permettent de trouver facilement des conducteurs qui font le même trajet. C'est une solution à la fois économique et écologique.
+
+L'hiver pose des défis particuliers pour le transport. Les tempêtes de neige peuvent perturber les vols à l'aéroport de Montréal-Trudeau et rendre les routes dangereuses. Les Québécois doivent obligatoirement équiper leur voiture de pneus d'hiver du 1er décembre au 15 mars.`,
+                questions: [
+                    {
+                        question: "Combien de stations le métro de Montréal compte-t-il?",
+                        options: ['52', '60', '68', '75'],
+                        correct: 2,
+                        explanation: "Le métro compte « 68 stations ».",
+                        translations: {
+                            fr: "Combien de stations le métro de Montréal compte-t-il?",
+                            en: "How many stations does the Montreal metro have?"
+                        }
+                    },
+                    {
+                        question: "Combien de temps dure le trajet Montréal-Québec en train?",
+                        options: ['Deux heures', 'Trois heures', 'Quatre heures', 'Cinq heures'],
+                        correct: 1,
+                        explanation: "Le trajet « dure environ trois heures ».",
+                        translations: {
+                            fr: "Combien de temps dure le trajet Montréal-Québec en train?",
+                            en: "How long is the Montreal-Quebec train trip?"
+                        }
+                    },
+                    {
+                        question: "Quand les pneus d'hiver sont-ils obligatoires?",
+                        options: ['Du 1er novembre au 1er avril', 'Du 1er décembre au 15 mars', 'Du 15 novembre au 31 mars', 'Du 1er octobre au 1er mai'],
+                        correct: 1,
+                        explanation: "Les pneus d'hiver sont obligatoires « du 1er décembre au 15 mars ».",
+                        translations: {
+                            fr: "Quand les pneus d'hiver sont-ils obligatoires?",
+                            en: "When are winter tires mandatory?"
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-024',
+                level: 'b2',
+                topic: 'Work & Economy',
+                title: 'L\'économie numérique au Québec',
+                passage: `Le Québec s'est imposé comme un pôle majeur de l'industrie technologique en Amérique du Nord. Montréal, en particulier, est devenue un centre mondial de l'intelligence artificielle, abritant des laboratoires de recherche prestigieux comme le Mila (Institut québécois d'intelligence artificielle) et les bureaux de nombreuses entreprises technologiques internationales.
+
+Cette transformation numérique a créé une forte demande de main-d'œuvre qualifiée. Les postes en développement logiciel, en science des données et en cybersécurité offrent des salaires compétitifs, souvent supérieurs à la moyenne provinciale. Les universités québécoises ont adapté leurs programmes pour répondre à cette demande, et de nouvelles formations en ligne permettent aux travailleurs de se reconvertir dans le secteur technologique.
+
+Le commerce électronique a également transformé les habitudes de consommation. Plus de 60 % des Québécois effectuent des achats en ligne régulièrement, et les entreprises locales investissent massivement dans leur présence numérique. Les PME qui ont adopté le virage numérique ont vu leur chiffre d'affaires augmenter en moyenne de 25 %.
+
+Cependant, cette transition soulève des questions importantes sur la protection des données personnelles, la fiscalité des géants du numérique et l'impact de l'automatisation sur les emplois traditionnels. Le gouvernement travaille à élaborer un cadre réglementaire qui encourage l'innovation tout en protégeant les droits des citoyens.`,
+                questions: [
+                    {
+                        question: "Qu'est-ce que le Mila?",
+                        options: ['Une entreprise privée', 'Un institut d\'intelligence artificielle', 'Une université', 'Un ministère'],
+                        correct: 1,
+                        explanation: "Le Mila est l'« Institut québécois d'intelligence artificielle ».",
+                        translations: {
+                            fr: "Qu'est-ce que le Mila?",
+                            en: "What is Mila?"
+                        }
+                    },
+                    {
+                        question: "Quel pourcentage de Québécois fait des achats en ligne régulièrement?",
+                        options: ['40 %', '50 %', '60 %', '70 %'],
+                        correct: 2,
+                        explanation: "Plus de 60 % des Québécois effectuent des achats en ligne régulièrement.",
+                        translations: {
+                            fr: "Quel pourcentage de Québécois fait des achats en ligne régulièrement?",
+                            en: "What percentage of Quebecers shop online regularly?"
+                        }
+                    },
+                    {
+                        question: "De combien le chiffre d'affaires des PME a-t-il augmenté grâce au numérique?",
+                        options: ['15 %', '20 %', '25 %', '30 %'],
+                        correct: 2,
+                        explanation: "Les PME ont vu leur chiffre d'affaires augmenter « en moyenne de 25 % ».",
+                        translations: {
+                            fr: "De combien le chiffre d'affaires des PME a-t-il augmenté grâce au numérique?",
+                            en: "By how much did SME revenue increase thanks to digital?"
+                        }
+                    }
+                ]
+            },
+            {
+                id: 'reading-025',
+                level: 'b2',
+                topic: 'Food & Gastronomy',
+                title: 'La gastronomie québécoise',
+                passage: `La cuisine québécoise est un fascinant mélange de traditions françaises, autochtones et nord-américaines. Des plats emblématiques comme la poutine, la tourtière et le pâté chinois font partie du patrimoine culinaire de la province et sont servis aussi bien dans les restaurants gastronomiques que dans les casse-croûtes de quartier.
+
+L'industrie agroalimentaire du Québec est en pleine évolution. Les produits du terroir — fromages artisanaux, cidres de glace, sirop d'érable, charcuteries locales — connaissent un engouement sans précédent. Le Québec produit à lui seul plus de 70 % du sirop d'érable mondial, une industrie qui génère plus de 500 millions de dollars annuellement.
+
+Le mouvement de l'alimentation locale gagne du terrain. Les marchés fermiers se multiplient dans toutes les régions, et de plus en plus de restaurants adoptent le concept « de la ferme à la table ». Cette tendance est soutenue par une nouvelle génération de chefs qui valorisent les ingrédients locaux et les techniques de cuisine traditionnelles.
+
+Parallèlement, la diversité culturelle de Montréal enrichit considérablement l'offre gastronomique. Les quartiers comme le Petit Maghreb, la Petite Italie et Chinatown offrent une extraordinaire variété de cuisines du monde, faisant de Montréal l'une des villes les plus intéressantes au monde sur le plan culinaire.`,
+                questions: [
+                    {
+                        question: "Quel pourcentage du sirop d'érable mondial le Québec produit-il?",
+                        options: ['50 %', '60 %', '70 %', '80 %'],
+                        correct: 2,
+                        explanation: "Le Québec produit « plus de 70 % du sirop d'érable mondial ».",
+                        translations: {
+                            fr: "Quel pourcentage du sirop d'érable mondial le Québec produit-il?",
+                            en: "What percentage of world maple syrup does Quebec produce?"
+                        }
+                    },
+                    {
+                        question: "Que signifie le concept « de la ferme à la table »?",
+                        options: ['Manger dans une ferme', 'Utiliser des ingrédients locaux au restaurant', 'Livrer des repas à domicile', 'Cultiver son propre jardin'],
+                        correct: 1,
+                        explanation: "C'est un concept où les restaurants valorisent les ingrédients locaux.",
+                        translations: {
+                            fr: "Que signifie le concept « de la ferme à la table »?",
+                            en: "What does the 'farm to table' concept mean?"
+                        }
+                    },
+                    {
+                        question: "Quel quartier n'est PAS mentionné dans le texte?",
+                        options: ['Le Petit Maghreb', 'La Petite Italie', 'Le Quartier latin', 'Chinatown'],
+                        correct: 2,
+                        explanation: "Le Quartier latin n'est pas mentionné parmi les quartiers gastronomiques.",
+                        translations: {
+                            fr: "Quel quartier n'est PAS mentionné dans le texte?",
+                            en: "Which neighbourhood is NOT mentioned in the text?"
+                        }
+                    }
+                ]
             }
         ];
 
@@ -699,9 +1323,9 @@ Sur le plan économique, les festivals génèrent des milliards de dollars pour 
                     <p class="text-muted" style="margin: 0 0 1rem 0;">Exercise ${currentExerciseIndex + 1} of ${filteredExercises.length}</p>
                 </div>
 
-                <div style="background: #f5f5f5; padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid #667eea;">
-                    <h3 style="margin-top: 0; color: #333;">Reading Passage</h3>
-                    <p style="line-height: 1.8; color: #555; white-space: pre-wrap; font-size: 1rem;">${exercise.passage}</p>
+                <div style="background: var(--bg); padding: 1.5rem; border-radius: 8px; margin-bottom: 2rem; border-left: 4px solid var(--primary-light);">
+                    <h3 style="margin-top: 0; color: var(--text);">Reading Passage</h3>
+                    <p style="line-height: 1.8; color: var(--text-light); white-space: pre-wrap; font-size: 1rem;">${exercise.passage}</p>
                 </div>
 
                 <div style="margin-bottom: 2rem;">
@@ -711,7 +1335,7 @@ Sur le plan économique, les festivals génèrent des milliards de dollars pour 
                             <p style="font-weight: 600; margin: 0 0 1rem 0;">Question ${qIndex + 1}: ${q.question}</p>
                             <div style="display: flex; flex-direction: column; gap: 0.5rem;">
                                 ${q.options.map((option, optIndex) => `
-                                    <label class="quiz-opt" style="cursor: pointer; padding: 0.75rem; border-radius: 6px; border: 2px solid #e0e0e0; transition: all 0.3s;">
+                                    <label class="quiz-opt" style="cursor: pointer; padding: 0.75rem; border-radius: 6px; border: 2px solid var(--border); transition: all 0.3s;">
                                         <input type="radio" name="question-${qIndex}" value="${optIndex}" style="margin-right: 0.5rem; cursor: pointer;">
                                         <span>${option}</span>
                                     </label>
@@ -737,14 +1361,14 @@ Sur le plan économique, les festivals génèrent des milliards de dollars pour 
                     if (isCorrect) correctCount++;
 
                     return `
-                        <div class="card" style="padding: 1.5rem; margin-bottom: 1rem; border-left: 4px solid ${isCorrect ? '#4caf50' : '#f44336'};">
+                        <div class="card" style="padding: 1.5rem; margin-bottom: 1rem; border-left: 4px solid ${isCorrect ? getComputedStyle(document.documentElement).getPropertyValue('--success').trim() : getComputedStyle(document.documentElement).getPropertyValue('--danger').trim()};">
                             <p style="font-weight: 600; margin: 0 0 0.5rem 0;">Q${qIndex + 1}: ${q.question}</p>
-                            <p style="margin: 0.5rem 0; color: ${isCorrect ? '#4caf50' : '#f44336'};">
+                            <p style="margin: 0.5rem 0; color: ${isCorrect ? getComputedStyle(document.documentElement).getPropertyValue('--success').trim() : getComputedStyle(document.documentElement).getPropertyValue('--danger').trim()};">
                                 ${isCorrect ? '✓ Correct!' : '✗ Incorrect'}
                             </p>
                             <p style="margin: 0.5rem 0;"><strong>Your answer:</strong> ${userAnswer !== undefined ? q.options[userAnswer] : 'Not answered'}</p>
                             <p style="margin: 0.5rem 0;"><strong>Correct answer:</strong> ${q.options[q.correct]}</p>
-                            <div style="background: #f0f0f0; padding: 1rem; border-radius: 6px; margin-top: 1rem;">
+                            <div style="background: var(--bg); padding: 1rem; border-radius: 6px; margin-top: 1rem;">
                                 <p style="margin: 0 0 0.5rem 0; font-weight: 600;">Explanation:</p>
                                 <p style="margin: 0.25rem 0;"><strong>French:</strong> ${q.explanation.fr}</p>
                                 <p style="margin: 0.25rem 0;"><strong>English:</strong> ${q.explanation.en}</p>
@@ -759,7 +1383,7 @@ Sur le plan économique, les festivals génèrent des milliards de dollars pour 
                 const xpEarned = Math.round((score / total) * 10);
 
                 html += `
-                    <div style="background: linear-gradient(135deg, ${percentage >= 80 ? '#4caf50' : percentage >= 60 ? '#ff9800' : '#f44336'} 0%, ${percentage >= 80 ? '#45a049' : percentage >= 60 ? '#e68900' : '#da190b'} 100%); color: white; padding: 2rem; border-radius: 8px; text-align: center; margin-bottom: 2rem;">
+                    <div style="background: linear-gradient(135deg, ${percentage >= 80 ? getComputedStyle(document.documentElement).getPropertyValue('--success').trim() : percentage >= 60 ? getComputedStyle(document.documentElement).getPropertyValue('--warning').trim() : getComputedStyle(document.documentElement).getPropertyValue('--danger').trim()} 0%, ${percentage >= 80 ? '#059669' : percentage >= 60 ? '#d97706' : '#dc2626'} 100%); color: white; padding: 2rem; border-radius: 8px; text-align: center; margin-bottom: 2rem;">
                         <h2 style="margin: 0 0 0.5rem 0;">Score: ${score}/${total} (${percentage}%)</h2>
                         <p style="margin: 0; font-size: 1.2rem;">+${xpEarned} XP earned</p>
                     </div>

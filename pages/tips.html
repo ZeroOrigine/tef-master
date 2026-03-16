@@ -1,0 +1,711 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tips & Motivation - TEF Master</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* ===== PAGE HEADER ===== */
+    .page-header {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      padding: 2.5rem 1rem 2rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .page-header h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
+    .page-header p { opacity: 0.85; font-size: 0.95rem; }
+
+    /* ===== COUNTDOWN BANNER ===== */
+    .countdown-banner {
+      background: linear-gradient(135deg, var(--warning), #f97316);
+      color: #fff;
+      text-align: center;
+      padding: 1.2rem 1rem;
+      border-radius: var(--radius);
+      margin: 0 1rem 1.5rem;
+      max-width: 900px;
+      margin-left: auto;
+      margin-right: auto;
+      box-shadow: 0 4px 15px rgba(245,158,11,.3);
+    }
+    .countdown-banner .days-left {
+      font-size: 2.2rem;
+      font-weight: 800;
+      display: block;
+    }
+    .countdown-banner .sub { opacity: 0.9; font-size: 0.9rem; margin-top: 0.2rem; }
+
+    /* ===== SECTION LAYOUT ===== */
+    .tips-container {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 0 1rem 2rem;
+    }
+    .section-title {
+      font-size: 1.35rem;
+      color: var(--primary);
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ===== TIP CARDS ===== */
+    .tip-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 1.3rem 1.2rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--primary-light);
+      transition: transform .2s, box-shadow .2s;
+    }
+    .tip-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 20px rgba(0,0,0,.1);
+    }
+    .tip-card.accent { border-left-color: var(--accent); }
+    .tip-card.success { border-left-color: var(--success); }
+    .tip-card.warning { border-left-color: var(--warning); }
+    .tip-card.danger { border-left-color: var(--danger); }
+
+    .tip-card h3 {
+      color: var(--primary);
+      font-size: 1.05rem;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+    }
+    .tip-card p, .tip-card ul {
+      color: var(--text-light);
+      font-size: 0.92rem;
+      line-height: 1.7;
+    }
+    .tip-card ul {
+      padding-left: 1.3rem;
+      margin-top: 0.4rem;
+    }
+    .tip-card ul li { margin-bottom: 0.3rem; }
+    .tip-card .highlight {
+      background: var(--primary-bg);
+      padding: 0.6rem 0.9rem;
+      border-radius: 8px;
+      margin-top: 0.6rem;
+      font-size: 0.88rem;
+      color: var(--primary);
+      font-weight: 600;
+    }
+
+    /* ===== SCORE GRID ===== */
+    .score-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0.8rem;
+      margin: 1rem 0;
+    }
+    .score-box {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 1rem;
+      text-align: center;
+      box-shadow: var(--shadow);
+      border-top: 3px solid var(--primary-light);
+    }
+    .score-box .label { font-size: 0.8rem; color: var(--text-light); margin-bottom: 0.3rem; }
+    .score-box .target { font-size: 1.6rem; font-weight: 800; color: var(--primary); }
+    .score-box .note { font-size: 0.78rem; color: var(--text-light); margin-top: 0.2rem; }
+
+    /* ===== MOTIVATION SECTION ===== */
+    .quote-card {
+      background: linear-gradient(135deg, var(--primary-bg), #f0e6ff);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin-bottom: 1rem;
+      text-align: center;
+      border: 1px solid var(--border);
+    }
+    .quote-card .quote {
+      font-size: 1.15rem;
+      font-style: italic;
+      color: var(--primary);
+      line-height: 1.6;
+      margin-bottom: 0.5rem;
+    }
+    .quote-card .author {
+      font-size: 0.85rem;
+      color: var(--text-light);
+      font-weight: 600;
+    }
+
+    /* ===== WEEKLY PLAN TABLE ===== */
+    .plan-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 1rem 0;
+      font-size: 0.88rem;
+    }
+    .plan-table th {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.7rem 0.6rem;
+      text-align: left;
+      font-weight: 600;
+    }
+    .plan-table td {
+      padding: 0.6rem;
+      border-bottom: 1px solid var(--border);
+      color: var(--text);
+    }
+    .plan-table tr:nth-child(even) { background: var(--primary-bg); }
+    .plan-table tr:hover { background: #e0e7ff; }
+
+    /* ===== CHECKLIST ===== */
+    .checklist {
+      list-style: none;
+      padding: 0;
+    }
+    .checklist li {
+      padding: 0.6rem 0.8rem;
+      margin-bottom: 0.4rem;
+      background: var(--card);
+      border-radius: 8px;
+      border: 1px solid var(--border);
+      display: flex;
+      align-items: flex-start;
+      gap: 0.5rem;
+      font-size: 0.92rem;
+      color: var(--text);
+      cursor: pointer;
+      transition: background .2s;
+    }
+    .checklist li:hover { background: var(--primary-bg); }
+    .checklist li.checked {
+      background: #ecfdf5;
+      border-color: var(--success);
+      text-decoration: line-through;
+      color: var(--text-light);
+    }
+    .checklist li .check-icon { font-size: 1.1rem; flex-shrink: 0; }
+
+    /* ===== PROGRESS MILESTONES ===== */
+    .milestone-track {
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+      margin: 1rem 0;
+      position: relative;
+    }
+    .milestone-track::before {
+      content: '';
+      position: absolute;
+      left: 18px;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--border);
+    }
+    .milestone {
+      display: flex;
+      align-items: flex-start;
+      gap: 0.8rem;
+      padding: 0.8rem 0;
+      position: relative;
+    }
+    .milestone .dot {
+      width: 38px;
+      height: 38px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      color: #fff;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-weight: 700;
+      font-size: 0.85rem;
+      flex-shrink: 0;
+      z-index: 1;
+    }
+    .milestone .content h4 { color: var(--primary); font-size: 0.95rem; }
+    .milestone .content p { color: var(--text-light); font-size: 0.85rem; }
+
+    /* ===== TABS ===== */
+    .tab-bar {
+      display: flex;
+      gap: 0.3rem;
+      margin-bottom: 1rem;
+      flex-wrap: wrap;
+    }
+    .tab-btn {
+      padding: 0.5rem 1rem;
+      border: 2px solid var(--accent);
+      background: var(--card);
+      color: var(--accent);
+      border-radius: 20px;
+      cursor: pointer;
+      font-size: 0.85rem;
+      font-weight: 600;
+      transition: all .2s;
+    }
+    .tab-btn.active, .tab-btn:hover {
+      background: var(--accent);
+      color: #fff;
+    }
+    .tab-content { display: none; }
+    .tab-content.active { display: block; }
+
+    @media (max-width: 600px) {
+      .score-grid { grid-template-columns: 1fr 1fr; }
+      .plan-table { font-size: 0.8rem; }
+      .countdown-banner .days-left { font-size: 1.8rem; }
+    }
+  </style>
+</head>
+<body>
+  <nav id="navbar"></nav>
+
+  <div class="page-header">
+    <h1>💡 Tips, Tricks & Motivation</h1>
+    <p>Your strategic guide to cracking TEF Canada CLB 7 — with heart</p>
+  </div>
+
+  <!-- Countdown Banner -->
+  <div class="countdown-banner" id="countdownBanner">
+    <span class="days-left" id="daysLeft">--</span>
+    <span class="sub" id="countdownSub">days until your TEF Canada exam</span>
+    <div style="margin-top: 8px;">
+      <label for="examDateInput" style="font-size: 0.85rem; color: rgba(255,255,255,0.8);">Set your exam date: </label>
+      <input type="date" id="examDateInput" style="padding: 4px 8px; border-radius: 6px; border: none; font-size: 0.85rem; cursor: pointer;">
+    </div>
+  </div>
+
+  <div class="tips-container">
+
+    <!-- TAB NAVIGATION -->
+    <div class="tab-bar">
+      <button class="tab-btn active" onclick="showTab('exam-strategy', event)">🎯 Exam Strategy</button>
+      <button class="tab-btn" onclick="showTab('section-tips', event)">📋 Section-wise Tips</button>
+      <button class="tab-btn" onclick="showTab('study-plan', event)">📅 Study Plan</button>
+      <button class="tab-btn" onclick="showTab('motivation', event)">🔥 Motivation</button>
+    </div>
+
+    <!-- ========== TAB 1: EXAM STRATEGY ========== -->
+    <div class="tab-content active" id="exam-strategy">
+      <h2 class="section-title">🎯 Know Your Target</h2>
+
+      <div class="score-grid">
+        <div class="score-box">
+          <div class="label">Compréhension orale</div>
+          <div class="target">249–279</div>
+          <div class="note">Listening (out of 360)</div>
+        </div>
+        <div class="score-box">
+          <div class="label">Compréhension écrite</div>
+          <div class="target">249–279</div>
+          <div class="note">Reading (out of 360)</div>
+        </div>
+        <div class="score-box">
+          <div class="label">Expression orale</div>
+          <div class="target">310–348</div>
+          <div class="note">Speaking (out of 450)</div>
+        </div>
+        <div class="score-box">
+          <div class="label">Expression écrite</div>
+          <div class="target">310–348</div>
+          <div class="note">Writing (out of 450)</div>
+        </div>
+      </div>
+
+      <div class="tip-card">
+        <h3>📌 CLB 7 = B2 Level in CEFR</h3>
+        <p>You don't need perfection. CLB 7 corresponds to upper-intermediate French. You need to demonstrate that you can understand the main ideas of complex text, interact with a degree of fluency, and produce clear, detailed text on a wide range of subjects.</p>
+        <div class="highlight">Key Insight: Focus on consistency across all 4 sections — one weak section can pull down your overall score.</div>
+      </div>
+
+      <h2 class="section-title">⚡ Top 10 Power Strategies</h2>
+
+      <div class="tip-card accent">
+        <h3>1️⃣ Master the Format First</h3>
+        <p>Before diving into content, spend 2-3 days understanding the exact format of each TEF section. Know how many questions, how much time, and what types of tasks you'll face. Familiarity reduces anxiety by 50%.</p>
+      </div>
+
+      <div class="tip-card success">
+        <h3>2️⃣ The 80/20 Rule for Vocabulary</h3>
+        <p>Focus on the 2,000 most frequent French words — they cover approximately 80% of everyday communication. Don't try to memorize the dictionary. Learn words in context through sentences and conversations, not isolated flashcards.</p>
+      </div>
+
+      <div class="tip-card warning">
+        <h3>3️⃣ Think in French, Don't Translate</h3>
+        <p>The biggest mistake learners make is translating from their native language. Start describing your daily activities in French mentally. When you see a cat, think "un chat" — not "cat → chat".</p>
+        <div class="highlight">Try this: Narrate your morning routine in French every day. "Je me réveille, je me brosse les dents, je prends mon petit-déjeuner..."</div>
+      </div>
+
+      <div class="tip-card">
+        <h3>4️⃣ Active Listening > Passive Listening</h3>
+        <p>Don't just put on French radio in the background. Instead, listen with a purpose: write down 5 words you understood, then 5 you didn't. Look up the unknowns. This trains your brain to decode spoken French actively.</p>
+      </div>
+
+      <div class="tip-card accent">
+        <h3>5️⃣ Use the Elimination Technique</h3>
+        <p>In multiple-choice sections (CO and CE), eliminate obviously wrong answers first. Usually 1-2 options are clearly incorrect. This raises your probability from 25% to 50% or even 100%.</p>
+      </div>
+
+      <div class="tip-card success">
+        <h3>6️⃣ Record Yourself Speaking</h3>
+        <p>Record yourself answering practice questions, then listen back. You'll notice patterns — mispronounced words, filler words, incomplete sentences. Fix these one at a time. Your pronunciation will improve dramatically in 2 weeks.</p>
+      </div>
+
+      <div class="tip-card warning">
+        <h3>7️⃣ Write Every Day — Even 5 Lines</h3>
+        <p>Writing is a muscle. Write a short paragraph daily: an email to a friend, a description of your day, your opinion on a news topic. Focus on using connectors like "cependant", "en revanche", "par conséquent" — examiners love them.</p>
+      </div>
+
+      <div class="tip-card danger">
+        <h3>8️⃣ Don't Skip Grammar — But Don't Obsess</h3>
+        <p>You need passé composé, imparfait, futur simple, conditionnel, and subjonctif. Master these 5 tenses well rather than memorizing 14 poorly. For CLB 7, correctness matters more than complexity.</p>
+      </div>
+
+      <div class="tip-card">
+        <h3>9️⃣ Simulate Real Exam Conditions</h3>
+        <p>Once a week, do a full practice test under timed conditions. No phone, no dictionary, no pausing. This builds exam stamina and reveals your true readiness level.</p>
+      </div>
+
+      <div class="tip-card accent">
+        <h3>🔟 Sleep on It — Literally</h3>
+        <p>Your brain consolidates memories during sleep. Study new vocabulary in the evening, review it briefly before bed, and test yourself the next morning. Studies show this improves retention by up to 40%.</p>
+      </div>
+    </div>
+
+    <!-- ========== TAB 2: SECTION-WISE TIPS ========== -->
+    <div class="tab-content" id="section-tips">
+
+      <h2 class="section-title">🎧 Compréhension Orale (Listening)</h2>
+      <div class="tip-card">
+        <h3>Before the Audio Plays</h3>
+        <ul>
+          <li>Read ALL questions and answer choices before the audio starts</li>
+          <li>Underline keywords in the questions — they tell you what to listen for</li>
+          <li>Predict what the audio might be about based on the question context</li>
+        </ul>
+      </div>
+      <div class="tip-card accent">
+        <h3>During the Audio</h3>
+        <ul>
+          <li>Don't panic if you miss a word — focus on the overall meaning</li>
+          <li>Listen for signal words: "mais" (but), "pourtant" (however), "donc" (therefore)</li>
+          <li>Numbers, dates, and proper nouns are often the answer — jot them down quickly</li>
+          <li>The tone of voice can reveal whether a statement is positive, negative, or neutral</li>
+        </ul>
+      </div>
+      <div class="tip-card success">
+        <h3>Pro Hack</h3>
+        <p>Watch French YouTube videos at 0.75x speed first, then at normal speed, then at 1.25x. When you return to normal speed, it'll feel slower and easier to understand. Try channels like "France 24", "TV5Monde", or "InnerFrench".</p>
+      </div>
+
+      <h2 class="section-title">📖 Compréhension Écrite (Reading)</h2>
+      <div class="tip-card">
+        <h3>Speed Reading Strategy</h3>
+        <ul>
+          <li>Skim the passage first (30 seconds) — get the general topic</li>
+          <li>Read the questions, then re-read the passage with purpose</li>
+          <li>The answer is almost always in the text — don't add your own interpretation</li>
+          <li>Time management: ~2 minutes per question maximum</li>
+        </ul>
+      </div>
+      <div class="tip-card warning">
+        <h3>Vocabulary in Context</h3>
+        <p>You won't know every word. That's okay. Use context clues: look at surrounding sentences, word roots (many French words share Latin roots with English), and sentence structure to guess meanings.</p>
+        <div class="highlight">Example: "Il a obtenu son diplôme avec mention" — even if you don't know "mention", you know "diplôme" (diploma) and "obtenu" (obtained), so it's positive. "Mention" here means "honours".</div>
+      </div>
+
+      <h2 class="section-title">🗣️ Expression Orale (Speaking)</h2>
+      <div class="tip-card accent">
+        <h3>The 3-Part Answer Framework</h3>
+        <ul>
+          <li><strong>State your opinion:</strong> "À mon avis..." / "Je pense que..."</li>
+          <li><strong>Give 2-3 reasons:</strong> "Premièrement... Deuxièmement... De plus..."</li>
+          <li><strong>Conclude:</strong> "En conclusion..." / "Pour résumer..."</li>
+        </ul>
+        <div class="highlight">This simple framework works for almost every speaking question and demonstrates structured thinking.</div>
+      </div>
+      <div class="tip-card danger">
+        <h3>Common Speaking Traps to Avoid</h3>
+        <ul>
+          <li>Long pauses (say "Alors..." or "C'est-à-dire..." to buy time)</li>
+          <li>Speaking too fast — clarity beats speed every time</li>
+          <li>Forgetting to use formal register ("vous" not "tu")</li>
+          <li>One-word answers — always elaborate</li>
+        </ul>
+      </div>
+
+      <h2 class="section-title">✍️ Expression Écrite (Writing)</h2>
+      <div class="tip-card success">
+        <h3>Essay Structure That Scores High</h3>
+        <ul>
+          <li><strong>Introduction:</strong> Restate the topic + announce your plan (2-3 sentences)</li>
+          <li><strong>Body 1:</strong> First argument + example</li>
+          <li><strong>Body 2:</strong> Second argument + example</li>
+          <li><strong>Body 3:</strong> Counter-argument or nuance (shows maturity)</li>
+          <li><strong>Conclusion:</strong> Summary + personal reflection</li>
+        </ul>
+      </div>
+      <div class="tip-card">
+        <h3>Magic Connectors to Memorize</h3>
+        <ul>
+          <li><strong>Adding:</strong> De plus, En outre, Par ailleurs</li>
+          <li><strong>Contrasting:</strong> Cependant, Néanmoins, En revanche, Toutefois</li>
+          <li><strong>Cause:</strong> Car, Étant donné que, Puisque</li>
+          <li><strong>Consequence:</strong> Par conséquent, Ainsi, C'est pourquoi</li>
+          <li><strong>Concluding:</strong> En somme, Pour conclure, En définitive</li>
+        </ul>
+        <div class="highlight">Using 5-6 different connectors in your essay can boost your score significantly — it shows linguistic range.</div>
+      </div>
+    </div>
+
+    <!-- ========== TAB 3: STUDY PLAN ========== -->
+    <div class="tab-content" id="study-plan">
+
+      <h2 class="section-title">📅 Sample Weekly Study Plan</h2>
+      <p style="color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem;">Designed for working professionals — 1.5 to 2 hours per day</p>
+
+      <table class="plan-table">
+        <thead>
+          <tr>
+            <th>Day</th>
+            <th>Focus Area</th>
+            <th>Activities (1.5-2 hrs)</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td><strong>Monday</strong></td>
+            <td>🎧 Listening</td>
+            <td>30 min podcast + 30 min practice exercises + 30 min vocabulary review</td>
+          </tr>
+          <tr>
+            <td><strong>Tuesday</strong></td>
+            <td>📘 Grammar</td>
+            <td>45 min grammar lesson + 45 min written exercises</td>
+          </tr>
+          <tr>
+            <td><strong>Wednesday</strong></td>
+            <td>📖 Reading</td>
+            <td>30 min article reading + 30 min comprehension questions + 30 min new vocabulary</td>
+          </tr>
+          <tr>
+            <td><strong>Thursday</strong></td>
+            <td>🗣️ Speaking</td>
+            <td>30 min shadowing + 30 min recorded practice + 30 min self-review</td>
+          </tr>
+          <tr>
+            <td><strong>Friday</strong></td>
+            <td>✍️ Writing</td>
+            <td>45 min essay writing + 30 min connector practice + 15 min review</td>
+          </tr>
+          <tr>
+            <td><strong>Saturday</strong></td>
+            <td>🎯 Mock Test</td>
+            <td>Full timed practice test (any 2 sections) + error analysis</td>
+          </tr>
+          <tr>
+            <td><strong>Sunday</strong></td>
+            <td>🔄 Review & Rest</td>
+            <td>Review weak areas from the week + light French media (film/music) + REST</td>
+          </tr>
+        </tbody>
+      </table>
+
+      <h2 class="section-title">🗺️ Your Preparation Roadmap</h2>
+
+      <div class="milestone-track">
+        <div class="milestone">
+          <div class="dot">1</div>
+          <div class="content">
+            <h4>Weeks 1-2: Foundation</h4>
+            <p>Take the diagnostic test. Identify weak areas. Build a vocabulary of 500 essential words. Review basic grammar (present, passé composé, futur).</p>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="dot">2</div>
+          <div class="content">
+            <h4>Weeks 3-4: Build Skills</h4>
+            <p>Start daily listening practice. Write 3 short essays per week. Learn 100 new words weekly. Practice speaking 15 min daily.</p>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="dot">3</div>
+          <div class="content">
+            <h4>Weeks 5-6: Intensify</h4>
+            <p>Full practice tests weekly. Focus on your weakest section. Build speed in reading. Record and review speaking attempts.</p>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="dot">4</div>
+          <div class="content">
+            <h4>Weeks 7-8: Sharpen</h4>
+            <p>Timed drills daily. Polish essay connectors and structure. Listen to fast-paced French media. Practice under exam conditions.</p>
+          </div>
+        </div>
+        <div class="milestone">
+          <div class="dot">5</div>
+          <div class="content">
+            <h4>Final Week: Peak & Relax</h4>
+            <p>Light review only — no new material. Do one final mock test. Focus on rest, nutrition, and confidence. You've prepared well. Trust the process.</p>
+          </div>
+        </div>
+      </div>
+
+      <h2 class="section-title">✅ Exam Day Checklist</h2>
+      <ul class="checklist" id="examChecklist">
+        <li onclick="toggleCheck(this)"><span class="check-icon">☐</span> Valid ID (passport or government ID matching registration)</li>
+        <li onclick="toggleCheck(this)"><span class="check-icon">☐</span> Exam confirmation letter / email printed</li>
+        <li onclick="toggleCheck(this)"><span class="check-icon">☐</span> Arrive 30 minutes early — no late entry allowed</li>
+        <li onclick="toggleCheck(this)"><span class="check-icon">☐</span> Water bottle and a light snack for breaks</li>
+        <li onclick="toggleCheck(this)"><span class="check-icon">☐</span> Blue or black pen (for writing section)</li>
+        <li onclick="toggleCheck(this)"><span class="check-icon">☐</span> Good night's sleep (8 hours minimum)</li>
+        <li onclick="toggleCheck(this)"><span class="check-icon">☐</span> Phone on silent / switched off</li>
+        <li onclick="toggleCheck(this)"><span class="check-icon">☐</span> Positive mindset — you are prepared!</li>
+      </ul>
+    </div>
+
+    <!-- ========== TAB 4: MOTIVATION ========== -->
+    <div class="tab-content" id="motivation">
+
+      <h2 class="section-title">🔥 Why You Will Succeed</h2>
+
+      <div class="quote-card">
+        <div class="quote">"La persévérance est la noblesse de l'obstination."</div>
+        <div class="author">Perseverance is the nobility of stubbornness. — Adrien Decourcelle</div>
+      </div>
+
+      <div class="tip-card success">
+        <h3>🌟 Remember Why You Started</h3>
+        <p>You chose to pursue TEF Canada for a reason — a better life, new opportunities, personal growth, or a dream of calling Canada home. That reason is powerful. Every hour you invest in French is an investment in your future. Don't measure progress by perfection — measure it by consistency.</p>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote">"Chaque expert était autrefois un débutant."</div>
+        <div class="author">Every expert was once a beginner. — Helen Hayes</div>
+      </div>
+
+      <div class="tip-card accent">
+        <h3>💪 The Power of Compound Learning</h3>
+        <p>If you learn just 10 new words every day, that's 300 words in a month and 2,000+ words by exam day. If you practice speaking 15 minutes daily, that's 7.5 hours of speaking practice per month. Small, consistent actions create extraordinary results. This is the same principle that drives compound interest — tiny daily gains accumulating into massive outcomes over time.</p>
+      </div>
+
+      <div class="tip-card warning">
+        <h3>🧠 Reframe Your Inner Dialogue</h3>
+        <p>Instead of "I can't speak French well," say "I'm getting better at French every day." Instead of "The exam is so hard," say "The exam is a challenge I'm preparing for." Your brain believes what you tell it. Choose empowering narratives. You are not learning French from zero — you already know hundreds of French-origin English words.</p>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote">"Ce n'est pas la montagne qui est haute, c'est le doute qui est lourd."</div>
+        <div class="author">It's not the mountain that's high, it's the doubt that's heavy.</div>
+      </div>
+
+      <div class="tip-card">
+        <h3>📊 Data-Driven Confidence</h3>
+        <p>Here's what the numbers say: Learners who study consistently for 8-10 weeks at B1 level typically reach B2 with focused effort. The ability to spot patterns helps enormously with French grammar, maintaining a disciplined schedule keeps progress on track, and existing professional communication skills transfer directly to oral and written expression. The data supports your success.</p>
+      </div>
+
+      <div class="tip-card success">
+        <h3>🎯 Visualize Your Success</h3>
+        <p>Close your eyes and imagine: It's exam day. You walk into the exam centre prepared, confident, calm. You understand the listening passages. You read the texts with ease. You speak with clarity. You write with structure. Weeks later, you receive your results — CLB 7 achieved. That feeling of accomplishment, of doors opening, of possibilities expanding — hold onto that feeling. It's your fuel.</p>
+      </div>
+
+      <div class="quote-card">
+        <div class="quote">"Le succès n'est pas la clé du bonheur. Le bonheur est la clé du succès."</div>
+        <div class="author">Success is not the key to happiness. Happiness is the key to success. — Albert Schweitzer</div>
+      </div>
+
+      <div class="tip-card danger">
+        <h3>⚠️ When You Feel Like Giving Up</h3>
+        <p>There will be days when French feels impossible. Days when conjugations make no sense. Days when you understand nothing in a listening exercise. That's normal. That's part of the process. Every fluent speaker has been exactly where you are. The only difference between those who succeed and those who don't? The ones who succeed show up the next day.</p>
+        <div class="highlight">"Ce n'est pas parce que les choses sont difficiles que nous n'osons pas, c'est parce que nous n'osons pas qu'elles sont difficiles." — Sénèque (Seneca)</div>
+      </div>
+
+      <div class="tip-card accent">
+        <h3>🚀 You Already Have an Advantage</h3>
+        <p>If you've ever learned a technical skill, passed a professional exam, or mastered a complex system — you've already proven you can learn something difficult. French is just another system with its own rules, patterns, and logic. Apply the same systematic approach: identify the pattern, practice the pattern, master the pattern. The skills that got you this far will get you through TEF.</p>
+      </div>
+
+      <div class="quote-card" style="background: linear-gradient(135deg, var(--primary), var(--accent)); color: #fff; border: none;">
+        <div class="quote" style="color: #fff; font-size: 1.3rem;">"Chaque langue nouvelle est une fenêtre qui s'ouvre sur le monde."</div>
+        <div class="author" style="color: rgba(255,255,255,0.85);">Every new language is a window opening onto the world. — Your TEF journey starts here. 🇨🇦</div>
+      </div>
+
+    </div>
+  </div>
+
+  <script src="../js/nav.js"></script>
+  <script src="../js/progress-tracker.js"></script>
+  <script>
+    // Init navigation
+    renderNav('tips');
+    renderFooter();
+
+    // Countdown to exam (user-configurable, stored in localStorage)
+    (function() {
+      const input = document.getElementById('examDateInput');
+      const daysEl = document.getElementById('daysLeft');
+      const subEl = document.getElementById('countdownSub');
+
+      function updateCountdown(dateStr) {
+        if (!dateStr) {
+          daysEl.textContent = '?';
+          subEl.textContent = 'Set your TEF Canada exam date above to start the countdown';
+          return;
+        }
+        const examDate = new Date(dateStr + 'T09:00:00');
+        const now = new Date();
+        const diff = examDate - now;
+        const days = Math.ceil(diff / (1000 * 60 * 60 * 24));
+        if (days > 0) {
+          daysEl.textContent = days;
+          subEl.textContent = 'days until your TEF Canada exam (' + examDate.toLocaleDateString('en-US', { month: 'long', day: 'numeric', year: 'numeric' }) + ')';
+        } else if (days === 0) {
+          daysEl.textContent = "TODAY!";
+          subEl.textContent = "Your TEF Canada exam is today! Bonne chance! 🍀";
+        } else {
+          daysEl.textContent = '✓';
+          subEl.textContent = 'Your exam date has passed. Set a new date if needed.';
+        }
+      }
+
+      // Load saved date
+      const saved = localStorage.getItem('tef_exam_date');
+      if (saved) {
+        input.value = saved;
+        updateCountdown(saved);
+      } else {
+        updateCountdown(null);
+      }
+
+      // Save on change
+      input.addEventListener('change', function() {
+        localStorage.setItem('tef_exam_date', this.value);
+        updateCountdown(this.value);
+      });
+    })();
+
+    // Tab switching
+    function showTab(tabId, evt) {
+      document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.getElementById(tabId).classList.add('active');
+      if (evt && evt.target) evt.target.classList.add('active');
+    }
+
+    // Checklist toggle
+    function toggleCheck(li) {
+      li.classList.toggle('checked');
+      const icon = li.querySelector('.check-icon');
+      icon.textContent = li.classList.contains('checked') ? '✅' : '☐';
+    }
+  </script>
+</body>
+</html>

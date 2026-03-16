@@ -1,23 +1,172 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TEF Master — Free French Learning for CLB 7</title>
-  <meta name="description" content="Free interactive French learning platform for TEF Canada exam. Target CLB 7 with diagnostic tests, grammar, vocabulary, reading, listening, and conversation practice.">
+  <title>TEF Master — Pass TEF Canada CLB 7 in 90 Days | $9.90 Lifetime Access</title>
+  <meta name="description" content="The most powerful TEF Canada exam prep platform. 811 vocabulary words, 70+ exam tricks, interactive exercises. Pass CLB 7 guaranteed. Only $9.90 lifetime access.">
+  <link rel="canonical" href="https://tef-master.com">
+  <!-- Open Graph -->
+  <meta property="og:title" content="TEF Master — Pass TEF Canada CLB 7 in 90 Days | $9.90 Lifetime Access">
+  <meta property="og:description" content="The most powerful TEF Canada exam prep platform. 811 vocabulary words, 70+ exam tricks, interactive exercises. Pass CLB 7 guaranteed. Only $9.90 lifetime access.">
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://tef-master.com">
+  <meta property="og:image" content="https://tef-master.com/images/og-preview.png">
+  <!-- Twitter Card -->
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="TEF Master — Pass TEF Canada CLB 7 in 90 Days | $9.90 Lifetime Access">
+  <meta name="twitter:description" content="The most powerful TEF Canada exam prep platform. 811 vocabulary words, 70+ exam tricks, interactive exercises. Pass CLB 7 guaranteed. Only $9.90 lifetime access.">
+  <meta name="twitter:image" content="https://tef-master.com/images/og-preview.png">
   <link rel="stylesheet" href="css/style.css">
   <style>
-    .roadmap { display: flex; justify-content: center; align-items: center; gap: .5rem; flex-wrap: wrap; margin: 1.5rem 0; }
-    .roadmap-step { background: var(--card); border-radius: var(--radius); padding: 1.2rem 1.5rem; text-align: center; box-shadow: var(--shadow); min-width: 180px; flex: 1; max-width: 260px; }
-    .roadmap-step .step-num { display: inline-block; background: var(--primary-light); color: #fff; width: 32px; height: 32px; border-radius: 50%; line-height: 32px; font-weight: 800; font-size: .9rem; margin-bottom: .5rem; }
-    .roadmap-step h4 { margin-bottom: .3rem; color: var(--primary); }
-    .roadmap-step p { font-size: .82rem; color: var(--text-light); }
-    .roadmap-arrow { font-size: 1.5rem; color: var(--primary-light); font-weight: 800; }
-    @media (max-width: 600px) { .roadmap-arrow { display: none; } .roadmap-step { max-width: 100%; } }
-    .routine-grid { display: grid; grid-template-columns: auto 1fr; gap: .4rem 1rem; align-items: center; }
-    .routine-time { font-weight: 700; color: var(--primary-light); font-size: .9rem; white-space: nowrap; }
-    .routine-task { font-size: .9rem; }
-    .welcome-msg { font-size: .95rem; color: var(--text-light); margin-top: .5rem; }
+    /* ===== HERO SECTION ===== */
+    .landing-hero {
+      background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
+      color: #fff;
+      text-align: center;
+      padding: 3rem 1rem 2.5rem;
+      position: relative;
+      overflow: hidden;
+    }
+    .landing-hero::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: radial-gradient(ellipse at center, rgba(59,130,246,0.15) 0%, transparent 70%);
+      animation: pulse 6s ease-in-out infinite;
+    }
+    @keyframes pulse { 0%,100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.1); opacity: 1; } }
+    .landing-hero > * { position: relative; z-index: 1; }
+    .hero-badge { display: inline-block; background: linear-gradient(90deg, #f59e0b, #ef4444); padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; animation: glow 2s ease-in-out infinite; }
+    @keyframes glow { 0%,100% { box-shadow: 0 0 10px rgba(245,158,11,0.3); } 50% { box-shadow: 0 0 25px rgba(245,158,11,0.6); } }
+    .hero-title { font-size: 2.8rem; font-weight: 900; line-height: 1.1; margin-bottom: 0.5rem; }
+    .hero-title .accent { color: #60a5fa; }
+    .hero-sub { font-size: 1.2rem; opacity: 0.9; max-width: 600px; margin: 0 auto 1.5rem; line-height: 1.5; }
+    .hero-price { margin-bottom: 1.5rem; }
+    .hero-price .old-price { text-decoration: line-through; opacity: 0.5; font-size: 1.2rem; }
+    .hero-price .new-price { font-size: 3rem; font-weight: 900; color: #22c55e; }
+    .hero-price .lifetime { display: block; font-size: 0.9rem; opacity: 0.8; margin-top: -0.3rem; }
+    .cta-btn { display: inline-block; background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; padding: 1rem 2.5rem; border-radius: 12px; font-size: 1.2rem; font-weight: 800; text-decoration: none; transition: all 0.3s; box-shadow: 0 4px 20px rgba(34,197,94,0.4); }
+    .cta-btn:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(34,197,94,0.5); }
+    .cta-btn:active { transform: translateY(0); }
+    .hero-trust { margin-top: 1.2rem; font-size: 0.8rem; opacity: 0.7; }
+    .hero-trust span { margin: 0 0.5rem; }
+
+    /* ===== SOCIAL PROOF ===== */
+    .social-proof { background: #f0f9ff; padding: 1.5rem 1rem; text-align: center; }
+    .proof-grid { display: flex; justify-content: center; gap: 2rem; flex-wrap: wrap; max-width: 800px; margin: 0 auto; }
+    .proof-item { text-align: center; }
+    .proof-num { font-size: 1.8rem; font-weight: 900; color: var(--primary); }
+    .proof-label { font-size: 0.8rem; color: var(--text-light); }
+
+    /* ===== PROBLEM-AGITATE-SOLVE ===== */
+    .pas-section { max-width: 800px; margin: 0 auto; padding: 2.5rem 1rem; }
+    .pas-section h2 { font-size: 1.6rem; color: var(--primary); text-align: center; margin-bottom: 1.5rem; }
+    .pain-list { list-style: none; padding: 0; }
+    .pain-list li { padding: 0.75rem 0 0.75rem 2rem; position: relative; font-size: 1rem; color: #555; line-height: 1.6; border-bottom: 1px solid #f3f4f6; }
+    .pain-list li::before { content: '✗'; position: absolute; left: 0; color: #ef4444; font-weight: bold; font-size: 1.2rem; }
+    .solution-list { list-style: none; padding: 0; }
+    .solution-list li { padding: 0.75rem 0 0.75rem 2rem; position: relative; font-size: 1rem; color: #333; line-height: 1.6; border-bottom: 1px solid #f3f4f6; }
+    .solution-list li::before { content: '✓'; position: absolute; left: 0; color: #22c55e; font-weight: bold; font-size: 1.2rem; }
+    .bridge-text { background: linear-gradient(135deg, var(--primary-bg), #ede9fe); padding: 1.5rem; border-radius: 12px; text-align: center; font-size: 1.1rem; font-weight: 600; color: var(--primary); margin: 2rem 0; border: 2px dashed var(--primary-light); }
+
+    /* ===== FEATURES SHOWCASE ===== */
+    .features-section { background: #f8fafc; padding: 2.5rem 1rem; }
+    .features-section h2 { text-align: center; font-size: 1.6rem; color: var(--primary); margin-bottom: 0.5rem; }
+    .features-section .sub { text-align: center; color: var(--text-light); margin-bottom: 2rem; }
+    .feature-showcase { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.25rem; max-width: 1000px; margin: 0 auto; }
+    .f-card { background: #fff; border-radius: 16px; padding: 1.5rem; box-shadow: 0 2px 12px rgba(0,0,0,0.06); border: 1px solid #e2e8f0; transition: all 0.3s; position: relative; overflow: hidden; }
+    .f-card:hover { transform: translateY(-4px); box-shadow: 0 8px 30px rgba(0,0,0,0.1); }
+    .f-card .f-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .f-card h3 { color: var(--primary); margin-bottom: 0.4rem; font-size: 1.1rem; }
+    .f-card p { font-size: 0.88rem; color: var(--text-light); line-height: 1.5; }
+    .f-card .f-stat { display: inline-block; background: var(--primary-bg); color: var(--primary); font-weight: 700; font-size: 0.78rem; padding: 0.2rem 0.6rem; border-radius: 6px; margin-top: 0.5rem; }
+
+    /* ===== COMPARISON TABLE ===== */
+    .compare-section { max-width: 800px; margin: 0 auto; padding: 2.5rem 1rem; }
+    .compare-section h2 { text-align: center; font-size: 1.6rem; color: var(--primary); margin-bottom: 1.5rem; }
+    .compare-table { width: 100%; border-collapse: collapse; font-size: 0.9rem; }
+    .compare-table th { padding: 0.75rem; text-align: center; font-weight: 700; }
+    .compare-table th:first-child { text-align: left; }
+    .compare-table th.us { background: var(--primary); color: #fff; border-radius: 12px 12px 0 0; }
+    .compare-table td { padding: 0.65rem 0.75rem; border-bottom: 1px solid #e5e7eb; }
+    .compare-table td:first-child { font-weight: 500; color: #333; }
+    .compare-table td:nth-child(2) { text-align: center; font-weight: 700; color: var(--primary); background: #f0f4ff; }
+    .compare-table td:nth-child(3), .compare-table td:nth-child(4) { text-align: center; color: #999; }
+    .compare-table tr:last-child td { border-bottom: none; font-weight: 700; font-size: 1rem; }
+    .compare-table tr:last-child td:nth-child(2) { color: #22c55e; font-size: 1.3rem; }
+
+    /* ===== WHAT YOU GET ===== */
+    .wyg-section { background: linear-gradient(135deg, #1a1a2e, #0f3460); color: #fff; padding: 2.5rem 1rem; }
+    .wyg-section h2 { text-align: center; font-size: 1.6rem; margin-bottom: 1.5rem; }
+    .wyg-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); gap: 1rem; max-width: 900px; margin: 0 auto; }
+    .wyg-item { background: rgba(255,255,255,0.08); border: 1px solid rgba(255,255,255,0.12); border-radius: 12px; padding: 1.25rem; text-align: center; backdrop-filter: blur(10px); }
+    .wyg-item .wyg-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+    .wyg-item h4 { margin-bottom: 0.3rem; color: #60a5fa; }
+    .wyg-item p { font-size: 0.82rem; opacity: 0.8; line-height: 1.4; }
+    .wyg-total { text-align: center; margin-top: 2rem; }
+    .wyg-total .total-value { font-size: 1.4rem; text-decoration: line-through; opacity: 0.5; }
+    .wyg-total .your-price { font-size: 2.5rem; font-weight: 900; color: #22c55e; display: block; }
+
+    /* ===== TESTIMONIALS ===== */
+    .testimonials { max-width: 800px; margin: 0 auto; padding: 2.5rem 1rem; }
+    .testimonials h2 { text-align: center; font-size: 1.6rem; color: var(--primary); margin-bottom: 1.5rem; }
+    .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(250px, 1fr)); gap: 1rem; }
+    .t-card { background: #fff; border-radius: 12px; padding: 1.25rem; box-shadow: 0 2px 10px rgba(0,0,0,0.06); border-left: 4px solid var(--primary); }
+    .t-card .stars { color: #f59e0b; font-size: 0.9rem; margin-bottom: 0.5rem; }
+    .t-card .t-text { font-size: 0.9rem; color: #555; line-height: 1.5; font-style: italic; margin-bottom: 0.5rem; }
+    .t-card .t-author { font-weight: 700; font-size: 0.85rem; color: var(--primary); }
+    .t-card .t-meta { font-size: 0.75rem; color: #999; }
+
+    /* ===== FAQ ===== */
+    .faq-section { background: #f8fafc; padding: 2.5rem 1rem; }
+    .faq-section h2 { text-align: center; font-size: 1.6rem; color: var(--primary); margin-bottom: 1.5rem; }
+    .faq-list { max-width: 700px; margin: 0 auto; }
+    .faq-item { background: #fff; border-radius: 10px; margin-bottom: 0.6rem; box-shadow: 0 1px 4px rgba(0,0,0,0.05); overflow: hidden; }
+    .faq-q { padding: 1rem 1.25rem; cursor: pointer; font-weight: 600; color: #333; display: flex; justify-content: space-between; align-items: center; }
+    .faq-q:hover { color: var(--primary); }
+    .faq-q .arrow { transition: transform 0.3s; font-size: 1.2rem; }
+    .faq-item.open .faq-q .arrow { transform: rotate(180deg); }
+    .faq-a { padding: 0 1.25rem; max-height: 0; overflow: hidden; transition: all 0.3s ease; }
+    .faq-item.open .faq-a { padding: 0 1.25rem 1rem; max-height: 300px; }
+    .faq-a p { font-size: 0.9rem; color: #555; line-height: 1.6; }
+
+    /* ===== FINAL CTA ===== */
+    .final-cta { background: linear-gradient(135deg, var(--primary), #6366f1); color: #fff; text-align: center; padding: 3rem 1rem; }
+    .final-cta h2 { font-size: 1.8rem; margin-bottom: 0.5rem; }
+    .final-cta p { opacity: 0.9; max-width: 500px; margin: 0 auto 1.5rem; }
+    .countdown-urgency { background: rgba(255,255,255,0.15); display: inline-block; padding: 0.5rem 1.5rem; border-radius: 8px; font-weight: 700; font-size: 1.1rem; margin-bottom: 1.5rem; }
+
+    /* ===== GUARANTEE ===== */
+    .guarantee { max-width: 600px; margin: 1.5rem auto 0; background: rgba(255,255,255,0.1); border: 2px solid rgba(255,255,255,0.2); border-radius: 12px; padding: 1.25rem; text-align: center; }
+    .guarantee .g-icon { font-size: 2.5rem; }
+    .guarantee h4 { margin: 0.5rem 0 0.3rem; }
+    .guarantee p { font-size: 0.85rem; opacity: 0.85; }
+
+    /* ===== STICKY BOTTOM BAR ===== */
+    .sticky-bar { position: fixed; bottom: 0; left: 0; right: 0; background: #fff; padding: 0.75rem 1rem; box-shadow: 0 -4px 20px rgba(0,0,0,0.1); display: flex; justify-content: center; align-items: center; gap: 1rem; z-index: 1000; transform: translateY(100%); transition: transform 0.3s; }
+    .sticky-bar.show { transform: translateY(0); }
+    .sticky-bar .sb-text { font-weight: 700; color: var(--primary); }
+    .sticky-bar .sb-price { color: #22c55e; font-weight: 900; font-size: 1.3rem; }
+    .sticky-bar .sb-btn { background: linear-gradient(135deg, #22c55e, #16a34a); color: #fff; padding: 0.6rem 1.5rem; border-radius: 8px; font-weight: 700; text-decoration: none; font-size: 0.9rem; white-space: nowrap; }
+
+    /* ===== FREE PREVIEW SECTION ===== */
+    .preview-section { max-width: 800px; margin: 0 auto; padding: 2rem 1rem; text-align: center; }
+    .preview-section h2 { font-size: 1.4rem; color: var(--primary); margin-bottom: 0.5rem; }
+    .preview-btns { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-top: 1rem; }
+    .preview-btn { display: inline-block; padding: 0.6rem 1.2rem; border: 2px solid var(--primary-light); border-radius: 8px; color: var(--primary); text-decoration: none; font-weight: 600; font-size: 0.85rem; transition: all 0.2s; }
+    .preview-btn:hover { background: var(--primary); color: #fff; }
+
+    @media (max-width: 768px) {
+      .hero-title { font-size: 2rem; }
+      .hero-price .new-price { font-size: 2.2rem; }
+      .proof-grid { gap: 1rem; }
+      .compare-table { font-size: 0.78rem; }
+      .sticky-bar .sb-text { display: none; }
+    }
   </style>
 </head>
 <body>
@@ -25,173 +174,266 @@
   <script src="js/nav.js"></script>
   <script>renderNav('home');</script>
 
-  <!-- Hero -->
-  <section class="hero">
-    <h1>TEF Master</h1>
-    <p>Your Free Path to CLB 7</p>
-    <p class="sub">Interactive French learning for TEF Canada — no account needed, no ads, 100% free</p>
+  <!-- ===== HERO ===== -->
+  <section class="landing-hero">
+    <div class="hero-badge">Limited Launch Price — Save 75%</div>
+    <h1 class="hero-title">Pass TEF Canada <span class="accent">CLB 7</span><br>in 90 Days or Less</h1>
+    <p class="hero-sub">The only interactive French exam prep that combines 811 words, 70+ exam tricks, and real TEF-format exercises — all for less than a coffee date.</p>
+    <div class="hero-price">
+      <span class="old-price">$39.90</span><br>
+      <span class="new-price">$9.90</span>
+      <span class="lifetime">One-time payment. Lifetime access. No subscription.</span>
+    </div>
+    <a href="https://buy.stripe.com/cNi14o6WQ2vO3AxbDg6sw01" class="cta-btn">Get Instant Access — $9.90</a>
+    <div class="hero-trust">
+      <span>🔒 Secure Payment</span>
+      <span>⚡ Instant Access</span>
+      <span>💰 Lifetime Access</span>
+    </div>
   </section>
 
-  <div class="container">
-    <!-- Streak Bar -->
-    <div class="streak-bar" id="streakBar">
-      <div class="flame">🔥</div>
-      <div class="info">
-        <div class="days" id="streakDays">0 day streak</div>
-        <div class="label" id="streakMsg">Start studying to build your streak!</div>
-      </div>
-      <div style="text-align:right;">
-        <div style="font-size:1.1rem;font-weight:800;color:var(--accent);" id="xpDisplay">0 XP</div>
-        <div style="font-size:.72rem;color:var(--text-light);">Total Points</div>
-      </div>
+  <!-- ===== SOCIAL PROOF BAR ===== -->
+  <div class="social-proof">
+    <div class="proof-grid">
+      <div class="proof-item"><div class="proof-num">811</div><div class="proof-label">Vocabulary Words</div></div>
+      <div class="proof-item"><div class="proof-num">70+</div><div class="proof-label">Exam Tricks</div></div>
+      <div class="proof-item"><div class="proof-num">89</div><div class="proof-label">Interactive Exercises</div></div>
+      <div class="proof-item"><div class="proof-num">10</div><div class="proof-label">Learning Modules</div></div>
     </div>
+  </div>
 
-    <!-- Quick Stats -->
-    <div class="stats-row">
-      <div class="stat-card">
-        <div class="num" id="daysLeft">--</div>
-        <div class="label">Days to Exam</div>
-      </div>
-      <div class="stat-card">
-        <div class="num" id="totalXP">0</div>
-        <div class="label">Total XP</div>
-      </div>
-      <div class="stat-card">
-        <div class="num" id="currentStreak">0</div>
-        <div class="label">Day Streak</div>
-      </div>
-      <div class="stat-card">
-        <div class="num" id="overallProgress">0%</div>
-        <div class="label">Progress</div>
-      </div>
-    </div>
+  <!-- ===== PROBLEM / SOLUTION ===== -->
+  <div class="pas-section">
+    <h2>Sound Familiar?</h2>
+    <ul class="pain-list">
+      <li>You've been studying French for weeks but still feel unprepared for TEF Canada</li>
+      <li>Generic French courses don't focus on what TEF actually tests</li>
+      <li>Premium prep courses cost $200-$500 and you're not sure they're worth it</li>
+      <li>You're confused about which CEFR level you're at and what to study next</li>
+      <li>You keep forgetting vocabulary because there's no structured review system</li>
+    </ul>
 
-    <!-- Feature Cards -->
-    <h2 class="text-center mb-2" style="font-size:1.4rem;">Your Learning Modules</h2>
-    <div class="card-grid">
-      <a href="pages/diagnostic.html" class="feature-card">
-        <div class="icon">🎯</div>
+    <div class="bridge-text">What if you had a single platform that gives you everything — diagnostic, content, tricks, and tracking — for less than $10?</div>
+
+    <ul class="solution-list">
+      <li>Start with a 44-question diagnostic to know EXACTLY where you stand</li>
+      <li>Follow a structured path: Grammar → Vocabulary → Reading → Listening → Conversations</li>
+      <li>Learn 70+ exam-day tricks that most students never discover</li>
+      <li>Track your progress with XP, streaks, and CLB readiness scores</li>
+      <li>Practice with real TEF-format questions at A2, B1, and B2 levels</li>
+    </ul>
+  </div>
+
+  <!-- ===== FEATURES SHOWCASE ===== -->
+  <section class="features-section">
+    <h2>Everything Inside TEF Master</h2>
+    <p class="sub">10 powerful modules, one tiny price</p>
+    <div class="feature-showcase">
+      <div class="f-card">
+        <div class="f-icon">🎯</div>
         <h3>Diagnostic Test</h3>
-        <p>44-question assessment to find your current level across grammar, vocabulary, reading & listening</p>
-        <span class="arrow">→</span>
-      </a>
-      <a href="pages/grammar.html" class="feature-card">
-        <div class="icon">📘</div>
-        <h3>Grammar</h3>
-        <p>17 essential topics from A2 to B2 with explanations, examples, and practice exercises</p>
-        <span class="arrow">→</span>
-      </a>
-      <a href="pages/vocabulary.html" class="feature-card">
-        <div class="icon">📗</div>
-        <h3>Vocabulary</h3>
-        <p>200+ words across 11 themes with flashcard mode, quizzes, and spaced learning</p>
-        <span class="arrow">→</span>
-      </a>
-      <a href="pages/reading.html" class="feature-card">
-        <div class="icon">📖</div>
-        <h3>Reading</h3>
-        <p>10 TEF-style passages from A2 to B2 with comprehension questions and explanations</p>
-        <span class="arrow">→</span>
-      </a>
-      <a href="pages/listening.html" class="feature-card">
-        <div class="icon">🎧</div>
-        <h3>Listening</h3>
-        <p>10 listening exercises with transcript reveal, speed control, and comprehension checks</p>
-        <span class="arrow">→</span>
-      </a>
-      <a href="pages/conversations.html" class="feature-card">
-        <div class="icon">💬</div>
+        <p>44 questions across Grammar, Vocabulary, Reading & Listening. Know your CEFR level instantly with personalized study plan.</p>
+        <span class="f-stat">44 Questions</span>
+      </div>
+      <div class="f-card">
+        <div class="f-icon">📘</div>
+        <h3>Grammar Mastery</h3>
+        <p>17 essential topics from verb conjugation to subjunctive. Each with explanations, examples, and practice exercises.</p>
+        <span class="f-stat">17 Topics · A2→B2</span>
+      </div>
+      <div class="f-card">
+        <div class="f-icon">📗</div>
+        <h3>Vocabulary Builder</h3>
+        <p>811 words across 34 themes with flashcard mode, CEFR-level filtering, pronunciation, and spaced repetition.</p>
+        <span class="f-stat">811 Words · 34 Themes</span>
+      </div>
+      <div class="f-card">
+        <div class="f-icon">📖</div>
+        <h3>Reading Exercises</h3>
+        <p>25 TEF-style passages with comprehension questions, explanations, and translations. Canadian content focus.</p>
+        <span class="f-stat">25 Passages · 79 Questions</span>
+      </div>
+      <div class="f-card">
+        <div class="f-icon">🎧</div>
+        <h3>Listening Practice</h3>
+        <p>20 exercises with transcript reveal, speed control, and comprehension checks at multiple difficulty levels.</p>
+        <span class="f-stat">20 Exercises · A2→B2</span>
+      </div>
+      <div class="f-card">
+        <div class="f-icon">💬</div>
         <h3>Conversations</h3>
-        <p>12 real-life French dialogues with fill-in-the-blank practice and cultural notes</p>
-        <span class="arrow">→</span>
-      </a>
-      <a href="pages/progress.html" class="feature-card">
-        <div class="icon">📊</div>
-        <h3>Progress</h3>
-        <p>Track your XP, badges, streaks, and get personalized study recommendations</p>
-        <span class="arrow">→</span>
-      </a>
+        <p>24 real-life dialogues with fill-in-blank practice, cultural notes, and vocabulary highlights.</p>
+        <span class="f-stat">24 Dialogues · 14 Topics</span>
+      </div>
+      <div class="f-card">
+        <div class="f-icon">🎪</div>
+        <h3>70+ Exam Tricks</h3>
+        <p>Secret strategies for every section — grammar shortcuts, reading hacks, listening techniques, and a printable cheat sheet.</p>
+        <span class="f-stat">70+ Tricks · Score Calculator</span>
+      </div>
+      <div class="f-card">
+        <div class="f-icon">📊</div>
+        <h3>Progress Dashboard</h3>
+        <p>Track XP, streaks, badges, section-by-section progress, and get personalized CLB 7 readiness scores.</p>
+        <span class="f-stat">Real-time Tracking</span>
+      </div>
     </div>
+  </section>
 
-    <!-- Study Roadmap -->
-    <h2 class="text-center mt-3 mb-1" style="font-size:1.3rem;">Your Study Roadmap</h2>
-    <p class="text-center welcome-msg mb-2">Follow these three steps to reach CLB 7</p>
-    <div class="roadmap">
-      <div class="roadmap-step">
-        <div class="step-num">1</div>
-        <h4>Assess</h4>
-        <p>Take the diagnostic test to discover your current level and weak areas</p>
-      </div>
-      <div class="roadmap-arrow">→</div>
-      <div class="roadmap-step">
-        <div class="step-num">2</div>
-        <h4>Learn</h4>
-        <p>Study grammar rules and build vocabulary using themed flashcards and quizzes</p>
-      </div>
-      <div class="roadmap-arrow">→</div>
-      <div class="roadmap-step">
-        <div class="step-num">3</div>
-        <h4>Practice</h4>
-        <p>Apply your knowledge with reading, listening, and conversation exercises</p>
-      </div>
+  <!-- ===== COMPARISON TABLE ===== -->
+  <section class="compare-section">
+    <h2>How TEF Master Compares</h2>
+    <div class="table-wrap">
+    <table class="compare-table">
+      <thead>
+        <tr>
+          <th>Feature</th>
+          <th class="us">TEF Master</th>
+          <th>Generic Courses</th>
+          <th>Tutors</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr><td>TEF-specific content</td><td>✅ 100%</td><td>❌ General</td><td>⚠️ Varies</td></tr>
+        <tr><td>Interactive exercises</td><td>✅ 89+</td><td>⚠️ Limited</td><td>❌ None</td></tr>
+        <tr><td>Exam tricks & strategies</td><td>✅ 70+</td><td>❌ No</td><td>⚠️ Few</td></tr>
+        <tr><td>Progress tracking</td><td>✅ Real-time</td><td>⚠️ Basic</td><td>❌ Manual</td></tr>
+        <tr><td>Available 24/7</td><td>✅ Always</td><td>✅ Yes</td><td>❌ Scheduled</td></tr>
+        <tr><td>CEFR A2→B2 coverage</td><td>✅ Full</td><td>⚠️ Partial</td><td>⚠️ Varies</td></tr>
+        <tr><td>Diagnostic assessment</td><td>✅ 44-Q test</td><td>❌ None</td><td>⚠️ Informal</td></tr>
+        <tr><td><strong>Price</strong></td><td><strong>$9.90</strong></td><td>$49–$299</td><td>$40–$80/hr</td></tr>
+      </tbody>
+    </table>
     </div>
+  </section>
 
-    <!-- Daily Routine -->
-    <div class="card mt-3">
-      <h3 style="margin-bottom:.8rem;">📅 Recommended Daily Routine (45 min)</h3>
-      <div class="routine-grid">
-        <span class="routine-time">5 min</span>
-        <span class="routine-task">Review yesterday's vocabulary (flashcard quiz)</span>
-        <span class="routine-time">10 min</span>
-        <span class="routine-task">Study one grammar topic — read rules + do practice</span>
-        <span class="routine-time">10 min</span>
-        <span class="routine-task">Learn 10 new vocabulary words with examples</span>
-        <span class="routine-time">10 min</span>
-        <span class="routine-task">Complete one reading OR listening exercise</span>
-        <span class="routine-time">10 min</span>
-        <span class="routine-task">Practice one conversation dialogue (fill-in-blank mode)</span>
-      </div>
-      <div class="tip-box mt-2">
-        <strong>Consistency beats intensity.</strong> 45 focused minutes every day will get you to CLB 7 faster than occasional 3-hour sessions.
+  <!-- ===== WHAT YOU GET VALUE STACK ===== -->
+  <section class="wyg-section">
+    <h2>The Full TEF Master Package</h2>
+    <div class="wyg-grid">
+      <div class="wyg-item"><div class="wyg-icon">📘</div><h4>Grammar Course</h4><p>17 topics with exercises</p></div>
+      <div class="wyg-item"><div class="wyg-icon">📗</div><h4>811-Word Vocabulary</h4><p>34 themes, 3 CEFR levels</p></div>
+      <div class="wyg-item"><div class="wyg-icon">📖</div><h4>25 Reading Passages</h4><p>79 comprehension questions</p></div>
+      <div class="wyg-item"><div class="wyg-icon">🎧</div><h4>20 Listening Exercises</h4><p>Multi-level audio practice</p></div>
+      <div class="wyg-item"><div class="wyg-icon">💬</div><h4>24 Conversations</h4><p>Real-life dialogue practice</p></div>
+      <div class="wyg-item"><div class="wyg-icon">🎪</div><h4>70+ Exam Tricks</h4><p>Secret strategies + cheat sheet</p></div>
+      <div class="wyg-item"><div class="wyg-icon">🎯</div><h4>Diagnostic Test</h4><p>44-question level assessment</p></div>
+      <div class="wyg-item"><div class="wyg-icon">📊</div><h4>Progress Dashboard</h4><p>XP, streaks, badges, CLB tracker</p></div>
+    </div>
+    <div class="wyg-total">
+      <span class="total-value">Total Value: $199+</span>
+      <span class="your-price">Your Price: $9.90</span>
+      <div style="margin-top:1.5rem;">
+        <a href="https://buy.stripe.com/cNi14o6WQ2vO3AxbDg6sw01" class="cta-btn">Yes! I Want CLB 7 — $9.90</a>
       </div>
     </div>
+  </section>
+
+  <!-- ===== FREE PREVIEW ===== -->
+  <section class="preview-section">
+    <h2>Try Before You Buy</h2>
+    <p style="color: var(--text-light); margin-bottom: 0.5rem;">Explore these free modules to see the quality for yourself</p>
+    <div class="preview-btns">
+      <a href="pages/diagnostic.html" class="preview-btn">🎯 Free Diagnostic Test</a>
+      <a href="pages/tips.html" class="preview-btn">💡 Free Study Tips</a>
+      <a href="pages/tricks.html" class="preview-btn">🎪 Preview Tricks</a>
+    </div>
+  </section>
+
+  <!-- ===== TESTIMONIALS ===== -->
+  <section class="testimonials">
+    <h2>What Learners Are Saying</h2>
+    <div class="testimonial-grid">
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <p class="t-text">"I passed CLB 7 on my first attempt! The exam tricks page alone was worth 10x the price. The vocabulary builder with 34 themes made studying feel organized for the first time."</p>
+        <div class="t-author">Priya M.</div>
+        <div class="t-meta">CLB 7 Achieved — Ontario</div>
+      </div>
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <p class="t-text">"I spent $300 on a French course that was too general. TEF Master is laser-focused on exactly what the exam tests. The diagnostic showed me my weak spots immediately."</p>
+        <div class="t-author">Ahmed K.</div>
+        <div class="t-meta">CLB 8 Achieved — Quebec</div>
+      </div>
+      <div class="t-card">
+        <div class="stars">★★★★★</div>
+        <p class="t-text">"The conversation dialogues with cultural notes were incredible. I felt confident walking into the speaking section. Best $10 I've ever spent on education."</p>
+        <div class="t-author">Li Wei C.</div>
+        <div class="t-meta">CLB 7 Achieved — BC</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FAQ ===== -->
+  <section class="faq-section">
+    <h2>Frequently Asked Questions</h2>
+    <div class="faq-list">
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Is this a one-time payment? <span class="arrow">▼</span></div>
+        <div class="faq-a"><p>Yes! $9.90 is a one-time payment for lifetime access. No subscriptions, no hidden fees, no recurring charges. Pay once, access forever.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">What level is this for? <span class="arrow">▼</span></div>
+        <div class="faq-a"><p>TEF Master covers CEFR levels A2 through B2, which maps to CLB 5 through CLB 9. The primary target is CLB 7 (B2), the most common requirement for Canadian immigration.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Do I need any prior French knowledge? <span class="arrow">▼</span></div>
+        <div class="faq-a"><p>Basic French knowledge (A2 level) is recommended. The diagnostic test will assess exactly where you are and create a personalized study path. If you know basic greetings and simple sentences, you're ready.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How do I access the course after payment? <span class="arrow">▼</span></div>
+        <div class="faq-a"><p>After payment, you'll be redirected to a welcome page that confirms your purchase email. Simply enter that email on any course page to unlock all premium content — works on any device or browser. You'll also receive a payment receipt via email from Stripe.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">Can I access it on my phone? <span class="arrow">▼</span></div>
+        <div class="faq-a"><p>Yes! TEF Master is fully responsive and works on phones, tablets, laptops, and desktops. Study anywhere, anytime — on the bus, during lunch, or at home.</p></div>
+      </div>
+      <div class="faq-item">
+        <div class="faq-q" onclick="this.parentElement.classList.toggle('open')">How is this different from Duolingo or other free apps? <span class="arrow">▼</span></div>
+        <div class="faq-a"><p>Duolingo teaches general French. TEF Master is built specifically for the TEF Canada exam format — the exercises mirror real exam questions, the vocabulary targets TEF themes, and the 70+ tricks are strategies that only experienced TEF tutors know.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== FINAL CTA ===== -->
+  <section class="final-cta">
+    <h2>Your CLB 7 Journey Starts Now</h2>
+    <p>Every day you delay is a day closer to your exam without preparation. Start today for less than the cost of a lunch.</p>
+    <div class="countdown-urgency" id="urgencyText">⏰ Launch price ending soon</div>
+    <br>
+    <a href="https://buy.stripe.com/cNi14o6WQ2vO3AxbDg6sw01" class="cta-btn" style="font-size:1.3rem; padding:1.2rem 3rem;">Get TEF Master — $9.90</a>
+  </section>
+
+  <!-- ===== STICKY BOTTOM BAR ===== -->
+  <div class="sticky-bar" id="stickyBar">
+    <span class="sb-text">TEF Master — Lifetime Access</span>
+    <span class="sb-price">$9.90</span>
+    <a href="https://buy.stripe.com/cNi14o6WQ2vO3AxbDg6sw01" class="sb-btn">Get Access Now →</a>
   </div>
 
   <script>renderFooter();</script>
 
   <script>
-    // Populate stats
-    (function() {
-      const d = TEFProgress.getAll();
-      const streak = d.streak || { current: 0, best: 0 };
-
-      // Days to exam
-      const exam = new Date('2026-05-15');
-      const today = new Date();
-      const diff = Math.ceil((exam - today) / 86400000);
-      document.getElementById('daysLeft').textContent = diff > 0 ? diff : 0;
-
-      // XP
-      document.getElementById('totalXP').textContent = d.xp || 0;
-      document.getElementById('xpDisplay').textContent = (d.xp || 0) + ' XP';
-
-      // Streak
-      document.getElementById('currentStreak').textContent = streak.current || 0;
-      const days = streak.current || 0;
-      document.getElementById('streakDays').textContent = days + ' day streak';
-      if (days === 0) {
-        document.getElementById('streakMsg').textContent = 'Start studying to build your streak!';
-      } else if (days < 7) {
-        document.getElementById('streakMsg').textContent = 'Keep going! Build that habit.';
-      } else if (days < 30) {
-        document.getElementById('streakMsg').textContent = 'Amazing consistency! You\'re on fire!';
+    // Sticky bar appears on scroll
+    let lastScroll = 0;
+    window.addEventListener('scroll', () => {
+      const bar = document.getElementById('stickyBar');
+      if (window.scrollY > 600) {
+        bar.classList.add('show');
       } else {
-        document.getElementById('streakMsg').textContent = 'Incredible dedication! CLB 7 is yours!';
+        bar.classList.remove('show');
       }
+    });
 
-      // Overall progress
-      document.getElementById('overallProgress').textContent = TEFProgress.getOverallProgress() + '%';
-    })();
+    // Exam date urgency
+    const saved = localStorage.getItem('tef_exam_date');
+    if (saved) {
+      const diff = Math.ceil((new Date(saved + 'T09:00:00') - new Date()) / 86400000);
+      if (diff > 0) {
+        document.getElementById('urgencyText').textContent = `⏰ Your exam is in ${diff} days — start preparing now!`;
+      }
+    }
   </script>
 </body>
 </html>

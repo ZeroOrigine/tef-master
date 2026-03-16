@@ -1,20 +1,20 @@
 /* ========== TEF Master - Global Design System ========== */
 :root {
-  --primary: #1e3a5f;
-  --primary-light: #2563eb;
-  --primary-bg: #e8f0fe;
-  --accent: #7c3aed;
+  --primary: #1a365d;
+  --primary-light: #3b82f6;
+  --primary-bg: #eff6ff;
+  --accent: #8b5cf6;
   --accent-light: #a78bfa;
-  --success: #22c55e;
+  --success: #10b981;
   --warning: #f59e0b;
   --danger: #ef4444;
-  --text: #1a202c;
-  --text-light: #64748b;
-  --bg: #f0f4f8;
+  --text: #1e293b;
+  --text-light: #475569;
+  --bg: #f8fafc;
   --card: #ffffff;
   --border: #e2e8f0;
   --radius: 12px;
-  --shadow: 0 2px 12px rgba(0,0,0,.07);
+  --shadow: 0 2px 12px rgba(0,0,0,.06);
   --font: 'Segoe UI', system-ui, -apple-system, sans-serif;
 }
 
@@ -82,7 +82,7 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
   cursor: pointer;
   padding: .5rem;
 }
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .nav-toggle { display: block; }
   .nav-links {
     display: none;
@@ -322,14 +322,14 @@ tr:hover td { background: #fafbff; }
   position: relative;
 }
 .bubble-left {
-  background: #e8f0fe;
-  color: var(--primary);
+  background: #eef2ff;
+  color: var(--text);
   border-bottom-left-radius: 4px;
   margin-right: auto;
 }
 .bubble-right {
-  background: var(--primary-light);
-  color: #fff;
+  background: #fefce8;
+  color: var(--text);
   border-bottom-right-radius: 4px;
   margin-left: auto;
 }
@@ -338,7 +338,7 @@ tr:hover td { background: #fafbff; }
   font-weight: 700;
   text-transform: uppercase;
   margin-bottom: 2px;
-  opacity: .7;
+  color: var(--primary);
 }
 
 /* ---- Quiz Specific ---- */
@@ -383,6 +383,8 @@ tr:hover td { background: #fafbff; }
 .streak-bar .info { flex: 1; }
 .streak-bar .days { font-size: 1.3rem; font-weight: 800; color: var(--warning); }
 .streak-bar .label { font-size: .8rem; color: var(--text-light); }
+
+.text-muted { color: var(--text-light); font-size: 0.9rem; }
 
 @media print {
   .nav, .footer, .btn, .nav-toggle { display: none; }

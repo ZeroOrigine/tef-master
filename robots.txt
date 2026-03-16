@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+Disallow: /netlify/
+Sitemap: https://tef-master.com/sitemap.xml

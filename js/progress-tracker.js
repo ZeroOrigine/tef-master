@@ -98,8 +98,9 @@ const TEFProgress = {
     d.diagnostic.scores.push({ date: new Date().toISOString(), ...scores });
     d.diagnostic.lastDate = new Date().toISOString();
     d.diagnostic.level = level;
-    this.addXP(50, 'diagnostic');
+    d.xp = (d.xp || 0) + 50;
     this.save(d);
+    this.checkBadges(d);
     this.updateStreak();
   },
 
@@ -108,8 +109,9 @@ const TEFProgress = {
     const d = this.getAll();
     if (!d[type].completed.includes(testId)) d[type].completed.push(testId);
     d[type].scores[testId] = { score, total, date: new Date().toISOString() };
-    this.addXP(Math.round(score / total * 30), type);
+    d.xp = (d.xp || 0) + Math.round(score / total * 30);
     this.save(d);
+    this.checkBadges(d);
     this.updateStreak();
   },
 
@@ -129,8 +131,8 @@ const TEFProgress = {
     max += 10; if (d.diagnostic.scores.length > 0) points += 10;
     // Vocab learned (target 300)
     max += 30; points += Math.min(30, Math.round(d.vocabulary.learned.length / 300 * 30));
-    // Grammar sections (16 topics)
-    max += 20; points += Math.min(20, Math.round((d.grammar.completed || []).length / 16 * 20));
+    // Grammar sections (17 topics)
+    max += 20; points += Math.min(20, Math.round((d.grammar.completed || []).length / 17 * 20));
     // Reading tests (target 10)
     max += 20; points += Math.min(20, Math.round((d.reading.completed || []).length / 10 * 20));
     // Listening tests (target 10)

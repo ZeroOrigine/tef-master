@@ -1,0 +1,1740 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TEF Exam Tricks & Strategies - TEF Master</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    /* ===== PAGE HEADER ===== */
+    .page-header {
+      background: linear-gradient(135deg, var(--primary), var(--accent));
+      color: #fff;
+      padding: 2.5rem 1rem 2rem;
+      text-align: center;
+      margin-bottom: 1.5rem;
+    }
+    .page-header h1 { font-size: 1.8rem; margin-bottom: 0.3rem; }
+    .page-header p { opacity: 0.85; font-size: 0.95rem; }
+
+    /* ===== MAIN LAYOUT ===== */
+    .tricks-container {
+      max-width: 1000px;
+      margin: 0 auto;
+      padding: 0 1rem 2rem;
+    }
+
+    /* ===== SECTION STYLING ===== */
+    .section-title {
+      font-size: 1.35rem;
+      color: var(--primary);
+      margin: 2rem 0 1rem;
+      padding-bottom: 0.5rem;
+      border-bottom: 3px solid var(--accent);
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    /* ===== ACCORDION STYLES ===== */
+    .accordion-group {
+      margin-bottom: 0.8rem;
+    }
+
+    .accordion-header {
+      background: var(--card);
+      padding: 1rem 1.2rem;
+      border-radius: var(--radius);
+      font-weight: 700;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      box-shadow: var(--shadow);
+      transition: background 0.2s, transform 0.2s;
+      user-select: none;
+    }
+
+    .accordion-header:hover {
+      background: #f0f7ff;
+      transform: translateX(2px);
+    }
+
+    .accordion-header .accordion-title {
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+      flex: 1;
+    }
+
+    .accordion-header .toggle-icon {
+      font-size: 1.2rem;
+      transition: transform 0.3s;
+      flex-shrink: 0;
+    }
+
+    .accordion-header.open .toggle-icon {
+      transform: rotate(90deg);
+    }
+
+    .accordion-body {
+      display: none;
+      padding: 1.2rem 1.2rem;
+      background: #f8fafc;
+      border-radius: 0 0 var(--radius) var(--radius);
+      margin-top: -4px;
+      border-left: 4px solid var(--accent);
+      line-height: 1.8;
+    }
+
+    .accordion-body.show {
+      display: block;
+    }
+
+    .accordion-body h4 {
+      color: var(--primary);
+      margin-top: 0.8rem;
+      margin-bottom: 0.4rem;
+      font-size: 0.95rem;
+    }
+
+    .accordion-body h4:first-child {
+      margin-top: 0;
+    }
+
+    .accordion-body p {
+      color: var(--text-light);
+      font-size: 0.92rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .accordion-body ul {
+      color: var(--text-light);
+      font-size: 0.92rem;
+      padding-left: 1.4rem;
+      margin-bottom: 0.6rem;
+    }
+
+    .accordion-body ul li {
+      margin-bottom: 0.4rem;
+    }
+
+    .trick-highlight {
+      background: var(--primary-bg);
+      padding: 0.6rem 0.9rem;
+      border-radius: 6px;
+      border-left: 3px solid var(--primary-light);
+      margin: 0.6rem 0;
+      font-size: 0.9rem;
+      color: var(--primary);
+      font-weight: 500;
+    }
+
+    /* ===== TRICK CARD TYPES ===== */
+    .trick-card {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 1.2rem;
+      margin-bottom: 1rem;
+      border-left: 4px solid var(--primary-light);
+      box-shadow: var(--shadow);
+    }
+
+    .trick-card.quick { border-left-color: var(--warning); }
+    .trick-card.grammar { border-left-color: var(--danger); }
+    .trick-card.vocab { border-left-color: var(--accent); }
+    .trick-card.reading { border-left-color: #e67e22; }
+    .trick-card.listening { border-left-color: var(--success); }
+    .trick-card.speaking { border-left-color: var(--primary); }
+    .trick-card.writing { border-left-color: #3b82f6; }
+
+    .trick-card h3 {
+      color: var(--primary);
+      font-size: 1rem;
+      margin-bottom: 0.4rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .trick-card p {
+      color: var(--text-light);
+      font-size: 0.92rem;
+      margin-bottom: 0.4rem;
+    }
+
+    /* ===== CALCULATOR STYLES ===== */
+    .calculator-box {
+      background: linear-gradient(135deg, var(--primary-bg), #f0e6ff);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      border: 2px solid var(--border);
+    }
+
+    .calculator-box h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      font-size: 1.2rem;
+    }
+
+    .calc-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    .calc-input-group {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .calc-input-group label {
+      font-weight: 600;
+      color: var(--primary);
+      font-size: 0.9rem;
+      margin-bottom: 0.3rem;
+    }
+
+    .calc-input-group input {
+      padding: 0.6rem 0.8rem;
+      border: 2px solid var(--border);
+      border-radius: 8px;
+      font-size: 0.95rem;
+      transition: border-color 0.2s;
+    }
+
+    .calc-input-group input:focus {
+      outline: none;
+      border-color: var(--primary-light);
+      background: #fff;
+    }
+
+    .calc-slider {
+      display: flex;
+      align-items: center;
+      gap: 0.8rem;
+    }
+
+    .calc-slider input[type="range"] {
+      flex: 1;
+      height: 6px;
+      border-radius: 3px;
+      background: var(--border);
+      outline: none;
+      -webkit-appearance: none;
+    }
+
+    .calc-slider input[type="range"]::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      cursor: pointer;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .calc-slider input[type="range"]::-moz-range-thumb {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--primary-light);
+      cursor: pointer;
+      border: none;
+      box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+    }
+
+    .calc-slider-value {
+      font-weight: 700;
+      color: var(--primary);
+      min-width: 40px;
+      text-align: right;
+    }
+
+    .calc-results {
+      background: var(--card);
+      border-radius: 10px;
+      padding: 1.2rem;
+      margin-top: 1rem;
+    }
+
+    .calc-results h3 {
+      color: var(--primary);
+      font-size: 1rem;
+      margin-bottom: 0.8rem;
+    }
+
+    .result-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+      gap: 0.8rem;
+    }
+
+    .result-box {
+      background: var(--primary-bg);
+      padding: 0.8rem;
+      border-radius: 8px;
+      text-align: center;
+      border: 2px solid var(--border);
+    }
+
+    .result-box .label {
+      font-size: 0.8rem;
+      color: var(--text-light);
+      margin-bottom: 0.3rem;
+      font-weight: 600;
+    }
+
+    .result-box .score {
+      font-size: 1.5rem;
+      font-weight: 800;
+      color: var(--primary);
+    }
+
+    .calc-insight {
+      background: #fff9e6;
+      border-left: 4px solid var(--warning);
+      padding: 0.8rem;
+      border-radius: 0 6px 6px 0;
+      margin-top: 1rem;
+      font-size: 0.9rem;
+      color: var(--text);
+    }
+
+    /* ===== CHEAT SHEET ===== */
+    .cheat-sheet {
+      background: var(--card);
+      border-radius: var(--radius);
+      padding: 1.5rem;
+      margin: 1.5rem 0;
+      box-shadow: var(--shadow);
+      border: 2px dashed var(--accent);
+    }
+
+    .cheat-sheet h2 {
+      color: var(--primary);
+      margin-bottom: 1rem;
+      text-align: center;
+      font-size: 1.2rem;
+    }
+
+    .cheat-columns {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.2rem;
+      margin-bottom: 1rem;
+    }
+
+    .cheat-column h3 {
+      color: var(--accent);
+      font-size: 0.95rem;
+      margin-bottom: 0.6rem;
+      padding-bottom: 0.4rem;
+      border-bottom: 2px solid var(--accent);
+    }
+
+    .cheat-column ul {
+      list-style: none;
+      padding: 0;
+      font-size: 0.88rem;
+      color: var(--text);
+      line-height: 1.6;
+    }
+
+    .cheat-column ul li {
+      padding: 0.3rem 0;
+      display: flex;
+      align-items: flex-start;
+      gap: 0.4rem;
+    }
+
+    .cheat-column ul li::before {
+      content: '✓';
+      color: var(--success);
+      font-weight: 700;
+      flex-shrink: 0;
+    }
+
+    .print-button {
+      display: flex;
+      justify-content: center;
+      margin-top: 1rem;
+    }
+
+    .btn-print {
+      background: var(--primary);
+      color: #fff;
+      padding: 0.7rem 1.8rem;
+      border: none;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 600;
+      font-size: 0.95rem;
+      transition: all 0.2s;
+    }
+
+    .btn-print:hover {
+      background: #0f2744;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+
+    /* ===== GRID LAYOUT ===== */
+    .tricks-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 1rem;
+      margin-bottom: 1.5rem;
+    }
+
+    /* ===== COLORED BADGES ===== */
+    .trick-badge {
+      display: inline-block;
+      padding: 3px 10px;
+      border-radius: 20px;
+      font-size: 0.7rem;
+      font-weight: 700;
+      color: #fff;
+      margin-right: 0.3rem;
+    }
+
+    .badge-quick { background: var(--warning); }
+    .badge-grammar { background: var(--danger); }
+    .badge-vocab { background: var(--accent); }
+    .badge-reading { background: #e67e22; }
+    .badge-listening { background: var(--success); }
+    .badge-speaking { background: var(--primary); }
+    .badge-writing { background: #3b82f6; }
+
+    /* ===== PRINT STYLES ===== */
+    @media print {
+      .nav, .footer, .btn-print, .calculator-box, .page-header p {
+        display: none;
+      }
+      body {
+        background: #fff;
+        color: #000;
+      }
+      .tricks-container {
+        max-width: 100%;
+        padding: 0;
+      }
+      .accordion-header {
+        box-shadow: none;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+      }
+      .accordion-body {
+        display: block !important;
+        background: #fff;
+        box-shadow: none;
+        border-top: 1px solid #ddd;
+        page-break-inside: avoid;
+      }
+      .cheat-sheet {
+        border: 1px solid #000;
+        page-break-inside: avoid;
+      }
+      .trick-card {
+        box-shadow: none;
+        border: 1px solid #ddd;
+        page-break-inside: avoid;
+      }
+      .section-title {
+        page-break-after: avoid;
+      }
+    }
+
+    /* ===== RESPONSIVE ===== */
+    @media (max-width: 768px) {
+      .tricks-grid {
+        grid-template-columns: 1fr;
+      }
+      .calc-grid {
+        grid-template-columns: 1fr;
+      }
+      .cheat-columns {
+        grid-template-columns: 1fr;
+      }
+      .page-header h1 {
+        font-size: 1.4rem;
+      }
+      .section-title {
+        font-size: 1.1rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <script src="../js/access-gate.js"></script>
+  <script>requireAccess();</script>
+
+  <nav id="navbar"></nav>
+
+  <div class="page-header">
+    <h1>🎯 TEF Exam Tricks & Strategies</h1>
+    <p>Expert-tested techniques to maximize your CLB 7 score</p>
+  </div>
+
+  <div class="tricks-container">
+
+    <!-- ========== QUICK WIN TRICKS ========== -->
+    <h2 class="section-title">⚡ Quick Win Tricks (Exam Day Power Moves)</h2>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-quick">QUICK</span>
+          <strong>Trick #1: The 30-Second Pre-Exam Brain Dump</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Write down all the French conjunctions, time expressions, and key phrases you memorized in the first 30 seconds of the exam, before reading any questions. This "mental download" frees your working memory and prevents panic from making you forget these essentials mid-exam.</p>
+        <div class="trick-highlight">Pro tip: Include DR MRS VANDERTRAMP, common connectors (cependant, néanmoins, d'ailleurs), and 5 key verbs.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-quick">QUICK</span>
+          <strong>Trick #2: Answer All Questions — Even Guesses</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>There's no penalty for wrong answers on TEF. Even a 25% guess (choosing randomly among 4 options) is better than leaving a question blank. With 60 questions per section, random guesses give you ~15 free points. Smart elimination (removing obviously wrong answers) raises this to 40-50+ points.</p>
+        <div class="trick-highlight">Never leave a blank. A guess has a 25% chance of being right; a blank has 0%.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-quick">QUICK</span>
+          <strong>Trick #3: The First Instinct Wins 70% of the Time</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Research shows first instinct accuracy (the answer you choose first) is correct ~70% of the time. Changing your answer usually leads to worse results. Unless you see clear evidence you misread, stick with your gut. This saves time and reduces second-guessing anxiety.</p>
+        <div class="trick-highlight">Only change your answer if you realized you misread the question or misheard a critical detail.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-quick">QUICK</span>
+          <strong>Trick #4: Time Boxing — Ruthless Allocation</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>CO: 45 min for 34 questions = 1.3 min/question. Skip anything taking >90 sec. CE: 60 min for 50 questions = 1.2 min/question. Mark and move. EO: 13 min for 4 tasks — practice before exam so you know your pace. EC: 60 min for 2 essays = 25 min each.</p>
+        <div class="trick-highlight">Set a timer on your watch. When time's up, move on. Partial credit is better than perfect but incomplete.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-quick">QUICK</span>
+          <strong>Trick #5: The Elimination Power Move</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>In multiple-choice: Always eliminate the most extreme answers first (superlatives like "never", "always", "only"). These are often wrong. Then eliminate answers with unfamiliar vocabulary. This usually leaves 1-2 plausible answers, raising accuracy from 25% to 50%+.</p>
+        <div class="trick-highlight">Strategy: Extreme → Unfamiliar → Choose between remaining 1-2 options.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-quick">QUICK</span>
+          <strong>Trick #6: Skimming vs. Reading — Know When to Do Which</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Skim long passages first (30 seconds) to get the topic. Then read each question carefully. Return to the passage for the specific answer. This "question-directed reading" is faster and more accurate than reading everything thoroughly.</p>
+        <div class="trick-highlight">Skim → Read Question → Read Relevant Section Only → Answer. Repeat.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-quick">QUICK</span>
+          <strong>Trick #7: The Keyword Spotting Technique</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>In listening: Before the audio plays, underline keywords in the question. During audio, listen ONLY for these keywords or their synonyms. Ignore everything else. This hyper-focus prevents distraction and captures the essential information needed to answer.</p>
+        <div class="trick-highlight">Example: If the question asks "Pourquoi Marie refuse-t-elle le poste?" — listen only for "refuser" (or refuse, reject, decline) and "poste" (or job, position, role).</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-quick">QUICK</span>
+          <strong>Trick #8: The 15-Second Pause Trick in Speaking</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>When the examiner asks you a question, silence feels awkward, but it's allowed. Take 15 seconds to organize your response. Say "Alors, c'est une question intéressante..." to buy more time. Organized, slower speech scores higher than rushed, disorganized rambling.</p>
+        <div class="trick-highlight">Pause → Think → Speak slowly with structure. Examiners value coherence over speed.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-quick">QUICK</span>
+          <strong>Trick #9: The Echo Technique in Listening</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Don't try to transcribe every word of the audio. Instead, write down only the "echoed" words — the specific words repeated or emphasized. These repetitions are almost always the key to the answer. It's a signal that this information is important.</p>
+        <div class="trick-highlight">When you hear something repeated or stated twice, it's usually the answer. Mark it.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-quick">QUICK</span>
+          <strong>Trick #10: The Abbreviation Strategy in Writing</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>In writing tasks, you won't lose points for abbreviations like "p.ex.", "c.-à-d.", "qqn" (quelqu'un), "qch" (quelque chose), "eff" (effectivement), or "tps" (toujours). Using these saves 30+ seconds per essay and keeps your writing flowing. Examiners only grade language quality, not abbreviations.</p>
+        <div class="trick-highlight">Use abbreviations liberally in drafting to save time. You can expand them if you have time to review.</div>
+      </div>
+    </div>
+
+    <!-- ========== GRAMMAR SHORTCUTS ========== -->
+    <h2 class="section-title">📚 Grammar Shortcuts & Pattern Recognition</h2>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-grammar">GRAMMAR</span>
+          <strong>Trick #11: -tion words are ALWAYS feminine</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Any French word ending in -tion is feminine: <strong>la création, la formation, la nation, la solution, la organisation</strong>. No exceptions. This single rule covers 500+ French words and helps you use the correct articles and adjectives instantly.</p>
+        <div class="trick-highlight">-tion = LA (feminine). Always. No exceptions. Cover 30+ common words instantly.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-grammar">GRAMMAR</span>
+          <strong>Trick #12: DR MRS VANDERTRAMP = Être Verbs</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>These 17 verbs use "être" in passé composé, not "avoir": Devenir, Revenir, Monter, Rester, Sortir, Venir, Arriver, Naître, Descendre, Entrer, Retourner, Tomber, Rester, Aller, Mourir, Partir, Naître. These come up constantly in tests. Master these 17 and you eliminate a huge source of grammar errors.</p>
+        <div class="trick-highlight">DR MRS VANDERTRAMP: All use être. Example: "Elle est allée" (not "Elle a allée").</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-grammar">GRAMMAR</span>
+          <strong>Trick #13: Words Ending in -eux are Usually Masculine</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>French adjectives ending in -eux are almost always masculine: <strong>heureux, sérieux, dangereux, généreux, curieux, merveilleux</strong>. To form feminine, add "se": heureuse, sérieuse, etc. This pattern covers hundreds of common adjectives.</p>
+        <div class="trick-highlight">-eux = LE (masculine) → -euse (feminine). Example: "Un homme heureux" / "Une femme heureuse".</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-grammar">GRAMMAR</span>
+          <strong>Trick #14: Silent Letters at the End (90% of the Time)</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>In French, most final consonants are silent: verbes (verb), parc (park), bruit (noise), port (port). The exceptions (final -c, -r, -f, -l) are uncommon. For listening, ignore final consonants — the word sounds the way you write it without them. This prevents mishearding.</p>
+        <div class="trick-highlight">Generally: Final consonants are SILENT. Exceptions: "c, r, f, l" (remember "CaReFuL"). Example: "tous" sounds like "tu" (s is silent).</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-grammar">GRAMMAR</span>
+          <strong>Trick #15: The Subjunctive Trigger Words</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>The subjunctive appears after specific triggers: doubt (douter, ne pas croire), emotion (avoir peur, être triste), necessity (il faut, c'est important), and commands (exiger, insister). If you see "il faut que", "je doute que", "j'ai peur que" — subjunctive follows. Memorize these 10 trigger phrases and you nail 80% of subjunctive uses.</p>
+        <div class="trick-highlight">Key triggers: "il faut que", "douter que", "avoir peur que", "c'est important que", "exiger que", "insister que".</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-grammar">GRAMMAR</span>
+          <strong>Trick #16: Adjective Placement = Meaning</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Most adjectives go AFTER the noun (une voiture rouge = a red car). But certain common adjectives go BEFORE: BANGS (Beauty, Age, Number, Good/bad, Size): <strong>beau, nouveau, jeune, bon, petit, grand, vieux, mauvais</strong>. These appear frequently in questions and affect meaning. "Une grande femme" (tall woman) ≠ "Une femme grande" (great/important woman).</p>
+        <div class="trick-highlight">BANGS adjectives go BEFORE the noun. Others go AFTER. This distinction can change the meaning.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-grammar">GRAMMAR</span>
+          <strong>Trick #17: Verb Tense "Logic" for Context Clues</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>If you see passé composé (a + pp), something is complete. Imparfait = background or repeated action. Présent = now. Futur = tomorrow. In listening, tense tells you time. In reading, use tense as a context clue — the writer's choice of tense reveals whether they're talking past, present, or future, which helps you eliminate wrong answers about timing.</p>
+        <div class="trick-highlight">Tense = Timeline. Passé composé = Done. Imparfait = Was happening. Présent = Now. Futur = Will happen. Use this to decode context.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-grammar">GRAMMAR</span>
+          <strong>Trick #18: Infinitif vs. Conjugated = Grammar Marker</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Two verbs in a row? The FIRST is conjugated, the SECOND is infinitive. "Je veux aller" (I want to go), "Il faut finir" (It's necessary to finish). This pattern is constant. You'll see it in reading and listening — recognize it to parse complex sentences faster.</p>
+        <div class="trick-highlight">Pattern: Conjugated Verb + Infinitive. Example: "Je peux parler français" (I can speak French). The second verb is always infinitive after modal verbs.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-grammar">GRAMMAR</span>
+          <strong>Trick #19: Negation Sandwich = Ne ... pas</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>French negation wraps the verb: "ne" BEFORE, "pas" AFTER. "Je ne suis pas content" = "I am not happy". Even in complex sentences, find the verb — negation surrounds it. This is critical for understanding meaning in listening (hearing "pas" flips meaning) and avoiding grammar errors in writing.</p>
+        <div class="trick-highlight">Negation wraps the verb: "Ne [verb] pas". Example: "Je ne veux pas" (I don't want). "Pas" alone doesn't negate — you need both parts.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-grammar">GRAMMAR</span>
+          <strong>Trick #20: Past Participle Agreement Rule</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>With "avoir", past participle doesn't agree. With "être", it agrees with the subject. "Il a mangé" vs. "Elle est allée". For direct object pronouns, the participle agrees: "Les lettres que j'ai écrites" (the letters [feminine] that I wrote [agreed]). This comes up in reading — knowing the rule helps you parse complex sentences and avoid writing errors.</p>
+        <div class="trick-highlight">Avoir = No agreement. Être = Agrees with subject. Direct object pronoun before verb = Agrees with the object.</div>
+      </div>
+    </div>
+
+    <!-- ========== VOCABULARY MEMORY HACKS ========== -->
+    <h2 class="section-title">🧠 Vocabulary Memory Hacks & Cognate Patterns</h2>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-vocab">VOCAB</span>
+          <strong>Trick #21: English -tion → French -tion (Instant 500+ Words)</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Almost every English word ending in -tion has a French equivalent: nation (nation), action (action), solution (solution), information (information), education (education), situation (situation), creation (création). These words are pronounced the same and spelled almost identically. Use this to boost vocabulary instantly — you already know 500+ French words through cognates.</p>
+        <div class="trick-highlight">English "-tion" = French "-tion" or "-sion". Example: "relation" = "relation", "mission" = "mission". Free vocabulary!</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-vocab">VOCAB</span>
+          <strong>Trick #22: English -ity → French -ité (300+ More Words)</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>English -ity endings become French -ité: quality (qualité), reality (réalité), possibility (possibilité), responsibility (responsabilité), university (université). These are high-frequency abstract nouns and appear regularly on tests. Learning this pattern gives you 300+ instant vocabulary words.</p>
+        <div class="trick-highlight">English "-ity" = French "-ité". These are usually feminine. Example: "une université" (a university).</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-vocab">VOCAB</span>
+          <strong>Trick #23: English -ous → French -eux (Adjective Bonanza)</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>English adjectives ending in -ous become French -eux: dangerous (dangereux), famous (fameux), generous (généreux), continuous (continu), serious (sérieux), obvious (évident — slightly different but cognate). These high-frequency adjectives appear constantly. This pattern covers 200+ common French adjectives.</p>
+        <div class="trick-highlight">English "-ous" = French "-eux" (masculine) or "-euse" (feminine). Example: "un homme dangereux" / "une femme dangereuse".</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-vocab">VOCAB</span>
+          <strong>Trick #24: The False Friends Trap — Watch Out!</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>False friends look like English words but mean something completely different. Critical ones: "actuellement" (currently, NOT actually), "librarie" (library, NOT bookstore — that's "librairie"), "embarrassed" looks like "embarrassé" (but "embarrassé" = pregnant!), "preservatifs" = condoms (NOT preservatives), "sensible" = sensitive (NOT sensible = reasonable = "raisonnable").</p>
+        <div class="trick-highlight">Major false friends: actuellement ≠ actually, librarie ≠ library, embarrassé ≠ embarrassed, sensible ≠ sensible. Memorize these 5.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-vocab">VOCAB</span>
+          <strong>Trick #25: Mnemonic Sentences for Core Vocabulary</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Create bizarre or emotional mnemonics to remember vocabulary. Example: To remember "peur" (fear), imagine a "PEAR" falling on your head — you're in FEAR. For "colère" (anger), think "coal AIR" — when you breathe coal air, you're ANGRY. These vivid, silly images stick in memory far better than flashcards.</p>
+        <div class="trick-highlight">Create one bizarre mnemonic per difficult word. The weirder, the better you'll remember it.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-vocab">VOCAB</span>
+          <strong>Trick #26: Context Clues > Dictionary</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>When you see an unknown word in reading or listening, guess from context before looking it up. What's the sentence about? What word would make sense? Your brain is 80% accurate at guessing from context, and this technique actually improves long-term retention better than dictionary lookups. Avoid reaching for the dictionary during the exam — use context clues.</p>
+        <div class="trick-highlight">Unknown word? Read surrounding sentences. What meaning makes sense? This trains comprehension and saves time.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-vocab">VOCAB</span>
+          <strong>Trick #27: Word Family Patterns</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Learn word families, not isolated words: "lire" (read) → "lecture" (reading/lecture) → "lecteur" (reader) → "lisible" (readable). Learn one root and you get 4-5 related words instantly. This multiplication effect means 500 base words can become 2,000+ words through family connections.</p>
+        <div class="trick-highlight">Learn families: "voir" (see) → "vision" → "visible" → "visite" (visit). One root, five related words.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-vocab">VOCAB</span>
+          <strong>Trick #28: The "Frequency Illusion" — Master High-Frequency Words</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>The top 1,000 French words cover 80% of conversational French. The top 3,000 cover 99%. Instead of memorizing 10,000 words, focus on mastering 2,000 — these appear repeatedly in tests and conversations. When you see the same 20-30 words appear in every test, focus on those first.</p>
+        <div class="trick-highlight">Master: avoir, être, aller, faire, pouvoir, vouloir, devoir, dire, donner, trouver, voir, savoir, croire, mettre, prendre, suivre, vivre, sentir, etc.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-vocab">VOCAB</span>
+          <strong>Trick #29: The Sentence Method — Words Stick Better in Context</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Don't memorize isolated words. Instead, memorize complete sentences: "Je suis heureux de vous rencontrer" instead of just "heureux" (happy). Your brain stores words better with grammatical context and emotional associations. You'll also learn grammar AND vocabulary simultaneously.</p>
+        <div class="trick-highlight">Learn: "Je veux aller en France" (I want to go to France) → You learn "vouloir" + infinitive, future context, and 5 new words.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-vocab">VOCAB</span>
+          <strong>Trick #30: The 3-Day Review Rule</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Review new vocabulary after 1 day, then 3 days, then 1 week. This "spaced repetition" based on forgetting curves ensures vocabulary moves from short-term to long-term memory. Don't cram all vocab the night before — this spreads learning over time and increases retention by 300%.</p>
+        <div class="trick-highlight">New word → Review after 1 day → Review after 3 days → Review after 1 week → It's yours forever. Space out learning.</div>
+      </div>
+    </div>
+
+    <!-- ========== READING COMPREHENSION TRICKS ========== -->
+    <h2 class="section-title">📖 Reading Comprehension Tricks</h2>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-reading">READING</span>
+          <strong>Trick #31: Read Questions BEFORE the Passage</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Always read the questions first — they tell you what to look for. Your brain will subconsciously scan for relevant information as you read the passage. This is 40% faster than reading the whole passage first, then hunting for answers.</p>
+        <div class="trick-highlight">Questions → Passage → Answer. Don't reverse it. Questions are roadmaps.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-reading">READING</span>
+          <strong>Trick #32: Mark Keywords in Questions</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Underline the key nouns/verbs in each question. When you return to the passage, search for these exact words or synonyms. Example: "Pourquoi l'entreprise a-t-elle fermé ses bureaux?" — mark "entreprise", "fermé", "bureaux". Scan the passage for these terms and the answer appears nearby.</p>
+        <div class="trick-highlight">Mark question keywords → Scan passage for keywords or synonyms → Answer found. This cuts reading time in half.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-reading">READING</span>
+          <strong>Trick #33: The "Answer is in the Text" Rule</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>On CEL tests, the answer is ALWAYS in the passage. Don't add your own interpretation or outside knowledge. If you can't find evidence in the text, your answer is wrong. This is critical — avoid over-thinking. Stick to what's written.</p>
+        <div class="trick-highlight">Question asks why something happened? Find the reason IN THE TEXT. Don't guess or infer. Every answer is explicitly stated.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-reading">READING</span>
+          <strong>Trick #34: Synonym Recognition</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Test writers use synonyms in answer choices. If the question asks "Le directeur était triste", the right answer might say "Le directeur était déprimé" (depressed = sad synonym). Watch for synonyms in answers that match the passage, even if they use different words.</p>
+        <div class="trick-highlight">Synonyms = Correct answers. The passage says "heureux" (happy), answer choice says "content" (pleased). Same meaning, different word.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-reading">READING</span>
+          <strong>Trick #35: Negation Flips Meaning — Watch for "ne... pas"</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Negation reverses meaning. "Il n'aime pas danser" is the OPPOSITE of "Il aime danser". This is crucial in reading — a single "ne pas" flips your answer. When evaluating whether an answer matches the passage, watch for negation signals that change the meaning entirely.</p>
+        <div class="trick-highlight">Passage: "She does NOT like coffee" → Wrong answer: "She likes coffee" (negation removed flips it). Catch negations.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-reading">READING</span>
+          <strong>Trick #36: Pronoun Reference — Track "it/he/she"</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>When you see a pronoun like "il" (he/it), "elle" (she/it), "ce" (this), "dont" (whose), trace back to what noun it refers to. Many reading errors happen because students misidentify what a pronoun refers to. If the passage says "Jean a acheté une voiture. Il l'a peinte en bleu" — "il" = Jean, "l'" = la voiture. Get pronouns right and you'll eliminate many errors.</p>
+        <div class="trick-highlight">Pronoun reference confusion = Wrong answer. Always track: Does "il" refer to Jean or Pierre? This matters.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-reading">READING</span>
+          <strong>Trick #37: Extreme Answers Are Usually Wrong</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Eliminate answer choices with extreme language: "always", "never", "everyone", "nobody", "completely". Passages rarely support absolutes. The passage might say "some people disagree" — not "everyone disagrees" or "no one disagrees". Extreme language signals wrong answers 70% of the time.</p>
+        <div class="trick-highlight">Extreme words (always, never, everyone, impossible) = Usually wrong. Choose moderate answers (some, often, many, many).</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-reading">READING</span>
+          <strong>Trick #38: Topic Sentences = Main Ideas</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>In each paragraph, the first or last sentence usually states the main idea. If you're looking for the passage's overall topic, read the first and last paragraphs — the topic appears there. This saves time on "What is this passage mainly about?" questions.</p>
+        <div class="trick-highlight">For "main idea" questions: Read first and last paragraphs. The main idea appears in topic sentences, not details.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-reading">READING</span>
+          <strong>Trick #39: Signal Words Predict Answers</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Signal words like "parce que" (because), "donc" (so), "mais" (but), "cependant" (however), "en conclusion" (in conclusion) telegraph answers. If a question asks WHY, look for "parce que" nearby. If it asks for a conclusion, find "donc" or "en conclusion". Signal words are answer guides.</p>
+        <div class="trick-highlight">Signal words = Answer roadmaps. "Because" → Why question. "But" → Contrast question. "Therefore" → Result question.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-reading">READING</span>
+          <strong>Trick #40: Time Management — 2 Minutes per Question MAX</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>You have ~60 minutes for 50 questions = 1.2 minutes per question. Allocate time: 30 seconds to read question, 60 seconds to skim passage, 30 seconds to choose. If stuck after 90 seconds, guess and move on. Spending 5 minutes on one question means you'll miss 4 others you might have answered correctly.</p>
+        <div class="trick-highlight">Read question (30s) → Skim passage (60s) → Answer (30s) → Move. If stuck, guess. Don't linger.</div>
+      </div>
+    </div>
+
+    <!-- ========== LISTENING SECTION TRICKS ========== -->
+    <h2 class="section-title">🎧 Listening Section Tricks</h2>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-listening">LISTENING</span>
+          <strong>Trick #41: Pre-Read All Questions BEFORE Audio Plays</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Before the audio starts, read every question and answer choice. Your brain will anticipate what to listen for. This is the single biggest advantage in listening — you're not surprised. You know the topic and what information is important.</p>
+        <div class="trick-highlight">Audio hasn't started? Use this time to read questions. Your brain primes itself for the key information.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-listening">LISTENING</span>
+          <strong>Trick #42: Note-Taking = KEY WORDS ONLY</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Don't try to transcribe the entire audio. Write down only key words that match question keywords: names, numbers, dates, action verbs, specific topics. Example: Question asks "Pourquoi a-t-elle démissionné?" Write only "pourquoi" and key reasons mentioned. This saves time and keeps you focused.</p>
+        <div class="trick-highlight">Notes: Keywords only. Not transcription. "Reason: salary, hours" not "Elle a dit que le salaire était bas et les heures longues..."</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-listening">LISTENING</span>
+          <strong>Trick #43: Tone of Voice Reveals Meaning</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Pay attention to tone. Sarcasm, anger, joy, concern — tone flips the literal meaning. If someone says "Oh, c'est fantastique!" with a sarcastic tone, they mean the OPPOSITE. Tone matters greatly in understanding intent, especially for "How does the speaker FEEL?" questions.</p>
+        <div class="trick-highlight">Listen to TONE as much as words. Sarcasm, anger, joy — tone changes meaning. If the speaker sounds upset saying "c'est merveilleux", they're being sarcastic.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-listening">LISTENING</span>
+          <strong>Trick #44: Numbers, Names, Dates — Write Them Down IMMEDIATELY</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>When you hear a number, name, or date, write it down IMMEDIATELY. These are almost always test answers. "Je suis né le 15 avril 1995" — write "15 avril 1995" instantly. Numbers and dates fly by in audio — if you don't catch them immediately, you'll miss the answer.</p>
+        <div class="trick-highlight">Number/Date heard → Write it down instantly. These are often answers. Don't wait — they won't repeat.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-listening">LISTENING</span>
+          <strong>Trick #45: Listen for Signal Words</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Signal words ("mais" = but, "donc" = so, "parce que" = because, "cependant" = however) often come just BEFORE the answer. If you hear "mais", the next part is important — it's a contrast. If you hear "donc", a conclusion follows. These words flag important information.</p>
+        <div class="trick-highlight">Signal words = Answer coming. "Mais" = Contrast next. "Donc" = Conclusion next. "Parce que" = Reason next. Listen for these.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-listening">LISTENING</span>
+          <strong>Trick #46: Repeated Information = Important</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>When the speaker repeats something, it's usually important. "L'examen est difficile, très difficile" → The examen's difficulty is the key point. Speakers emphasize by repetition. If you hear the same information twice, write it down — it's likely to be tested.</p>
+        <div class="trick-highlight">Repeated = Important. "She loves, absolutely loves Paris" → Her love of Paris is the key message.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-listening">LISTENING</span>
+          <strong>Trick #47: Intonation Changes Meaning</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>In French, rising intonation at the end can signal a question or doubt. Falling intonation signals certainty or conclusion. "Tu vas à Paris?" with rising intonation = Question. "Tu vas à Paris." with falling intonation = Statement of fact. This distinction helps you understand whether the speaker is asking or telling.</p>
+        <div class="trick-highlight">Rising intonation = Question or doubt. Falling intonation = Statement or certainty. Listen to pitch changes.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-listening">LISTENING</span>
+          <strong>Trick #48: Pauses Indicate Thought/Emotion</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>When a speaker pauses, they're thinking or feeling emotion. A long pause before answering a question suggests uncertainty or difficulty. A pause combined with a sigh suggests frustration or sadness. Use pauses as emotional context clues — they reveal underlying feelings beyond words.</p>
+        <div class="trick-highlight">Long pause = Thinking hard or emotion. Pause + sigh = Frustration or sadness. Pause reveals emotional context.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-listening">LISTENING</span>
+          <strong>Trick #49: First Mention Often Wrong in Multiple-Choice</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>In listening, the speaker often mentions something first, then changes their mind or clarifies. Example: "Je pensais aller à Paris, mais finalement j'irai à Lyon" = Going to Lyon, not Paris (even though Paris was mentioned first). Don't choose the first thing mentioned — listen for corrections, "but", "however", "actually".</p>
+        <div class="trick-highlight">First thing mentioned ≠ Final answer. Listen for "mais" (but), "en fait" (actually), "finalement" (finally) — these signal corrections.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-listening">LISTENING</span>
+          <strong>Trick #50: Speed Practice — Become Comfortable with Fast French</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Listen to French podcasts, YouTube videos, movies at 1.25x or 1.5x speed. This trains your brain to process fast speech. When you return to normal-speed exam audio, it feels slower and easier. Native speakers talk at 160+ words per minute — train yourself to handle this speed.</p>
+        <div class="trick-highlight">Train at 1.25x speed → Normal speed feels easy. Familiarity with rapid speech is a game-changer.</div>
+      </div>
+    </div>
+
+    <!-- ========== SPEAKING SECTION TRICKS ========== -->
+    <h2 class="section-title">🗣️ Speaking Section Tricks</h2>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-speaking">SPEAKING</span>
+          <strong>Trick #51: The 3-Part Formula Works Every Time</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>For ANY speaking question, use: (1) State opinion: "À mon avis..." (2) Give 2-3 reasons: "Premièrement... Deuxièmement..." (3) Conclude: "En conclusion...". This formula works for opinions, discussions, explanations. It demonstrates organization and linguistic range. Examiners score this structure highly.</p>
+        <div class="trick-highlight">All speaking answers: Opinion → Reasons → Conclusion. This simple formula works universally.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-speaking">SPEAKING</span>
+          <strong>Trick #52: Filler Phrases Buy Thinking Time</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Use filler phrases to buy time while organizing thoughts: "Alors...", "C'est-à-dire...", "En fait...", "Bon...", "Donc...". These are natural and expected. Don't panic with silence — use fillers. Examiners understand you're thinking. A 5-second "Alors..." is better than 5 seconds of dead air.</p>
+        <div class="trick-highlight">Filler phrases: "Alors", "C'est-à-dire", "En fait", "Bon", "D'accord". Use them to organize thoughts.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-speaking">SPEAKING</span>
+          <strong>Trick #53: Pronunciation > Perfection</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Clear pronunciation matters more than grammatical accuracy. "Je veux aller à Paris" said clearly with slight grammar errors > Perfect grammar said unclearly. Speak slowly, enunciate, use correct intonation. Examiners need to understand you. Clarity is your priority.</p>
+        <div class="trick-highlight">Slow, clear speech beats fast, mumbled speech. Slow down. Enunciate. Clarity is scored higher than speed.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-speaking">SPEAKING</span>
+          <strong>Trick #54: One-Word Answers = Instant Failure</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Never answer with single words. "Oui" or "Non" or "Je ne sais pas" will fail you. Instead, expand: "Oui, je pense que..." or "Non, je préfère...". Examiners need to assess your language. You must speak sentences with adjectives, connectors, and reasons. Always elaborate.</p>
+        <div class="trick-highlight">Never give one-word answers. Always elaborate: "Oui, parce que..." / "Non, je préfère..."</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-speaking">SPEAKING</span>
+          <strong>Trick #55: Formal Register = Higher Score</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Use "vous" (formal you), not "tu". Say "s'il vous plaît" (if you please), not "s'il te plaît". Use formal vocabulary: "décision" instead of "choix", "actuellement" instead of "now". Examiners are authority figures (and tests are formal contexts). Formal register automatically boosts your score perception.</p>
+        <div class="trick-highlight">Formal register: "vous", "s'il vous plaît", formal vocabulary. Don't sound casual. You're being evaluated by an authority.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-speaking">SPEAKING</span>
+          <strong>Trick #56: Confidence Matters — Even When Wrong</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Deliver your answer confidently, even if you're unsure about grammar. A confident, slightly imperfect statement is scored higher than a hesitant, perfect one. Examiners respond to confidence. Don't say "Je ne suis pas sûr..." or apologize. Just speak your answer with conviction.</p>
+        <div class="trick-highlight">Confident delivery beats perfect grammar. Don't apologize or doubt. Examiners respond to confidence.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-speaking">SPEAKING</span>
+          <strong>Trick #57: Use Examples to Show Depth</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Don't just state opinions — give examples: "Je aime lire. Par exemple, j'ai lu 'Les Misérables' la semaine dernière." Examples show command of language and depth of thought. They also buy you time to think. Examiners value candidates who support claims with evidence.</p>
+        <div class="trick-highlight">Opinion + Example = Stronger answer. "I like sports. For example, I play tennis three times a week."</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-speaking">SPEAKING</span>
+          <strong>Trick #58: Correct Mistakes Immediately</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>If you catch a mistake while speaking, correct it: "Elle va — je veux dire — elle irait en France." Self-correction shows metacognitive awareness and command of language. Don't panic or dwell on errors — correct and move forward. Examiners reward self-correction.</p>
+        <div class="trick-highlight">Mistake? Correct immediately. "Je veux dire..." (I mean) then give the correct version. Self-correction is valued.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-speaking">SPEAKING</span>
+          <strong>Trick #59: Eye Contact & Body Language Matter</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>In face-to-face tests, maintain eye contact with the examiner. Sit up straight. Smile. Don't slouch or look at the desk. Body language communicates confidence and engagement. Examiners subconsciously rate more favorably when your non-verbal communication is strong. This is psychology — use it.</p>
+        <div class="trick-highlight">Eye contact, upright posture, small smile. Body language communicates confidence. Examiners respond positively.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-speaking">SPEAKING</span>
+          <strong>Trick #60: Practice WITH a Timer</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Speaking tasks have time limits (typically 45 seconds to 2 minutes per task). Practice with a timer. Know exactly how much you can say in 45 seconds. This prevents running out of time mid-response or rambling beyond the limit. Timed practice removes anxiety on exam day.</p>
+        <div class="trick-highlight">Practice with timer. Know your pace: How much can you say in 45 sec? 1 min? 2 min? This removes anxiety.</div>
+      </div>
+    </div>
+
+    <!-- ========== WRITING SECTION TRICKS ========== -->
+    <h2 class="section-title">✍️ Writing Section Tricks</h2>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-writing">WRITING</span>
+          <strong>Trick #61: The 5-Paragraph Essay Template</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Structure: Intro (3 sentences: topic + opinion + plan) → Body 1 (reason + example) → Body 2 (reason + example) → Body 3 (counterargument or nuance) → Conclusion (summary + reflection). This tried-and-tested structure demonstrates organization and argumentation. Examiners love this framework because it shows clear thinking.</p>
+        <div class="trick-highlight">Intro → Reason 1 + Example → Reason 2 + Example → Counterargument → Conclusion. This template works universally.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-writing">WRITING</span>
+          <strong>Trick #62: Connectors = Instant Organization</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Use connectors liberally: Adding (De plus, En outre, Par ailleurs), Contrasting (Cependant, Néanmoins, En revanche), Cause (Car, Étant donné que, Parce que), Consequence (Par conséquent, Donc, C'est pourquoi), Concluding (En somme, Pour conclure, En définitive). Using 6-8 connectors signals linguistic sophistication and organization.</p>
+        <div class="trick-highlight">Use 6-8 connectors per essay: "De plus", "Cependant", "C'est pourquoi", "En conclusion". These boost scores instantly.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-writing">WRITING</span>
+          <strong>Trick #63: Show, Don't Tell — Use Examples</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Don't just state "La technologie est bonne" — show it: "La technologie permet aux gens de communiquer instantanément. Par exemple, avec Zoom, une mère peut voir ses petits-enfants chaque jour même s'ils habitent loin." Examples prove your points and show language command. Examiners value writers who support claims with evidence.</p>
+        <div class="trick-highlight">Claim + Example = Stronger essay. "Exercise is healthy. For example, running improves heart health and burns 600 calories per hour."</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-writing">WRITING</span>
+          <strong>Trick #64: Vary Sentence Structure</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Use short, medium, and long sentences: Short (6 words) creates impact. Medium (12-15 words) explains. Long (20+ words with complex clauses) shows sophistication. Varying structure keeps writing engaging and demonstrates grammatical range. Papers with identical sentence lengths feel monotonous and score lower.</p>
+        <div class="trick-highlight">Vary sentence length: Short → Medium → Long. This rhythm keeps writing engaging and demonstrates linguistic range.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-writing">WRITING</span>
+          <strong>Trick #65: Avoid Repeating the Same Words</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Don't use "penser" five times in one essay — use synonyms: "penser, croire, estimer, juger, supposer". Using varied vocabulary signals command of the language. Repetition is a sign of limited vocabulary. Examiners expect B2 writers to demonstrate lexical range.</p>
+        <div class="trick-highlight">Synonyms: penser = croire, estimer, juger, supposer. Vary vocabulary. Repetition signals weak vocabulary.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-writing">WRITING</span>
+          <strong>Trick #66: Avoid Common Spelling Mistakes</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Watch out: "que" vs. "qu'est-ce que", "ça"/"sa", "sont"/"son", "ces"/"ses", "a"/"à", "on"/"ont", "ce"/"se". These look similar but are different. Misspelling them causes point deductions. Double-check these in your essay before submitting. These are high-frequency errors.</p>
+        <div class="trick-highlight">Common errors: a/à, est/es, sont/son, ça/sa, ces/ses, que/qu'est. Double-check each one before submitting.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-writing">WRITING</span>
+          <strong>Trick #67: Use the Conditional for Politeness</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>In formal essays or respectful language, use conditional: "Il serait préférable de...", "Je voudrais suggérer que...", "On pourrait considérer...". Conditional softens statements and shows politeness — a hallmark of B2 writing. This is especially important when disagreeing or making suggestions.</p>
+        <div class="trick-highlight">Polite formulations: "Il serait bon de...", "Je voudrais que...", "On pourrait...". Conditional = Politeness and sophistication.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-writing">WRITING</span>
+          <strong>Trick #68: Paragraph Structure = Organization</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Each paragraph should have: Topic sentence (what's the point?), supporting details (why?), concluding sentence (so what?). This "sandwich" structure makes your essay coherent and easy to follow. Examiners value essays where each paragraph serves a clear purpose.</p>
+        <div class="trick-highlight">Paragraph formula: Topic sentence → Details → Conclusion. This sandwich structure shows organization.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-writing">WRITING</span>
+          <strong>Trick #69: Incorporate a Counterargument</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Instead of presenting only one side, acknowledge the other: "Certains pensent que... Cependant, je crois que...". This shows maturity and nuanced thinking — a B2-level skill. One paragraph acknowledging the opposing view then refuting it signals higher-level writing.</p>
+        <div class="trick-highlight">Structure: Your opinion (2 paragraphs) → Counterargument (1 paragraph) → Refutation + Conclusion. Shows maturity.</div>
+      </div>
+    </div>
+
+    <div class="accordion-group">
+      <div class="accordion-header" onclick="toggleAccordion(this)">
+        <span class="accordion-title">
+          <span class="trick-badge badge-writing">WRITING</span>
+          <strong>Trick #70: Proofread Your Essay — Save 10 Minutes</strong>
+        </span>
+        <span class="toggle-icon">▶</span>
+      </div>
+      <div class="accordion-body">
+        <p>Write your essay, then save 10 minutes to proofread. Fix obvious errors: spelling, agreement, missing accents, wrong tenses. A clean essay with minor errors scores higher than a perfect but disorganized essay. Proofing removes careless errors and polishes your work. It's worth the time investment.</p>
+        <div class="trick-highlight">Time management: 50 min writing + 10 min proofreading. Proofing catches careless errors worth 5-10 points.</div>
+      </div>
+    </div>
+
+    <!-- ========== SCORE MAXIMIZER CALCULATOR ========== -->
+    <div class="calculator-box">
+      <h2>🎯 Score Maximizer Calculator</h2>
+      <p style="color: var(--text-light); margin-bottom: 1rem;">Select your target CLB level and current proficiency. The calculator shows the exact scores you need per section.</p>
+
+      <div class="calc-grid">
+        <div class="calc-input-group">
+          <label>Target CLB Level</label>
+          <select id="targetCLB" onchange="calculateScores()" style="padding: 0.6rem 0.8rem; border: 2px solid var(--border); border-radius: 8px; font-size: 0.95rem;">
+            <option value="6">CLB 6 (Intermediate)</option>
+            <option value="7" selected>CLB 7 (Upper Intermediate)</option>
+            <option value="8">CLB 8 (Advanced)</option>
+            <option value="9">CLB 9 (Very Advanced)</option>
+          </select>
+        </div>
+
+        <div class="calc-input-group">
+          <label>Current Level (Self-Assessment)</label>
+          <select id="currentLevel" onchange="calculateScores()" style="padding: 0.6rem 0.8rem; border: 2px solid var(--border); border-radius: 8px; font-size: 0.95rem;">
+            <option value="a2">A2 (Beginner)</option>
+            <option value="b1" selected>B1 (Intermediate)</option>
+            <option value="b2">B2 (Upper Intermediate)</option>
+            <option value="c1">C1 (Advanced)</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="calc-slider">
+        <label style="color: var(--primary); font-weight: 600; font-size: 0.9rem; white-space: nowrap;">Listening Confidence</label>
+        <input type="range" id="listeningConfidence" min="1" max="10" value="6" onchange="calculateScores()" />
+        <span class="calc-slider-value" id="listeningConfVal">6/10</span>
+      </div>
+
+      <div class="calc-slider">
+        <label style="color: var(--primary); font-weight: 600; font-size: 0.9rem; white-space: nowrap;">Reading Confidence</label>
+        <input type="range" id="readingConfidence" min="1" max="10" value="6" onchange="calculateScores()" />
+        <span class="calc-slider-value" id="readingConfVal">6/10</span>
+      </div>
+
+      <div class="calc-slider">
+        <label style="color: var(--primary); font-weight: 600; font-size: 0.9rem; white-space: nowrap;">Speaking Confidence</label>
+        <input type="range" id="speakingConfidence" min="1" max="10" value="5" onchange="calculateScores()" />
+        <span class="calc-slider-value" id="speakingConfVal">5/10</span>
+      </div>
+
+      <div class="calc-slider">
+        <label style="color: var(--primary); font-weight: 600; font-size: 0.9rem; white-space: nowrap;">Writing Confidence</label>
+        <input type="range" id="writingConfidence" min="1" max="10" value="6" onchange="calculateScores()" />
+        <span class="calc-slider-value" id="writingConfVal">6/10</span>
+      </div>
+
+      <div class="calc-results">
+        <h3>Target Scores Per Section</h3>
+        <div class="result-grid">
+          <div class="result-box">
+            <div class="label">Listening</div>
+            <div class="score" id="targetListening">249</div>
+            <div class="label" style="font-size: 0.7rem;">out of 360</div>
+          </div>
+          <div class="result-box">
+            <div class="label">Reading</div>
+            <div class="score" id="targetReading">249</div>
+            <div class="label" style="font-size: 0.7rem;">out of 360</div>
+          </div>
+          <div class="result-box">
+            <div class="label">Speaking</div>
+            <div class="score" id="targetSpeaking">310</div>
+            <div class="label" style="font-size: 0.7rem;">out of 450</div>
+          </div>
+          <div class="result-box">
+            <div class="label">Writing</div>
+            <div class="score" id="targetWriting">310</div>
+            <div class="label" style="font-size: 0.7rem;">out of 450</div>
+          </div>
+        </div>
+        <div class="calc-insight" id="calcInsight">
+          Select your target and adjust the sliders to see personalized score targets.
+        </div>
+      </div>
+    </div>
+
+    <!-- ========== PRINTABLE CHEAT SHEET ========== -->
+    <div class="cheat-sheet">
+      <h2>📋 Exam Day Cheat Sheet (Printable)</h2>
+      <p style="text-align: center; color: var(--text-light); font-size: 0.9rem; margin-bottom: 1rem;">Print this before exam day. Review it the morning of your test.</p>
+
+      <div class="cheat-columns">
+        <div class="cheat-column">
+          <h3>⚡ PRE-EXAM (5 min before)</h3>
+          <ul>
+            <li>Brain dump: Write down DR MRS VANDERTRAMP, connectors, time expressions</li>
+            <li>Connectors: De plus, Cependant, Car, Donc, En conclusion</li>
+            <li>Tenses: Passé composé, Imparfait, Présent, Futur simple, Conditionnel</li>
+            <li>Negation: Ne [verb] pas</li>
+            <li>Filler phrases: Alors, C'est-à-dire, En fait, Bon</li>
+          </ul>
+        </div>
+
+        <div class="cheat-column">
+          <h3>👂 LISTENING (45 min)</h3>
+          <ul>
+            <li>Pre-read ALL questions before audio plays</li>
+            <li>Write KEYWORDS only (names, numbers, dates, verbs)</li>
+            <li>Listen for signal words: mais, donc, parce que</li>
+            <li>Repeated info = important</li>
+            <li>First mention often wrong; listen for "mais" or "finalement"</li>
+            <li>Time: 1.3 min/question; skip if stuck >90 sec</li>
+          </ul>
+        </div>
+
+        <div class="cheat-column">
+          <h3>📖 READING (60 min)</h3>
+          <ul>
+            <li>Read QUESTIONS before passage</li>
+            <li>Skim passage (30 sec) then re-read with questions in mind</li>
+            <li>Mark question keywords: search passage for these words/synonyms</li>
+            <li>Answer IS in the text (don't infer)</li>
+            <li>Watch for: negation (ne...pas), pronouns, signal words</li>
+            <li>Extreme answers usually wrong; choose moderate answers</li>
+            <li>Time: 1.2 min/question maximum</li>
+          </ul>
+        </div>
+
+        <div class="cheat-column">
+          <h3>🗣️ SPEAKING (13 min)</h3>
+          <ul>
+            <li>Formula: Opinion → 2-3 Reasons → Conclusion</li>
+            <li>Use fillers: "Alors...", "C'est-à-dire..." (buy thinking time)</li>
+            <li>NEVER one-word answers: Always elaborate</li>
+            <li>Formal register: "vous" not "tu"; s'il vous plaît</li>
+            <li>SLOW, CLEAR speech > fast rambling</li>
+            <li>Add examples to show depth</li>
+            <li>Correct mistakes: "Je veux dire..." then fix</li>
+          </ul>
+        </div>
+
+        <div class="cheat-column">
+          <h3>✍️ WRITING (60 min)</h3>
+          <ul>
+            <li>Structure: Intro → Reason 1+Example → Reason 2+Example → Counterargument → Conclusion</li>
+            <li>Use 6-8 connectors: De plus, Cependant, Par conséquent, etc.</li>
+            <li>Vary sentence length: short, medium, long</li>
+            <li>Show don't tell: Always use examples</li>
+            <li>Avoid repeating words: Use synonyms</li>
+            <li>Watch: a/à, est/es, sont/son, ça/sa, ces/ses</li>
+            <li>Save 10 min for proofreading</li>
+          </ul>
+        </div>
+
+        <div class="cheat-column">
+          <h3>🎯 QUICK WINS</h3>
+          <ul>
+            <li>Answer ALL questions (no penalty for wrong)</li>
+            <li>First instinct = 70% accuracy (don't change)</li>
+            <li>Eliminate extreme answers (always, never)</li>
+            <li>Words ending -tion = ALWAYS feminine (la)</li>
+            <li>Words ending -eux = masculine (le/la)</li>
+            <li>-tion cognates: nation, action, solution</li>
+            <li>Never leave a blank: guess if unsure</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="print-button">
+        <button class="btn-print" onclick="window.print()">🖨️ Print This Cheat Sheet</button>
+      </div>
+    </div>
+
+  </div>
+
+  <script src="../js/nav.js"></script>
+  <script src="../js/progress-tracker.js"></script>
+  <script>
+    // Init navigation
+    renderNav('tricks');
+    renderFooter();
+
+    // Accordion toggle
+    function toggleAccordion(header) {
+      const isOpen = header.classList.contains('open');
+      document.querySelectorAll('.accordion-header').forEach(h => {
+        h.classList.remove('open');
+        h.nextElementSibling.classList.remove('show');
+      });
+      if (!isOpen) {
+        header.classList.add('open');
+        header.nextElementSibling.classList.add('show');
+      }
+    }
+
+    // Score calculator
+    function calculateScores() {
+      const targetCLB = parseInt(document.getElementById('targetCLB').value);
+      const listeningConf = parseInt(document.getElementById('listeningConfidence').value);
+      const readingConf = parseInt(document.getElementById('readingConfidence').value);
+      const speakingConf = parseInt(document.getElementById('speakingConfidence').value);
+      const writingConf = parseInt(document.getElementById('writingConfidence').value);
+
+      // Update slider labels
+      document.getElementById('listeningConfVal').textContent = listeningConf + '/10';
+      document.getElementById('readingConfVal').textContent = readingConf + '/10';
+      document.getElementById('speakingConfVal').textContent = speakingConf + '/10';
+      document.getElementById('writingConfVal').textContent = writingConf + '/10';
+
+      // Base scores for CLB levels (out of 360 for CO/CE, out of 450 for EO/EC)
+      const baseScores = {
+        6: { co: 210, ce: 210, eo: 260, ec: 260 },
+        7: { co: 265, ce: 265, eo: 330, ec: 330 },
+        8: { co: 320, ce: 320, eo: 395, ec: 395 },
+        9: { co: 360, ce: 360, eo: 450, ec: 450 }
+      };
+
+      // Adjust based on confidence (±20-30 points range)
+      const base = baseScores[targetCLB];
+      const listeningAdjust = (listeningConf - 5) * 5;
+      const readingAdjust = (readingConf - 5) * 5;
+      const speakingAdjust = (speakingConf - 5) * 6;
+      const writingAdjust = (writingConf - 5) * 6;
+
+      const targetListening = Math.max(100, Math.min(360, Math.round(base.co + listeningAdjust)));
+      const targetReading = Math.max(100, Math.min(360, Math.round(base.ce + readingAdjust)));
+      const targetSpeaking = Math.max(100, Math.min(450, Math.round(base.eo + speakingAdjust)));
+      const targetWriting = Math.max(100, Math.min(450, Math.round(base.ec + writingAdjust)));
+
+      document.getElementById('targetListening').textContent = targetListening;
+      document.getElementById('targetReading').textContent = targetReading;
+      document.getElementById('targetSpeaking').textContent = targetSpeaking;
+      document.getElementById('targetWriting').textContent = targetWriting;
+
+      const total = targetListening + targetReading + targetSpeaking + targetWriting;
+      let insight = '';
+      if (listeningConf <= 4) {
+        insight += '🎧 Focus on listening — this is your gap. ';
+      }
+      if (readingConf <= 4) {
+        insight += '📖 Reading needs attention. ';
+      }
+      if (speakingConf <= 4) {
+        insight += '🗣️ Speaking is weak — record practice daily. ';
+      }
+      if (writingConf <= 4) {
+        insight += '✍️ Writing needs work — write 5 paragraphs weekly. ';
+      }
+      if (insight === '') {
+        insight = `✅ Balanced profile! Total projected score: ${total}/1620. Maintain consistency across all sections.`;
+      } else {
+        insight += `📊 Total projected: ${total}/1620.`;
+      }
+      document.getElementById('calcInsight').textContent = insight;
+    }
+
+    // Initialize calculator
+    calculateScores();
+  </script>
+</body>
+</html>

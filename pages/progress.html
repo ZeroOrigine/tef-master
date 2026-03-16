@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="fr">
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -110,9 +110,9 @@
 
     .section-card.grammar { border-left-color: var(--primary); }
     .section-card.vocabulary { border-left-color: var(--accent); }
-    .section-card.reading { border-left-color: #e67e22; }
-    .section-card.listening { border-left-color: #16a085; }
-    .section-card.conversations { border-left-color: #ec4899; }
+    .section-card.reading { border-left-color: var(--warning); }
+    .section-card.listening { border-left-color: var(--success); }
+    .section-card.conversations { border-left-color: var(--accent); }
 
     .section-card h3 {
       font-size: 1.1rem;
@@ -170,7 +170,7 @@
       text-decoration: none;
     }
 
-    .retake-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .retake-btn:hover { background: var(--primary); transform: translateY(-1px); }
 
     .badges-grid {
       display: grid;
@@ -189,14 +189,14 @@
     }
 
     .badge-item.earned {
-      background: linear-gradient(135deg, #fef3c7, #fef9e7);
-      border: 2px solid #f59e0b;
+      background: linear-gradient(135deg, #fef9e7, #fffbeb);
+      border: 2px solid var(--warning);
     }
 
     .badge-item.locked {
       opacity: 0.6;
-      background: #f5f5f5;
-      border: 2px dashed #ccc;
+      background: var(--bg);
+      border: 2px dashed var(--border);
     }
 
     .badge-item:hover { transform: translateY(-3px); }
@@ -359,7 +359,7 @@
       transition: all 0.2s;
     }
 
-    .btn-danger:hover { background: #dc2626; transform: translateY(-1px); }
+    .btn-danger:hover { background: var(--danger); transform: translateY(-1px); }
 
     .modal {
       display: none;
@@ -370,7 +370,7 @@
       bottom: 0;
       background: rgba(0,0,0,.6);
       z-index: 1000;
-      flex-align: center;
+      align-items: center;
       justify-content: center;
       padding: 1rem;
     }
@@ -413,18 +413,18 @@
     }
 
     .modal-buttons .btn-cancel {
-      background: #e0e0e0;
+      background: var(--border);
       color: var(--text);
     }
 
-    .modal-buttons .btn-cancel:hover { background: #d0d0d0; }
+    .modal-buttons .btn-cancel:hover { background: #cbd5e1; }
 
     .modal-buttons .btn-confirm {
       background: var(--danger);
       color: #fff;
     }
 
-    .modal-buttons .btn-confirm:hover { background: #dc2626; }
+    .modal-buttons .btn-confirm:hover { background: var(--danger); }
 
     .empty-state {
       text-align: center;
@@ -447,7 +447,7 @@
       transition: all 0.2s;
     }
 
-    .cta-btn:hover { background: #1d4ed8; transform: translateY(-1px); }
+    .cta-btn:hover { background: var(--primary); transform: translateY(-1px); }
 
     @media (max-width: 768px) {
       .quick-stats {
@@ -479,6 +479,9 @@
   </style>
 </head>
 <body>
+  <script src="../js/access-gate.js"></script>
+  <script>requireAccess();</script>
+
   <main class="container">
     <!-- Hero Section -->
     <section class="hero">
@@ -588,11 +591,16 @@
     function loadProgressData() {
       const data = TEFProgress.getAll();
 
-      // Calculate days to exam (May 15, 2026)
-      const examDate = new Date('2026-05-15');
-      const today = new Date();
-      const daysToExam = Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
-      document.getElementById('daysToExam').textContent = daysToExam > 0 ? daysToExam : '0';
+      // Calculate days to exam (reads user-configured date from localStorage)
+      const savedExamDate = localStorage.getItem('tef_exam_date');
+      if (savedExamDate) {
+        const examDate = new Date(savedExamDate + 'T09:00:00');
+        const today = new Date();
+        const daysToExam = Math.ceil((examDate - today) / (1000 * 60 * 60 * 24));
+        document.getElementById('daysToExam').textContent = daysToExam > 0 ? daysToExam : '0';
+      } else {
+        document.getElementById('daysToExam').textContent = '—';
+      }
 
       // Update quick stats
       document.getElementById('currentStreak').textContent = data.streak.current || 0;
@@ -640,7 +648,7 @@
           ${data.diagnostic.scores.length > 0 ? `
             <div class="section-stat">
               <span class="label">Last Score:</span>
-              <span class="value">${data.diagnostic.scores[data.diagnostic.scores.length - 1].comprehension || '-'}%</span>
+              <span class="value">${(() => { const s = data.diagnostic.scores[data.diagnostic.scores.length - 1]; const cats = ['Grammar','Vocabulary','Reading','Listening']; let c=0,t=0; cats.forEach(k => { if(s[k]){c+=s[k].c;t+=s[k].t;} }); return t>0 ? Math.round(c/t*100) : '-'; })()}%</span>
             </div>
             <div class="section-stat">
               <span class="label">Level:</span>
@@ -652,10 +660,10 @@
               <span class="label">Taken:</span>
               <span class="value">${new Date(data.diagnostic.lastDate).toLocaleDateString()}</span>
             </div>
-            <a href="/pages/diagnostic.html" class="retake-btn">Retake Test</a>
+            <a href="diagnostic.html" class="retake-btn">Retake Test</a>
           ` : `
             <p style="color: var(--text-light); margin-bottom: 1rem;">Not yet started</p>
-            <a href="/pages/diagnostic.html" class="retake-btn">Take Diagnostic</a>
+            <a href="diagnostic.html" class="retake-btn">Take Diagnostic</a>
           `}
         </div>
       `;
@@ -814,10 +822,10 @@
       const vocabLearned = data.vocabulary.learned.length;
       const grammarCompleted = data.grammar.completed.length;
 
-      if (readingCompleted === 0) areas.push({ name: 'Reading', link: '/pages/reading.html' });
-      if (listeningCompleted === 0) areas.push({ name: 'Listening', link: '/pages/listening.html' });
-      if (vocabLearned < 50) areas.push({ name: 'Vocabulary', link: '/pages/vocabulary.html' });
-      if (grammarCompleted < 5) areas.push({ name: 'Grammar', link: '/pages/grammar.html' });
+      if (readingCompleted === 0) areas.push({ name: 'Reading', link: 'reading.html' });
+      if (listeningCompleted === 0) areas.push({ name: 'Listening', link: 'listening.html' });
+      if (vocabLearned < 50) areas.push({ name: 'Vocabulary', link: 'vocabulary.html' });
+      if (grammarCompleted < 5) areas.push({ name: 'Grammar', link: 'grammar.html' });
 
       if (areas.length > 0) {
         areas.forEach(area => {

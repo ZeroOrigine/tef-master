@@ -4,11 +4,14 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>French Conversations Practice - TEF Canada</title>
-    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="../css/style.css">
 </head>
 <body>
+    <script src="../js/access-gate.js"></script>
+    <script>requireAccess();</script>
+
     <nav id="navbar"></nav>
-    
+
     <div class="container">
         <header class="page-header">
             <h1>French Conversation Practice</h1>
@@ -35,6 +38,16 @@
                     <option value="food">Food & Dining</option>
                     <option value="services">Services</option>
                     <option value="work">Work & Professional</option>
+                    <option value="banking">Banking & Finance</option>
+                    <option value="health">Health & Medical</option>
+                    <option value="directions">City & Directions</option>
+                    <option value="employment">Employment & Career</option>
+                    <option value="housing">Housing & Rental</option>
+                    <option value="education">Education</option>
+                    <option value="leisure">Leisure & Entertainment</option>
+                    <option value="consumer">Consumer Rights</option>
+                    <option value="sports">Sports & Fitness</option>
+                    <option value="immigration">Immigration</option>
                 </select>
             </div>
 
@@ -64,8 +77,8 @@
 
     <footer id="footer"></footer>
 
-    <script src="/js/nav.js"></script>
-    <script src="/js/progress-tracker.js"></script>
+    <script src="../js/nav.js"></script>
+    <script src="../js/progress-tracker.js"></script>
     <script>
         // Conversation Data
         const conversations = [
@@ -140,7 +153,7 @@
                 dialogue: [
                     { speaker: "Customer", name: "Sophie", text: "Bonjour! Un café crème, s'il vous plaît.", translation: "Hello! A white coffee, please." },
                     { speaker: "Waiter", name: "Garçon", text: "Un café crème. Et vous voulez manger quelque chose?", translation: "A white coffee. And would you like something to eat?" },
-                    { speaker: "Customer", name: "Sophie", text: "Oui, une croissant, s'il vous plaît. C'est frais?", translation: "Yes, a croissant, please. Is it fresh?" },
+                    { speaker: "Customer", name: "Sophie", text: "Oui, un croissant, s'il vous plaît. C'est frais?", translation: "Yes, a croissant, please. Is it fresh?" },
                     { speaker: "Waiter", name: "Garçon", text: "Absolument! Nous les faisons le matin. Vous préférez un croissant au beurre ou au chocolat?", translation: "Absolutely! We make them in the morning. Do you prefer butter or chocolate croissant?" },
                     { speaker: "Customer", name: "Sophie", text: "Un croissant au chocolat, s'il vous plaît.", translation: "A chocolate croissant, please." },
                     { speaker: "Waiter", name: "Garçon", text: "Parfait! Vous prenez ça ici ou c'est pour emporter?", translation: "Perfect! Are you having this here or to go?" },
@@ -453,6 +466,323 @@
                 ],
                 culturalNote: "French business culture values detailed discussion and legal clarity. Negotiations can be lengthy and formal. Building relationships is important, but contracts must be very clear. Always have legal review and be prepared to justify your positions with data.",
                 practiceGaps: [2, 4, 6]
+            },
+            {
+                id: 13,
+                title: "À la banque",
+                description: "Opening a bank account as a newcomer",
+                level: "A2",
+                topic: "banking",
+                dialogue: [
+                    { speaker: "left", name: "Client", text: "Bonjour, je voudrais ouvrir un compte bancaire, s'il vous plaît.", translation: "Hello, I would like to open a bank account, please." },
+                    { speaker: "right", name: "Conseiller", text: "Bien sûr ! Avez-vous une pièce d'identité avec photo?", translation: "Of course! Do you have a photo ID?" },
+                    { speaker: "left", name: "Client", text: "Oui, voici mon passeport et ma carte de résident permanent.", translation: "Yes, here is my passport and my permanent resident card." },
+                    { speaker: "right", name: "Conseiller", text: "Parfait. Voulez-vous un compte chèques ou un compte épargne?", translation: "Perfect. Would you like a checking account or a savings account?" },
+                    { speaker: "left", name: "Client", text: "Les deux, s'il vous plaît. Quels sont les frais mensuels?", translation: "Both, please. What are the monthly fees?" },
+                    { speaker: "right", name: "Conseiller", text: "Le compte chèques coûte 4,95 $ par mois. Le compte épargne est gratuit.", translation: "The checking account costs $4.95 per month. The savings account is free." },
+                    { speaker: "left", name: "Client", text: "D'accord. Est-ce que je peux aussi avoir une carte de crédit?", translation: "Okay. Can I also get a credit card?" },
+                    { speaker: "right", name: "Conseiller", text: "Pour la carte de crédit, il faut un historique de crédit au Canada. Je vous recommande de commencer avec une carte sécurisée.", translation: "For a credit card, you need a credit history in Canada. I recommend starting with a secured card." }
+                ],
+                vocabulary: [
+                    { word: "compte chèques", translation: "checking account" },
+                    { word: "compte épargne", translation: "savings account" },
+                    { word: "frais mensuels", translation: "monthly fees" },
+                    { word: "carte de crédit", translation: "credit card" },
+                    { word: "historique de crédit", translation: "credit history" }
+                ],
+                culturalNote: "In Canada, newcomers often start with a secured credit card (backed by a deposit) to build credit history. Most banks offer special newcomer packages with reduced fees for the first year.",
+                practiceGaps: [1, 3, 5]
+            },
+            {
+                id: 14,
+                title: "Chez le médecin",
+                description: "Visiting a doctor for a health concern",
+                level: "B1",
+                topic: "health",
+                dialogue: [
+                    { speaker: "left", name: "Patient", text: "Bonjour docteur. J'ai très mal à la gorge depuis trois jours et j'ai de la fièvre.", translation: "Hello doctor. I've had a very sore throat for three days and I have a fever." },
+                    { speaker: "right", name: "Médecin", text: "Je vois. Avez-vous d'autres symptômes? De la toux, des maux de tête?", translation: "I see. Do you have other symptoms? Cough, headaches?" },
+                    { speaker: "left", name: "Patient", text: "Oui, j'ai un peu mal à la tête et je suis très fatigué. Je tousse aussi la nuit.", translation: "Yes, I have a slight headache and I'm very tired. I also cough at night." },
+                    { speaker: "right", name: "Médecin", text: "D'accord. Je vais vous examiner. Ouvrez la bouche, s'il vous plaît. Votre gorge est très rouge.", translation: "Okay. I'm going to examine you. Open your mouth, please. Your throat is very red." },
+                    { speaker: "left", name: "Patient", text: "Est-ce que c'est grave? J'ai besoin d'antibiotiques?", translation: "Is it serious? Do I need antibiotics?" },
+                    { speaker: "right", name: "Médecin", text: "Je vais faire un test rapide pour vérifier si c'est une infection bactérienne. En attendant, reposez-vous bien et buvez beaucoup d'eau.", translation: "I'll do a quick test to check if it's a bacterial infection. In the meantime, rest well and drink lots of water." },
+                    { speaker: "left", name: "Patient", text: "D'accord. Est-ce que vous pouvez me donner quelque chose pour la douleur?", translation: "Okay. Can you give me something for the pain?" },
+                    { speaker: "right", name: "Médecin", text: "Oui, je vous prescris du paracétamol. Prenez-en toutes les six heures. Si les symptômes ne s'améliorent pas dans deux jours, revenez me voir.", translation: "Yes, I'll prescribe paracetamol. Take it every six hours. If symptoms don't improve in two days, come back to see me." }
+                ],
+                vocabulary: [
+                    { word: "mal à la gorge", translation: "sore throat" },
+                    { word: "fièvre", translation: "fever" },
+                    { word: "symptômes", translation: "symptoms" },
+                    { word: "examiner", translation: "to examine" },
+                    { word: "ordonnance", translation: "prescription" },
+                    { word: "antibiotiques", translation: "antibiotics" }
+                ],
+                culturalNote: "In Quebec, you need a RAMQ health card to access free medical services. Without a family doctor, you can visit a walk-in clinic (clinique sans rendez-vous) or call 811 for health advice.",
+                practiceGaps: [1, 3, 5]
+            },
+            {
+                id: 15,
+                title: "Demander son chemin",
+                description: "Asking for and giving directions in the city",
+                level: "A2",
+                topic: "directions",
+                dialogue: [
+                    { speaker: "left", name: "Touriste", text: "Excusez-moi, je cherche la station de métro. Pouvez-vous m'aider?", translation: "Excuse me, I'm looking for the metro station. Can you help me?" },
+                    { speaker: "right", name: "Passant", text: "Bien sûr ! Allez tout droit sur cette rue pendant deux minutes.", translation: "Of course! Go straight on this street for two minutes." },
+                    { speaker: "left", name: "Touriste", text: "D'accord, et ensuite?", translation: "Okay, and then?" },
+                    { speaker: "right", name: "Passant", text: "Tournez à gauche au feu rouge. La station est juste après le parc, sur votre droite.", translation: "Turn left at the red light. The station is just past the park, on your right." },
+                    { speaker: "left", name: "Touriste", text: "C'est loin d'ici? Environ combien de temps à pied?", translation: "Is it far from here? About how long on foot?" },
+                    { speaker: "right", name: "Passant", text: "Non, c'est à cinq minutes à pied. Vous ne pouvez pas la manquer!", translation: "No, it's five minutes on foot. You can't miss it!" },
+                    { speaker: "left", name: "Touriste", text: "Merci beaucoup ! Et savez-vous quelle ligne je dois prendre pour aller au Vieux-Port?", translation: "Thank you very much! And do you know which line I should take to go to the Old Port?" },
+                    { speaker: "right", name: "Passant", text: "Prenez la ligne orange direction Côte-Vertu et descendez à Place-d'Armes. C'est à trois stations.", translation: "Take the orange line towards Côte-Vertu and get off at Place-d'Armes. It's three stations." }
+                ],
+                vocabulary: [
+                    { word: "tout droit", translation: "straight ahead" },
+                    { word: "tournez à gauche", translation: "turn left" },
+                    { word: "le feu rouge", translation: "the red light" },
+                    { word: "à pied", translation: "on foot" },
+                    { word: "descendre", translation: "to get off" }
+                ],
+                culturalNote: "The Montreal metro has four lines identified by colors: green, orange, blue, and yellow. The STM (Société de transport de Montréal) also operates the bus network.",
+                practiceGaps: [1, 3, 5]
+            },
+            {
+                id: 16,
+                title: "L'entrevue d'emploi",
+                description: "A job interview conversation",
+                level: "B1",
+                topic: "employment",
+                dialogue: [
+                    { speaker: "right", name: "Recruteur", text: "Bonjour, merci d'être venu. Parlez-moi un peu de votre parcours professionnel.", translation: "Hello, thank you for coming. Tell me a bit about your professional background." },
+                    { speaker: "left", name: "Candidat", text: "J'ai travaillé pendant cinq ans comme comptable dans une entreprise internationale. Je suis spécialisé en analyse financière.", translation: "I worked for five years as an accountant in an international company. I specialize in financial analysis." },
+                    { speaker: "right", name: "Recruteur", text: "Intéressant. Pourquoi voulez-vous changer d'emploi?", translation: "Interesting. Why do you want to change jobs?" },
+                    { speaker: "left", name: "Candidat", text: "Je cherche de nouveaux défis et je voudrais évoluer vers un poste avec plus de responsabilités.", translation: "I'm looking for new challenges and I'd like to move into a position with more responsibilities." },
+                    { speaker: "right", name: "Recruteur", text: "Quelles sont vos principales qualités professionnelles?", translation: "What are your main professional qualities?" },
+                    { speaker: "left", name: "Candidat", text: "Je suis organisé, rigoureux et j'ai un bon esprit d'équipe. Je suis aussi capable de travailler sous pression.", translation: "I'm organized, rigorous and I have good teamwork skills. I'm also able to work under pressure." },
+                    { speaker: "right", name: "Recruteur", text: "Très bien. Le poste exige la maîtrise d'Excel et de SAP. Avez-vous de l'expérience avec ces outils?", translation: "Very good. The position requires proficiency in Excel and SAP. Do you have experience with these tools?" },
+                    { speaker: "left", name: "Candidat", text: "Oui, j'utilise Excel quotidiennement et j'ai suivi une formation SAP l'année dernière.", translation: "Yes, I use Excel daily and I completed SAP training last year." }
+                ],
+                vocabulary: [
+                    { word: "parcours professionnel", translation: "professional background" },
+                    { word: "compétences", translation: "skills" },
+                    { word: "qualités", translation: "qualities" },
+                    { word: "responsabilités", translation: "responsibilities" },
+                    { word: "esprit d'équipe", translation: "teamwork" },
+                    { word: "formation", translation: "training" }
+                ],
+                culturalNote: "In Quebec, job interviews tend to be somewhat more formal than in English Canada. Use 'vous' unless invited to use 'tu'. Having your CV in French is essential, and mentioning your French language skills is always a plus.",
+                practiceGaps: [1, 3, 5]
+            },
+            {
+                id: 17,
+                title: "Louer un appartement",
+                description: "Visiting and negotiating an apartment rental",
+                level: "B1",
+                topic: "housing",
+                dialogue: [
+                    { speaker: "left", name: "Locataire", text: "Bonjour, j'appelle pour l'appartement à louer sur la rue Saint-Denis. Est-il encore disponible?", translation: "Hello, I'm calling about the apartment for rent on Saint-Denis Street. Is it still available?" },
+                    { speaker: "right", name: "Propriétaire", text: "Oui, il est disponible. C'est un 4 et demi au troisième étage. Le loyer est de 1 200 $ par mois.", translation: "Yes, it's available. It's a 4½ on the third floor. The rent is $1,200 per month." },
+                    { speaker: "left", name: "Locataire", text: "Est-ce que le chauffage et l'eau chaude sont inclus?", translation: "Are heating and hot water included?" },
+                    { speaker: "right", name: "Propriétaire", text: "L'eau chaude est incluse, mais le chauffage est à votre charge. Comptez environ 80 $ par mois en hiver.", translation: "Hot water is included, but heating is your responsibility. Count about $80 per month in winter." },
+                    { speaker: "left", name: "Locataire", text: "D'accord. Est-ce que les animaux de compagnie sont acceptés?", translation: "Okay. Are pets allowed?" },
+                    { speaker: "right", name: "Propriétaire", text: "Les chats sont acceptés, mais pas les chiens. Il y a aussi un espace de rangement au sous-sol.", translation: "Cats are accepted, but not dogs. There is also a storage space in the basement." },
+                    { speaker: "left", name: "Locataire", text: "Très bien. Quand est-ce que je pourrais visiter l'appartement?", translation: "Very good. When could I visit the apartment?" },
+                    { speaker: "right", name: "Propriétaire", text: "Samedi prochain à 10 heures, ça vous convient? Apportez une pièce d'identité et vos références.", translation: "Next Saturday at 10 o'clock, does that work? Bring an ID and your references." }
+                ],
+                vocabulary: [
+                    { word: "loyer", translation: "rent" },
+                    { word: "chauffage", translation: "heating" },
+                    { word: "inclus", translation: "included" },
+                    { word: "animaux de compagnie", translation: "pets" },
+                    { word: "bail", translation: "lease" },
+                    { word: "propriétaire", translation: "landlord" }
+                ],
+                culturalNote: "In Quebec, apartments are described by the number of rooms: a '4½' means 4 rooms plus a bathroom. Most leases start July 1st, which is 'Moving Day' in Quebec — the busiest moving day in North America.",
+                practiceGaps: [1, 3, 5]
+            },
+            {
+                id: 18,
+                title: "Au bureau de poste",
+                description: "Sending a package and buying stamps",
+                level: "A2",
+                topic: "services",
+                dialogue: [
+                    { speaker: "left", name: "Client", text: "Bonjour, je voudrais envoyer ce colis en France.", translation: "Hello, I would like to send this package to France." },
+                    { speaker: "right", name: "Employé", text: "D'accord. Posez-le sur la balance, s'il vous plaît. Il pèse 2,3 kilos.", translation: "Okay. Put it on the scale, please. It weighs 2.3 kilos." },
+                    { speaker: "left", name: "Client", text: "Combien ça coûte et combien de temps ça prend?", translation: "How much does it cost and how long does it take?" },
+                    { speaker: "right", name: "Employé", text: "Par voie terrestre, c'est 28 $ et ça prend deux à trois semaines. Par avion, c'est 45 $ et ça prend une semaine.", translation: "By ground, it's $28 and takes two to three weeks. By air, it's $45 and takes one week." },
+                    { speaker: "left", name: "Client", text: "Je vais choisir l'envoi par avion. Est-ce que je peux avoir un numéro de suivi?", translation: "I'll choose air mail. Can I get a tracking number?" },
+                    { speaker: "right", name: "Employé", text: "Oui, le suivi est inclus avec l'envoi par avion. Remplissez ce formulaire de douane, s'il vous plaît.", translation: "Yes, tracking is included with air mail. Fill out this customs form, please." },
+                    { speaker: "left", name: "Client", text: "Merci. J'ai aussi besoin de dix timbres pour le Canada.", translation: "Thank you. I also need ten stamps for Canada." },
+                    { speaker: "right", name: "Employé", text: "Voilà. Ça fait 9,20 $ pour les timbres et 45 $ pour le colis. Le total est 54,20 $.", translation: "Here you go. That's $9.20 for the stamps and $45 for the package. The total is $54.20." }
+                ],
+                vocabulary: [
+                    { word: "colis", translation: "package" },
+                    { word: "balance", translation: "scale" },
+                    { word: "timbres", translation: "stamps" },
+                    { word: "numéro de suivi", translation: "tracking number" },
+                    { word: "formulaire de douane", translation: "customs form" }
+                ],
+                culturalNote: "Canada Post (Postes Canada) has offices throughout the country, and many are located inside pharmacies like Shoppers Drug Mart / Pharmaprix.",
+                practiceGaps: [1, 3, 5]
+            },
+            {
+                id: 19,
+                title: "Inscription aux cours de français",
+                description: "Enrolling in a French language course",
+                level: "A2",
+                topic: "education",
+                dialogue: [
+                    { speaker: "left", name: "Étudiant", text: "Bonjour, je suis nouveau au Canada et je voudrais m'inscrire à un cours de français.", translation: "Hello, I'm new to Canada and I would like to enroll in a French course." },
+                    { speaker: "right", name: "Secrétaire", text: "Bienvenue! Avez-vous déjà étudié le français?", translation: "Welcome! Have you already studied French?" },
+                    { speaker: "left", name: "Étudiant", text: "Oui, un peu. Je comprends les bases, mais j'ai besoin de pratiquer.", translation: "Yes, a little. I understand the basics, but I need to practice." },
+                    { speaker: "right", name: "Secrétaire", text: "D'accord. Vous allez passer un test de classement pour déterminer votre niveau. Le test dure 30 minutes.", translation: "Okay. You will take a placement test to determine your level. The test takes 30 minutes." },
+                    { speaker: "left", name: "Étudiant", text: "C'est gratuit? Et quels sont les horaires des cours?", translation: "Is it free? And what are the class schedules?" },
+                    { speaker: "right", name: "Secrétaire", text: "Oui, les cours sont gratuits pour les résidents permanents. Il y a des cours le matin de 9 h à 12 h, ou le soir de 18 h à 21 h.", translation: "Yes, classes are free for permanent residents. There are morning classes from 9 to 12, or evening classes from 6 to 9 PM." },
+                    { speaker: "left", name: "Étudiant", text: "Je préfère les cours du soir, car je travaille pendant la journée.", translation: "I prefer evening classes because I work during the day." },
+                    { speaker: "right", name: "Secrétaire", text: "Parfait. Apportez votre carte de résident permanent et une preuve d'adresse pour l'inscription.", translation: "Perfect. Bring your permanent resident card and proof of address for registration." }
+                ],
+                vocabulary: [
+                    { word: "s'inscrire", translation: "to enroll" },
+                    { word: "test de classement", translation: "placement test" },
+                    { word: "niveau", translation: "level" },
+                    { word: "horaires", translation: "schedule" },
+                    { word: "gratuit", translation: "free" }
+                ],
+                culturalNote: "Quebec offers free French courses (francisation) to all permanent residents and temporary workers through the MIFI (Ministère de l'Immigration, de la Francisation et de l'Intégration). These courses are a great way to improve your French and meet other newcomers.",
+                practiceGaps: [1, 3, 5]
+            },
+            {
+                id: 20,
+                title: "Discussion sur les loisirs",
+                description: "Talking about hobbies and weekend plans",
+                level: "B1",
+                topic: "leisure",
+                dialogue: [
+                    { speaker: "left", name: "Marc", text: "Salut Isabelle! Qu'est-ce que tu fais ce week-end?", translation: "Hi Isabelle! What are you doing this weekend?" },
+                    { speaker: "right", name: "Isabelle", text: "Samedi matin, je vais à mon cours de peinture. J'ai commencé il y a trois mois et j'adore ça!", translation: "Saturday morning, I'm going to my painting class. I started three months ago and I love it!" },
+                    { speaker: "left", name: "Marc", text: "C'est super! Moi, je joue au soccer avec des collègues tous les samedis.", translation: "That's great! I play soccer with colleagues every Saturday." },
+                    { speaker: "right", name: "Isabelle", text: "Et dimanche? Tu veux aller au Festival de musique au parc Jean-Drapeau?", translation: "And Sunday? Do you want to go to the music festival at Jean-Drapeau Park?" },
+                    { speaker: "left", name: "Marc", text: "Bonne idée! C'est combien l'entrée?", translation: "Good idea! How much is admission?" },
+                    { speaker: "right", name: "Isabelle", text: "C'est 35 $ en prévente et 45 $ à la porte. Il y aura aussi des spectacles gratuits sur la scène extérieure.", translation: "It's $35 in advance and $45 at the door. There will also be free shows on the outdoor stage." },
+                    { speaker: "left", name: "Marc", text: "Parfait, on y va ensemble! On peut prendre le métro, c'est plus facile pour se stationner.", translation: "Perfect, let's go together! We can take the metro, it's easier than parking." },
+                    { speaker: "right", name: "Isabelle", text: "D'accord. On se retrouve à la station Berri-UQAM à midi?", translation: "Okay. We meet at Berri-UQAM station at noon?" }
+                ],
+                vocabulary: [
+                    { word: "loisirs", translation: "hobbies/leisure" },
+                    { word: "cours de peinture", translation: "painting class" },
+                    { word: "spectacle", translation: "show/performance" },
+                    { word: "prévente", translation: "advance sale" },
+                    { word: "se retrouver", translation: "to meet up" }
+                ],
+                culturalNote: "Montreal hosts over 100 festivals annually, many with free outdoor activities. Jean-Drapeau Park, located on two islands in the St. Lawrence River, is a major venue for festivals and outdoor events.",
+                practiceGaps: [1, 3, 5]
+            },
+            {
+                id: 21,
+                title: "Réclamation au service client",
+                description: "Making a complaint about a product",
+                level: "B2",
+                topic: "consumer",
+                dialogue: [
+                    { speaker: "left", name: "Client", text: "Bonjour, j'ai acheté un ordinateur portable chez vous il y a deux semaines et il ne fonctionne déjà plus.", translation: "Hello, I bought a laptop from you two weeks ago and it's already not working." },
+                    { speaker: "right", name: "Agent", text: "Je suis désolé d'entendre cela. Pouvez-vous me décrire le problème exactement?", translation: "I'm sorry to hear that. Can you describe the problem exactly?" },
+                    { speaker: "left", name: "Client", text: "L'écran s'éteint de façon aléatoire et la batterie ne tient que deux heures au lieu de huit comme annoncé.", translation: "The screen turns off randomly and the battery only lasts two hours instead of eight as advertised." },
+                    { speaker: "right", name: "Agent", text: "Avez-vous votre reçu et le numéro de série? L'appareil est encore sous garantie.", translation: "Do you have your receipt and serial number? The device is still under warranty." },
+                    { speaker: "left", name: "Client", text: "Oui, voici le reçu. Je voudrais un échange ou un remboursement complet. Ce problème est inacceptable pour un produit neuf.", translation: "Yes, here's the receipt. I want an exchange or a full refund. This problem is unacceptable for a new product." },
+                    { speaker: "right", name: "Agent", text: "Je comprends votre frustration. Selon notre politique, nous pouvons vous proposer un échange immédiat ou un remboursement sous 5 à 7 jours ouvrables.", translation: "I understand your frustration. According to our policy, we can offer you an immediate exchange or a refund within 5 to 7 business days." },
+                    { speaker: "left", name: "Client", text: "Je préfère l'échange. Pouvez-vous vérifier que le nouveau modèle fonctionne avant que je parte?", translation: "I prefer the exchange. Can you check that the new model works before I leave?" },
+                    { speaker: "right", name: "Agent", text: "Absolument. Nous allons tester l'appareil devant vous. Je vous fais aussi un bon de réduction de 10 % pour compenser le dérangement.", translation: "Absolutely. We'll test the device in front of you. I'll also give you a 10% discount coupon to compensate for the inconvenience." }
+                ],
+                vocabulary: [
+                    { word: "réclamation", translation: "complaint" },
+                    { word: "remboursement", translation: "refund" },
+                    { word: "garantie", translation: "warranty" },
+                    { word: "échange", translation: "exchange" },
+                    { word: "bon de réduction", translation: "discount coupon" },
+                    { word: "jours ouvrables", translation: "business days" }
+                ],
+                culturalNote: "In Quebec, consumer protection laws (Loi sur la protection du consommateur) are quite strong. Products must conform to what was advertised, and consumers have legal rights regarding warranties and returns.",
+                practiceGaps: [1, 3, 5]
+            },
+            {
+                id: 22,
+                title: "La réunion de copropriété",
+                description: "Discussing building issues at a condo meeting",
+                level: "B2",
+                topic: "housing",
+                dialogue: [
+                    { speaker: "right", name: "Président", text: "Bonsoir à tous. Le premier point à l'ordre du jour concerne les travaux de rénovation du toit.", translation: "Good evening everyone. The first item on the agenda concerns the roof renovation work." },
+                    { speaker: "left", name: "Résident", text: "Nous avons reçu trois soumissions. La moins chère est de 45 000 $, mais l'entrepreneur n'a pas de bonnes références.", translation: "We received three bids. The cheapest is $45,000, but the contractor doesn't have good references." },
+                    { speaker: "right", name: "Président", text: "La soumission intermédiaire est de 52 000 $ avec une garantie de dix ans. Je recommande celle-ci.", translation: "The middle bid is $52,000 with a ten-year warranty. I recommend this one." },
+                    { speaker: "left", name: "Résident", text: "Je suis d'accord. Mais comment allons-nous financer ces travaux? Le fonds de prévoyance est insuffisant.", translation: "I agree. But how will we finance this work? The contingency fund is insufficient." },
+                    { speaker: "right", name: "Président", text: "Nous devrons voter une cotisation spéciale de 2 000 $ par unité, payable en quatre versements.", translation: "We will need to vote on a special assessment of $2,000 per unit, payable in four installments." },
+                    { speaker: "left", name: "Résident", text: "C'est une grosse dépense. Peut-on explorer l'option d'un prêt bancaire pour le syndicat?", translation: "That's a big expense. Can we explore the option of a bank loan for the syndicate?" },
+                    { speaker: "right", name: "Président", text: "Bonne suggestion. Je vais contacter notre banque cette semaine. Passons maintenant au vote.", translation: "Good suggestion. I'll contact our bank this week. Let's move on to the vote now." }
+                ],
+                vocabulary: [
+                    { word: "copropriété", translation: "condominium" },
+                    { word: "soumission", translation: "bid/quote" },
+                    { word: "fonds de prévoyance", translation: "contingency fund" },
+                    { word: "cotisation spéciale", translation: "special assessment" },
+                    { word: "syndicat", translation: "condo association" }
+                ],
+                culturalNote: "In Quebec, condominiums are governed by the Civil Code. The syndicat de copropriété (condo association) manages common areas and finances. Annual general meetings and special assessments are common.",
+                practiceGaps: [1, 3, 5]
+            },
+            {
+                id: 23,
+                title: "Au centre sportif",
+                description: "Signing up for a gym membership",
+                level: "A2",
+                topic: "sports",
+                dialogue: [
+                    { speaker: "left", name: "Client", text: "Bonjour, je voudrais m'inscrire au centre sportif. Quels abonnements proposez-vous?", translation: "Hello, I would like to sign up at the sports center. What memberships do you offer?" },
+                    { speaker: "right", name: "Employé", text: "Nous avons trois formules : mensuel à 45 $, trimestriel à 120 $ ou annuel à 400 $.", translation: "We have three plans: monthly at $45, quarterly at $120, or annual at $400." },
+                    { speaker: "left", name: "Client", text: "Qu'est-ce qui est inclus dans l'abonnement?", translation: "What's included in the membership?" },
+                    { speaker: "right", name: "Employé", text: "L'accès à la salle de musculation, la piscine, les cours collectifs et le sauna.", translation: "Access to the weight room, pool, group classes, and sauna." },
+                    { speaker: "left", name: "Client", text: "Quels cours collectifs offrez-vous?", translation: "What group classes do you offer?" },
+                    { speaker: "right", name: "Employé", text: "Nous avons du yoga, du spinning, de la zumba et de la natation. Les horaires sont affichés sur notre site web.", translation: "We have yoga, spinning, zumba, and swimming. Schedules are posted on our website." },
+                    { speaker: "left", name: "Client", text: "Parfait, je vais prendre l'abonnement trimestriel. Est-ce que je peux commencer aujourd'hui?", translation: "Perfect, I'll take the quarterly membership. Can I start today?" },
+                    { speaker: "right", name: "Employé", text: "Oui! Remplissez ce formulaire et je vous donne une carte d'accès. Les vestiaires sont au sous-sol.", translation: "Yes! Fill out this form and I'll give you an access card. The changing rooms are in the basement." }
+                ],
+                vocabulary: [
+                    { word: "abonnement", translation: "membership/subscription" },
+                    { word: "salle de musculation", translation: "weight room" },
+                    { word: "cours collectifs", translation: "group classes" },
+                    { word: "vestiaires", translation: "changing rooms" },
+                    { word: "piscine", translation: "swimming pool" }
+                ],
+                culturalNote: "Many municipalities in Quebec operate community sports centers (centres communautaires) with affordable membership rates. These are great places to stay active during the long winter months.",
+                practiceGaps: [1, 3, 5]
+            },
+            {
+                id: 24,
+                title: "Entretien sur l'immigration",
+                description: "Discussing the immigration process with an advisor",
+                level: "B2",
+                topic: "immigration",
+                dialogue: [
+                    { speaker: "right", name: "Conseiller", text: "Bonjour, vous avez demandé un rendez-vous pour discuter de votre processus d'immigration. Où en êtes-vous?", translation: "Hello, you requested an appointment to discuss your immigration process. Where are you at?" },
+                    { speaker: "left", name: "Immigrant", text: "J'ai obtenu ma résidence permanente il y a deux ans. Maintenant, je voudrais faire une demande de citoyenneté canadienne.", translation: "I obtained my permanent residence two years ago. Now I would like to apply for Canadian citizenship." },
+                    { speaker: "right", name: "Conseiller", text: "Pour être admissible, vous devez avoir été physiquement présent au Canada pendant au moins 1 095 jours au cours des cinq dernières années.", translation: "To be eligible, you must have been physically present in Canada for at least 1,095 days in the last five years." },
+                    { speaker: "left", name: "Immigrant", text: "Oui, je remplis cette condition. Quelles sont les autres exigences?", translation: "Yes, I meet that condition. What are the other requirements?" },
+                    { speaker: "right", name: "Conseiller", text: "Vous devez aussi démontrer une connaissance suffisante du français ou de l'anglais et passer un examen sur l'histoire et les valeurs canadiennes.", translation: "You must also demonstrate sufficient knowledge of French or English and pass an exam on Canadian history and values." },
+                    { speaker: "left", name: "Immigrant", text: "Mon résultat au TEF compte pour la preuve linguistique?", translation: "Does my TEF result count as proof of language?" },
+                    { speaker: "right", name: "Conseiller", text: "Absolument. Un résultat de niveau NCLC 4 ou plus au TEF est accepté. Avec un CLB 7, vous êtes bien au-dessus du minimum requis.", translation: "Absolutely. A result of NCLC level 4 or higher on the TEF is accepted. With a CLB 7, you're well above the minimum requirement." },
+                    { speaker: "left", name: "Immigrant", text: "Excellent! Combien de temps dure le processus de demande en général?", translation: "Excellent! How long does the application process usually take?" },
+                    { speaker: "right", name: "Conseiller", text: "Actuellement, le délai de traitement est d'environ 12 à 18 mois. Je vous conseille de préparer tous vos documents et de soumettre votre demande en ligne.", translation: "Currently, the processing time is about 12 to 18 months. I advise you to prepare all your documents and submit your application online." }
+                ],
+                vocabulary: [
+                    { word: "résidence permanente", translation: "permanent residence" },
+                    { word: "citoyenneté", translation: "citizenship" },
+                    { word: "admissible", translation: "eligible" },
+                    { word: "exigences", translation: "requirements" },
+                    { word: "délai de traitement", translation: "processing time" },
+                    { word: "preuve linguistique", translation: "language proof" }
+                ],
+                culturalNote: "The TEF Canada is one of the accepted language tests for Canadian immigration. A CLB 7 (NCLC 7) score is often the target for skilled worker programs, and it far exceeds the CLB 4 minimum needed for citizenship.",
+                practiceGaps: [1, 3, 5]
             }
         ];
 
@@ -713,7 +1043,7 @@
         .filter-group button {
             padding: 0.5rem 1rem;
             border-radius: 0.5rem;
-            border: 1px solid #ddd;
+            border: 1px solid var(--border);
             font-size: 1rem;
         }
 
@@ -722,7 +1052,7 @@
             gap: 2rem;
             margin-bottom: 2rem;
             padding: 1.5rem;
-            background-color: #f5f5f5;
+            background-color: var(--bg);
             border-radius: 0.5rem;
         }
 
@@ -738,7 +1068,7 @@
 
         .stat-value {
             font-size: 1.5rem;
-            color: #0066cc;
+            color: var(--primary-light);
             font-weight: bold;
         }
 
@@ -749,10 +1079,10 @@
         }
 
         .conversation-card {
-            border: 1px solid #ddd;
+            border: 1px solid var(--border);
             border-radius: 0.8rem;
             padding: 1.5rem;
-            background-color: #fff;
+            background-color: var(--card);
             box-shadow: 0 2px 8px rgba(0,0,0,0.1);
         }
 
@@ -766,13 +1096,13 @@
 
         .conversation-header h3 {
             margin: 0 0 0.5rem 0;
-            color: #333;
+            color: var(--text);
         }
 
         .conversation-description {
             margin: 0;
             font-size: 0.9rem;
-            color: #666;
+            color: var(--text-light);
         }
 
         .level-badge {
@@ -785,25 +1115,25 @@
         }
 
         .level-badge.level-A2 {
-            background-color: #d4edda;
-            color: #155724;
+            background-color: #ecfdf5;
+            color: var(--success);
         }
 
         .level-badge.level-B1 {
-            background-color: #fff3cd;
-            color: #856404;
+            background-color: #fef9e7;
+            color: var(--warning);
         }
 
         .level-badge.level-B2 {
-            background-color: #d1ecf1;
-            color: #0c5460;
+            background-color: var(--primary-bg);
+            color: var(--primary);
         }
 
         .key-vocabulary {
             margin-bottom: 1.5rem;
             padding: 1rem;
-            background-color: #f9f9f9;
-            border-left: 4px solid #0066cc;
+            background-color: var(--bg);
+            border-left: 4px solid var(--primary-light);
             border-radius: 0.3rem;
         }
 
@@ -820,11 +1150,12 @@
 
         .vocab-word {
             font-weight: bold;
-            color: #0066cc;
+            color: var(--primary-light);
         }
 
         .vocab-highlight {
-            background-color: #fff4e6;
+            background-color: #fef3c7;
+            color: var(--text);
             font-weight: bold;
             padding: 0.1rem 0.3rem;
             border-radius: 0.2rem;
@@ -837,7 +1168,7 @@
         }
 
         .dialogue.practice-mode {
-            background-color: #fafafa;
+            background-color: var(--bg);
             padding: 1rem;
             border-radius: 0.5rem;
         }
@@ -851,33 +1182,38 @@
             max-width: 85%;
             padding: 1rem;
             border-radius: 0.8rem;
-            background-color: #e6f2ff;
+            background-color: var(--primary-bg);
+            color: var(--text);
         }
 
         .bubble-left {
             margin-right: auto;
+            background-color: #eef2ff;
+            color: var(--text);
         }
 
         .bubble-right {
             margin-left: auto;
-            background-color: #fff4e6;
+            background-color: #fefce8;
+            color: var(--text);
         }
 
         .bubble-label {
             font-weight: bold;
             font-size: 0.85rem;
             margin-bottom: 0.3rem;
-            color: #666;
+            color: var(--primary);
         }
 
         .bubble-text {
             margin-bottom: 0.5rem;
             line-height: 1.5;
+            color: var(--text);
         }
 
         .bubble-translation {
             font-size: 0.85rem;
-            color: #666;
+            color: var(--text-light);
             font-style: italic;
             border-top: 1px solid rgba(0,0,0,0.1);
             padding-top: 0.5rem;
@@ -887,29 +1223,29 @@
         .practice-input {
             width: 100%;
             padding: 0.5rem;
-            border: 2px solid #ddd;
+            border: 2px solid var(--border);
             border-radius: 0.3rem;
             font-family: inherit;
             font-size: 1rem;
         }
 
         .practice-input.correct {
-            border-color: #28a745;
-            background-color: #f1f9f7;
+            border-color: var(--success);
+            background-color: #ecfdf5;
         }
 
         .practice-input.incorrect {
-            border-color: #dc3545;
-            background-color: #fff5f5;
+            border-color: var(--danger);
+            background-color: #fef2f2;
         }
 
         .cultural-note {
-            background-color: #f0f4f8;
+            background-color: var(--primary-bg);
             padding: 1rem;
             border-radius: 0.5rem;
             font-size: 0.95rem;
             margin-top: 1rem;
-            border-left: 4px solid #0066cc;
+            border-left: 4px solid var(--primary-light);
         }
 
         .practice-actions {
@@ -928,21 +1264,21 @@
         }
 
         .btn-primary {
-            background-color: #0066cc;
+            background-color: var(--primary-light);
             color: white;
         }
 
         .btn-primary:hover {
-            background-color: #0052a3;
+            background-color: var(--primary);
         }
 
         .btn-secondary {
-            background-color: #6c757d;
+            background-color: var(--text-light);
             color: white;
         }
 
         .btn-secondary:hover {
-            background-color: #5a6268;
+            background-color: #374151;
         }
 
         @media (max-width: 768px) {
