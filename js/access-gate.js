@@ -179,10 +179,20 @@ function buildGateUI() {
 
       if (data.verified) {
         localStorage.setItem(ACCESS_KEY, email);
-        success.textContent = 'Verified! Unlocking content...';
+        success.textContent = 'Verified! Syncing your progress...';
         success.style.display = 'block';
         input.style.borderColor = '#16a34a';
-        setTimeout(() => window.location.reload(), 500);
+
+        // Load cloud progress and merge with local before reload
+        if (typeof TEFProgress !== 'undefined' && TEFProgress.loadFromCloud) {
+          try {
+            await TEFProgress.loadFromCloud(email);
+          } catch (e) {
+            // Cloud load failed — proceed anyway, local data still works
+          }
+        }
+
+        setTimeout(() => window.location.reload(), 600);
       } else {
         error.textContent = data.error || 'No purchase found for this email. Please use the email from your Stripe receipt.';
         error.style.display = 'block';
