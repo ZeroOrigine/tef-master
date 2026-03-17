@@ -3,7 +3,6 @@ const ACCESS_KEY = 'tef_verified_email';
 const VERIFY_URL = '/.netlify/functions/verify-access';
 
 function checkAccess() {
-  // Check if verified email exists in localStorage
   const stored = localStorage.getItem(ACCESS_KEY);
   return !!stored;
 }
@@ -25,7 +24,15 @@ function buildGateUI() {
       background: #fff; border-radius: 16px; padding: 2.5rem;
       max-width: 440px; width: 100%; text-align: center;
       box-shadow: 0 20px 60px rgba(0,0,0,.3);
+      position: relative;
     }
+    .gate-close {
+      position: absolute; top: 12px; right: 16px;
+      background: none; border: none; font-size: 1.5rem; color: #999;
+      cursor: pointer; padding: 4px 8px; line-height: 1;
+      border-radius: 6px; transition: all 0.2s;
+    }
+    .gate-close:hover { color: #333; background: #f3f4f6; }
     .gate-box h2 { color: #1a1a2e; margin: 0 0 0.5rem; font-size: 1.5rem; }
     .gate-box p { color: #666; margin: 0 0 1.5rem; font-size: 0.95rem; line-height: 1.5; }
     .gate-input {
@@ -48,6 +55,15 @@ function buildGateUI() {
       text-decoration: none; border-radius: 8px; font-weight: 600; font-size: 0.95rem;
     }
     .gate-buy:hover { background: #15803d; }
+    .gate-nav {
+      display: flex; gap: 0.5rem; justify-content: center; flex-wrap: wrap;
+      margin-top: 1.2rem; padding-top: 1rem; border-top: 1px solid #e5e7eb;
+    }
+    .gate-nav a {
+      color: #6b7280; text-decoration: none; font-size: 0.8rem;
+      padding: 0.3rem 0.6rem; border-radius: 6px; transition: all 0.2s;
+    }
+    .gate-nav a:hover { color: #2563eb; background: #eff6ff; }
     .gate-free { margin-top: 1rem; font-size: 0.85rem; }
     .gate-free a { color: #2563eb; text-decoration: none; }
     .gate-free a:hover { text-decoration: underline; }
@@ -63,6 +79,19 @@ function buildGateUI() {
 
   const box = document.createElement('div');
   box.className = 'gate-box';
+
+  // Close button — lets user go back to previous page
+  const closeBtn = document.createElement('button');
+  closeBtn.className = 'gate-close';
+  closeBtn.innerHTML = '&times;';
+  closeBtn.title = 'Go back';
+  closeBtn.addEventListener('click', function() {
+    if (window.history.length > 1) {
+      window.history.back();
+    } else {
+      window.location.href = '/';
+    }
+  });
 
   const icon = document.createElement('div');
   icon.style.cssText = 'font-size: 2.5rem; margin-bottom: 0.5rem;';
@@ -98,7 +127,7 @@ function buildGateUI() {
   divider.textContent = '\u2014 or \u2014';
 
   const buyLink = document.createElement('a');
-  buyLink.href = '../index.html';
+  buyLink.href = 'https://buy.stripe.com/cNi14o6WQ2vO3AxbDg6sw01';
   buyLink.className = 'gate-buy';
   buyLink.textContent = 'Get TEF Master \u2014 $9.90';
 
@@ -106,15 +135,20 @@ function buildGateUI() {
   freeDiv.className = 'gate-free';
   freeDiv.textContent = 'Try free: ';
   const diagLink = document.createElement('a');
-  diagLink.href = 'diagnostic.html';
+  diagLink.href = '/pages/diagnostic.html';
   diagLink.textContent = 'Diagnostic Test';
   const sep = document.createTextNode(' \u00B7 ');
   const tipsLink = document.createElement('a');
-  tipsLink.href = 'tips.html';
+  tipsLink.href = '/pages/tips.html';
   tipsLink.textContent = 'Study Tips';
   freeDiv.appendChild(diagLink);
   freeDiv.appendChild(sep);
   freeDiv.appendChild(tipsLink);
+
+  // Navigation links so user is never trapped
+  const navDiv = document.createElement('div');
+  navDiv.className = 'gate-nav';
+  navDiv.innerHTML = '<a href="/">🏠 Home</a><a href="/pages/diagnostic.html">🎯 Diagnostic</a><a href="/pages/tips.html">💡 Tips</a><a href="/pages/tricks.html">🎪 Tricks</a>';
 
   async function verifyEmail() {
     const email = input.value.trim().toLowerCase();
@@ -126,7 +160,6 @@ function buildGateUI() {
       return;
     }
 
-    // Show loading state
     btn.disabled = true;
     const spinEl = document.createElement('span');
     spinEl.className = 'gate-spinner';
@@ -170,6 +203,7 @@ function buildGateUI() {
     if (e.key === 'Enter') verifyEmail();
   });
 
+  box.appendChild(closeBtn);
   box.appendChild(icon);
   box.appendChild(h2);
   box.appendChild(p);
@@ -180,7 +214,19 @@ function buildGateUI() {
   box.appendChild(divider);
   box.appendChild(buyLink);
   box.appendChild(freeDiv);
+  box.appendChild(navDiv);
   overlay.appendChild(box);
+
+  // Click outside the box to go back
+  overlay.addEventListener('click', function(e) {
+    if (e.target === overlay) {
+      if (window.history.length > 1) {
+        window.history.back();
+      } else {
+        window.location.href = '/';
+      }
+    }
+  });
 
   return overlay;
 }

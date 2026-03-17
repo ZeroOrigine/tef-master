@@ -39,6 +39,7 @@
       animation: pulse 6s ease-in-out infinite;
     }
     @keyframes pulse { 0%,100% { transform: scale(1); opacity: 0.5; } 50% { transform: scale(1.1); opacity: 1; } }
+    .landing-hero::before { pointer-events: none; }
     .landing-hero > * { position: relative; z-index: 1; }
     .hero-badge { display: inline-block; background: linear-gradient(90deg, #f59e0b, #ef4444); padding: 0.4rem 1.2rem; border-radius: 20px; font-size: 0.8rem; font-weight: 700; text-transform: uppercase; letter-spacing: 1px; margin-bottom: 1rem; animation: glow 2s ease-in-out infinite; }
     @keyframes glow { 0%,100% { box-shadow: 0 0 10px rgba(245,158,11,0.3); } 50% { box-shadow: 0 0 25px rgba(245,158,11,0.6); } }

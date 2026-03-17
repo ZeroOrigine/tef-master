@@ -1,8 +1,9 @@
 // Verify if an email has a valid purchase
 const SUPABASE_URL = 'https://stntjppzeuplngyfhgtp.supabase.co';
 
-// VIP test emails (free access for testers)
+// VIP emails (owner + testers — always have access)
 const VIP_EMAILS = [
+  'cajagdishlade@gmail.com',
   'vip-tester-1@tef-master.com',
   'vip-tester-2@tef-master.com',
   'vip-tester-3@tef-master.com',
@@ -63,6 +64,8 @@ exports.handler = async (event) => {
   );
 
   if (!res.ok) {
+    const errText = await res.text();
+    console.error('Supabase query failed:', res.status, errText);
     return { statusCode: 500, headers, body: JSON.stringify({ error: 'Verification failed' }) };
   }
 

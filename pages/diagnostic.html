@@ -75,7 +75,7 @@
         .btn-group { display: flex; gap: 0.75rem; justify-content: center; flex-wrap: wrap; margin-top: 1.5rem; }
 
         /* Email capture overlay */
-        .email-overlay { position: fixed; inset: 0; z-index: 9999; display: flex; align-items: center; justify-content: center; background: rgba(10, 10, 30, 0.85); backdrop-filter: blur(6px); opacity: 0; transition: opacity 0.4s ease; }
+        .email-overlay { position: fixed; inset: 0; z-index: 9999; display: none; align-items: center; justify-content: center; background: rgba(10, 10, 30, 0.85); backdrop-filter: blur(6px); opacity: 0; transition: opacity 0.4s ease; }
         .email-overlay.visible { opacity: 1; }
         .email-modal { background: linear-gradient(145deg, #1a1a2e, #16213e); border: 1px solid rgba(255,255,255,0.08); border-radius: 16px; padding: 2.5rem 2rem; max-width: 440px; width: 90%; text-align: center; transform: translateY(20px) scale(0.97); transition: transform 0.4s ease; box-shadow: 0 24px 64px rgba(0,0,0,0.5); }
         .email-overlay.visible .email-modal { transform: translateY(0) scale(1); }
@@ -296,8 +296,9 @@ function requestEmail(){
 
   const overlay = document.getElementById('emailOverlay');
   overlay.style.display='flex';
-  requestAnimationFrame(()=>{ overlay.classList.add('visible'); });
-  document.getElementById('leadEmail').focus();
+  // Double rAF ensures display:flex is painted before opacity transition starts
+  requestAnimationFrame(()=>{ requestAnimationFrame(()=>{ overlay.classList.add('visible'); }); });
+  setTimeout(()=>document.getElementById('leadEmail').focus(), 450);
 }
 
 function submitEmail(){
