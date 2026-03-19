@@ -185,10 +185,11 @@ Return a JSON object with EXACTLY this structure (no markdown, no code fences, j
 
 Be specific. Reference actual topics from their wrong answers. Tailor advice to TEF Canada exam format. Write in English.`;
 
-  // Haiku for free users (fast, ~3s), Sonnet for premium (deeper, ~8s)
-  // Both fit within Netlify 10s default / 26s extended timeout
-  const aiModel = isPremium ? 'claude-sonnet-4-6' : 'claude-haiku-4-5-20251001';
-  console.log('[results] Using AI model:', aiModel, isPremium ? '(premium/sonnet)' : '(free/haiku)');
+  // Use Haiku for all users — fast enough for Netlify's 10s free-tier timeout
+  // Still produces excellent, personalized analysis at ~$0.002/test
+  // Upgrade to Sonnet when on Netlify Pro (26s timeout)
+  const aiModel = 'claude-haiku-4-5-20251001';
+  console.log('[results] Using AI model:', aiModel, isPremium ? '(premium)' : '(free)');
 
   try {
     const message = await client.messages.create({
