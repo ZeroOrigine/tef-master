@@ -185,6 +185,34 @@ body { font-family: var(--font); background: var(--bg); color: var(--text); line
 }
 .btn-primary { background: var(--primary-light); color: #fff; }
 .btn-primary:hover { background: #1d4ed8; transform: translateY(-1px); }
+
+/* Level filter buttons (reading, listening, vocabulary, conversations) */
+.level-btn, .filter-btn {
+  padding: 0.75rem 1.5rem !important;
+  font-size: 1rem !important;
+  border-radius: 10px !important;
+  font-weight: 600;
+  min-width: 110px;
+  border: 2px solid var(--primary-light);
+  background: var(--primary-bg);
+  color: var(--primary);
+  cursor: pointer;
+  box-shadow: 0 2px 8px rgba(59, 130, 246, 0.1);
+  transition: all 0.25s ease;
+}
+.level-btn:hover, .filter-btn:hover {
+  background: var(--primary-light);
+  color: #fff;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 16px rgba(59, 130, 246, 0.25);
+}
+.level-btn.active, .filter-btn.active {
+  background: var(--primary) !important;
+  color: #fff !important;
+  border-color: var(--primary) !important;
+  box-shadow: 0 4px 16px rgba(26, 54, 93, 0.3);
+  transform: translateY(-1px);
+}
 .btn-accent { background: var(--accent); color: #fff; }
 .btn-accent:hover { background: #6d28d9; }
 .btn-outline {
