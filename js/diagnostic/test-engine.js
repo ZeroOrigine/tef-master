@@ -108,16 +108,42 @@ var TEFDiagnostic = {
       card.appendChild(ctxBox);
     }
 
-    // --- Audio hint ---
-    if (q.audioHint) {
+    // --- Audio hint + TTS button for listening ---
+    if (q.audioHint || sec === 'listening') {
       var audioBox = document.createElement('div');
       audioBox.className = 'audio-hint';
-      audioBox.textContent = q.audioHint;
-      card.appendChild(audioBox);
-    } else if (sec === 'listening') {
-      var audioBox = document.createElement('div');
-      audioBox.className = 'audio-hint';
-      audioBox.textContent = '\uD83C\uDFA7 Listening Comprehension — Read the scenario below and answer based on what you would hear.';
+
+      // Add listen button if TTS is available
+      if (typeof FrenchTTS !== 'undefined' && FrenchTTS.isAvailable()) {
+        var listenBtn = document.createElement('button');
+        listenBtn.className = 'tts-btn';
+        listenBtn.textContent = '\uD83D\uDD0A Listen';
+        var ttsText = q.audioHint || q.question;
+        listenBtn.addEventListener('click', function () {
+          if (FrenchTTS.isSpeaking()) {
+            FrenchTTS.stop();
+            listenBtn.textContent = '\uD83D\uDD0A Listen';
+            listenBtn.classList.remove('tts-playing');
+          } else {
+            listenBtn.textContent = '\u23F8 Playing...';
+            listenBtn.classList.add('tts-playing');
+            FrenchTTS.speak(ttsText, {
+              speed: 'normal',
+              onEnd: function () { listenBtn.textContent = '\uD83D\uDD0A Listen Again'; listenBtn.classList.remove('tts-playing'); },
+              onError: function () { listenBtn.textContent = '\uD83D\uDD0A Listen'; listenBtn.classList.remove('tts-playing'); }
+            });
+          }
+        });
+        audioBox.appendChild(listenBtn);
+
+        var hintText = document.createElement('span');
+        hintText.textContent = ' Click to hear this in French';
+        hintText.style.cssText = 'font-size:0.8125rem;color:var(--text-light);margin-left:0.5rem;';
+        audioBox.appendChild(hintText);
+      } else {
+        audioBox.textContent = q.audioHint || '\uD83C\uDFA7 Listening Comprehension — Read the scenario below and answer based on what you would hear.';
+      }
+
       card.appendChild(audioBox);
     }
 
@@ -1323,7 +1349,13 @@ var TEFDiagnostic = {
       '  .test-timer { padding: 0.375rem 0.75rem; font-size: 0.8125rem; }',
       '  .email-modal { padding: 2rem 1.25rem; }',
       '  .email-modal h2 { font-size: 1.25rem; }',
-      '}'
+      '}',
+      '',
+      '/* TTS Button */',
+      '.tts-btn { display: inline-flex; align-items: center; gap: 0.375rem; padding: 0.5rem 1rem; background: linear-gradient(135deg, #3b82f6, #2563eb); color: #fff; border: none; border-radius: 8px; font-size: 0.875rem; font-weight: 600; cursor: pointer; transition: all 0.2s; }',
+      '.tts-btn:hover { transform: translateY(-1px); box-shadow: 0 4px 12px rgba(59,130,246,0.3); }',
+      '.tts-btn.tts-playing { background: linear-gradient(135deg, #ef4444, #dc2626); animation: tts-pulse 1.5s ease-in-out infinite; }',
+      '@keyframes tts-pulse { 0%,100% { opacity: 1; } 50% { opacity: 0.8; } }'
     ].join('\n');
 
     document.head.appendChild(style);
