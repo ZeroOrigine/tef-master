@@ -476,6 +476,22 @@
         grid-template-columns: repeat(auto-fill, minmax(100px, 1fr));
       }
     }
+
+@media (max-width: 767px) {
+  .container { padding: 1rem 0.75rem; }
+  .progress-ring-wrap { transform: scale(0.85); }
+  .quick-stats { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+  .stat-item { padding: 0.75rem; }
+  .stat-item .num { font-size: 1.3rem; }
+  .badge-grid { grid-template-columns: repeat(2, 1fr); gap: 0.5rem; }
+  .section-card { padding: 1rem; }
+  .page-header { padding: 1.5rem 0.75rem; }
+  .page-header h1 { font-size: 1.4rem; }
+}
+@media (max-width: 399px) {
+  .quick-stats { grid-template-columns: 1fr 1fr; }
+  .badge-grid { grid-template-columns: 1fr 1fr; }
+}
   </style>
 </head>
 <body>

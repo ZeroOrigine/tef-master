@@ -162,11 +162,26 @@
     .preview-btn:hover { background: var(--primary); color: #fff; }
 
     @media (max-width: 768px) {
-      .hero-title { font-size: 2rem; }
+      .landing-hero { padding: 2.5rem 1rem; }
+      .hero-title { font-size: 1.6rem; }
+      .hero-sub { font-size: 0.9rem; }
       .hero-price .new-price { font-size: 2.2rem; }
-      .proof-grid { gap: 1rem; }
-      .compare-table { font-size: 0.78rem; }
+      .hero-price .old-price { font-size: 0.9rem; }
+      .cta-btn { font-size: 1rem; padding: 1rem 2rem; width: 100%; max-width: 340px; }
+      .proof-grid { gap: 0.75rem; }
+      .proof-item { min-width: auto; padding: 0.8rem; }
+      .proof-item .value { font-size: 1.2rem; }
+      .table-wrap { overflow-x: auto; -webkit-overflow-scrolling: touch; }
+      .compare-table { font-size: 0.78rem; min-width: 500px; }
+      .compare-table td, .compare-table th { padding: 0.5rem 0.4rem; }
       .sticky-bar .sb-text { display: none; }
+      .preview-btns { flex-direction: column; align-items: center; }
+      .preview-btn { width: 100%; max-width: 280px; text-align: center; padding: 0.8rem 1.2rem; font-size: 0.95rem; }
+    }
+    @media (max-width: 399px) {
+      .hero-title { font-size: 1.3rem; }
+      .hero-badge { font-size: 0.72rem; padding: 0.4rem 1rem; }
+      .compare-table { font-size: 0.7rem; }
     }
   </style>
 </head>

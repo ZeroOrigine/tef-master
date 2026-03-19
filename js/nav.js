@@ -52,7 +52,7 @@ function renderNav(activePage) {
   if (!document.getElementById('nav-profile-styles')) {
     var styleEl = document.createElement('style');
     styleEl.id = 'nav-profile-styles';
-    styleEl.textContent = '.nav-profile{position:relative;flex-shrink:0;margin-left:8px;z-index:50}' +
+    styleEl.textContent = '.nav-profile{position:relative;flex-shrink:0;margin-left:8px;z-index:101}' +
       '.profile-btn{width:36px;height:36px;border-radius:50%;border:2px solid rgba(255,255,255,0.3);background:#2563eb;color:#fff;font-weight:700;font-size:0.875rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s}' +
       '.profile-btn:hover{border-color:rgba(255,255,255,0.6);transform:scale(1.05)}' +
       '.profile-btn.premium{background:linear-gradient(135deg,#f59e0b,#d97706)}' +
