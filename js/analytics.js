@@ -3,7 +3,7 @@
 
 (function() {
   var GA_ID = 'G-QPJM300PZK';
-  var FB_PIXEL_ID = '1573840330386741';
+  var FB_PIXEL_ID = '2313815159111295';
 
   // ---- Google Analytics 4 ----
   var gaScript = document.createElement('script');
