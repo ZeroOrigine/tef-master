@@ -1380,41 +1380,90 @@ Pour les prochains mois, je prévois une croissance modérée du PIB québécois
             return div;
         }
 
-        // Play transcript with typing animation
+        // Get a French voice (prefer natural-sounding ones)
+        var _frenchVoice = null;
+        function getFrenchVoice() {
+            if (_frenchVoice) return _frenchVoice;
+            var voices = window.speechSynthesis.getVoices();
+            var preferred = ['Thomas', 'Amelie', 'Marie', 'Audrey', 'Google', 'Microsoft Paul', 'Microsoft Julie'];
+            for (var i = 0; i < preferred.length; i++) {
+                var match = voices.find(function(v) { return v.name.includes(preferred[i]) && v.lang.startsWith('fr'); });
+                if (match) { _frenchVoice = match; return match; }
+            }
+            var frVoice = voices.find(function(v) { return v.lang.startsWith('fr'); });
+            if (frVoice) { _frenchVoice = frVoice; return frVoice; }
+            return null;
+        }
+        if (window.speechSynthesis) {
+            window.speechSynthesis.getVoices();
+            window.speechSynthesis.onvoiceschanged = function() { _frenchVoice = null; getFrenchVoice(); };
+        }
+
+        function setButtonState(button, playing, label) {
+            if (playing) {
+                button.classList.add('playing');
+            } else {
+                button.classList.remove('playing');
+            }
+            button.textContent = '';
+            var span = document.createElement('span');
+            span.textContent = playing ? '\u23F8' : '\u25B6';
+            button.appendChild(span);
+            button.appendChild(document.createTextNode(' ' + label));
+        }
+
+        // Play transcript with real French speech + typing animation
         function playTranscript(exerciseId) {
             const exercise = listeningExercises.find(e => e.id === exerciseId);
             if (!exercise) return;
 
-            const transcriptEl = document.getElementById(`transcript-${exerciseId}`);
-            const button = document.querySelector(`[onclick*="playTranscript('${exerciseId}')"]`);
+            const transcriptEl = document.getElementById('transcript-' + exerciseId);
+            const button = document.querySelector('[onclick*="playTranscript(\'' + exerciseId + '\')"]');
 
             if (button.classList.contains('playing')) {
-                button.classList.remove('playing');
-                button.innerHTML = '<span>▶</span> Play';
+                window.speechSynthesis.cancel();
+                setButtonState(button, false, 'Play');
                 return;
             }
 
-            button.classList.add('playing');
-            button.innerHTML = '<span>⏸</span> Playing...';
+            setButtonState(button, true, 'Playing...');
 
             const text = exercise.transcript;
             const speed = getSpeedMultiplier();
-            let index = 0;
 
+            var index = 0;
             transcriptEl.textContent = '';
-
-            function typeCharacter() {
-                if (index < text.length) {
+            function typeChar() {
+                if (index < text.length && button.classList.contains('playing')) {
                     transcriptEl.textContent += text[index];
                     index++;
-                    setTimeout(typeCharacter, 30 / speed);
-                } else {
-                    button.classList.remove('playing');
-                    button.innerHTML = '<span>▶</span> Play Again';
+                    setTimeout(typeChar, 30 / speed);
                 }
             }
+            typeChar();
 
-            typeCharacter();
+            if (window.speechSynthesis) {
+                window.speechSynthesis.cancel();
+                var utterance = new SpeechSynthesisUtterance(text);
+                var voice = getFrenchVoice();
+                if (voice) utterance.voice = voice;
+                utterance.lang = 'fr-FR';
+                utterance.rate = speed === 0.5 ? 0.7 : speed === 1.5 ? 1.2 : 0.9;
+                utterance.pitch = 1.0;
+                utterance.onend = function() {
+                    setButtonState(button, false, 'Play Again');
+                    transcriptEl.textContent = text;
+                };
+                utterance.onerror = function() {
+                    setButtonState(button, false, 'Play Again');
+                    transcriptEl.textContent = text;
+                };
+                window.speechSynthesis.speak(utterance);
+            } else {
+                setTimeout(function() {
+                    setButtonState(button, false, 'Play Again');
+                }, text.length * (30 / speed));
+            }
         }
 
         // Get speed multiplier based on selected speed
