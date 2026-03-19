@@ -185,8 +185,9 @@ Return a JSON object with EXACTLY this structure (no markdown, no code fences, j
 
 Be specific. Reference actual topics from their wrong answers. Tailor advice to TEF Canada exam format. Write in English.`;
 
-  // Premium users get Claude Opus (deepest analysis), free users get Sonnet (excellent)
-  const aiModel = isPremium ? 'claude-opus-4-6' : 'claude-sonnet-4-6';
+  // Use Sonnet for speed (fits within Netlify 26s timeout)
+  // Premium users get richer prompts with more detailed analysis
+  const aiModel = 'claude-sonnet-4-6';
   console.log('[results] Using AI model:', aiModel, isPremium ? '(premium)' : '(free)');
 
   try {

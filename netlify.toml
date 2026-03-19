@@ -4,6 +4,15 @@
   functions = "netlify/functions"
   # No build command needed - pure static site
 
+[functions]
+  # Increase timeout for AI-powered functions (Claude API calls)
+  external_node_modules = ["@anthropic-ai/sdk", "resend"]
+  node_bundler = "esbuild"
+
+[functions."generate-results"]
+  # Claude AI analysis needs more time
+  timeout = 26
+
 # Headers for performance and security
 [[headers]]
   for = "/*"
