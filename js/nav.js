@@ -13,6 +13,16 @@ function toggleProfileMenu() {
 }
 
 function renderNav(activePage) {
+  // Load analytics if not already loaded
+  if (!document.getElementById('tef-analytics')) {
+    var path2 = window.location.pathname;
+    var analyticsRoot = path2.indexOf('/pages/') !== -1 ? path2.substring(0, path2.indexOf('/pages/')) + '/' : path2.substring(0, path2.lastIndexOf('/') + 1);
+    var analyticsScript = document.createElement('script');
+    analyticsScript.id = 'tef-analytics';
+    analyticsScript.src = analyticsRoot + 'js/analytics.js';
+    document.head.appendChild(analyticsScript);
+  }
+
   // Compute site root from URL - works with Netlify pretty URLs, trailing slashes, and local file://
   const path = window.location.pathname;
   let siteRoot;

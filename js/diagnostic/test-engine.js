@@ -31,6 +31,9 @@ var TEFDiagnostic = {
   init: function (level) {
     this.level = level.toLowerCase();
 
+    // Track diagnostic started
+    if (typeof TEFAnalytics !== 'undefined') TEFAnalytics.diagnosticStarted(this.level);
+
     var bankName = 'QUESTIONS_' + this.level.toUpperCase();
     var bank = window[bankName];
     if (!bank || !bank.length) {
@@ -628,6 +631,9 @@ var TEFDiagnostic = {
       var data = await res.json();
       this.resultData = data;
 
+      // Track diagnostic completed
+      if (typeof TEFAnalytics !== 'undefined') TEFAnalytics.diagnosticCompleted(self.level, data.score_pct, data.cefr_result);
+
       this._stopLoading();
       setTimeout(function() { if (loadingScreen) loadingScreen.style.display = 'none'; }, 500);
 
@@ -799,6 +805,9 @@ var TEFDiagnostic = {
     }
 
     localStorage.setItem('tef_lead_email', email);
+
+    // Track email capture
+    if (typeof TEFAnalytics !== 'undefined') TEFAnalytics.emailCaptured('diagnostic');
 
     // Fire-and-forget: capture lead
     fetch('/.netlify/functions/capture-lead', {

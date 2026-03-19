@@ -183,6 +183,9 @@ function buildGateUI() {
         success.style.display = 'block';
         input.style.borderColor = '#16a34a';
 
+        // Track sign up / verification
+        if (typeof TEFAnalytics !== 'undefined') TEFAnalytics.signUp('email');
+
         // Load cloud progress and merge with local before reload
         if (typeof TEFProgress !== 'undefined' && TEFProgress.loadFromCloud) {
           try {
