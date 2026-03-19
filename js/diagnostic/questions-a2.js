@@ -1,4 +1,4 @@
-const QUESTIONS_A2 = [
+var QUESTIONS_A2 = [
 
   // ============================================================
   // GRAMMAR (10 questions)

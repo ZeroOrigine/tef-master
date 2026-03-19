@@ -1,4 +1,4 @@
-const QUESTIONS_B1 = [
+var QUESTIONS_B1 = [
 
   // ============================================================
   // GRAMMAR (12 questions)
