@@ -117,7 +117,7 @@ var TEFDiagnostic = {
     } else if (sec === 'listening') {
       var audioBox = document.createElement('div');
       audioBox.className = 'audio-hint';
-      audioBox.textContent = '\uD83C\uDFA7 In the real TEF, this would be an audio clip. Read the scenario and answer as if you heard it.';
+      audioBox.textContent = '\uD83C\uDFA7 Listening Comprehension — Read the scenario below and answer based on what you would hear.';
       card.appendChild(audioBox);
     }
 
@@ -563,7 +563,10 @@ var TEFDiagnostic = {
     if (testArea) testArea.style.display = 'none';
 
     var loadingScreen = document.getElementById('loadingScreen');
-    if (loadingScreen) loadingScreen.style.display = 'flex';
+    if (loadingScreen) {
+      loadingScreen.style.display = 'flex';
+      this._animateLoading();
+    }
 
     var email = localStorage.getItem('tef_verified_email') || localStorage.getItem('tef_lead_email') || null;
     var isPremium = !!localStorage.getItem('tef_verified_email');
@@ -599,7 +602,8 @@ var TEFDiagnostic = {
       var data = await res.json();
       this.resultData = data;
 
-      if (loadingScreen) loadingScreen.style.display = 'none';
+      this._stopLoading();
+      setTimeout(function() { if (loadingScreen) loadingScreen.style.display = 'none'; }, 500);
 
       if (!email && !isPremium) {
         this.showEmailGate(data);
@@ -620,6 +624,7 @@ var TEFDiagnostic = {
       }
     } catch (err) {
       console.error('Submit failed:', err);
+      this._stopLoading();
       if (loadingScreen) loadingScreen.style.display = 'none';
       this.renderFallbackResults();
     }
@@ -880,6 +885,56 @@ var TEFDiagnostic = {
     this._renderResultsInline(data);
     var resultsArea = document.getElementById('resultsArea');
     if (resultsArea) resultsArea.style.display = 'block';
+  },
+
+  // =========================================================================
+  //  _animateLoading() -- progress bar + step animation during AI generation
+  // =========================================================================
+  _animateLoading: function () {
+    var bar = document.getElementById('loadingBarFill');
+    var stepsEl = document.getElementById('loadingSteps');
+    if (!bar || !stepsEl) return;
+
+    var steps = stepsEl.querySelectorAll('.step');
+    var stepIndex = 0;
+    var progress = 0;
+
+    // Animate progress bar smoothly
+    var barInterval = setInterval(function () {
+      progress += 1;
+      if (progress > 95) progress = 95; // Never reach 100 until done
+      bar.style.width = progress + '%';
+    }, 150);
+
+    // Advance steps every 3 seconds
+    var stepInterval = setInterval(function () {
+      if (stepIndex < steps.length) {
+        if (stepIndex > 0) steps[stepIndex - 1].classList.add('done');
+        steps[stepIndex].classList.add('active');
+        stepIndex++;
+      }
+      if (stepIndex >= steps.length) clearInterval(stepInterval);
+    }, 3000);
+
+    // Store intervals so they can be cleared when results arrive
+    this._loadingIntervals = [barInterval, stepInterval];
+    this._loadingBar = bar;
+    this._loadingSteps = steps;
+  },
+
+  _stopLoading: function () {
+    if (this._loadingIntervals) {
+      this._loadingIntervals.forEach(function (id) { clearInterval(id); });
+    }
+    // Complete the bar
+    if (this._loadingBar) this._loadingBar.style.width = '100%';
+    if (this._loadingSteps) {
+      var steps = this._loadingSteps;
+      for (var i = 0; i < steps.length; i++) {
+        steps[i].classList.add('done');
+        steps[i].classList.remove('active');
+      }
+    }
   },
 
   // =========================================================================

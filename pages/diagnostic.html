@@ -415,11 +415,41 @@
             color: rgba(255,255,255,0.4);
             font-size: 0.8125rem;
             text-align: center;
+            margin-top: 0.5rem;
         }
-        .loading-dots {
-            display: flex;
-            gap: 0.5rem;
-            margin-top: 1.5rem;
+        .loading-progress {
+            width: 280px;
+            margin: 1.5rem 0 0.5rem;
+        }
+        .loading-bar {
+            height: 6px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 6px;
+            overflow: hidden;
+            margin-bottom: 1rem;
+        }
+        .loading-bar-fill {
+            height: 100%;
+            width: 0%;
+            background: linear-gradient(90deg, #3b82f6, #8b5cf6);
+            border-radius: 6px;
+            transition: width 0.5s ease;
+        }
+        .loading-steps .step {
+            color: rgba(255,255,255,0.25);
+            font-size: 0.8125rem;
+            padding: 0.25rem 0;
+            transition: color 0.3s, transform 0.3s;
+        }
+        .loading-steps .step.active {
+            color: rgba(255,255,255,0.9);
+            font-weight: 600;
+        }
+        .loading-steps .step.done {
+            color: #22c55e;
+        }
+        .loading-steps .step.done::before {
+            content: '✓ ';
         }
         .loading-dots span {
             width: 8px;
@@ -706,12 +736,16 @@
     <div id="loadingScreen" class="loading-screen">
         <div class="loading-spinner"></div>
         <div class="loading-text">Generating your personalized AI analysis...</div>
-        <div class="loading-sub">Powered by Claude AI</div>
-        <div class="loading-dots">
-            <span></span>
-            <span></span>
-            <span></span>
+        <div class="loading-progress">
+            <div class="loading-bar"><div class="loading-bar-fill" id="loadingBarFill"></div></div>
+            <div class="loading-steps" id="loadingSteps">
+                <div class="step active">Scoring your answers...</div>
+                <div class="step">Analyzing patterns...</div>
+                <div class="step">Creating study plan...</div>
+                <div class="step">Preparing results...</div>
+            </div>
         </div>
+        <div class="loading-sub">This takes about 10-15 seconds</div>
     </div>
 
     <!-- ============ SECTION 4: Email Gate ============ -->

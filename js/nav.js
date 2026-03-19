@@ -139,7 +139,7 @@ function renderFooter() {
   footer.className = 'footer';
   footer.innerHTML = `
     <p>TEF Master — Your Path to CLB 7</p>
-    <p style="margin-top:.3rem;font-size:.78rem;">Built with ❤️ by ispeedbiz.com • <a href="mailto:cajagdishlade@gmail.com" style="color:inherit;text-decoration:underline;">Contact Support</a> • <a href="https://buy.stripe.com/cNi6oI3KEgmEc73fTw6sw02" style="color:inherit;text-decoration:underline;">Get Full Access — $39</a></p>
+    <p style="margin-top:.3rem;font-size:.78rem;">© 2026 TEF Master. All rights reserved.</p>
   `;
   document.body.appendChild(footer);
 }
