@@ -113,36 +113,36 @@ var TEFDiagnostic = {
       var audioBox = document.createElement('div');
       audioBox.className = 'audio-hint';
 
-      // Add listen button if TTS is available
-      if (typeof FrenchTTS !== 'undefined' && FrenchTTS.isAvailable()) {
-        var listenBtn = document.createElement('button');
-        listenBtn.className = 'tts-btn';
-        listenBtn.textContent = '\uD83D\uDD0A Listen';
-        var ttsText = q.audioHint || q.question;
-        listenBtn.addEventListener('click', function () {
-          if (FrenchTTS.isSpeaking()) {
-            FrenchTTS.stop();
-            listenBtn.textContent = '\uD83D\uDD0A Listen';
-            listenBtn.classList.remove('tts-playing');
-          } else {
-            listenBtn.textContent = '\u23F8 Playing...';
-            listenBtn.classList.add('tts-playing');
-            FrenchTTS.speak(ttsText, {
-              speed: 'normal',
-              onEnd: function () { listenBtn.textContent = '\uD83D\uDD0A Listen Again'; listenBtn.classList.remove('tts-playing'); },
-              onError: function () { listenBtn.textContent = '\uD83D\uDD0A Listen'; listenBtn.classList.remove('tts-playing'); }
-            });
-          }
-        });
-        audioBox.appendChild(listenBtn);
+      // Always show Listen button — TTS availability checked on click
+      var listenBtn = document.createElement('button');
+      listenBtn.className = 'tts-btn';
+      listenBtn.textContent = '\uD83D\uDD0A Listen';
+      var ttsText = q.audioHint || q.question;
+      listenBtn.addEventListener('click', function () {
+        if (typeof FrenchTTS === 'undefined' || !FrenchTTS.isAvailable()) {
+          alert('Text-to-speech is not available in your browser. Please use Chrome, Safari, or Edge for audio.');
+          return;
+        }
+        if (FrenchTTS.isSpeaking()) {
+          FrenchTTS.stop();
+          listenBtn.textContent = '\uD83D\uDD0A Listen';
+          listenBtn.classList.remove('tts-playing');
+        } else {
+          listenBtn.textContent = '\u23F8 Playing...';
+          listenBtn.classList.add('tts-playing');
+          FrenchTTS.speak(ttsText, {
+            speed: 'normal',
+            onEnd: function () { listenBtn.textContent = '\uD83D\uDD0A Listen Again'; listenBtn.classList.remove('tts-playing'); },
+            onError: function () { listenBtn.textContent = '\uD83D\uDD0A Listen'; listenBtn.classList.remove('tts-playing'); }
+          });
+        }
+      });
+      audioBox.appendChild(listenBtn);
 
-        var hintText = document.createElement('span');
-        hintText.textContent = ' Click to hear this in French';
-        hintText.style.cssText = 'font-size:0.8125rem;color:var(--text-light);margin-left:0.5rem;';
-        audioBox.appendChild(hintText);
-      } else {
-        audioBox.textContent = q.audioHint || '\uD83C\uDFA7 Listening Comprehension — Read the scenario below and answer based on what you would hear.';
-      }
+      var hintText = document.createElement('span');
+      hintText.textContent = ' Click to hear this in French';
+      hintText.style.cssText = 'font-size:0.8125rem;color:var(--text-light);margin-left:0.5rem;';
+      audioBox.appendChild(hintText);
 
       card.appendChild(audioBox);
     }
