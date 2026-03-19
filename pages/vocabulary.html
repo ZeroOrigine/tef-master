@@ -572,34 +572,190 @@
       }
     }
 
-    /* ---- Mobile Responsive ---- */
+    /* ---- Mobile Premium Redesign ---- */
     @media (max-width: 767px) {
-      .page-header { padding: 1.5rem 0.75rem; }
+      .page-header { padding: 1.5rem 1rem; }
       .page-header h1 { font-size: 1.4rem; }
-      .controls { top: 50px; padding: 0.6rem 0.75rem; }
-      .filter-row { gap: 0.35rem; }
-      .filter-row button { padding: 0.5rem 0.8rem; font-size: 0.78rem; min-height: 40px; }
-      .level-filters { gap: 0.35rem; }
-      .level-filters button { padding: 0.45rem 0.75rem; font-size: 0.78rem; min-height: 40px; }
-      .search-box { min-width: 0; width: 100%; font-size: 1rem; padding: 0.7rem 1rem; }
-      .search-row { flex-direction: column; }
-      .mode-toggle { width: 100%; }
-      .mode-toggle button { flex: 1; padding: 0.6rem; font-size: 0.85rem; min-height: 44px; }
-      .stat { min-width: 70px; padding: 0.4rem 0.6rem; }
-      .stat .num { font-size: 1.1rem; }
-      .stat .label { font-size: 0.68rem; }
-      .action-row button { padding: 0.5rem 0.8rem; font-size: 0.82rem; min-height: 40px; }
-      .container { padding: 0.8rem 0.6rem; }
-      .word-grid { grid-template-columns: 1fr !important; }
-      .theme-content { padding: 0.6rem 0.75rem; }
-      .word-item { padding: 0.6rem; }
-      .word-fr { font-size: 1rem; }
-      .quiz-options button { padding: 0.85rem; font-size: 0.95rem; min-height: 48px; }
+      .page-header p { font-size: 0.88rem; }
+
+      /* Sticky controls — compact, elegant */
+      .controls { top: 50px; padding: 0.5rem 0.75rem; }
+
+      /* Theme filter — horizontal scroll strip (Instagram-style) */
+      .filter-row {
+        display: flex;
+        flex-wrap: nowrap !important;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        gap: 0.4rem;
+        padding-bottom: 0.4rem;
+        justify-content: flex-start;
+        scrollbar-width: none;
+      }
+      .filter-row::-webkit-scrollbar { display: none; }
+      .filter-row button {
+        flex-shrink: 0;
+        padding: 0.55rem 1rem;
+        font-size: 0.82rem;
+        min-height: 42px;
+        border-radius: 25px;
+        white-space: nowrap;
+      }
+
+      /* Level filters — pill row */
+      .level-filters {
+        display: flex;
+        gap: 0.4rem;
+        justify-content: center;
+      }
+      .level-filters button {
+        flex: 1;
+        padding: 0.5rem 0.3rem;
+        font-size: 0.82rem;
+        min-height: 42px;
+        text-align: center;
+        border-radius: 12px;
+      }
+
+      /* Search — full width, prominent */
+      .search-row { flex-direction: column; gap: 0.5rem; }
+      .search-box {
+        min-width: 0;
+        width: 100%;
+        font-size: 1rem;
+        padding: 0.85rem 1.1rem;
+        border-radius: 14px;
+        background: #f8fafc;
+      }
+
+      /* Mode toggle — segmented control style */
+      .mode-toggle {
+        width: 100%;
+        border-radius: 14px;
+        overflow: hidden;
+        border-width: 2px;
+      }
+      .mode-toggle button {
+        flex: 1;
+        padding: 0.7rem;
+        font-size: 0.9rem;
+        min-height: 48px;
+        letter-spacing: 0.02em;
+      }
+
+      /* Stats — compact row */
+      .stat-bar { gap: 0.5rem; margin-bottom: 0.75rem; }
+      .stat {
+        flex: 1;
+        min-width: 0;
+        padding: 0.5rem 0.4rem;
+        border-radius: 12px;
+      }
+      .stat .num { font-size: 1.15rem; }
+      .stat .label { font-size: 0.7rem; }
+
+      /* Action buttons — scrollable row */
+      .action-row {
+        flex-wrap: nowrap;
+        overflow-x: auto;
+        -webkit-overflow-scrolling: touch;
+        justify-content: flex-start;
+        gap: 0.4rem;
+        scrollbar-width: none;
+      }
+      .action-row::-webkit-scrollbar { display: none; }
+      .action-row button {
+        flex-shrink: 0;
+        padding: 0.55rem 1rem;
+        font-size: 0.82rem;
+        min-height: 42px;
+        white-space: nowrap;
+        border-radius: 12px;
+      }
+
+      /* Container */
+      .container { padding: 0.75rem; }
+
+      /* Word cards — beautiful stacked cards */
+      .word-grid { grid-template-columns: 1fr !important; gap: 0.6rem; }
+      .word-card {
+        padding: 0.9rem 1rem;
+        border-radius: 14px;
+        border-width: 1px;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.04);
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 0.3rem;
+      }
+      .word-card .fr { font-size: 1.05rem; flex-basis: 100%; }
+      .word-card .en { font-size: 0.88rem; }
+      .word-card .type { font-size: 0.72rem; }
+      .word-card .ex { font-size: 0.85rem; line-height: 1.5; }
+      .word-card .learn-btn {
+        font-size: 1.3rem;
+        top: 0.7rem;
+        right: 0.7rem;
+        padding: 0.3rem;
+      }
+
+      /* Theme sections — cleaner */
+      .theme { border-radius: 16px; margin-bottom: 1rem; }
+      .theme-title {
+        padding: 1rem 1rem;
+        font-size: 1rem;
+        min-height: 52px;
+      }
+      .theme-content { padding: 0.75rem; }
+
+      /* Quiz mode — immersive */
+      .quiz-card {
+        padding: 1.5rem 1rem;
+        border-radius: 20px;
+        min-height: 250px;
+      }
+      .quiz-word { font-size: 1.6rem; }
+      .quiz-answer {
+        font-size: 1.15rem;
+        padding: 1rem 1.5rem;
+        min-width: 0;
+        width: 100%;
+        border-radius: 16px;
+      }
+      .quiz-nav {
+        flex-direction: column;
+        gap: 0.6rem;
+      }
+      .quiz-nav button {
+        width: 100%;
+        padding: 0.85rem;
+        font-size: 1rem;
+        min-height: 52px;
+        border-radius: 14px;
+      }
+      .quiz-settings { flex-direction: column; }
+      .quiz-settings select {
+        width: 100%;
+        min-height: 48px;
+        font-size: 1rem;
+        padding: 0.7rem 1rem;
+        border-radius: 14px;
+      }
+
+      /* Progress footer */
+      .progress-footer { padding: 0.6rem 0.75rem; font-size: 0.8rem; }
+
+      /* Print button — hide on mobile */
+      .print-btn { display: none; }
     }
+
     @media (max-width: 399px) {
-      .filter-row button { padding: 0.4rem 0.6rem; font-size: 0.72rem; }
-      .level-filters button { padding: 0.4rem 0.6rem; font-size: 0.72rem; }
-      .stat { min-width: 55px; }
+      .filter-row button { padding: 0.45rem 0.75rem; font-size: 0.75rem; }
+      .level-filters button { font-size: 0.75rem; padding: 0.4rem 0.2rem; }
+      .stat .num { font-size: 1rem; }
+      .stat .label { font-size: 0.65rem; }
+      .quiz-word { font-size: 1.3rem; }
+      .word-card .fr { font-size: 0.95rem; }
     }
   </style>
 </head>
