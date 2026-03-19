@@ -501,7 +501,7 @@ function buildEmailHtml({ scorePct, cefr, clb, sectionScores, aiAnalysis, wrongA
     .join('');
 
   // CTA
-  const ctaUrl = isPremium ? 'https://tef-master.com/dashboard' : 'https://tef-master.com/pricing';
+  const ctaUrl = isPremium ? 'https://tef-master.com/pages/progress.html' : 'https://buy.stripe.com/cNi6oI3KEgmEc73fTw6sw02';
   const ctaText = isPremium ? 'View Progress Dashboard' : 'Get Full Access — $39';
   const ctaSubtext = isPremium ? 'Track your improvement over time' : 'Unlock full practice tests, detailed explanations & progress tracking';
 

@@ -127,7 +127,7 @@ function buildGateUI() {
   divider.textContent = '\u2014 or \u2014';
 
   const buyLink = document.createElement('a');
-  buyLink.href = 'https://buy.stripe.com/cNi14o6WQ2vO3AxbDg6sw01';
+  buyLink.href = 'https://buy.stripe.com/cNi6oI3KEgmEc73fTw6sw02';
   buyLink.className = 'gate-buy';
   buyLink.textContent = 'Get TEF Master \u2014 $39';
 

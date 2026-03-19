@@ -79,7 +79,7 @@ function renderNav(activePage) {
     var badgeText = isPremium ? 'Premium Member' : 'Free Account';
     var actionLink = isPremium
       ? '<a href="' + siteRoot + 'pages/progress.html" class="pm-link">📊 My Progress</a>'
-      : '<a href="https://buy.stripe.com/cNi14o6WQ2vO3AxbDg6sw01" class="pm-link pm-upgrade">⭐ Upgrade to Premium — $39</a>';
+      : '<a href="https://buy.stripe.com/cNi6oI3KEgmEc73fTw6sw02" class="pm-link pm-upgrade">⭐ Upgrade to Premium — $39</a>';
     profileHTML = '<div class="nav-profile">' +
       '<button class="' + btnClass + '" onclick="toggleProfileMenu()" aria-label="Profile menu">' + initial + '</button>' +
       '<div class="profile-menu" id="profileMenu">' +
@@ -139,7 +139,7 @@ function renderFooter() {
   footer.className = 'footer';
   footer.innerHTML = `
     <p>TEF Master — Your Path to CLB 7</p>
-    <p style="margin-top:.3rem;font-size:.78rem;">Built with ❤️ by ispeedbiz.com • <a href="mailto:cajagdishlade@gmail.com" style="color:inherit;text-decoration:underline;">Contact Support</a> • <a href="https://buy.stripe.com/cNi14o6WQ2vO3AxbDg6sw01" style="color:inherit;text-decoration:underline;">Get Full Access — $39</a></p>
+    <p style="margin-top:.3rem;font-size:.78rem;">Built with ❤️ by ispeedbiz.com • <a href="mailto:cajagdishlade@gmail.com" style="color:inherit;text-decoration:underline;">Contact Support</a> • <a href="https://buy.stripe.com/cNi6oI3KEgmEc73fTw6sw02" style="color:inherit;text-decoration:underline;">Get Full Access — $39</a></p>
   `;
   document.body.appendChild(footer);
 }
