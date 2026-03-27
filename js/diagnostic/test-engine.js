@@ -282,57 +282,58 @@ var TEFDiagnostic = {
     }
 
     nav.textContent = '';
-    var wrap = document.createElement('div');
-    wrap.className = 'q-nav';
+    var grid = document.createElement('div');
+    grid.className = 'q-nav-grid';
 
+    // Group questions by section
+    var sections = [];
     var currentSection = null;
-    var self = this;
-
+    var sectionQuestions = [];
     for (var i = 0; i < this.questions.length; i++) {
-      var q = this.questions[i];
-      var sec = (q.section || '').toLowerCase();
-
-      // Section label
+      var sec = (this.questions[i].section || '').toLowerCase();
       if (sec !== currentSection) {
-        if (currentSection !== null) {
-          var br = document.createElement('div');
-          br.style.cssText = 'width:100%;height:0;';
-          wrap.appendChild(br);
-        }
-        var meta = this.sectionColors[sec] || { label: q.section, text: '#374151' };
-        var secLabel = document.createElement('div');
-        secLabel.style.cssText = 'width:100%;font-size:0.7rem;font-weight:600;color:' + meta.text + ';text-transform:uppercase;letter-spacing:0.5px;margin-top:0.375rem;margin-bottom:0.125rem;';
-        secLabel.textContent = meta.label;
-        wrap.appendChild(secLabel);
+        if (currentSection !== null) sections.push({ sec: currentSection, qs: sectionQuestions });
         currentSection = sec;
+        sectionQuestions = [];
       }
+      sectionQuestions.push(i);
+    }
+    if (currentSection !== null) sections.push({ sec: currentSection, qs: sectionQuestions });
 
-      // Dot
-      var dot = document.createElement('div');
-      dot.className = 'q-dot';
-      dot.title = 'Q' + (i + 1);
-      dot.textContent = String(i + 1);
+    var self = this;
+    for (var s = 0; s < sections.length; s++) {
+      var block = document.createElement('div');
+      block.className = 'q-nav-section';
+      var meta = this.sectionColors[sections[s].sec] || { label: sections[s].sec, text: '#374151' };
+      var secLabel = document.createElement('div');
+      secLabel.className = 'q-nav-label';
+      secLabel.style.color = meta.text;
+      secLabel.textContent = meta.label;
+      block.appendChild(secLabel);
 
-      if (i === this.currentQ) {
-        dot.classList.add('current');
-      } else if (this.flagged.has(i)) {
-        dot.classList.add('flagged');
-      } else if (this.answers[i] !== -1) {
-        dot.classList.add('answered');
-      } else {
-        dot.classList.add('unanswered');
+      var dotsWrap = document.createElement('div');
+      dotsWrap.className = 'q-nav-dots';
+      var qs = sections[s].qs;
+      for (var j = 0; j < qs.length; j++) {
+        var idx = qs[j];
+        var dot = document.createElement('div');
+        dot.className = 'q-dot';
+        dot.title = 'Q' + (idx + 1);
+        dot.textContent = String(idx + 1);
+        if (idx === this.currentQ) dot.classList.add('current');
+        else if (this.flagged.has(idx)) dot.classList.add('flagged');
+        else if (this.answers[idx] !== -1) dot.classList.add('answered');
+        else dot.classList.add('unanswered');
+        (function (engine, index) {
+          dot.addEventListener('click', function () { engine.jumpToQuestion(index); });
+        })(this, idx);
+        dotsWrap.appendChild(dot);
       }
-
-      (function (engine, index) {
-        dot.addEventListener('click', function () {
-          engine.jumpToQuestion(index);
-        });
-      })(this, i);
-
-      wrap.appendChild(dot);
+      block.appendChild(dotsWrap);
+      grid.appendChild(block);
     }
 
-    nav.appendChild(wrap);
+    nav.appendChild(grid);
   },
 
   // =========================================================================

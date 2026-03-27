@@ -249,13 +249,30 @@
             font-weight: 600;
         }
 
-        /* Question Navigator */
+        /* Question Navigator — 2×2 grid */
         .q-navigator {
+            padding: 0.5rem 0 0.25rem;
+        }
+        .q-nav-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 0.25rem 1.5rem;
+        }
+        .q-nav-section {
+            display: flex;
+            flex-direction: column;
+            gap: 0.125rem;
+        }
+        .q-nav-label {
+            font-size: 0.7rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.5px;
+        }
+        .q-nav-dots {
             display: flex;
             flex-wrap: wrap;
-            gap: 0.375rem;
-            padding: 0.5rem 0 0.25rem;
-            justify-content: center;
+            gap: 0.25rem;
         }
         .q-dot {
             width: 28px;
@@ -569,6 +586,7 @@
             .diag-hero { padding: 2.5rem 1rem 2rem; }
             .timer-bar { top: 48px; padding: 0.5rem 0.75rem; }
             .timer-display { font-size: 0.8125rem; }
+            .q-nav-grid { grid-template-columns: 1fr 1fr; gap: 0.2rem 0.75rem; }
             .q-dot { width: 24px; height: 24px; font-size: 0.5625rem; }
             #navButtons { gap: 0.375rem; }
             #navButtons .btn { min-width: 100px; font-size: 0.8125rem; padding: 0.625rem 1rem; }
