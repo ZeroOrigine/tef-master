@@ -430,11 +430,11 @@ var TEFDiagnostic = {
     }
   },
 
-  // Smooth scroll to the test area (not page top) to avoid jarring jumps
+  // Smooth scroll to the question card (not page top or testArea header)
   _scrollToTest: function () {
-    var testArea = document.getElementById('testArea');
-    if (testArea) {
-      testArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    var qContainer = document.getElementById('qContainer');
+    if (qContainer) {
+      qContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   },
 
