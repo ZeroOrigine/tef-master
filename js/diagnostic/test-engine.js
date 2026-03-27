@@ -217,12 +217,15 @@ var TEFDiagnostic = {
     var isLast = idx === total - 1;
     var self = this;
 
+    // Remove any legacy static nav-button containers
+    var oldNav = document.querySelector('.test-nav-btns');
+    if (oldNav) oldNav.remove();
+
     var wrap = document.getElementById('navButtons');
     if (!wrap) {
       wrap = document.createElement('div');
       wrap.id = 'navButtons';
-      wrap.className = 'btn-center';
-      wrap.style.cssText = 'display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;margin:1.25rem 0;';
+      wrap.style.cssText = 'display:flex;gap:0.5rem;justify-content:center;flex-wrap:wrap;margin:0.75rem 0 0.5rem;';
       var qc = document.getElementById('qContainer');
       if (qc && qc.parentNode) qc.parentNode.insertBefore(wrap, qc.nextSibling);
     }
@@ -389,7 +392,7 @@ var TEFDiagnostic = {
     if (this.currentQ < this.questions.length - 1) {
       this.currentQ++;
       this.renderQuestion();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      this._scrollToTest();
     } else {
       this.showSubmitPrompt();
     }
@@ -399,7 +402,7 @@ var TEFDiagnostic = {
     if (this.currentQ > 0) {
       this.currentQ--;
       this.renderQuestion();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      this._scrollToTest();
     }
   },
 
@@ -423,7 +426,15 @@ var TEFDiagnostic = {
     if (idx >= 0 && idx < this.questions.length) {
       this.currentQ = idx;
       this.renderQuestion();
-      window.scrollTo({ top: 0, behavior: 'smooth' });
+      this._scrollToTest();
+    }
+  },
+
+  // Smooth scroll to the test area (not page top) to avoid jarring jumps
+  _scrollToTest: function () {
+    var testArea = document.getElementById('testArea');
+    if (testArea) {
+      testArea.scrollIntoView({ behavior: 'smooth', block: 'start' });
     }
   },
 

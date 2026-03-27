@@ -1,7 +1,7 @@
 {
-  "name": "tef-website",
-  "version": "1.0.0",
-  "description": "**Your free path to TEF Canada CLB 7**",
+  "name": "tef-master",
+  "version": "1.1.0",
+  "description": "TEF Canada French proficiency exam preparation platform",
   "main": "index.js",
   "directories": {
     "doc": "docs"
@@ -13,14 +13,14 @@
     "type": "git",
     "url": "git+https://github.com/ispeedbiz/tef-master.git"
   },
-  "keywords": [],
-  "author": "",
+  "keywords": ["tef", "french", "clb", "canada", "exam-prep"],
+  "author": "ZeroOrigine",
   "license": "ISC",
   "type": "commonjs",
   "bugs": {
     "url": "https://github.com/ispeedbiz/tef-master/issues"
   },
-  "homepage": "https://github.com/ispeedbiz/tef-master#readme",
+  "homepage": "https://tef-master.com",
   "dependencies": {
     "@anthropic-ai/sdk": "^0.80.0",
     "resend": "^6.9.4"

@@ -145,18 +145,26 @@ function renderNav(activePage) {
 }
 
 function renderFooter() {
+  // Remove empty placeholder footer if it exists
+  var oldFooter = document.getElementById('footer');
+  if (oldFooter) oldFooter.remove();
+
   const footer = document.createElement('footer');
   footer.className = 'footer';
   const isSubPage = window.location.pathname.includes('/pages/');
   const prefix = isSubPage ? '' : 'pages/';
   footer.innerHTML = `
-    <p>TEF Master — Your Path to CLB 7</p>
-    <p style="margin-top:.5rem;font-size:.78rem;">
-      <a href="${prefix}terms.html" style="color:inherit;text-decoration:underline;opacity:0.8;">Terms of Service</a>
-      &nbsp;·&nbsp;
-      <a href="${prefix}privacy.html" style="color:inherit;text-decoration:underline;opacity:0.8;">Privacy Policy</a>
+    <p>TEF Master — Your Path to French Proficiency</p>
+    <p style="margin-top:.4rem;font-size:.8rem;">
+      Built by <a href="https://zeroorigine.com" target="_blank" style="color:inherit;text-decoration:underline;opacity:0.85;">ZeroOrigine</a>
     </p>
-    <p style="margin-top:.3rem;font-size:.78rem;">© 2026 TEF Master. All rights reserved.</p>
+    <p style="margin-top:.35rem;font-size:.75rem;">
+      <a href="${prefix}terms.html" style="color:inherit;text-decoration:underline;opacity:0.7;">Terms</a>
+      &nbsp;·&nbsp;
+      <a href="${prefix}privacy.html" style="color:inherit;text-decoration:underline;opacity:0.7;">Privacy</a>
+      &nbsp;·&nbsp;
+      <a href="mailto:cajagdishlade@gmail.com" style="color:inherit;text-decoration:underline;opacity:0.7;">Contact</a>
+    </p>
   `;
   document.body.appendChild(footer);
 }
