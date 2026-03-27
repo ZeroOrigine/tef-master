@@ -343,10 +343,10 @@ var TEFDiagnostic = {
     }
     var pct = Math.round((answeredCount / total) * 100);
 
-    var fill = document.getElementById('progFill');
+    var fill = document.getElementById('testProgressFill');
     if (fill) fill.style.width = pct + '%';
 
-    var txt = document.getElementById('progTxt');
+    var txt = document.getElementById('testProgressText');
     if (txt) {
       var q = this.questions[this.currentQ];
       var secLabel = q.section ? q.section.charAt(0).toUpperCase() + q.section.slice(1) : '';

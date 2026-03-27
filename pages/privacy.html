@@ -1,0 +1,109 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Privacy Policy - TEF Master</title>
+  <link rel="stylesheet" href="../css/style.css">
+  <style>
+    .legal-page { max-width: 800px; margin: 0 auto; padding: 2rem 1.5rem 3rem; }
+    .legal-page h1 { font-size: 1.8rem; color: var(--primary); margin-bottom: 0.5rem; }
+    .legal-page .updated { font-size: 0.85rem; color: var(--text-light); margin-bottom: 2rem; }
+    .legal-page h2 { font-size: 1.2rem; color: var(--text); margin-top: 2rem; margin-bottom: 0.5rem; }
+    .legal-page p, .legal-page li { font-size: 0.95rem; line-height: 1.7; color: var(--text-light); }
+    .legal-page ul { padding-left: 1.5rem; margin: 0.5rem 0; }
+    .legal-page li { margin-bottom: 0.3rem; }
+    .legal-page a { color: var(--primary); }
+    .legal-page table { width: 100%; border-collapse: collapse; margin: 1rem 0; }
+    .legal-page th, .legal-page td { padding: 0.6rem 0.8rem; text-align: left; border-bottom: 1px solid #e2e8f0; font-size: 0.9rem; }
+    .legal-page th { background: #f8fafc; font-weight: 600; color: var(--text); }
+  </style>
+</head>
+<body>
+  <script src="../js/nav.js"></script>
+  <script>renderNav();</script>
+
+  <main class="legal-page">
+    <h1>Privacy Policy</h1>
+    <p class="updated">Last updated: March 26, 2026</p>
+
+    <p>TEF Master ("we", "us", "our") respects your privacy and is committed to protecting your personal information. This Privacy Policy explains what data we collect, how we use it, and your rights under Canadian privacy law (PIPEDA) and other applicable regulations.</p>
+
+    <h2>1. Information We Collect</h2>
+
+    <table>
+      <thead>
+        <tr><th>Data Type</th><th>What</th><th>Why</th></tr>
+      </thead>
+      <tbody>
+        <tr><td>Email address</td><td>Provided at login or purchase</td><td>Account identification, purchase verification, sending diagnostic results</td></tr>
+        <tr><td>Payment data</td><td>Processed by Stripe</td><td>We do NOT store credit card numbers. Stripe handles all payment data under PCI-DSS compliance.</td></tr>
+        <tr><td>Learning progress</td><td>Diagnostic scores, vocabulary learned, grammar completed, streaks, XP</td><td>Tracking your study progress and providing personalized recommendations</td></tr>
+        <tr><td>Diagnostic answers</td><td>Your answers to diagnostic test questions</td><td>Generating AI-powered analysis and identifying areas for improvement</td></tr>
+        <tr><td>Usage data</td><td>Pages visited, features used, activity timestamps</td><td>Improving the platform and understanding user behavior</td></tr>
+      </tbody>
+    </table>
+
+    <h2>2. How We Use Your Information</h2>
+    <p>We use your information to:</p>
+    <ul>
+      <li>Provide and improve our educational services</li>
+      <li>Track your learning progress across devices</li>
+      <li>Generate personalized AI-powered diagnostic analyses</li>
+      <li>Send you diagnostic results via email</li>
+      <li>Verify your premium access</li>
+      <li>Communicate important service updates</li>
+    </ul>
+    <p>We do NOT sell, rent, or share your personal information with third parties for marketing purposes.</p>
+
+    <h2>3. Third-Party Services</h2>
+    <p>We use the following third-party services to operate TEF Master:</p>
+    <ul>
+      <li><strong>Stripe</strong> — Payment processing. Stripe's privacy policy: <a href="https://stripe.com/privacy" target="_blank" rel="noopener">stripe.com/privacy</a></li>
+      <li><strong>Supabase</strong> — Database and authentication. Data stored on servers in the United States.</li>
+      <li><strong>Anthropic (Claude AI)</strong> — Generating diagnostic analysis. Your test answers are sent to Claude's API for analysis. Anthropic's privacy policy: <a href="https://www.anthropic.com/privacy" target="_blank" rel="noopener">anthropic.com/privacy</a></li>
+      <li><strong>Resend</strong> — Email delivery for diagnostic results.</li>
+      <li><strong>Netlify</strong> — Website hosting.</li>
+    </ul>
+
+    <h2>4. Data Storage and Security</h2>
+    <p>Your data is stored in Supabase (cloud database) with Row Level Security (RLS) policies enforced. All data transmission uses HTTPS encryption. We use service-role keys for server-side operations and never expose database credentials to client-side code.</p>
+    <p>Learning progress is also stored locally in your browser (localStorage) for instant access. This local data syncs with our cloud database when you are logged in.</p>
+
+    <h2>5. Data Retention</h2>
+    <p>We retain your data for as long as your account is active. Diagnostic results are stored indefinitely to enable progress tracking over time. You can request deletion of your data at any time (see Section 7).</p>
+
+    <h2>6. Cookies and Local Storage</h2>
+    <p>TEF Master uses browser localStorage (not cookies) to store your learning progress and login state. We do not use tracking cookies or third-party advertising cookies.</p>
+
+    <h2>7. Your Rights</h2>
+    <p>Under Canadian privacy law (PIPEDA) and applicable regulations, you have the right to:</p>
+    <ul>
+      <li><strong>Access</strong> — Request a copy of the personal data we hold about you</li>
+      <li><strong>Correction</strong> — Request correction of inaccurate data</li>
+      <li><strong>Deletion</strong> — Request deletion of your personal data</li>
+      <li><strong>Data portability</strong> — Request your data in a portable format</li>
+      <li><strong>Withdraw consent</strong> — Withdraw consent for data processing at any time</li>
+    </ul>
+    <p>To exercise any of these rights, contact us at <a href="mailto:cajagdishlade@gmail.com">cajagdishlade@gmail.com</a>. We will respond within 30 days.</p>
+    <p>You can also reset your local progress data at any time from the Progress page using the "Reset All Progress" button.</p>
+
+    <h2>8. Children's Privacy</h2>
+    <p>TEF Master is designed for adults preparing for TEF Canada, primarily for Canadian immigration purposes. We do not knowingly collect personal information from children under the age of 13. If we become aware that we have collected data from a child under 13, we will delete it promptly.</p>
+
+    <h2>9. International Data Transfers</h2>
+    <p>Your data may be processed and stored in the United States (Supabase, Netlify, Anthropic) and other jurisdictions where our service providers operate. By using TEF Master, you consent to the transfer of your information to these jurisdictions.</p>
+
+    <h2>10. Changes to This Policy</h2>
+    <p>We may update this Privacy Policy from time to time. Changes will be posted on this page with an updated date. We encourage you to review this page periodically.</p>
+
+    <h2>11. Contact Us</h2>
+    <p>If you have questions or concerns about this Privacy Policy or our data practices, contact us at:</p>
+    <p><strong>TEF Master</strong><br>
+    Email: <a href="mailto:cajagdishlade@gmail.com">cajagdishlade@gmail.com</a><br>
+    Ontario, Canada</p>
+  </main>
+
+  <script>renderFooter();</script>
+</body>
+</html>

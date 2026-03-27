@@ -112,14 +112,42 @@ function determineCefrAndClb(testLevel, scorePct) {
 // ---------------------------------------------------------------------------
 // 3. Claude AI analysis
 // ---------------------------------------------------------------------------
-async function getAiAnalysis(testLevel, sectionScores, totalScore, totalQuestions, scorePct, wrongAnswers, elapsedSeconds, cefr, clb, isPremium) {
+async function getAiAnalysis(testLevel, sectionScores, totalScore, totalQuestions, scorePct, wrongAnswers, elapsedSeconds, cefr, clb, isPremium, email) {
   const apiKey = process.env.ANTHROPIC_API_KEY;
   if (!apiKey) {
     console.log('[results] No ANTHROPIC_API_KEY — using fallback analysis');
-    return buildFallbackAnalysis(testLevel, sectionScores, scorePct, wrongAnswers, cefr, clb);
+    return buildFallbackAnalysis(testLevel, sectionScores, scorePct, wrongAnswers, cefr, clb, isPremium);
   }
 
   const client = new Anthropic({ apiKey });
+
+  // Fetch previous results for comparison (if user has email)
+  let historyContext = '';
+  if (email) {
+    try {
+      const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
+      if (SUPABASE_KEY) {
+        const histRes = await fetch(
+          `${SUPABASE_URL}/rest/v1/diagnostic_results?email=eq.${encodeURIComponent(email)}&select=test_level,score_pct,cefr_result,clb_estimate,section_scores,created_at&order=created_at.desc&limit=5`,
+          { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+        );
+        if (histRes.ok) {
+          const history = await histRes.json();
+          if (history.length > 0) {
+            historyContext = '\n## Previous Test History (most recent first)\n' +
+              history.map((h, i) => {
+                const date = new Date(h.created_at).toLocaleDateString('en-CA');
+                const secSummary = h.section_scores ? Object.entries(h.section_scores).map(([s, d]) => `${s}: ${d.pct}%`).join(', ') : '';
+                return `${i + 1}. ${date} — Level ${h.test_level.toUpperCase()}: ${h.score_pct}% (${h.cefr_result}/CLB ${h.clb_estimate}) [${secSummary}]`;
+              }).join('\n');
+            historyContext += '\nCompare current results with previous attempts. Highlight specific improvements or regressions.\n';
+          }
+        }
+      }
+    } catch (histErr) {
+      console.log('[results] Could not fetch history for comparison:', histErr.message);
+    }
+  }
 
   const wrongBySection = {};
   for (const w of wrongAnswers) {
@@ -140,61 +168,75 @@ async function getAiAnalysis(testLevel, sectionScores, totalScore, totalQuestion
     .map(([sec, d]) => `- ${SECTION_LABELS[sec] || sec}: ${d.score}/${d.total} (${d.pct}%)`)
     .join('\n');
 
+  // Only ask for analysis of sections that actually exist in this test
+  const testedSections = Object.keys(sectionScores);
+  const sectionAnalysisFields = testedSections
+    .map((sec) => `    "${sec}": "2-3 sentences analyzing ${SECTION_LABELS[sec] || sec} performance with specific topics to review"`)
+    .join(',\n');
+
   const minutes = Math.floor(elapsedSeconds / 60);
   const seconds = elapsedSeconds % 60;
 
   const prompt = `You are an expert TEF Canada exam tutor and French language assessment specialist.
 
-A student just completed a TEF diagnostic test. Analyze their results and provide actionable feedback.
+## Important Context
+TEF Canada (Test d'Évaluation de Français) is primarily taken for Canadian immigration — Express Entry, PNP, and citizenship. The critical target is **CLB 7** (Canadian Language Benchmark 7), which requires these minimum TEF scores:
+- Listening (Compréhension orale): 249/360
+- Reading (Compréhension écrite): 207/300
+- Speaking (Expression orale): 310/450
+- Writing (Expression écrite): 310/450
 
-## Test Information
+Most students using this platform are targeting CLB 7 or higher. Frame all feedback relative to this goal.
+
+## Current Test Results
 - Test Level: ${testLevel.toUpperCase()} (${LEVEL_NAMES[testLevel] || testLevel})
 - Total Score: ${totalScore}/${totalQuestions} (${scorePct}%)
 - Time Taken: ${minutes}m ${seconds}s
 - CEFR Assessment: ${cefr}
 - CLB Estimate: ${clb}
+- Sections tested: ${testedSections.map(s => SECTION_LABELS[s] || s).join(', ')}
 
 ## Section Scores
 ${sectionSummary}
 
 ## Wrong Answers Detail
 ${wrongSummary || 'No wrong answers — perfect score!'}
-
+${historyContext}
 ## Instructions
 Return a JSON object with EXACTLY this structure (no markdown, no code fences, just raw JSON):
 {
-  "overall_analysis": "2-3 sentences summarizing performance, mentioning specific strengths and the most critical area to improve.",
-  "cefr_assessment": "1-2 sentences explaining what their CEFR level means for TEF Canada and how close they are to the next level.",
+  "overall_analysis": "2-3 sentences summarizing performance relative to CLB 7 target. Mention specific strengths and the most critical area to improve.",
+  "cefr_assessment": "1-2 sentences explaining what their CEFR level (${cefr}) means for TEF Canada immigration. How close are they to CLB 7?",
   "clb_estimate": ${clb},
-  "strengths": ["strength 1 with specific detail", "strength 2", "strength 3"],
-  "weaknesses": ["weakness 1 with specific grammar/vocab topic", "weakness 2", "weakness 3"],
+  "strengths": ["strength 1 with specific detail from their answers", "strength 2", "strength 3"],
+  "weaknesses": ["weakness 1 with specific grammar/vocab topic from wrong answers", "weakness 2", "weakness 3"],
   "section_analysis": {
-    "grammar": "2-3 sentences analyzing grammar performance with specific topics to review (subjonctif, conditionals, etc.)",
-    "vocabulary": "2-3 sentences analyzing vocabulary with specific thematic areas",
-    "reading": "2-3 sentences analyzing reading comprehension strategies",
-    "listening": "2-3 sentences analyzing listening comprehension patterns"
+${sectionAnalysisFields}
   },
   "study_plan": {
-    "week1": "Specific focus and exercises for week 1",
-    "week2": "Specific focus and exercises for week 2",
-    "daily_practice": "Daily routine recommendation (15-30 min)"
-  },
-  "next_steps": "2-3 sentences on concrete next steps to improve their TEF score.",
-  "motivational_note": "1-2 encouraging sentences personalized to their level and performance."
+    "week1": "Specific focus and exercises for week 1, targeting their weakest section",
+    "week2": "Specific focus and exercises for week 2, consolidating strengths",
+    "daily_practice": "Daily routine recommendation (20-30 min) tailored to their level"
+  },${historyContext ? '\n  "progress_comparison": "2-3 sentences comparing this result with their previous tests. What improved? What regressed? Are they on track for CLB 7?",' : ''}
+  "next_steps": "2-3 sentences on concrete next steps to reach CLB 7. Be specific about which TEF section scores they need to improve.",
+  "motivational_note": "1-2 encouraging sentences personalized to their level and journey toward CLB 7."
 }
 
-Be specific. Reference actual topics from their wrong answers. Tailor advice to TEF Canada exam format. Write in English.`;
+ONLY include section_analysis for sections that were actually tested: ${testedSections.join(', ')}. Do NOT analyze sections not listed here.
+Be specific. Reference actual topics from their wrong answers. Write in English.`;
 
-  // Use Haiku for all users — fast enough for Netlify's 10s free-tier timeout
-  // Still produces excellent, personalized analysis at ~$0.002/test
-  // Upgrade to Sonnet when on Netlify Pro (26s timeout)
-  const aiModel = 'claude-haiku-4-5-20251001';
-  console.log('[results] Using AI model:', aiModel, isPremium ? '(premium)' : '(free)');
+  // Premium users get Opus 4.6 for best-in-class analysis (~$0.15/test)
+  // Free users get Haiku for speed and cost efficiency (~$0.002/test)
+  // Note: Opus may be slower — Netlify Pro (26s timeout) recommended for production
+  const aiModel = isPremium ? 'claude-opus-4-6' : 'claude-haiku-4-5-20251001';
+  console.log('[results] Using AI model:', aiModel, isPremium ? '(premium → Opus)' : '(free → Haiku)');
 
   try {
+    // Opus gets more tokens for deeper, richer analysis with history comparison
+    const maxTokens = isPremium ? 4000 : 2000;
     const message = await client.messages.create({
       model: aiModel,
-      max_tokens: 2000,
+      max_tokens: maxTokens,
       messages: [{ role: 'user', content: prompt }],
     });
 
@@ -224,7 +266,7 @@ Be specific. Reference actual topics from their wrong answers. Tailor advice to 
 // ---------------------------------------------------------------------------
 // Fallback analysis (no API)
 // ---------------------------------------------------------------------------
-function buildFallbackAnalysis(testLevel, sectionScores, scorePct, wrongAnswers, cefr, clb) {
+function buildFallbackAnalysis(testLevel, sectionScores, scorePct, wrongAnswers, cefr, clb, isPremium) {
   console.log('[results] Using template-based fallback analysis');
 
   const best = Object.entries(sectionScores).sort((a, b) => b[1].pct - a[1].pct);
@@ -269,7 +311,9 @@ function buildFallbackAnalysis(testLevel, sectionScores, scorePct, wrongAnswers,
       week2: `Consolidate ${SECTION_LABELS[strongest] || strongest} while continuing ${weakest} practice. Take a mini practice test mid-week to measure progress.`,
       daily_practice: 'Spend 20-30 minutes daily: 10 min reviewing vocabulary, 10 min grammar exercises, 10 min reading or listening practice.',
     },
-    next_steps: `Retake this diagnostic after 2 weeks of focused study to measure your improvement. Target the specific topics listed in your weaknesses. Consider upgrading to premium for full-length practice tests with detailed explanations.`,
+    next_steps: isPremium
+      ? `Retake this diagnostic after 2 weeks of focused study to measure your improvement. Target the specific topics listed in your weaknesses. Use the progress dashboard to track your journey toward CLB 7.`
+      : `Retake this diagnostic after 2 weeks of focused study to measure your improvement. Target the specific topics listed in your weaknesses. Get full access to unlock all practice materials and progress tracking.`,
     motivational_note: `Every expert was once a beginner. By taking this diagnostic, you have already taken the most important step. Keep practicing consistently and you will see results!`,
   };
 }
@@ -932,7 +976,7 @@ exports.handler = async (event) => {
     const { cefr, clb } = determineCefrAndClb(test_level, scorePct);
     console.log(`[results] CEFR: ${cefr}, CLB: ${clb}`);
 
-    // 3. AI analysis
+    // 3. AI analysis (with historical comparison if user has email)
     const aiAnalysis = await getAiAnalysis(
       test_level,
       sectionScores,
@@ -943,7 +987,8 @@ exports.handler = async (event) => {
       elapsed_seconds || 0,
       cefr,
       clb,
-      is_premium || false
+      is_premium || false,
+      email || null
     );
     console.log('[results] AI analysis complete');
 
@@ -964,6 +1009,56 @@ exports.handler = async (event) => {
       is_premium: is_premium || false,
     });
     console.log('[results] Stored result ID:', resultId);
+
+    // 4b. Sync to user_progress (close the sync gap)
+    if (email) {
+      try {
+        const SUPABASE_KEY = process.env.SUPABASE_SERVICE_KEY;
+        if (SUPABASE_KEY) {
+          // Fetch current user_progress
+          const progRes = await fetch(
+            `${SUPABASE_URL}/rest/v1/user_progress?email=eq.${encodeURIComponent(email)}&select=id,progress_data&limit=1`,
+            { headers: { apikey: SUPABASE_KEY, Authorization: `Bearer ${SUPABASE_KEY}` } }
+          );
+          if (progRes.ok) {
+            const progRows = await progRes.json();
+            const progressData = (progRows[0] && progRows[0].progress_data) || {};
+
+            // Update diagnostic section in progress_data
+            if (!progressData.diagnostic) progressData.diagnostic = { scores: [], level: null, lastDate: null };
+            progressData.diagnostic.scores.push(sectionScores);
+            progressData.diagnostic.level = cefr;
+            progressData.diagnostic.lastDate = new Date().toISOString();
+
+            // Add 50 XP for completing a diagnostic
+            progressData.xp = (progressData.xp || 0) + 50;
+
+            const upsertBody = {
+              email,
+              progress_data: progressData,
+              diagnostic_level: cefr,
+              total_xp: progressData.xp || 50,
+              last_synced: new Date().toISOString(),
+              last_active_page: '/pages/diagnostic.html',
+            };
+
+            await fetch(`${SUPABASE_URL}/rest/v1/user_progress`, {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+                apikey: SUPABASE_KEY,
+                Authorization: `Bearer ${SUPABASE_KEY}`,
+                Prefer: 'resolution=merge-duplicates',
+              },
+              body: JSON.stringify(upsertBody),
+            });
+            console.log('[results] user_progress synced for:', email);
+          }
+        }
+      } catch (syncErr) {
+        console.error('[results] user_progress sync failed (non-fatal):', syncErr.message);
+      }
+    }
 
     // 5. Send email (if applicable)
     let emailSent = false;

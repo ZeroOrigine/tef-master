@@ -147,8 +147,15 @@ function renderNav(activePage) {
 function renderFooter() {
   const footer = document.createElement('footer');
   footer.className = 'footer';
+  const isSubPage = window.location.pathname.includes('/pages/');
+  const prefix = isSubPage ? '' : 'pages/';
   footer.innerHTML = `
     <p>TEF Master — Your Path to CLB 7</p>
+    <p style="margin-top:.5rem;font-size:.78rem;">
+      <a href="${prefix}terms.html" style="color:inherit;text-decoration:underline;opacity:0.8;">Terms of Service</a>
+      &nbsp;·&nbsp;
+      <a href="${prefix}privacy.html" style="color:inherit;text-decoration:underline;opacity:0.8;">Privacy Policy</a>
+    </p>
     <p style="margin-top:.3rem;font-size:.78rem;">© 2026 TEF Master. All rights reserved.</p>
   `;
   document.body.appendChild(footer);

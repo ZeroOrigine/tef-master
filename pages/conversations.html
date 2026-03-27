@@ -862,26 +862,28 @@
         }
 
         function createReadModeDialogue(conv) {
+            const vocab = conv.keyVocabulary || conv.vocabulary || [];
             const keyVocabHTML = `
                 <div class="key-vocabulary">
                     <strong>Key Vocabulary:</strong>
                     <ul class="vocab-list">
-                        ${conv.keyVocabulary.map(item => `
+                        ${vocab.map(item => `
                             <li><span class="vocab-word">${item.word}</span> = ${item.translation}</li>
                         `).join('')}
                     </ul>
                 </div>
             `;
 
+            const dialogue = conv.dialogue || [];
             const dialogueHTML = `
                 <div class="dialogue">
-                    ${conv.dialogue.map((line, idx) => {
+                    ${dialogue.map((line, idx) => {
                         const isSpeaker1 = ['Customer', 'Client', 'Candidate', 'Sophie', 'Liam', 'Marie', 'Pierre'].includes(line.speaker);
                         return `
                             <div class="bubble-container">
                                 <div class="bubble ${isSpeaker1 ? 'bubble-left' : 'bubble-right'}">
                                     <div class="bubble-label">${line.name}</div>
-                                    <div class="bubble-text">${highlightVocabulary(line.text, conv.keyVocabulary)}</div>
+                                    <div class="bubble-text">${highlightVocabulary(line.text, vocab)}</div>
                                     <div class="bubble-translation">${line.translation}</div>
                                 </div>
                             </div>
@@ -894,23 +896,25 @@
         }
 
         function createPracticeModeDialogue(conv) {
+            const vocab = conv.keyVocabulary || conv.vocabulary || [];
             const keyVocabHTML = `
                 <div class="key-vocabulary">
                     <strong>Key Vocabulary:</strong>
                     <ul class="vocab-list">
-                        ${conv.keyVocabulary.map(item => `
+                        ${vocab.map(item => `
                             <li><span class="vocab-word">${item.word}</span> = ${item.translation}</li>
                         `).join('')}
                     </ul>
                 </div>
             `;
 
+            const dialogue = conv.dialogue || [];
             const dialogueHTML = `
                 <div class="dialogue practice-mode">
-                    ${conv.dialogue.map((line, idx) => {
+                    ${dialogue.map((line, idx) => {
                         const isSpeaker1 = ['Customer', 'Client', 'Candidate', 'Sophie', 'Liam', 'Marie', 'Pierre'].includes(line.speaker);
                         const hasGap = conv.practiceGaps && conv.practiceGaps.includes(idx + 1);
-                        const displayText = hasGap ? createGapInText(line.text, conv.id, idx) : highlightVocabulary(line.text, conv.keyVocabulary);
+                        const displayText = hasGap ? createGapInText(line.text, conv.id, idx) : highlightVocabulary(line.text, vocab);
                         
                         return `
                             <div class="bubble-container">

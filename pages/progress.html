@@ -553,6 +553,13 @@
       <!-- Will be populated by JavaScript -->
     </section>
 
+    <!-- Diagnostic History Trend -->
+    <section class="diagnostic-history" id="diagnosticHistory" style="display:none; margin: 2rem 0; padding: 1.5rem; background: var(--card-bg, #fff); border-radius: 12px; box-shadow: 0 2px 8px rgba(0,0,0,0.06);">
+      <h3 style="margin-bottom: 1rem; color: var(--primary);">📊 Diagnostic Score Trend</h3>
+      <div id="historyChart" style="display:flex; align-items:flex-end; gap:8px; height:160px; padding: 1rem 0;"></div>
+      <div id="historyTable" style="margin-top:1rem;"></div>
+    </section>
+
     <!-- Recommendations Section -->
     <section class="recommendations" id="recommendations">
       <h3>🎯 Study Recommendations</h3>
@@ -646,6 +653,9 @@
 
       // Weekly chart
       renderWeeklyChart(data);
+
+      // Diagnostic history from DB (if logged in)
+      loadDiagnosticHistory();
 
       // Reset button
       document.getElementById('resetBtn').addEventListener('click', showResetModal);
@@ -915,6 +925,64 @@
           <div class="bar-day">${days[i]}</div>
         `;
         chartContainer.appendChild(barEl);
+      }
+    }
+
+    async function loadDiagnosticHistory() {
+      const email = localStorage.getItem('tef_user_email');
+      if (!email) return;
+      try {
+        const res = await fetch('/.netlify/functions/get-results-history?email=' + encodeURIComponent(email));
+        if (!res.ok) return;
+        const results = await res.json();
+        if (!Array.isArray(results) || results.length === 0) return;
+
+        const section = document.getElementById('diagnosticHistory');
+        section.style.display = 'block';
+
+        // Render bar chart
+        const chartEl = document.getElementById('historyChart');
+        chartEl.innerHTML = '';
+        const maxScore = 100;
+        results.slice(0, 10).reverse().forEach(function (r) {
+          var pct = r.score_pct || 0;
+          var color = pct >= 80 ? '#10b981' : pct >= 60 ? '#f59e0b' : '#ef4444';
+          var date = new Date(r.created_at).toLocaleDateString('en-CA', { month: 'short', day: 'numeric' });
+          var bar = document.createElement('div');
+          bar.style.cssText = 'flex:1;display:flex;flex-direction:column;align-items:center;gap:4px;';
+          bar.innerHTML =
+            '<span style="font-size:12px;font-weight:700;color:' + color + ';">' + pct + '%</span>' +
+            '<div style="width:100%;max-width:40px;height:' + Math.max(pct, 5) + '%;background:' + color + ';border-radius:6px 6px 0 0;transition:height 0.5s;"></div>' +
+            '<span style="font-size:10px;color:#94a3b8;">' + date + '</span>' +
+            '<span style="font-size:9px;color:#cbd5e1;">' + (r.test_level || '').toUpperCase() + '</span>';
+          chartEl.appendChild(bar);
+        });
+
+        // Render history table
+        var tableEl = document.getElementById('historyTable');
+        var rows = results.slice(0, 10).map(function (r) {
+          var date = new Date(r.created_at).toLocaleDateString('en-CA');
+          var color = (r.score_pct || 0) >= 80 ? '#10b981' : (r.score_pct || 0) >= 60 ? '#f59e0b' : '#ef4444';
+          return '<tr>' +
+            '<td style="padding:6px 8px;font-size:13px;color:#64748b;">' + date + '</td>' +
+            '<td style="padding:6px 8px;font-size:13px;font-weight:600;">' + (r.test_level || '').toUpperCase() + '</td>' +
+            '<td style="padding:6px 8px;font-size:13px;font-weight:700;color:' + color + ';">' + (r.score_pct || 0) + '%</td>' +
+            '<td style="padding:6px 8px;font-size:13px;">' + (r.cefr_result || '-') + '</td>' +
+            '<td style="padding:6px 8px;font-size:13px;">CLB ' + (r.clb_estimate || '-') + '</td>' +
+            '</tr>';
+        }).join('');
+        tableEl.innerHTML =
+          '<table style="width:100%;border-collapse:collapse;font-family:inherit;">' +
+          '<thead><tr style="border-bottom:2px solid #e2e8f0;">' +
+          '<th style="padding:6px 8px;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;">Date</th>' +
+          '<th style="padding:6px 8px;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;">Level</th>' +
+          '<th style="padding:6px 8px;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;">Score</th>' +
+          '<th style="padding:6px 8px;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;">CEFR</th>' +
+          '<th style="padding:6px 8px;text-align:left;font-size:11px;color:#94a3b8;text-transform:uppercase;">CLB</th>' +
+          '</tr></thead><tbody>' + rows + '</tbody></table>';
+
+      } catch (err) {
+        console.log('[progress] Could not load diagnostic history:', err.message);
       }
     }
 
