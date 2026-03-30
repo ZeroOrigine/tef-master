@@ -189,8 +189,30 @@
 <!-- Facebook Pixel noscript fallback -->
 <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2313815159111295&ev=PageView&noscript=1"/></noscript>
   <script src="js/progress-tracker.js?v=2"></script>
+  <script src="js/access-gate.js?v=2"></script>
   <script src="js/nav.js?v=2"></script>
   <script>renderNav('home');</script>
+
+  <!-- Sign In hash handler: shows access gate when #access is in URL -->
+  <script>
+    (function() {
+      function handleSignInHash() {
+        if (window.location.hash === '#access' && !checkAccess()) {
+          showAccessGate();
+          // Clean hash without triggering scroll
+          history.replaceState(null, '', window.location.pathname);
+        }
+      }
+      // Check on page load
+      if (document.readyState === 'loading') {
+        document.addEventListener('DOMContentLoaded', handleSignInHash);
+      } else {
+        handleSignInHash();
+      }
+      // Check on hash change (e.g. user clicks Sign In while already on homepage)
+      window.addEventListener('hashchange', handleSignInHash);
+    })();
+  </script>
 
   <!-- ===== HERO ===== -->
   <section class="landing-hero">
