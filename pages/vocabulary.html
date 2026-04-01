@@ -769,42 +769,45 @@
 </div>
 
 <div class="controls">
-  <div class="filter-row" id="themeFilters">
-    <button class="active" data-theme="all">📋 All Themes</button>
-    <button data-theme="daily">🏠 Daily Life</button>
-    <button data-theme="work">💼 Work</button>
-    <button data-theme="health">🏥 Health</button>
-    <button data-theme="education">📚 Education</button>
-    <button data-theme="media">📰 Media</button>
-    <button data-theme="environment">🌍 Environment</button>
-    <button data-theme="travel">✈️ Travel</button>
-    <button data-theme="society">🏛️ Society</button>
-    <button data-theme="tech">💻 Technology</button>
-    <button data-theme="opinion">💬 Opinions</button>
-    <button data-theme="food">🍽️ Food</button>
-    <button data-theme="shopping">🛒 Shopping</button>
-    <button data-theme="weather">🌤️ Weather</button>
-    <button data-theme="family">👨‍👩‍👧‍👦 Family</button>
-    <button data-theme="emotions">😊 Emotions</button>
-    <button data-theme="numbers">🔢 Time & Dates</button>
-    <button data-theme="transport">🚌 Transport</button>
-    <button data-theme="finance">💰 Finance</button>
-    <button data-theme="leisure">⚽ Leisure</button>
-    <button data-theme="body">👕 Body & Clothing</button>
-    <button data-theme="housing">🏡 Housing</button>
-    <button data-theme="nature">🌿 Nature</button>
-    <button data-theme="city">🏙️ City & Directions</button>
-    <button data-theme="communication">📱 Communication</button>
-    <button data-theme="canada">🍁 Canadian Life</button>
-    <button data-theme="admin">🏦 Banking & Admin</button>
-    <button data-theme="sports">🏃 Sports</button>
-    <button data-theme="arts">🎭 Arts & Culture</button>
-    <button data-theme="colors">🎨 Colors & Shapes</button>
-    <button data-theme="actions">🔄 Action Verbs</button>
-    <button data-theme="connectors">🔗 Connectors</button>
-    <button data-theme="professions">👔 Professions</button>
-    <button data-theme="time_freq">⏰ Time & Frequency</button>
-    <button data-theme="adjectives">✨ Adjectives</button>
+  <div class="filter-row" id="themeFilters" style="display:flex;align-items:center;gap:0.75rem;flex-wrap:wrap;">
+    <label for="themeSelect" style="font-weight:600;color:var(--text);white-space:nowrap;">Theme:</label>
+    <select id="themeSelect" style="flex:1;max-width:320px;padding:0.65rem 1rem;border-radius:8px;border:2px solid var(--border);font-size:0.95rem;background:var(--card);color:var(--text);cursor:pointer;">
+      <option value="all">📋 All Themes (811 words)</option>
+      <option value="daily">🏠 Daily Life</option>
+      <option value="work">💼 Work</option>
+      <option value="health">🏥 Health</option>
+      <option value="education">📚 Education</option>
+      <option value="media">📰 Media</option>
+      <option value="environment">🌍 Environment</option>
+      <option value="travel">✈️ Travel</option>
+      <option value="society">🏛️ Society</option>
+      <option value="tech">💻 Technology</option>
+      <option value="opinion">💬 Opinions</option>
+      <option value="food">🍽️ Food</option>
+      <option value="shopping">🛒 Shopping</option>
+      <option value="weather">🌤️ Weather</option>
+      <option value="family">👨‍👩‍👧‍👦 Family</option>
+      <option value="emotions">😊 Emotions</option>
+      <option value="numbers">🔢 Time & Dates</option>
+      <option value="transport">🚌 Transport</option>
+      <option value="finance">💰 Finance</option>
+      <option value="leisure">⚽ Leisure</option>
+      <option value="body">👕 Body & Clothing</option>
+      <option value="housing">🏡 Housing</option>
+      <option value="nature">🌿 Nature</option>
+      <option value="city">🏙️ City & Directions</option>
+      <option value="communication">📱 Communication</option>
+      <option value="canada">🍁 Canadian Life</option>
+      <option value="admin">🏦 Banking & Admin</option>
+      <option value="sports">🏃 Sports</option>
+      <option value="arts">🎭 Arts & Culture</option>
+      <option value="colors">🎨 Colors & Shapes</option>
+      <option value="actions">🔄 Action Verbs</option>
+      <option value="connectors">🔗 Connectors</option>
+      <option value="professions">👔 Professions</option>
+      <option value="time_freq">⏰ Time & Frequency</option>
+      <option value="adjectives">✨ Adjectives</option>
+    </select>
   </div>
   <div class="level-filters" id="levelFilters">
     <button class="active" data-level="all">All Levels</button>
@@ -2044,13 +2047,9 @@ document.querySelectorAll('.learn-btn').forEach(btn => {
 });
 
 // ===== THEME FILTERS =====
-document.querySelectorAll('#themeFilters button').forEach(btn => {
-  btn.addEventListener('click', function() {
-    document.querySelectorAll('#themeFilters button').forEach(b => b.classList.remove('active'));
-    this.classList.add('active');
-    currentTheme = this.dataset.theme;
-    applyFilters();
-  });
+document.getElementById('themeSelect').addEventListener('change', function() {
+  currentTheme = this.value;
+  applyFilters();
 });
 
 // ===== LEVEL FILTERS =====
