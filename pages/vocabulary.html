@@ -414,17 +414,22 @@
     }
     .quiz-answer {
       font-size: 1.3rem;
-      color: var(--text);
-      opacity: 0;
-      transition: opacity 0.3s;
+      color: var(--text-light);
+      transition: all 0.3s;
       cursor: pointer;
       padding: 0.8rem 1.5rem;
       border: 2px dashed var(--border);
       border-radius: 12px;
       min-width: 200px;
+      background: var(--bg);
+      text-align: center;
+    }
+    .quiz-answer:hover {
+      border-color: var(--accent);
+      background: #faf5ff;
     }
     .quiz-answer.revealed {
-      opacity: 1;
+      color: var(--text);
       border-style: solid;
       border-color: var(--accent);
       background: #faf5ff;
