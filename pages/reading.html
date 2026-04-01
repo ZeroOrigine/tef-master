@@ -1494,16 +1494,16 @@ Parallèlement, la diversité culturelle de Montréal enrichit considérablement
         // Update progress
         function updateProgress() {
             const completed = completedExercises.length;
-            const total = 10;
+            const total = exercises.length;
             const percentage = Math.round((completed / total) * 100);
 
-            document.getElementById('progress-text').textContent = `${completed} passages completed`;
+            document.getElementById('progress-text').textContent = `${completed} of ${total} passages completed`;
             document.getElementById('progress-bar').style.width = percentage + '%';
 
             let levelText = 'Keep practicing!';
-            if (completed >= 10) levelText = 'Expert! All passages mastered!';
-            else if (completed >= 7) levelText = 'Great progress!';
-            else if (completed >= 5) levelText = 'Halfway there!';
+            if (completed >= total) levelText = 'Expert! All passages mastered!';
+            else if (completed >= Math.round(total * 0.7)) levelText = 'Great progress!';
+            else if (completed >= Math.round(total * 0.5)) levelText = 'Halfway there!';
             else if (completed >= 3) levelText = 'Good start!';
 
             document.getElementById('level-indicator').textContent = levelText;

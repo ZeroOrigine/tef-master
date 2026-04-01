@@ -734,7 +734,7 @@
 
       // Reading
       const readingCompleted = data.reading.completed.length;
-      const readingProgress = Math.round((readingCompleted / 10) * 100);
+      const readingProgress = Math.round((readingCompleted / 25) * 100);
       let readingAvgScore = '-';
       if (readingCompleted > 0) {
         const scores = Object.values(data.reading.scores);
@@ -746,7 +746,7 @@
           <h3>📖 Reading</h3>
           <div class="section-stat">
             <span class="label">Exercises Completed:</span>
-            <span class="value">${readingCompleted} / 10</span>
+            <span class="value">${readingCompleted} / 25</span>
           </div>
           <div class="section-stat">
             <span class="label">Average Score:</span>
@@ -763,7 +763,7 @@
 
       // Listening
       const listeningCompleted = data.listening.completed.length;
-      const listeningProgress = Math.round((listeningCompleted / 10) * 100);
+      const listeningProgress = Math.round((listeningCompleted / 20) * 100);
       let listeningAvgScore = '-';
       if (listeningCompleted > 0) {
         const scores = Object.values(data.listening.scores);
@@ -775,7 +775,7 @@
           <h3>🎧 Listening</h3>
           <div class="section-stat">
             <span class="label">Exercises Completed:</span>
-            <span class="value">${listeningCompleted} / 10</span>
+            <span class="value">${listeningCompleted} / 20</span>
           </div>
           <div class="section-stat">
             <span class="label">Average Score:</span>
