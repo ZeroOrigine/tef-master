@@ -1405,7 +1405,10 @@ Pour les prochains mois, je prévois une croissance modérée du PIB québécois
             button.appendChild(document.createTextNode(' ' + label));
         }
 
-        // Play transcript with French TTS + typing animation
+        // Active audio players (keyed by exerciseId)
+        var audioPlayers = {};
+
+        // Play transcript with pre-generated MP3 audio + typing animation
         function playTranscript(exerciseId) {
             const exercise = listeningExercises.find(e => e.id === exerciseId);
             if (!exercise) return;
@@ -1413,17 +1416,20 @@ Pour les prochains mois, je prévois une croissance modérée du PIB québécois
             const transcriptEl = document.getElementById('transcript-' + exerciseId);
             const button = document.querySelector('[onclick*="playTranscript(\'' + exerciseId + '\')"]');
 
+            // Stop if already playing
             if (button.classList.contains('playing')) {
-                FrenchTTS.stop();
+                stopAudio(exerciseId);
                 setButtonState(button, false, 'Play');
                 return;
             }
+
+            // Stop any other playing audio
+            Object.keys(audioPlayers).forEach(function(id) { stopAudio(id); });
 
             setButtonState(button, true, 'Playing...');
 
             const text = exercise.transcript;
             const speed = getSpeedMultiplier();
-            const speedName = speed === 0.5 ? 'slow' : speed === 1.5 ? 'fast' : 'normal';
 
             // Typing animation
             var index = 0;
@@ -1437,18 +1443,46 @@ Pour les prochains mois, je prévois une croissance modérée du PIB québécois
             }
             typeChar();
 
-            // French TTS via shared engine
-            FrenchTTS.speak(text, {
-                speed: speedName,
-                onEnd: function() {
-                    setButtonState(button, false, 'Play Again');
-                    transcriptEl.textContent = text;
-                },
-                onError: function() {
-                    setButtonState(button, false, 'Play Again');
-                    transcriptEl.textContent = text;
-                }
-            });
+            // Use pre-generated MP3 audio (natural neural voice)
+            var audio = new Audio('../audio/' + exerciseId + '.mp3');
+            audio.playbackRate = speed === 0.5 ? 0.75 : speed === 1.5 ? 1.3 : 1.0;
+            audioPlayers[exerciseId] = audio;
+
+            audio.onended = function() {
+                delete audioPlayers[exerciseId];
+                setButtonState(button, false, 'Play Again');
+                transcriptEl.textContent = text;
+            };
+
+            audio.onerror = function() {
+                // Fallback to browser TTS if MP3 fails
+                delete audioPlayers[exerciseId];
+                var speedName = speed === 0.5 ? 'slow' : speed === 1.5 ? 'fast' : 'normal';
+                FrenchTTS.speak(text, {
+                    speed: speedName,
+                    onEnd: function() {
+                        setButtonState(button, false, 'Play Again');
+                        transcriptEl.textContent = text;
+                    },
+                    onError: function() {
+                        setButtonState(button, false, 'Play Again');
+                        transcriptEl.textContent = text;
+                    }
+                });
+            };
+
+            audio.play();
+        }
+
+        function stopAudio(exerciseId) {
+            if (audioPlayers[exerciseId]) {
+                audioPlayers[exerciseId].pause();
+                audioPlayers[exerciseId].currentTime = 0;
+                delete audioPlayers[exerciseId];
+            }
+            FrenchTTS.stop();
+            var btn = document.querySelector('[onclick*="playTranscript(\'' + exerciseId + '\')"]');
+            if (btn) setButtonState(btn, false, 'Play');
         }
 
         // Get speed multiplier based on selected speed
