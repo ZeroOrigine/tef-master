@@ -56,6 +56,12 @@
             </div>
         </div>
 
+        <!-- Exercise Navigator -->
+        <div class="card" style="margin-bottom: 2rem; padding: 1.5rem;">
+            <h3 style="margin: 0 0 1rem 0;">Passages</h3>
+            <div id="exercise-nav" style="display: flex; flex-wrap: wrap; gap: 0.5rem;"></div>
+        </div>
+
         <!-- Main Reading Area -->
         <div id="reading-container">
             <div class="card" style="padding: 2rem; margin-bottom: 2rem;">
@@ -1286,8 +1292,6 @@ Parallèlement, la diversité culturelle de Montréal enrichit considérablement
         renderNav('reading');
         renderFooter();
         updateFilteredExercises();
-        renderExercise();
-        updateProgress();
 
         // Filter exercises by level
         function updateFilteredExercises() {
@@ -1296,11 +1300,44 @@ Parallèlement, la diversité culturelle de Montréal enrichit considérablement
             } else {
                 filteredExercises = exercises.filter(ex => ex.level === currentLevel);
             }
-            currentExerciseIndex = 0;
+            // Auto-resume: jump to first uncompleted exercise
+            const firstUncompleted = filteredExercises.findIndex(ex => !completedExercises.includes(ex.id));
+            currentExerciseIndex = firstUncompleted !== -1 ? firstUncompleted : 0;
             currentAnswers = {};
             showingResults = false;
+            renderExerciseNav();
             renderExercise();
             updateProgress();
+        }
+
+        // Render exercise navigator dots
+        function renderExerciseNav() {
+            const nav = document.getElementById('exercise-nav');
+            const buttons = filteredExercises.map((ex, i) => {
+                const done = completedExercises.includes(ex.id);
+                const active = i === currentExerciseIndex;
+                const btn = document.createElement('button');
+                btn.textContent = (done ? '\u2713 ' : '') + (i + 1);
+                btn.title = ex.title;
+                btn.setAttribute('data-index', i);
+                btn.style.cssText = 'min-width:44px;height:44px;border-radius:8px;font-weight:600;font-size:0.85rem;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:all 0.2s;'
+                    + 'border:2px solid ' + (active ? 'var(--primary)' : done ? 'var(--success,#10b981)' : 'var(--border)') + ';'
+                    + 'background:' + (active ? 'var(--primary)' : done ? 'var(--success,#10b981)' : 'var(--surface,#fff)') + ';'
+                    + 'color:' + (active || done ? '#fff' : 'var(--text)') + ';';
+                btn.addEventListener('click', function() { jumpToExercise(i); });
+                return btn;
+            });
+            nav.replaceChildren(...buttons);
+        }
+
+        // Jump to any exercise
+        function jumpToExercise(index) {
+            currentExerciseIndex = index;
+            currentAnswers = {};
+            showingResults = false;
+            renderExerciseNav();
+            renderExercise();
+            document.getElementById('exercise-content').parentElement.scrollIntoView({ behavior: 'smooth' });
         }
 
         // Level filter buttons
@@ -1411,6 +1448,8 @@ Parallèlement, la diversité culturelle de Montréal enrichit considérablement
                     completedExercises.push(exercise.id);
                     localStorage.setItem('reading-completed', JSON.stringify(completedExercises));
                     TEFProgress.saveTestScore('reading', exercise.id, score, total);
+                    renderExerciseNav();
+                    updateProgress();
                 }
             }
 
@@ -1443,6 +1482,7 @@ Parallèlement, la diversité culturelle de Montréal enrichit considérablement
                 currentExerciseIndex++;
                 currentAnswers = {};
                 showingResults = false;
+                renderExerciseNav();
                 renderExercise();
                 updateProgress();
                 document.getElementById('exercise-content').parentElement.scrollIntoView({ behavior: 'smooth' });

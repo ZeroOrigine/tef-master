@@ -351,7 +351,7 @@ const TEFProgress = {
     var points = 0, max = 0;
     max += 10; if (d.diagnostic.scores.length > 0) points += 10;
     max += 30; points += Math.min(30, Math.round(d.vocabulary.learned.length / 300 * 30));
-    max += 20; points += Math.min(20, Math.round((d.grammar.completed || []).length / 16 * 20));
+    max += 20; points += Math.min(20, Math.round((d.grammar.completed || []).length / 17 * 20));
     max += 20; points += Math.min(20, Math.round((d.reading.completed || []).length / 10 * 20));
     max += 20; points += Math.min(20, Math.round((d.listening.completed || []).length / 10 * 20));
     return Math.round(points / max * 100);

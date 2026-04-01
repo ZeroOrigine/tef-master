@@ -2130,8 +2130,8 @@ document.querySelectorAll('#modeToggle button').forEach(btn => {
     document.querySelectorAll('#modeToggle button').forEach(b => b.classList.remove('active'));
     this.classList.add('active');
     const mode = this.dataset.mode;
-    document.getElementById('browsePanel').style.display = mode === 'browse' ? '' : 'none';
-    document.getElementById('quizPanel').style.display = mode === 'quiz' ? '' : 'none';
+    document.getElementById('browsePanel').style.display = mode === 'browse' ? 'block' : 'none';
+    document.getElementById('quizPanel').style.display = mode === 'quiz' ? 'block' : 'none';
   });
 });
 
@@ -2169,7 +2169,7 @@ function buildQuizDeck() {
 function showQuizCard() {
   if (quizIndex >= quizWords.length) {
     document.getElementById('quizCard').style.display = 'none';
-    document.getElementById('quizScore').style.display = '';
+    document.getElementById('quizScore').style.display = 'block';
     document.getElementById('quizScoreNum').textContent = quizKnewCount + '/' + quizWords.length;
     const pct = Math.round(quizKnewCount / quizWords.length * 100);
     let msg = pct >= 80 ? '🎉 Excellent! You know these words well!' : pct >= 50 ? '👍 Good progress! Keep reviewing the ones you missed.' : '📖 Keep studying! Review these words daily.';
@@ -2190,7 +2190,7 @@ function showQuizCard() {
   quizRevealed = false;
   document.getElementById('quizProgress').textContent = 'Card ' + (quizIndex + 1) + ' of ' + quizWords.length + ' • Score: ' + quizKnewCount;
   document.getElementById('quizFill').style.width = Math.round((quizIndex / quizWords.length) * 100) + '%';
-  document.getElementById('quizCard').style.display = '';
+  document.getElementById('quizCard').style.display = 'block';
   document.getElementById('quizScore').style.display = 'none';
 }
 
