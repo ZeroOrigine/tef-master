@@ -3,7 +3,7 @@
 function signOut() {
   localStorage.removeItem('tef_verified_email');
   localStorage.removeItem('tef_lead_email');
-  // Keep tef_master_progress in localStorage — cloud sync will restore on re-login
+  // Keep tef_master_progress in localStorage; cloud sync will restore on re-login
   window.location.href = '/';
 }
 
@@ -28,10 +28,10 @@ function renderNav(activePage) {
   let siteRoot;
   const pagesIdx = path.indexOf('/pages/');
   if (pagesIdx !== -1) {
-    // We're inside /pages/ — root is everything before /pages/
+    // We're inside /pages/; root is everything before /pages/
     siteRoot = path.substring(0, pagesIdx) + '/';
   } else {
-    // At root level — extract directory path
+    // At root level; extract directory path
     siteRoot = path.substring(0, path.lastIndexOf('/') + 1);
   }
 
@@ -45,7 +45,8 @@ function renderNav(activePage) {
     { id: 'conversations', label: 'Conversations', href: siteRoot + 'pages/conversations.html', icon: '💬' },
     { id: 'progress', label: 'Progress', href: siteRoot + 'pages/progress.html', icon: '📊' },
     { id: 'tricks', label: 'Tricks', href: siteRoot + 'pages/tricks.html', icon: '🎪' },
-    { id: 'tips', label: 'Tips', href: siteRoot + 'pages/tips.html', icon: '💡' }
+    { id: 'tips', label: 'Tips', href: siteRoot + 'pages/tips.html', icon: '💡' },
+    { id: 'about', label: 'About', href: siteRoot + 'pages/about.html', icon: 'ℹ️' }
   ];
 
   // Inject profile CSS if not already present
@@ -89,7 +90,7 @@ function renderNav(activePage) {
     var badgeText = isPremium ? 'Premium Member' : 'Free Account';
     var actionLink = isPremium
       ? '<a href="' + siteRoot + 'pages/progress.html" class="pm-link">📊 My Progress</a>'
-      : '<a href="https://buy.stripe.com/cNi6oI3KEgmEc73fTw6sw02" class="pm-link pm-upgrade">⭐ Upgrade to Premium — $39</a>';
+      : '<a href="https://buy.stripe.com/cNi6oI3KEgmEc73fTw6sw02" class="pm-link pm-upgrade">⭐ Upgrade to Premium · $39</a>';
     profileHTML = '<div class="nav-profile">' +
       '<button class="' + btnClass + '" onclick="toggleProfileMenu()" aria-label="Profile menu">' + initial + '</button>' +
       '<div class="profile-menu" id="profileMenu">' +
@@ -154,7 +155,7 @@ function renderFooter() {
   const isSubPage = window.location.pathname.includes('/pages/');
   const prefix = isSubPage ? '' : 'pages/';
   footer.innerHTML = `
-    <p>TEF Master — Your Path to French Proficiency</p>
+    <p>TEF Master · Your Path to French Proficiency</p>
     <p style="margin-top:.4rem;font-size:.8rem;">
       Built by <a href="https://zeroorigine.com" target="_blank" style="color:inherit;text-decoration:underline;opacity:0.85;">ZeroOrigine</a>
     </p>
