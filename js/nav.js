@@ -159,6 +159,8 @@ function renderFooter() {
       Built by <a href="https://zeroorigine.com" target="_blank" style="color:inherit;text-decoration:underline;opacity:0.85;">ZeroOrigine</a>
     </p>
     <p style="margin-top:.35rem;font-size:.75rem;">
+      <a href="${prefix}about.html" style="color:inherit;text-decoration:underline;opacity:0.7;">Born autonomously at ZeroOrigine</a>
+      &nbsp;·&nbsp;
       <a href="${prefix}terms.html" style="color:inherit;text-decoration:underline;opacity:0.7;">Terms</a>
       &nbsp;·&nbsp;
       <a href="${prefix}privacy.html" style="color:inherit;text-decoration:underline;opacity:0.7;">Privacy</a>

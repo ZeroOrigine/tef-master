@@ -58,6 +58,12 @@
   to = "/"
   status = 200
 
+# About page clean URL
+[[redirects]]
+  from = "/about"
+  to = "/pages/about.html"
+  status = 200
+
 # Custom 404
 [[redirects]]
   from = "/*"
